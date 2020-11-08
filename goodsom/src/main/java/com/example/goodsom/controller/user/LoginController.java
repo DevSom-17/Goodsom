@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/user/login.do")
+@RequestMapping("/index.do")
 public class LoginController {
-	@Value("user/login")
+	@Value("index")
 	private String formViewName;
 
 	@RequestMapping(method = RequestMethod.GET)
