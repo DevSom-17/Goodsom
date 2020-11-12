@@ -4,7 +4,7 @@
 <mapper namespace="com.example.goodsom.dao.mybatis.mapper.LineGroupBuyMapper">
 	<cache />
 
-	<insert id="insertLineGroupBuy" parameterType="LineGroupBuy">
+	<insert id="insertLineGroupBuy" parameterType="com.example.goodsom.domain.LineGroupBuy">
 		<selectKey keyProperty="lineId" resultType="int" order="BEFORE">
 			SELECT lineId_seq.nextval AS lineId FROM DUAL
 		</selectKey>

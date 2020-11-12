@@ -6,13 +6,13 @@
   <sql id="BaseColumns_Bid">
   		NOTIID, TITLE, NOTIDATE, USERID, AUCTIONID, STATE
   </sql>
-  <select id="getBid" resultType="Bid">
+  <select id="getBid" resultType="com.example.goodsom.domain.Bid">
     SELECT BIDID, BIDPRICE, BIDDATE, USERID, AUCTIONID
     FROM BIDS
     WHERE BIDID = #{param1}
   </select> 
  
-  <select id="getBidByAuctionId" resultType="Bid">
+  <select id="getBidByAuctionId" resultType="com.example.goodsom.domain.Bid">
     SELECT BIDID, BIDPRICE, BIDDATE, USERID, AUCTIONID
     FROM BIDS
     WHERE BIDID = #{param1} 
@@ -28,20 +28,20 @@
 	WHERE ROWNUM = '1'
   </select> 
   
-  <select id="getBidByMaxPrice" resultType="Bid">
+  <select id="getBidByMaxPrice" resultType="com.example.goodsom.domain.Bid">
     SELECT BIDID, BIDPRICE, BIDDATE, USERID, AUCTIONID
 	FROM BIDS
 	WHERE BIDPRICE = #{param1} AND AUCTIONID = #{param2}
   </select> 
   
-  <insert id="createBid" parameterType="Bid">
+  <insert id="createBid" parameterType="com.example.goodsom.domain.Bid">
   	INSERT INTO BIDS
   	  (BIDID, BIDPRICE, BIDDATE, USERID, AUCTIONID)
   	VALUES 
   	  (BIDID_SEQ.nextval, #{bidPrice}, #{bidDate}, #{userId}, #{auctionId}) 
   </insert>
   
-  <select id="getBidByUserId" resultType="Bid" parameterType="int">
+  <select id="getBidByUserId" resultType="com.example.goodsom.domain.Bid" parameterType="int">
     SELECT *
    FROM BIDS
    WHERE USERID = #{userId}
@@ -56,13 +56,13 @@
 	]]>
   </select> 
   
-  <select id="getBidByUserIdAndAuctionId" resultType="BId">
+  <select id="getBidByUserIdAndAuctionId" resultType="com.example.goodsom.domain.Bid">
   	SELECT *
   	FROM BIDS
   	WHERE USERID = #{param1} AND AUCTIONID = #{param2}
   </select>
   
-  <update id="updateBid" parameterType="Bid">
+  <update id="updateBid" parameterType="com.example.goodsom.domain.Bid">
   	UPDATE BIDS 
   	SET BIDPRICE = #{bidPrice}
   	WHERE bidId = #{bidId}

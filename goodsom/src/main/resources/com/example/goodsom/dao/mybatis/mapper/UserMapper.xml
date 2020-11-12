@@ -4,26 +4,26 @@
 <mapper namespace="com.example.goodsom.dao.mybatis.mapper.UserMapper">
   <cache />
   
-  <select id="getUser" resultType="User">
+  <select id="getUser" resultType="com.example.goodsom.domain.User">
     SELECT USERID, EMAIL, PASSWD, USERNAME, NICKNAME, ADDRESS1, ADDRESS2, ADDRESS3, PHONE, REFUNDBANK, REFUNDACCOUNT
     FROM USERS 
     WHERE EMAIL = #{param1}
       AND PASSWD = #{param2}
   </select> 
   
-  <select id="getUserByEmail" resultType="User">
+  <select id="getUserByEmail" resultType="com.example.goodsom.domain.User">
   	SELECT USERID, EMAIL, PASSWD, USERNAME, NICKNAME, ADDRESS1, ADDRESS2, ADDRESS3, PHONE, REFUNDBANK, REFUNDACCOUNT
     FROM USERS 
     WHERE EMAIL = #{param1}
   </select>
   
-  <select id="getUserByUserId" resultType="User">
+  <select id="getUserByUserId" resultType="com.example.goodsom.domain.User">
   	SELECT USERID, EMAIL, PASSWD, USERNAME, NICKNAME, ADDRESS1, ADDRESS2, ADDRESS3, PHONE, REFUNDBANK, REFUNDACCOUNT
     FROM USERS 
     WHERE USERID = #{param1}
   </select>
   
-  <insert id="createUser" parameterType="User">
+  <insert id="createUser" parameterType="com.example.goodsom.domain.User">
   	INSERT INTO USERS 
   	(USERID, EMAIL, PASSWD, USERNAME, NICKNAME, ADDRESS1, ADDRESS2, ADDRESS3, PHONE, REFUNDBANK, REFUNDACCOUNT)
   	VALUES 
@@ -32,7 +32,7 @@
   	#{refundBank, jdbcType=VARCHAR}, #{refundAccount, jdbcType=VARCHAR}) 
   </insert>
   
-  <update id="updateUser" parameterType="User">
+  <update id="updateUser" parameterType="com.example.goodsom.domain.User">
   	UPDATE USERS SET
   		PASSWD = #{passwd},
   		NICKNAME = #{nickname},
@@ -45,7 +45,7 @@
   	WHERE USERID = #{userId}
   </update>
   
-  <update id="deleteUser" parameterType="User">
+  <update id="deleteUser" parameterType="com.example.goodsom.domain.User">
   	UPDATE USERS SET
   		EMAIL = '알수없음@deleted.user',
   		PASSWD = '알수없음',
@@ -60,14 +60,14 @@
   	WHERE USERID = #{userId}
   </update>
 
-	<select id="getAuctionOrderList" resultType="Order">
+	<select id="getAuctionOrderList" resultType="com.example.goodsom.domain.Order">
 		SELECT s.auctionId, o.orderId, o.orderDate, o.totalPrice
 		FROM orders o, successBidders s
 		WHERE o.orderId = s.orderId and o.userId = #{param1}
 		ORDER BY orderId DESC
 	</select>
 
-	<select id="getGroupBuyOrderList" resultType="Order">
+	<select id="getGroupBuyOrderList" resultType="com.example.goodsom.domain.Order">
 		SELECT DISTINCT l.groupBuyId, o.orderId, o.orderDate, o.totalPrice
 		FROM orders o, lineGroupBuys l
 		WHERE o.orderId = l.orderId and o.userId= #{param1}
@@ -75,7 +75,7 @@
 	</select>
 
   <select id="getGroupBuyList" parameterType="int"
-  		resultType="GroupBuy">
+  		resultType="com.example.goodsom.domain.GroupBuy">
   	SELECT groupBuyId, title, content, img, minNo, uploadDate, endDate, count, state, rate, participants, menuId, catId, userId, price
   	FROM groupBuys
   	WHERE userId = #{userId}
@@ -83,7 +83,7 @@
   </select> <!-- user가 등록한 GroupBuyList를 가져옴 for 마이페이지 공동구매 등록 목록 보기 -->
   
     <select id="getAuctionList" parameterType="int"
-  		resultType="Auction">
+  		resultType="com.example.goodsom.domain.Auction">
   	SELECT auctionId, title, content, img, startPrice, uploadDate, endDate, count, maxPrice, state, menuId, userId
   	FROM auctions
   	WHERE userId = #{userId}

@@ -14,13 +14,13 @@
   	userId
   </sql>
   
-  <select id="getOrder" parameterType="int" resultType="Order">
+  <select id="getOrder" parameterType="int" resultType="com.example.goodsom.domain.Order">
   	SELECT <include refid="BaseColumns" />
   	FROM orders
   	WHERE orderId = #{orderId}
   </select>
   
-  <resultMap id="resultMap" type="Order">
+  <resultMap id="resultMap" type="com.example.goodsom.domain.Order">
 		<id column="orderId" property="orderId" />
 		<result column="cardBank" property="cardBank" />
 		<result column="cardNo" property="cardNo" />
@@ -36,7 +36,7 @@
 		<result column="orderDate" property="orderDate" />
 		<result column="userId" property="userId" />
 		
-  		<collection property="lineGroupBuys" ofType="LineGroupBuy">
+  		<collection property="lineGroupBuys" ofType="com.example.goodsom.domain.LineGroupBuy">
   			<id property="lineId" column="lineId" />
   			<result property="orderId" column="line_orderId" />
   			<result property="groupBuyId" column="groupBuyId" />
@@ -55,7 +55,7 @@
   	WHERE o.orderId = l.orderId AND o.orderId = #{orderId}
   </select>
 
-  <insert id="createOrder" parameterType="Order">
+  <insert id="createOrder" parameterType="com.example.goodsom.domain.Order">
 		<selectKey keyProperty="orderId" resultType="int" order="BEFORE">
 			SELECT orderId_seq.nextval AS orderId FROM DUAL
 		</selectKey>

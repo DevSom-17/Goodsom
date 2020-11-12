@@ -30,7 +30,7 @@ public interface GroupBuyService {
 	
 	public void increaseCount(GroupBuy groupBuy);
 	
-	public void deadLineScheduler(Date endDate, int groupBuyId);
+//	public void deadLineScheduler(Date endDate, int groupBuyId);
 	
 	public List<GroupBuy> getRecentGroupBuyList();
 	

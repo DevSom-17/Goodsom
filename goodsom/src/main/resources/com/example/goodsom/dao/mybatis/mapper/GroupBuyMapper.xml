@@ -9,7 +9,7 @@
   </sql>
 
   
-  <insert id="createGroupBuy" parameterType="GroupBuy">
+  <insert id="createGroupBuy" parameterType="com.example.goodsom.domain.GroupBuy">
   	
   	INSERT INTO GROUPBUYS (<include refid="BaseColumns_GroupBuys" />)
 	VALUES (GROUPBUYID_SEQ.nextval, #{title}, #{content}, #{img}, #{minNo}, #{uploadDate}, #{endDate}, 
@@ -22,7 +22,7 @@
 
   </insert>
   
-  <update id="updateGroupBuy" parameterType="GroupBuy" >
+  <update id="updateGroupBuy" parameterType="com.example.goodsom.domain.GroupBuy" >
    	UPDATE GROUPBUYS
     SET TITLE=#{title}, IMG=#{img}, PRICE=#{price}, CONTENT=#{content}, CATID=#{catId},
     	MINNO=#{minNo}, ENDDATE=#{endDate}
@@ -59,7 +59,7 @@
   </delete>
   
   <!-- Get all groupBuys -->
-  <resultMap id="collectionResultMap" type="GroupBuy">
+  <resultMap id="collectionResultMap" type="com.example.goodsom.domain.GroupBuy">
   	<id column="groupBuyId" jdbcType="INTEGER" property="groupBuyId"/>
   	<result column="title" jdbcType="VARCHAR" property="title"/>
   	<result column="content" jdbcType="VARCHAR" property="content"/>
@@ -105,7 +105,7 @@
   </select>
   
    <!-- Search groupBuy by Keyword -->
-  <select id="groupBuyListByKeyword" resultType="GroupBuy">
+  <select id="groupBuyListByKeyword" resultType="com.example.goodsom.domain.GroupBuy">
   	<bind name="pattern" value="'%' + _parameter + '%'" />
 	  	SELECT <include refid="BaseColumns_GroupBuys" />
     	FROM GROUPBUYS

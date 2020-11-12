@@ -4,12 +4,12 @@
 <mapper namespace="com.example.goodsom.dao.mybatis.mapper.SuccessBidderMapper">
   <cache />
 
-	<insert id="insertSuccessBidder" parameterType="SuccessBidder">
+	<insert id="insertSuccessBidder" parameterType="com.example.goodsom.domain.SuccessBidder">
 		INSERT INTO SuccessBidders (bidId, userId, orderId, auctionId)
 		VALUES (#{bidId}, #{userId}, #{orderId}, #{auctionId})
 	</insert>
 
-	<select id="getSuccessBidderByAuctionId" parameterType="int" resultType="SuccessBidder">
+	<select id="getSuccessBidderByAuctionId" parameterType="int" resultType="com.example.goodsom.domain.SuccessBidder">
 		SELECT bidId, userId, orderId, auctionId
 		FROM SuccessBidders
 		WHERE auctionId = #{auctionId}

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Service;
 
@@ -75,31 +76,32 @@ public class AuctionServiceImpl implements AuctionService {
 		return auctionDao.getRecentAuctionList();
 	}
 
-	public void deadLineScheduler(Date endDate, final int auctionId) {
-		Runnable updateTableRunner = new Runnable() {	
-			// anonymous class 정의
-			@Override
-			public void run() {   // 스케쥴러에 의해 미래의 특정 시점에 실행될 작업을 정의				
-				Date curTime = new Date();
-				// 실행 시점의 시각을 전달하여 그 시각 이전의 closing time 값을 갖는 event의 상태를 변경 
-				auctionDao.closeEvent(curTime);	// EVENTS 테이블의 레코드 갱신	
-				System.out.println("Auction updateTableRunner is executed at " + curTime);
-				
-				if(auctionDao.getAuction(auctionId).getState().equals("closed")) {
-					Bid bid = bidDao.getSuccessBidByAuctionId(auctionId);
-					bid.setAuctionTitle(auctionDao.getAuction(auctionId).getTitle());
-					notiDao.createNoti_a(bid);
-					System.out.println("****closed auction and create noti ");
-
-				}
-			}
-		};
-		
-		// 스케줄 생성: closingTime에 updateTableRunner.run() 메소드 실행
-		scheduler.schedule(updateTableRunner, endDate);  
-		
-		System.out.println("Auction updateTableRunner has been scheduled to execute at " + endDate);
-	}
+//	@Scheduled(fixedDelay = 1000)
+//	public void deadLineScheduler(Date endDate, final int auctionId) {
+//		Runnable updateTableRunner = new Runnable() {	
+//			// anonymous class 정의
+//			@Override
+//			public void run() {   // 스케쥴러에 의해 미래의 특정 시점에 실행될 작업을 정의				
+//				Date curTime = new Date();
+//				// 실행 시점의 시각을 전달하여 그 시각 이전의 closing time 값을 갖는 event의 상태를 변경 
+//				auctionDao.closeEvent(curTime);	// EVENTS 테이블의 레코드 갱신	
+//				System.out.println("Auction updateTableRunner is executed at " + curTime);
+//				
+//				if(auctionDao.getAuction(auctionId).getState().equals("closed")) {
+//					Bid bid = bidDao.getSuccessBidByAuctionId(auctionId);
+//					bid.setAuctionTitle(auctionDao.getAuction(auctionId).getTitle());
+//					notiDao.createNoti_a(bid);
+//					System.out.println("****closed auction and create noti ");
+//
+//				}
+//			}
+//		};
+//		
+//		// 스케줄 생성: closingTime에 updateTableRunner.run() 메소드 실행
+//		scheduler.schedule(updateTableRunner, endDate);  
+//		
+//		System.out.println("Auction updateTableRunner has been scheduled to execute at " + endDate);
+//	}
 	
 	public Integer getSuccessBidderUserId(int auctionId) {
 		return auctionDao.getSuccessBidderUserId(auctionId);
