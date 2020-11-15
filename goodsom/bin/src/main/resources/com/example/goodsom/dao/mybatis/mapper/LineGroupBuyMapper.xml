@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.goodsom.dao.mybatis.mapper.LineGroupBuyMapper">
+	<cache />
+
+	<insert id="insertLineGroupBuy" parameterType="com.example.goodsom.domain.LineGroupBuy">
+		<selectKey keyProperty="lineId" resultType="int" order="BEFORE">
+			SELECT lineId_seq.nextval AS lineId FROM DUAL
+		</selectKey>
+		INSERT INTO LineGroupBuys (lineId, quantity, selectOption, unitPrice, groupBuyId, orderId)
+		VALUES (#{lineId}, #{quantity}, #{selectOption},
+		#{unitPrice}, #{groupBuyId}, #{orderId})
+	</insert>
+
+</mapper>

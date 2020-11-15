@@ -30,8 +30,7 @@
           <li><a href="<%=request.getContextPath()%>/groupBuy/list.do" class="nav-link">GroupBuy</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#testimonials">Testimonials</a></li>
-          <li><a href="#contact">Contact Us</a></li>
-
+          <li><a href="<%=request.getContextPath()%>/user/detail.do">My Page</a></li>
         </ul>
       </nav><!-- .nav-menu -->
 
