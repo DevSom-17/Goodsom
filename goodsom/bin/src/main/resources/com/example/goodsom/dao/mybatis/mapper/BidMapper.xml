@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.goodsom.dao.mybatis.mapper.BidMapper">
+  <cache />
+  <sql id="BaseColumns_Bid">
+  		NOTIID, TITLE, NOTIDATE, USERID, AUCTIONID, STATE
+  </sql>
+  <select id="getBid" resultType="com.example.goodsom.domain.Bid">
+    SELECT BIDID, BIDPRICE, BIDDATE, USERID, AUCTIONID
+    FROM BIDS
+    WHERE BIDID = #{param1}
+  </select> 
+ 
+  <select id="getBidByAuctionId" resultType="com.example.goodsom.domain.Bid">
+    SELECT BIDID, BIDPRICE, BIDDATE, USERID, AUCTIONID
+    FROM BIDS
+    WHERE BIDID = #{param1} 
+      AND AUCTIONID = #{param2}
+  </select> 
+  
+  <select id="getMaxPrice" resultType="String">
+    SELECT BIDPRICE
+	FROM ( SELECT BIDPRICE
+			FROM BIDS
+			WHERE AUCTIONID = #{param1}
+			ORDER BY BIDPRICE DESC )
+	WHERE ROWNUM = '1'
+  </select> 
+  
+  <select id="getBidByMaxPrice" resultType="com.example.goodsom.domain.Bid">
+    SELECT BIDID, BIDPRICE, BIDDATE, USERID, AUCTIONID
+	FROM BIDS
+	WHERE BIDPRICE = #{param1} AND AUCTIONID = #{param2}
+  </select> 
+  
+  <insert id="createBid" parameterType="com.example.goodsom.domain.Bid">
+  	INSERT INTO BIDS
+  	  (BIDID, BIDPRICE, BIDDATE, USERID, AUCTIONID)
+  	VALUES 
+  	  (BIDID_SEQ.nextval, #{bidPrice}, #{bidDate}, #{userId}, #{auctionId}) 
+  </insert>
+  
+  <select id="getBidByUserId" resultType="com.example.goodsom.domain.Bid" parameterType="int">
+    SELECT *
+   FROM BIDS
+   WHERE USERID = #{userId}
+  </select> 
+  
+  <select id="getSuccessBidByAuctionId" resultType="com.example.goodsom.domain.Bid" parameterType="int">
+   <![CDATA[
+    SELECT *
+	FROM (SELECT * FROM BIDS
+		  ORDER BY BIDPRICE DESC)
+	WHERE ROWNUM <=1 AND AUCTIONID = #{auctionId}
+	]]>
+  </select> 
+  
+  <select id="getBidByUserIdAndAuctionId" resultType="com.example.goodsom.domain.Bid">
+  	SELECT *
+  	FROM BIDS
+  	WHERE USERID = #{param1} AND AUCTIONID = #{param2}
+  </select>
+  
+  <update id="updateBid" parameterType="com.example.goodsom.domain.Bid">
+  	UPDATE BIDS 
+  	SET BIDPRICE = #{bidPrice}
+  	WHERE bidId = #{bidId}
+  </update>
+  
+</mapper>

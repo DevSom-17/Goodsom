@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.goodsom.dao.mybatis.mapper.OrderMapper">
+  <cache />
+  <sql id="BaseColumns">
+  	orderId,
+  	cardBank, cardNo, validDate, cvc,
+  	address1, address2, address3,
+  	phone,
+  	refundBank, refundAccount,
+  	totalPrice, <!-- 총 가격 -->
+  	orderDate, <!-- 승인 일시 -->
+  	userId
+  </sql>
+  
+  <select id="getOrder" parameterType="int" resultType="com.example.goodsom.domain.Order">
+  	SELECT <include refid="BaseColumns" />
+  	FROM orders
+  	WHERE orderId = #{orderId}
+  </select>
+  
+  <resultMap id="resultMap" type="com.example.goodsom.domain.Order">
+		<id column="orderId" property="orderId" />
+		<result column="cardBank" property="cardBank" />
+		<result column="cardNo" property="cardNo" />
+		<result column="validDate" property="validDate" />
+		<result column="cvc" property="cvc" />
+		<result column="address1" property="address1" />
+		<result column="address2" property="address2" />
+		<result column="address3" property="address3" />
+		<result column="phone" property="phone" />
+		<result column="refundBank" property="refundBank" />
+		<result column="refundAccount" property="refundAccount" />
+		<result column="totalPrice" property="totalPrice" />
+		<result column="orderDate" property="orderDate" />
+		<result column="userId" property="userId" />
+		
+  		<collection property="lineGroupBuys" ofType="com.example.goodsom.domain.LineGroupBuy">
+  			<id property="lineId" column="lineId" />
+  			<result property="orderId" column="line_orderId" />
+  			<result property="groupBuyId" column="groupBuyId" />
+  			<result property="quantity" column="quantity" />
+  			<result property="selectOption" column="selectOption" />
+  			<result property="unitPrice" column="unitPrice" />
+  		</collection>
+  </resultMap> 
+  
+  <select id="getOrderWithLineGroupBuys" parameterType="int" resultMap="resultMap">
+  	SELECT o.orderId, o.cardBank, o.cardNo, o.validDate, o.cvc,
+  		   o.address1, o.address2, o.address3, o.phone,
+  		   o.refundBank, o.refundAccount, o.totalPrice, o.orderDate, o.userId,
+  		   l.lineId, l.orderId AS line_orderId, l.groupBuyId, l.quantity, l.selectOption, l.unitPrice
+  	FROM orders o, lineGroupBuys l
+  	WHERE o.orderId = l.orderId AND o.orderId = #{orderId}
+  </select>
+
+  <insert id="createOrder" parameterType="com.example.goodsom.domain.Order">
+		<selectKey keyProperty="orderId" resultType="int" order="BEFORE">
+			SELECT orderId_seq.nextval AS orderId FROM DUAL
+		</selectKey>
+   
+  	INSERT INTO orders (<include refid="BaseColumns" />)
+  	VALUES (#{orderId}, #{cardBank}, #{cardNo}, #{validDate}, #{cvc},
+  		#{address1}, #{address2}, #{address3}, #{phone},
+  		#{refundBank}, #{refundAccount}, #{totalPrice}, 
+  		SYSDATE, #{userId})
+  </insert>
+  
+  <select id="getGroupBuyId" parameterType="int" resultType="int">
+  	SELECT DISTINCT groupBuyId
+	FROM lineGroupBuys
+	WHERE orderId = #{orderId}
+  </select>
+  
+  <select id="getAuctionId" parameterType="int" resultType="int">
+  	SELECT auctionId
+	FROM successBidders
+	WHERE orderId = #{orderId}
+  </select>
+  
+  <delete id="deleteOrderByUserId" parameterType="Integer">
+  	DELETE FROM ORDERS
+  	WHERE USERID = #{userId}
+  </delete>
+  
+ </mapper>

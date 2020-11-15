@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.goodsom.dao.mybatis.mapper.GroupBuyMapper">
+  <cache />
+  <sql id="BaseColumns_GroupBuys">
+  		GROUPBUYID, TITLE, CONTENT, IMG, MINNO, UPLOADDATE, ENDDATE, 
+  		COUNT, STATE, RATE, PARTICIPANTS, MENUID, CATID, USERID, PRICE
+  </sql>
+
+  
+  <insert id="createGroupBuy" parameterType="com.example.goodsom.domain.GroupBuy">
+  	
+  	INSERT INTO GROUPBUYS (<include refid="BaseColumns_GroupBuys" />)
+	VALUES (GROUPBUYID_SEQ.nextval, #{title}, #{content}, #{img}, #{minNo}, #{uploadDate}, #{endDate}, 
+			#{count}, #{state}, #{rate}, #{participants}, #{menuId}, #{catId}, #{userId}, #{price})
+		
+
+  	<selectKey keyProperty="groupBuyId" resultType="int" order="AFTER">
+  		SELECT GROUPBUYID_SEQ.currval AS groupBuyId FROM DUAL
+  	</selectKey>	
+
+  </insert>
+  
+  <update id="updateGroupBuy" parameterType="com.example.goodsom.domain.GroupBuy" >
+   	UPDATE GROUPBUYS
+    SET TITLE=#{title}, IMG=#{img}, PRICE=#{price}, CONTENT=#{content}, CATID=#{catId},
+    	MINNO=#{minNo}, ENDDATE=#{endDate}
+  	WHERE  GROUPBUYID=#{groupBuyId}
+	
+  </update>
+
+   
+  <delete id="deleteGroupBuy" parameterType="java.lang.Integer">
+    DELETE FROM GROUPBUYS
+    WHERE  GROUPBUYID=#{groupBuyId}
+  </delete>
+  
+  <delete id="deleteGroupBuyByUserId" parameterType="java.lang.Integer">
+    DELETE FROM GROUPBUYS
+    WHERE  USERID = #{userId}
+  </delete>
+  
+  <insert id="createOptions" parameterType="com.example.goodsom.domain.GroupBuy">
+  
+  	INSERT INTO OPTIONS (OPTIONID, GROUPBUYID, NAME)
+  	SELECT OPTIONID_SEQ.nextval, A.* FROM (
+	  	<foreach collection="optionList" item="option" separator="UNION ALL">
+			SELECT  #{groupBuyId}, #{option}
+			FROM 	DUAL
+		</foreach>
+		) A
+
+  </insert>
+     
+   <delete id="deleteOptions" parameterType="java.lang.Integer">
+    DELETE FROM OPTIONS
+    WHERE  GROUPBUYID=#{groupBuyId}
+  </delete>
+  
+  <!-- Get all groupBuys -->
+  <resultMap id="collectionResultMap" type="com.example.goodsom.domain.GroupBuy">
+  	<id column="groupBuyId" jdbcType="INTEGER" property="groupBuyId"/>
+  	<result column="title" jdbcType="VARCHAR" property="title"/>
+  	<result column="content" jdbcType="VARCHAR" property="content"/>
+  	<result column="img" jdbcType="VARCHAR" property="img"/>
+  	<result column="minNo" jdbcType="INTEGER" property="minNo"/>
+  	<result column="uploadDate" jdbcType="TIMESTAMP" property="uploadDate"/>
+  	<result column="endDate" jdbcType="TIMESTAMP" property="endDate"/>
+  	<result column="count" jdbcType="INTEGER" property="count"/>
+  	<result column="state" jdbcType="VARCHAR" property="state"/>
+  	<result column="rate" jdbcType="INTEGER" property="rate"/>
+  	<result column="participants" jdbcType="INTEGER" property="participants"/>
+  	<result column="catId" jdbcType="INTEGER" property="catId"/>
+  	<result column="menuId" jdbcType="INTEGER" property="menuId"/>
+  	<result column="userId" jdbcType="INTEGER" property="userId"/>
+  	<result column="price" jdbcType="INTEGER" property="price"/>
+  	
+  	<collection property="options" ofType="com.example.goodsom.domain.Option">
+  		<id property="optionId" column="optionId"/>
+  		<result property="groupBuyId" column="groupBuyId"/>
+  		<result property="name" column="name"/>
+  	</collection>
+  </resultMap> 
+  <select id="getGroupBuy" parameterType="java.lang.Integer"
+  							resultMap="collectionResultMap">
+    SELECT g.GROUPBUYID, g.TITLE, g.CONTENT, g.IMG, g.MINNO, g.UPLOADDATE, g.ENDDATE, 
+  			g.COUNT, g.STATE, g.RATE, g.PARTICIPANTS, g.MENUID, g.CATID, g.USERID, g.PRICE,
+    		op.OPTIONID, op.GROUPBUYID, op.NAME
+    FROM GROUPBUYS g, OPTIONS op
+    WHERE g.GROUPBUYID = op.GROUPBUYID and g.GROUPBUYID = #{groupBuyId}
+  </select>
+  
+  <!-- 
+   <select id="getGroupBuy" resultType="GroupBuy" parameterType="java.lang.Integer">
+    SELECT * FROM GROUPBUYS
+    WHERE GROUPBUYID = #{groupBuyId}
+  </select>
+ -->
+ 
+  <select id="getGroupBuyList" resultType="com.example.goodsom.domain.GroupBuy">
+    SELECT <include refid="BaseColumns_GroupBuys" />
+    FROM GROUPBUYS
+    ORDER BY UPLOADDATE DESC
+  </select>
+  
+   <!-- Search groupBuy by Keyword -->
+  <select id="groupBuyListByKeyword" resultType="com.example.goodsom.domain.GroupBuy">
+  	<bind name="pattern" value="'%' + _parameter + '%'" />
+	  	SELECT <include refid="BaseColumns_GroupBuys" />
+    	FROM GROUPBUYS
+	    WHERE title LIKE #{pattern} 
+  </select>
+  
+  <update id="increaseCount" parameterType="com.example.goodsom.domain.GroupBuy">
+  	UPDATE GROUPBUYS
+  	SET COUNT=#{count}+1
+  	WHERE GROUPBUYID=#{groupBuyId}
+  </update>
+  
+  <update id="updateState" parameterType="com.example.goodsom.domain.GroupBuy">
+  	UPDATE GROUPBUYS
+  	SET PARTICIPANTS=#{participants}, RATE=#{rate}, STATE=#{state}
+  	WHERE GROUPBUYID=#{groupBuyId}
+  </update>
+  
+  <update id="closeEvent" parameterType="Date">
+    <![CDATA[
+     UPDATE GROUPBUYS SET STATE = 'closed'
+     WHERE ENDDATE <= #{curTime}
+    ]]>
+  </update>
+  
+  <select id="getRecentGroupBuyList" resultType="com.example.goodsom.domain.GroupBuy">
+   <![CDATA[
+    SELECT * FROM
+    	(SELECT * FROM GROUPBUYS
+    	 ORDER BY COUNT DESC)
+    WHERE ROWNUM <= 3
+   ]]>
+  </select>
+  
+  
+</mapper>
