@@ -15,6 +15,7 @@
   	<result column="count" property="count" />
   	<result column="maxPrice" property="maxPrice" />
   	<result column="state" property="state" />
+  	<result column="receive" property="receive" />
   	<result column="menuId" property="menuId" />
   	<result column="writerId" property="userId" />
   	<collection property="bids" ofType="com.example.goodsom.domain.Bid">
@@ -26,14 +27,14 @@
   
   <select id="getAuction" parameterType="java.lang.Integer" resultType="com.example.goodsom.domain.Auction"> <!-- bid없는 Auction객체 위해 필요 -->
     SELECT auctionId, title, content, img, startPrice, uploadDate, endDate, count,
-    		maxPrice, state, menuId, userId
+    		maxPrice, state, receive, menuId, userId
     FROM AUCTIONS
     WHERE auctionId = #{auctionId}
   </select>
   
   <select id="getAuctionWithBids" parameterType="java.lang.Integer" resultMap="resultMap"> <!-- bid있는 Auction객체, 경매 결제에서 이용 -->
     SELECT a.auctionId, a.title, a.content, a.img, a.startPrice, a.uploadDate, a.endDate, a.count,
-    		a.maxPrice, a.state, a.menuId, a.userId AS writerId, b.bidId, b.bidPrice
+    		a.maxPrice, a.state, a.receive, a.menuId, a.userId AS writerId, b.bidId, b.bidPrice
     FROM AUCTIONS a, BIDS b
     WHERE a.auctionId = b.auctionId AND a.auctionId = #{auctionId}
   </select>
@@ -73,7 +74,7 @@
   <!-- Get all auctions -->
   <select id="getAuctionList" resultType="com.example.goodsom.domain.Auction">
     SELECT auctionId, title, content, img, startPrice, uploadDate, endDate, count,
-    		maxPrice, state, menuId, userId
+    		maxPrice, state, receive, menuId, userId
     FROM AUCTIONS
     ORDER BY uploadDate DESC
   </select>
@@ -82,7 +83,7 @@
   <select id="auctionListByKeyword" resultType="com.example.goodsom.domain.Auction">
   	<bind name="pattern" value="'%' + _parameter + '%'" />
 	  	SELECT auctionId, title, content, img, startPrice, uploadDate, endDate, count,
-    		maxPrice, state, menuId, userId
+    		maxPrice, state, receive, menuId, userId
     	FROM AUCTIONS
 	    WHERE title LIKE #{pattern}
   </select>

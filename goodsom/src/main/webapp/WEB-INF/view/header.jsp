@@ -11,7 +11,7 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="index.do">Home</a></li>
+          <li class="active"><a href="/index.do">Home</a></li>
           <li class="drop-down"><a href="/index.do">About</a>
             <ul>
               <li><a href="#about">About Us</a></li>
@@ -28,7 +28,7 @@
             </ul>
           </li>
           <li><a href="<%=request.getContextPath()%>/groupBuy/list.do" class="nav-link">GroupBuy</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="<%=request.getContextPath()%>/auction/list.do">Auction</a></li>
           <li><a href="#testimonials">Testimonials</a></li>
           <li><a href="<%=request.getContextPath()%>/user/detail.do">My Page</a></li>
         </ul>

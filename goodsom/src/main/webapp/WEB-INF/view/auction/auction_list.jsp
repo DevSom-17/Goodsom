@@ -1,80 +1,87 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-	
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<%@ include file="../IncludeTop.jsp" %> 
+<%@ include file="../includeTop.jsp" %> 
 
-<%@ include file="../IncludeBanner.jsp" %> 
-		
-		<div class="site-section-cover">
-			<div class="container">
-				<div
-					class="row align-items-center text-center justify-content-center">
-					<div class="col-lg-6">
-						<h1 class="text-white mb-4">Auction</h1>
-						<p class="lead">솜솜이들이 갖고 있던 학교 굿즈를 경매하는 공간</p>
+<body>
 
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		
-		<div class="site-section">
-			<div class="container">
-			<a class="btn btn-primary py-3 px-5" href="<c:url value='/auction/form.do'></c:url>">경매 등록</a> <br/> <br/>
-				<div class="row">
-					<c:forEach var="auction" items="${auctionList}" varStatus="status">
-						<div class="col-lg-4 col-md-6 mb-4">
-							<div class="post-entry-1 h-100">
-								
-								<a href="<c:url value='/auction/detail.do'><c:param name="auctionId" value="${auction.auctionId}"/></c:url>">
-									<img src="${auction.img}" alt="Image" class="img-fluid">
-								</a>
-									
-								<div class="post-entry-1-contents">
-									<div class="price-wrap d-flex" style="color:blue;">
-									
-										<c:if test="${auction.state eq 'proceeding'}">
-											<h5>Proceeding</h5> 
-										</c:if>
-										
-										<c:if test="${auction.state eq 'closed'}">
-											<h5>Closed</h5>
-										</c:if>
-										
-			    						<span class="meta d-inline-block mb-3">
-											&nbsp; ~ <fmt:formatDate value="${auction.endDate}" pattern="yyyy-MM-dd" />
-										</span>
-			    					</div>
-										
-									<h2><a  href="<c:url value='/auction/detail.do'>
-											<c:param name="auctionId" value="${auction.auctionId}"/>
-											</c:url>">${auction.title}</a>
-									</h2>
-										
-									<span class="meta d-inline-block mb-3">
-										<span>현재 최고 금액</span> &nbsp;
-										<a href="#"><fmt:formatNumber value="${auction.maxPrice}" pattern="#,###원"/></a>
-										
-									</span>
-									<p>
-							 			<c:out value="${auction.content}" ></c:out>
-									</p>
-										
-									
-								</div>
-							</div>
-						</div>
-					</c:forEach>
+ <%@ include file="../header.jsp" %> 
+
+  <main id="main">
+
+    <!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>경매</h2>
+          <p>솜솜이들의 경매를 위한 공간</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <ul id="portfolio-flters">
+              <li data-filter="*" class="filter-active">All</li>
+              <li data-filter=".filter-app">App</li>
+              <li data-filter=".filter-card">Card</li>
+              <li data-filter=".filter-web">Web</li>
+            </ul>
+          </div>
+        </div>
 
 
-				</div>
-			</div>
-		</div>
 
-<%@ include file="../IncludeBottom.jsp" %>
+
+        <div class="row portfolio-container">
+		<c:forEach var="auction" items="${auctionList}" varStatus="status">
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
+            <div class="portfolio-wrap">
+              <figure>
+              	<a href="<c:url value='/auction/detail.do'>
+									<c:param name="auctionId" value="${auction.auctionId}"/></c:url>">
+										<img src="${auction.img}" class="img-fluid" alt=""> </a>
+                <a href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
+                <a href="portfolio-details.html" class="link-details" title="More Details"><i class="bx bx-link"></i></a>
+              </figure>
+              
+
+              <div class="portfolio-info">
+              	<%-- <div style="float:right">조회수: ${auction.count}&nbsp;&nbsp;</div> --%>
+				<div>
+					<%-- <div>
+						<c:if test="${auction.state eq 'proceeding'}" >
+							<h5>Proceeding</h5>
+						</c:if>
+						<c:if test="${auction.state eq 'closed'}" >
+							<h5>Closed</h5>
+						</c:if>
+					
+						<span>&nbsp; ~ <fmt:formatDate value="${auction.endDate}" pattern="yyyy-MM-dd" /></span>
+					</div> --%>
+              
+	                <h4><a href="<c:url value='/auction/detail.do'><c:param name="auctionId" value="${auction.auctionId}"/>
+								 </c:url>">${auction.title}</a></h4>
+								 
+					<%-- <span class="mx-2">가격</span> 
+					<a href="#"><fmt:formatNumber value="${auction.price}" pattern="#,###원"/></a> <br/><br/>
+				
+					<span class="mx-2">현재 최고 금액</span> 
+					<a href="#"><fmt:formatNumber value="${auction.maxPrice}" pattern="#,###원"/></a> --%>
+
+					<%-- <p><c:out value="${auction.content}" ></c:out><p> --%>		
+                <p>현재 최고 금액: <fmt:formatNumber value="${auction.maxPrice}" pattern="#,###원"/></p>
+              </div>
+            </div>
+          </div>
+         	</div>
+         </c:forEach>
+      	 </div>
+      </div>
+    </section><!-- End Portfolio Section -->
+
+  </main><!-- End #main -->
+
+  <%@ include file="../includeBottom.jsp" %> 
