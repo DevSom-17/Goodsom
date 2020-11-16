@@ -1,4 +1,5 @@
 package com.example.goodsom.domain;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,7 +16,8 @@ import javax.validation.constraints.PositiveOrZero;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
-public class GroupBuy {
+@SuppressWarnings("serial")
+public class GroupBuy implements Serializable {
 	private static final String PROCEEDING = "proceeding";
 	private static final String ACHIEVED = "achieved";
 	private static final int MENUID_GROUPBUY = 2;
@@ -66,6 +68,8 @@ public class GroupBuy {
 	int minute;
 	
 	int notiId;
+	
+	int receive;
 	
 	List<Option> options = new ArrayList<Option>();
 	List<User> groupBuyUsers = new ArrayList<User>();
@@ -227,6 +231,14 @@ public class GroupBuy {
 		this.price = price;
 	}
 	
+	public int getReceive() {
+		return receive;
+	}
+
+	public void setReceive(int receive) {
+		this.receive = receive;
+	}
+	
 	public String[] getOptionList() {
 		return optionList;
 	}
@@ -293,6 +305,7 @@ public class GroupBuy {
         rate = 0;					// 참여 달성률
         participants = 0;			// 참여자 수
         menuId = MENUID_GROUPBUY;	// 메뉴
+        receive = 0;				// 수령 여부
         
         System.out.println("[initGroupBuy] uploadDate: " + uploadDate + ", userId: " + userId
         		 + ", count: " + count  + ", state: " + state  + ", rate: " + rate  
@@ -344,7 +357,7 @@ public class GroupBuy {
 		
 		for(int i = 0; i < optionList.length; i++) {
 			Option op = new Option();
-			op.setName(optionList[i]);
+			op.setContent(optionList[i]);
 			op.setGroupBuyId(groupBuyId);
 			options.add(i, op);
 		}

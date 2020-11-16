@@ -29,54 +29,32 @@
               <li data-filter=".filter-card">Card</li>
               <li data-filter=".filter-web">Web</li>
             </ul>
-          </div>
+             <a href="<c:url value='/groupBuy/form.do'></c:url>">공동구매 등록</a>
+          </div>          
         </div>
-
-
-
 
         <div class="row portfolio-container">
 		<c:forEach var="groupBuy" items="${groupBuyList}" varStatus="status">
           <div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
             <div class="portfolio-wrap">
               <figure>
-              	<a href="<c:url value='/groupBuy/detail.do'>
-									<c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/></c:url>">
-										<img src="${groupBuy.img}" class="img-fluid" alt=""> </a>
+				<img src="${groupBuy.img}" class="img-fluid" alt="">
                 <a href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" class="link-details" title="More Details"><i class="bx bx-link"></i></a>
+                <a href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/></c:url>" 
+                	class="link-details" title="More Details"><i class="bx bx-link"></i></a>
               </figure>
               
-
               <div class="portfolio-info">
-              	<div style="float:right">조회수: ${groupBuy.count}&nbsp;&nbsp;</div>
-				<div>
-					<div>
-						<c:if test="${groupBuy.state eq 'proceeding'}" >
-							<h5>Proceeding</h5>
-						</c:if>
-						<c:if test="${groupBuy.state eq 'achieved'}" >
-							<h5>Achieved</h5>
-						</c:if>
-						<c:if test="${groupBuy.state eq 'closed'}" >
-							<h5>Closed</h5>
-						</c:if>
-					
-						<span>&nbsp; ~ <fmt:formatDate value="${groupBuy.endDate}" pattern="yyyy-MM-dd" /></span>
-					</div>
-              
-	                <h4><a  href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
-								 </c:url>">${groupBuy.title}</a></h4>
-								 
-					<span class="mx-2">가격</span> 
-					<a href="#"><fmt:formatNumber value="${groupBuy.price}" pattern="#,###원"/></a> <br/><br/>
+              	<h4><a href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
+							</c:url>">${groupBuy.title}</a></h4>
 				
-					<span class="mx-2">달성률</span> 
-					<a href="#"><fmt:formatNumber value="${groupBuy.participants}"/>명 / </a>
-					<a href="#"><fmt:formatNumber value="${groupBuy.minNo}"/>명</a>
-					<a href="#"><fmt:formatNumber value="${groupBuy.rate}"/>%</a>
-			
-                <p>${groupBuy.content}</p>
+				<div>	 
+					<span class="mx-2" style="float:left;">금액: 
+						<fmt:formatNumber value="${groupBuy.price}" pattern="#,###원"/>
+					</span> <br/>
+					<span style ="color:red; float:left;"><fmt:formatNumber value="${groupBuy.rate}"/>% 달성</span>
+					<span style="float:right;">&nbsp; 마감일: <fmt:formatDate value="${groupBuy.endDate}" pattern="yyyy-MM-dd" /></span>
+
               </div>
             </div>
           </div>

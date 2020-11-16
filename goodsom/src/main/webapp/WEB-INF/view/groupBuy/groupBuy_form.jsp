@@ -51,41 +51,190 @@ function input_append(ff){
 <%@ include file="../header.jsp" %> 
 
   <main id="main">
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about">
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact section-bg">
       <div class="container">
 
-        <div class="row">
-          <div class="col-lg-6">
-            <img src="<%=request.getContextPath()%>/assets/img/about.jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-lg-6 pt-4 pt-lg-0">
-            <h3>About Us</h3>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <ul>
-              <li><i class="bx bx-check-double"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-              <li><i class="bx bx-check-double"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-            </ul>
-            <div class="row icon-boxes">
-              <div class="col-md-6">
-                <i class="bx bx-receipt"></i>
-                <h4>Corporis voluptates sit</h4>
-                <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
-              </div>
-              <div class="col-md-6 mt-4 mt-md-0">
-                <i class="bx bx-cube-alt"></i>
-                <h4>Ullamco laboris nisi</h4>
-                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
-              </div>
-            </div>
-          </div>
+        <div class="section-title">
+          <h2>공동구매 등록</h2>
+          <p>새로운 공동구매를 등록합니다.</p>
         </div>
+        
+        <div class="row mt-5 justify-content-center">
+          <div class="col-lg-10">
+        <form:form modelAttribute="groupBuyForm" method="post" name="groupBuyForm" enctype="multipart/form-data" role="form" class="php-email-form">
+			<div class="form-row">
+                <div class="col-md-6 form-group">
+					<label for="title">제목</label> 
+					<form:errors path="groupBuy.title" cssClass="error"/> 
+					
+					<c:choose>
+						<c:when test="${groupBuyForm.newGroupBuy}">
+							<form:input type="text" id="title" path="groupBuy.title" class="form-control" placeholder="Title" />
+						</c:when>
+						<c:otherwise>
+							<form:input type="text" id="title" path="groupBuy.title" class="form-control" value="${groupBuyForm.groupBuy.title}" />
+						</c:otherwise>
+					</c:choose>
+					</div>
+			
+			 <div class="col-md-6 form-group">
+					<label for="price">가격</label>
+					<form:errors path="groupBuy.price" cssClass="error"/> 
+					
+					<c:choose>
+						<c:when test="${groupBuyForm.newGroupBuy}">
+							<form:input type="number" id="price" path="groupBuy.price" class="form-control" placeholder="price" />
+						</c:when>
+						<c:otherwise>
+							<form:input type="number" id="price" path="groupBuy.price" class="form-control" value="${groupBuyForm.groupBuy.price}" />
+						</c:otherwise>
+					</c:choose>
+				
+				</div>
+				</div>
+			
+			
+			<div class="form-group">
+				<label for="report">대표 이미지</label>&nbsp;&nbsp;&nbsp;<form:errors path="groupBuy.report" cssClass="error"/><br/>
+				<form:input type="file" path="groupBuy.report"/>
+          	</div>
+          				
+			<div class="form-group">
+					<label for="content">상세설명</label> 
+					<form:errors path="groupBuy.content" cssClass="error"/>
+					
+					<c:choose>
+						<c:when test="${groupBuyForm.newGroupBuy}">
+							<form:textarea id="content" path="groupBuy.content" class="form-control"
+								placeholder="상세 설명을 작성해주세요." cols="30" rows="10"></form:textarea>
+						</c:when>
+						<c:otherwise>
+							<form:textarea id="content" path="groupBuy.content" class="form-control"
+								placeholder="상세 설명을 작성해주세요." cols="30" rows="10" items="${groupBuyForm.groupBuy.content}" ></form:textarea>
+						</c:otherwise>
+					</c:choose>
+			</div>
+			
+			<div class="form-group">
+				<label for="option">옵션</label>  <input type="button" id="addOption" value="추가" onclick="input_append(this.form)"/> 
+				<form:errors path="groupBuy.optionList" cssClass="error"/>
+				
+				<div id="optionBox">
+					<c:choose>
+						<c:when test="${groupBuyForm.newGroupBuy}">
+							<form:input type="text" id="groupBuy.options" path="groupBuy.optionList" class="form-control"/><br>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="option" items="${groupBuyForm.groupBuy.options}" varStatus="status">
+								<form:input type="text" id="groupBuy.options" path="groupBuy.optionList" 
+										class="form-control" value="${option.name}"/><br>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="catId">태그</label> <br/>
+				<form:errors path="groupBuy.catId" cssClass="error"/>
+
+			    <div class="radio-items">
+			        <div class="col-2">  <!-- width auto important, 소수점 백그라운드 이슈로 인해 auto 설정 -->
+			        	<form:radiobutton id="clothing" path="groupBuy.catId" class="only-sr" value="1" checked="${groupBuyForm.groupBuy.catId==1 ? 'checked':''}"  />
+			            <label for="clothing">의류</label>
+			        </div>
+			        <div class="col-2">
+			        	<form:radiobutton id="schoolUniform" path="groupBuy.catId" class="only-sr" value="2" checked="${groupBuyForm.groupBuy.catId==2 ? 'checked':''}" />
+						<label for="schoolUniform">학잠</label>
+			        </div>
+			        <div class="col-2">
+			            <form:radiobutton id="writing" path="groupBuy.catId" class="only-sr" value="3" checked="${groupBuyForm.groupBuy.catId==3 ? 'checked':''}" />
+			            <label for="writing">필기구</label>
+			        </div>
+			        <div class="col-2">
+			            <form:radiobutton id="tumbler" path="groupBuy.catId" class="only-sr" value="4" checked="${groupBuyForm.groupBuy.catId==4 ? 'checked':''}" />
+						<label for="tumbler">텀블러</label>
+			        </div>
+			        <div class="col-2">
+			            <form:radiobutton id="sticker" path="groupBuy.catId" class="only-sr" value="5" checked="${groupBuyForm.groupBuy.catId==5 ? 'checked':''}" />
+						<label for="sticker">스티커</label>
+			        </div>
+			        <div class="col-2">
+			            <form:radiobutton id="bagAndPouch" path="groupBuy.catId" class="only-sr" value="6" checked="${groupBuyForm.groupBuy.catId==6 ? 'checked':''}" />
+						<label for="bagAndPouch">에코백/파우치</label>
+			        </div>
+			        <div class="col-2">
+			            <form:radiobutton id="etc" path="groupBuy.catId" class="only-sr" value="7" checked="${groupBuyForm.groupBuy.catId==7 ? 'checked':''}" />
+						<label for="etc">기타</label>
+			        </div>
+			    </div>
+				   
+			</div>
+			
+			<div class="form-group row">
+				<div class="col-md-12">
+					<label for="minNo">최소수량</label> 
+					<form:errors path="groupBuy.minNo" cssClass="error"/>
+					<div class="d-flex">
+						<div class="form-group mr-2">
+						<c:choose>
+							<c:when test="${groupBuyForm.newGroupBuy}">
+								<form:input type="text" id="minNo" path="groupBuy.minNo" class="form-control" placeholder="ex) 40" />
+							</c:when>
+							<c:otherwise>
+								<form:input type="text" id="minNo" path="groupBuy.minNo" class="form-control" value="${groupBuyForm.groupBuy.minNo}" />
+							</c:otherwise>
+						</c:choose>
+						
+						</div>
+					</div>
+				</div>
+			</div>
+             	
+             	<div class="form-group">
+             	<label for="endDate">마감일</label>
+             	<form:errors path="groupBuy.endDate" cssClass="error"/>
+             	
+                <div class="d-flex">
+	    		  <div class="form-group mr-2">
+              		<c:choose>
+						<c:when test="${groupBuyForm.newGroupBuy}">
+							<form:input type="date" id="endDate" path="groupBuy.endDate" class="form-control" placeholder="ex) yyyy-MM-dd" />
+						</c:when>
+						<c:otherwise>
+							<fmt:formatDate value='${groupBuyForm.groupBuy.endDate}' pattern='yyyy-MM-dd' var="dateFormat"/>
+							<form:input type="date" id="endDate" path="groupBuy.endDate" class="form-control" value="${dateFormat}"/>
+						</c:otherwise>
+					</c:choose>
+	              </div>
+             		</div>
+             	</div>
+             
+			<div class="form-group">
+             		<form:radiobuttons items="${amPm}" id="amPm" path="groupBuy.isAmPm"/> &nbsp;&nbsp;&nbsp;
+	            <form:errors path="groupBuy.isAmPm" cssClass="error"/>  &nbsp;&nbsp;&nbsp;
+	        </div>
+	        <div class="drop-down"> 
+				<form:select path="groupBuy.hour">
+					<form:options path="groupBuy.hour" items="${hourData}" itemLabel="label" itemValue="code"/>
+				</form:select>
+				&nbsp;&nbsp;&nbsp;
+				<form:select path="groupBuy.minute">
+					<form:options path="groupBuy.minute" items="${minuteData}" itemLabel="label" itemValue="code"/>
+				</form:select>
+             </div>
+
+			<div class="text-center">
+				<input type="button" value="취소" onclick="location.href='/groupBuy/list.do'" /> &nbsp;
+				<input type="button" value="등록" onClick="groupBuySubmit(${groupBuyForm.newGroupBuy})" />
+			</div>
+		</form:form>
+		</div>
+		</div>
 
       </div>
-    </section><!-- End About Section -->
-
+    </section><!-- End Contact Section -->
   </main><!-- End #main -->
 
 <%@ include file="../includeBottom.jsp" %> 

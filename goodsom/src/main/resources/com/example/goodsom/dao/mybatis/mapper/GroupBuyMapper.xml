@@ -5,19 +5,20 @@
   <cache />
   <sql id="BaseColumns_GroupBuys">
   		GROUPBUYID, TITLE, CONTENT, IMG, MINNO, UPLOADDATE, ENDDATE, 
-  		COUNT, STATE, RATE, PARTICIPANTS, MENUID, CATID, USERID, PRICE
+  		COUNT, STATE, RATE, PARTICIPANTS, RECEIVE, MENUID, CATID, USERID, PRICE
   </sql>
 
   
   <insert id="createGroupBuy" parameterType="com.example.goodsom.domain.GroupBuy">
   	
   	INSERT INTO GROUPBUYS (<include refid="BaseColumns_GroupBuys" />)
-	VALUES (GROUPBUYID_SEQ.nextval, #{title}, #{content}, #{img}, #{minNo}, #{uploadDate}, #{endDate}, 
-			#{count}, #{state}, #{rate}, #{participants}, #{menuId}, #{catId}, #{userId}, #{price})
+	VALUES (SELECT case count(*) when 0 then 1 else max(groupBuyId) + 1 end,
+			#{title}, #{content}, #{img}, #{minNo}, #{uploadDate}, #{endDate}, 
+			#{count}, #{state}, #{rate}, #{participants}, #{receive}, #{menuId}, #{catId}, #{userId}, #{price})
 		
 
   	<selectKey keyProperty="groupBuyId" resultType="int" order="AFTER">
-  		SELECT GROUPBUYID_SEQ.currval AS groupBuyId FROM DUAL
+  		SELECT max(groupBuyId) AS groupBuyId FROM DUAL
   	</selectKey>	
 
   </insert>
@@ -44,7 +45,7 @@
   <insert id="createOptions" parameterType="com.example.goodsom.domain.GroupBuy">
   
   	INSERT INTO OPTIONS (OPTIONID, GROUPBUYID, NAME)
-  	SELECT OPTIONID_SEQ.nextval, A.* FROM (
+  	SELECT case count(*) when 0 then 1 else max(optionId) + 1 end, A.* FROM (
 	  	<foreach collection="optionList" item="option" separator="UNION ALL">
 			SELECT  #{groupBuyId}, #{option}
 			FROM 	DUAL
@@ -82,11 +83,10 @@
   		<result property="name" column="name"/>
   	</collection>
   </resultMap> 
-  <select id="getGroupBuy" parameterType="java.lang.Integer"
-  							resultMap="collectionResultMap">
+  <select id="getGroupBuy" parameterType="java.lang.Integer" resultMap="collectionResultMap">
     SELECT g.GROUPBUYID, g.TITLE, g.CONTENT, g.IMG, g.MINNO, g.UPLOADDATE, g.ENDDATE, 
   			g.COUNT, g.STATE, g.RATE, g.PARTICIPANTS, g.MENUID, g.CATID, g.USERID, g.PRICE,
-    		op.OPTIONID, op.GROUPBUYID, op.NAME
+    		op.OPTIONID, op.GROUPBUYID, op.CONTENT
     FROM GROUPBUYS g, OPTIONS op
     WHERE g.GROUPBUYID = op.GROUPBUYID and g.GROUPBUYID = #{groupBuyId}
   </select>
