@@ -25,11 +25,11 @@
   
   <insert id="createUser" parameterType="com.example.goodsom.domain.User">
   	INSERT INTO USERS 
-  	(USERID, EMAIL, PASSWD, USERNAME, NICKNAME, ADDRESS1, ADDRESS2, ADDRESS3, PHONE, REFUNDBANK, REFUNDACCOUNT)
+  	(EMAIL, PASSWD, USERNAME, NICKNAME, ADDRESS1, ADDRESS2, ADDRESS3, PHONE, REFUNDBANK, REFUNDACCOUNT, REPORT, WARNING)
   	VALUES 
-  	(USERID_SEQ.nextval, #{email}, #{passwd}, #{userName}, #{nickname}, 
+  	(#{email}, #{passwd}, #{userName}, #{nickname}, 
   	#{address1, jdbcType=VARCHAR}, #{address2, jdbcType=VARCHAR}, #{address3, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR}, 
-  	#{refundBank, jdbcType=VARCHAR}, #{refundAccount, jdbcType=VARCHAR}) 
+  	#{refundBank, jdbcType=VARCHAR}, #{refundAccount, jdbcType=VARCHAR}, 0, 0) 
   </insert>
   
   <update id="updateUser" parameterType="com.example.goodsom.domain.User">

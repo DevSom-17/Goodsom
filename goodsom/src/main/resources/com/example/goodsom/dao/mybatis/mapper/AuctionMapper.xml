@@ -102,10 +102,10 @@
   
   <select id="getRecentAuctionList" resultType="com.example.goodsom.domain.Auction">
    <![CDATA[
-    SELECT * FROM
+    SELECT EX1.* FROM
     	(SELECT * FROM AUCTIONS
-    	 ORDER BY COUNT DESC)
-    WHERE ROWNUM <= 3
+    	 ORDER BY COUNT DESC) EX1
+    LIMIT 3
    ]]>
   </select>
   

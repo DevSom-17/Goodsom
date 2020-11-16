@@ -133,10 +133,10 @@
   
   <select id="getRecentGroupBuyList" resultType="com.example.goodsom.domain.GroupBuy">
    <![CDATA[
-    SELECT * FROM
+    SELECT EX1.* FROM
     	(SELECT * FROM GROUPBUYS
-    	 ORDER BY COUNT DESC)
-    WHERE ROWNUM <= 3
+    	 ORDER BY COUNT DESC) EX1
+    LIMIT 3
    ]]>
   </select>
   

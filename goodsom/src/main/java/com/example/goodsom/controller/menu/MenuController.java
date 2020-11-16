@@ -23,7 +23,7 @@ import com.example.goodsom.service.GroupBuyService;
 @Controller
 public class MenuController {
 	
-	@Value("home")
+	@Value("index")
 	private String formViewName;
 	
 	@Autowired
@@ -31,7 +31,7 @@ public class MenuController {
 	@Autowired
 	private AuctionService auctionService;
 	
-	@RequestMapping("/home.do")
+	@RequestMapping("/index.do")
 	public ModelAndView goHome(Model model) throws Exception{
 		List<GroupBuy> recentGroupBuy = groupBuyService.getRecentGroupBuyList();
 		List<Auction> recentAuction = auctionService.getRecentAuctionList();

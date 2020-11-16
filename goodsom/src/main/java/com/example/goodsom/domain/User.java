@@ -20,6 +20,8 @@ public class User implements Serializable {
 	String phone;
 	String refundBank;
 	String refundAccount;
+	int report;
+	int warning;
 	
 	/*
 	public User() {}
@@ -135,6 +137,25 @@ public class User implements Serializable {
 	public boolean matchPassword(String inputPassword) {
 		return passwd.equals(inputPassword);
 	}
+	
+	public int getReport() {
+		return report;
+	}
+
+
+	public void setReport(int report) {
+		this.report = report;
+	}
+
+
+	public int getWarning() {
+		return warning;
+	}
+
+
+	public void setWarning(int warning) {
+		this.warning = warning;
+	}
 
 
 	@Override
@@ -142,7 +163,7 @@ public class User implements Serializable {
 		return "User [userId=" + userId + ", email=" + email + ", passwd=" + passwd + ", userName=" + userName
 				+ ", nickname=" + nickname + ", address1=" + address1 + ", address2=" + address2 + ", address3="
 				+ address3 + ", phone=" + phone + ", refundBank=" + refundBank + ", refundAccount=" + refundAccount
-				+ "]";
+				+ ", report=" + report + ", warning=" + warning + "]";
 	}
-	
+
 }

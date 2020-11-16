@@ -11,8 +11,8 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="index.do">Home</a></li>
-          <li class="drop-down"><a href="/index.do">About</a>
+          <li class="active"><a href="<%=request.getContextPath()%>/index.do">Home</a></li>
+          <li class="drop-down"><a href="#about">About</a>
             <ul>
               <li><a href="#about">About Us</a></li>
               <li><a href="#team">Team</a></li>
