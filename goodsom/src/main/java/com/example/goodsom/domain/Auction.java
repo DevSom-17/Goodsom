@@ -39,6 +39,7 @@ public class Auction implements Serializable {
 	int count;
 	int maxPrice;
 	String state;
+	int receive;
 	int menuId;
 	int userId;
 
@@ -164,6 +165,14 @@ public class Auction implements Serializable {
 		this.state = state;
 	}
 	
+	public int getReceive() {
+		return receive;
+	}
+
+	public void setReceive(int receive) {
+		this.receive = receive;
+	}
+
 	public String getIsAmPm() {
 		return isAmPm;
 	}

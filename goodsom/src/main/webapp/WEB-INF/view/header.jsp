@@ -28,7 +28,7 @@
             </ul>
           </li>
           <li><a href="<%=request.getContextPath()%>/groupBuy/list.do" class="nav-link">GroupBuy</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="<%=request.getContextPath()%>/auction/list.do">Auction</a></li>
           <li><a href="#testimonials">Testimonials</a></li>
           <li><a href="<%=request.getContextPath()%>/user/detail.do">My Page</a></li>
         </ul>

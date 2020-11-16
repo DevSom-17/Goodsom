@@ -80,14 +80,15 @@ public class AuctionController {
 			mav.addObject("completeOrder", 0);
 		}
 		
-		UserSession user  = (UserSession)request.getSession().getAttribute("userSession");
-		if (user.getUser().getUserId() == auction.getUserId()) {
-			mav.addObject("isWriter", true);
-		} else {
+//		로그인 구현 된 후
+//		UserSession user  = (UserSession)request.getSession().getAttribute("userSession");
+//		if (user.getUser().getUserId() == auction.getUserId()) {
+//			mav.addObject("isWriter", true);
+//		} else {
 			auction.setCount(auction.getCount()+1);
 			auctionService.increaseCount(auction);
 			mav.addObject("isWriter", false);
-		}
+//		}
 
 		if (auction.getBids().isEmpty()) {// 아무도 입찰 안 했을 때
 			mav.addObject("date_maxBid", "");
