@@ -1,4 +1,5 @@
 package com.example.goodsom.domain;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,7 +16,8 @@ import javax.validation.constraints.PositiveOrZero;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
-public class GroupBuy {
+@SuppressWarnings("serial")
+public class GroupBuy implements Serializable {
 	private static final String PROCEEDING = "proceeding";
 	private static final String ACHIEVED = "achieved";
 	private static final int MENUID_GROUPBUY = 2;
@@ -66,6 +68,8 @@ public class GroupBuy {
 	int minute;
 	
 	int notiId;
+	
+	int receive;
 	
 	List<Option> options = new ArrayList<Option>();
 	List<User> groupBuyUsers = new ArrayList<User>();
@@ -225,6 +229,14 @@ public class GroupBuy {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	
+	public int getReceive() {
+		return receive;
+	}
+
+	public void setReceive(int receive) {
+		this.receive = receive;
 	}
 	
 	public String[] getOptionList() {
