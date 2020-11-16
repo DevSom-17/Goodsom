@@ -29,7 +29,8 @@
               <li data-filter=".filter-card">Card</li>
               <li data-filter=".filter-web">Web</li>
             </ul>
-          </div>
+             <a href="<c:url value='/groupBuy/form.do'></c:url>">공동구매 등록</a>
+          </div>          
         </div>
 
         <div class="row portfolio-container">
@@ -46,7 +47,7 @@
               
 
               <div class="portfolio-info">
-              	<h4><a  href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
+              	<h4><a href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
 							</c:url>">${groupBuy.title}</a></h4>
 				
 				<div>	 

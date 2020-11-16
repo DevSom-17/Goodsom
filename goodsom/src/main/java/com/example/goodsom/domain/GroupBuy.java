@@ -305,6 +305,7 @@ public class GroupBuy implements Serializable {
         rate = 0;					// 참여 달성률
         participants = 0;			// 참여자 수
         menuId = MENUID_GROUPBUY;	// 메뉴
+        receive = 0;				// 수령 여부
         
         System.out.println("[initGroupBuy] uploadDate: " + uploadDate + ", userId: " + userId
         		 + ", count: " + count  + ", state: " + state  + ", rate: " + rate  
