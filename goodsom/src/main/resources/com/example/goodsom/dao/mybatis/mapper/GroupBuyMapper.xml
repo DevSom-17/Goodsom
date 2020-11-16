@@ -83,11 +83,10 @@
   		<result property="name" column="name"/>
   	</collection>
   </resultMap> 
-  <select id="getGroupBuy" parameterType="java.lang.Integer"
-  							resultMap="collectionResultMap">
+  <select id="getGroupBuy" parameterType="java.lang.Integer" resultMap="collectionResultMap">
     SELECT g.GROUPBUYID, g.TITLE, g.CONTENT, g.IMG, g.MINNO, g.UPLOADDATE, g.ENDDATE, 
   			g.COUNT, g.STATE, g.RATE, g.PARTICIPANTS, g.MENUID, g.CATID, g.USERID, g.PRICE,
-    		op.OPTIONID, op.GROUPBUYID, op.NAME
+    		op.OPTIONID, op.GROUPBUYID, op.CONTENT
     FROM GROUPBUYS g, OPTIONS op
     WHERE g.GROUPBUYID = op.GROUPBUYID and g.GROUPBUYID = #{groupBuyId}
   </select>

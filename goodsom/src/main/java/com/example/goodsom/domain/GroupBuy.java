@@ -357,7 +357,7 @@ public class GroupBuy implements Serializable {
 		
 		for(int i = 0; i < optionList.length; i++) {
 			Option op = new Option();
-			op.setName(optionList[i]);
+			op.setContent(optionList[i]);
 			op.setGroupBuyId(groupBuyId);
 			options.add(i, op);
 		}
