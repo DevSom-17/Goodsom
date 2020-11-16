@@ -1,4 +1,4 @@
-package com.example.goodsom;
+package com.example.goodsom.config;
 
 import java.util.Locale;
 
