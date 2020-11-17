@@ -102,114 +102,101 @@ function delItem(id) {
 <body>
 
  <%@ include file="../header.jsp" %> 
-    
-    <div class="site-section-cover">
-      <div class="container">
-        <div class="row align-items-center text-center justify-content-center">
-          <div class="col-lg-6">
-            <h1 class="text-white mb-4">About GroupBuy</h1>
-            <p class="lead">솜솜이들의 공동구매를 위한 공간</p>
-            
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- start groupBuy detail -->
-	<br/>    
-    <div align="center">
-    	<br/><h2 class="text-primary mb-5 font-weight-bold">${groupBuy.title}</h2><br/>
-    </div>
-         	
-     <div class="container">
-       <div class="row align-items-center">
-         <div class="col-md-6 mb-5 mb-md-0">
-        	 <img src="${groupBuy.img}" alt="Image" class="img-fluid">
-         </div>
-         
-         <div class="col-md-5 ml-auto">
-         	
-         	<p>작성자 : &nbsp; &nbsp; ${writer} <br/> 
-         	작성일 : &nbsp; &nbsp; <fmt:formatDate value="${groupBuy.uploadDate}" pattern="yyyy-MM-dd" />
-      		</p>
-         	<h2 align="center">$ ${groupBuy.price}</h2><br/>
-         	<h5>참여자 수 : &nbsp; &nbsp; ${groupBuy.participants} / ${groupBuy.minNo}</h5>
-			
-			<c:if test="${groupBuy.state eq 'closed'}" >
-				<h5>남은 시간 : &nbsp; &nbsp; 마감되었습니다.</h5>
-			</c:if>
-			<c:if test="${groupBuy.state eq 'proceeding' or groupBuy.state eq 'achieved'}" >
-				<h5>남은 시간 : &nbsp; &nbsp; ${dDay}</h5>
-			</c:if>	
-		
-			<br />
-			
-			<form:form name="form" modelAttribute="lineGroupBuyForm" action="../order/groupBuy/create.do" method="GET">
-				<div class="alert alert-primary" role="alert">
-					<div class="d-flex" style="margin-bottom: 10px;">
-						<h5>옵션</h5> &nbsp;&nbsp; 
-						<select name="option" id="option">
-							<option value="chooseOption" selected disabled>옵션 선택</option>
-							<c:forEach var="option" items="${groupBuy.options}" varStatus="status">
-								<option value="${options.content}">${option.content}</option>
-							</c:forEach>
-						</select> <br />
-					</div>
-					<div class="d-flex">
-						<h5>수량</h5> &nbsp;&nbsp; 
-						<input type="button" name="minus" value="-"
-							onclick="change(-1)" /> &nbsp; 
-						<input type="text" name="quantity" id="count" value="1"
-							style="text-align: center; width: 50px;" readonly /> &nbsp; 
-						<input type="button" name="plus" value="+"
-							onclick="change(1)" /> &nbsp; &nbsp; 
-							
-						<c:if test="${groupBuy.state eq 'closed'}" >
-							<input type="button" value="추가하기" onclick="addItem(quantity.value)" disabled />
-						</c:if>
-						<c:if test="${groupBuy.state eq 'proceeding' or groupBuy.state eq 'achieved'}" >
-							<input type="button" value="추가하기" onclick="addItem(quantity.value)" />
-						</c:if>
-					</div>
-				</div>
-				
-				<div id="itemBox"> </div>
-				<c:if test="${groupBuy.state eq 'closed'}" >
-					<input type="button" onclick="orderCreate()" value="신청하기" disabled />
-				</c:if>
-				<c:if test="${groupBuy.state eq 'proceeding' or groupBuy.state eq 'achieved'}" >
-					<input type="button" onclick="orderCreate()" value="신청하기" />
-				</c:if>
-			
-			</form:form>
-			<br/><br/>
   
-         </div>
-       </div> 
-       
-       <br/><br/>
-       <div>
-	       <h3>상세정보</h3><br/>
-		   <h5>${groupBuy.content}</h5>
-       </div>
-	   
-	   <br/><br/><br/>
+ <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>공동구매 상세보기</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li>공동구매 상세보기</li>
+          </ol>
+        </div>
+		<p>작성자 : &nbsp; &nbsp; ${writer} <br/> 
+         	작성일 : &nbsp; &nbsp; <fmt:formatDate value="${groupBuy.uploadDate}" pattern="yyyy-MM-dd" />
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+<!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+      <div class="container">
+
+        <div class="portfolio-details-container">
+
+          <div class="owl-carousel portfolio-details-carousel">
+          	<img src="${groupBuy.img}" alt="Image" class="img-fluid">
+          </div>
+
+          <div class="portfolio-info">
+            <h3>${groupBuy.title}</h3>
+            <ul>
+              <li><strong>참여자 수</strong>: ${groupBuy.participants} / ${groupBuy.minNo}</li>
+              <li><strong>남은 시간</strong>: 
+				<c:if test="${groupBuy.state eq 'closed'}" > 마감되었습니다. </c:if>
+				<c:if test="${groupBuy.state eq 'proceeding' or groupBuy.state eq 'achieved'}" > ${dDay} </c:if>	
+			  </li>
+              <li><strong>가격</strong>: ${groupBuy.price}원</li>
+              <li><strong>옵션</strong>
+              	<form:form name="form" modelAttribute="lineGroupBuyForm" action="../order/groupBuy/create.do" method="GET">
+					<select name="option" id="option">
+						<option value="chooseOption" selected disabled>옵션 선택</option>
+						<c:forEach var="option" items="${groupBuy.options}" varStatus="status">
+							<option value="${options.content}">${option.content}</option>
+						</c:forEach>
+					</select> <br />
+					<strong>수량</strong>
+					<input type="button" name="minus" value="-"
+						onclick="change(-1)" /> &nbsp; 
+					<input type="text" name="quantity" id="count" value="1"
+						style="text-align: center; width: 50px;" readonly /> &nbsp; 
+					<input type="button" name="plus" value="+"
+						onclick="change(1)" /> &nbsp; &nbsp; 
+						
+					<c:if test="${groupBuy.state eq 'closed'}" >
+						<input type="button" value="추가하기" onclick="addItem(quantity.value)" disabled />
+					</c:if>
+					<c:if test="${groupBuy.state eq 'proceeding' or groupBuy.state eq 'achieved'}" >
+						<input type="button" value="추가하기" onclick="addItem(quantity.value)" />
+					</c:if>
+						
+					<div id="itemBox"> </div>
+					<c:if test="${groupBuy.state eq 'closed'}" >
+						<input type="button" onclick="orderCreate()" value="신청하기" disabled />
+					</c:if>
+					<c:if test="${groupBuy.state eq 'proceeding' or groupBuy.state eq 'achieved'}" >
+						<input type="button" onclick="orderCreate()" value="신청하기" />
+					</c:if>
+				</form:form>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="portfolio-description">
+          <h2>상세정보</h2>
+          <p>
+            ${groupBuy.content}
+          </p>
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Details Section -->
 
 		<div class="form-group" align="right">
 	    <c:if test="${(isWriter eq true) and (groupBuy.participants eq 0)}">
-		   
-		   		<a class="btn btn-primary py-3 px-5" href="<c:url value='/groupBuy/form.do'>
-					<c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
-					</c:url>">수정</a>
-	   			<a class="btn btn-primary py-3 px-5" href="<c:url value='/groupBuy/delete.do'>
-	   				<c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/></c:url>" 
-			   		onClick="return deleteGroupBuy('${groupBuy.participants}');">삭제</a>	
-	   			
+	   		<a class="btn btn-primary py-3 px-5" href="<c:url value='/groupBuy/form.do'>
+				<c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
+			</c:url>">수정</a>
+			
+	  		<a class="btn btn-primary py-3 px-5" href="<c:url value='/groupBuy/delete.do'>
+	  			<c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/></c:url>" 
+		   	onClick="return deleteGroupBuy('${groupBuy.participants}');">삭제</a>	
 	    </c:if>
-	   		 <a class="btn btn-primary py-3 px-5" href="<c:url value='/groupBuy/list.do'></c:url>">목록</a>
+	    
+	   	<a class="btn btn-primary py-3 px-5" href="<c:url value='/groupBuy/list.do'></c:url>">목록</a>
 	    </div>
-	   						
-   </div>
 
 <%@ include file="../includeBottom.jsp" %> 
