@@ -21,7 +21,9 @@ public interface NotiMapper {
 	
 	void deleteAuctionNoti(int notiId);
 	
-	void createNoti_g(GroupBuy groupBuy);
+	void createNoti_g(Notification noti);
+	
+	int[] getUserIdByGroupBuyId(int groupBuyId);
 	
 	void deleteGroupBuyNoti(int notiId);
 	

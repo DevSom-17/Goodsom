@@ -21,7 +21,7 @@ public interface NotiService {
 	
 	void createNoti_a(Bid bid); // successBidders table
 	
-	void createNoti_g(GroupBuy groupBuy);
+	void createNoti_g(Notification noti);
 	
 	List<Notification> getGroupBuyNotiByUserId(int userId);
 
@@ -30,4 +30,5 @@ public interface NotiService {
 	void deleteAuctionNoti(int notiId);
 	
 	void deleteGroupBuyNoti(int notiId);
+
 }

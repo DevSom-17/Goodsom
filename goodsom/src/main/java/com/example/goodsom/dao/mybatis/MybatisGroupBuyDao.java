@@ -65,6 +65,18 @@ public class MybatisGroupBuyDao implements GroupBuyDao {
 		groupBuyMapper.closeEvent(curTime);
 	}
 	
+	public void achieveEvent() {
+		groupBuyMapper.achieveEvent();
+	}
+	
+	public void updateGroupBuyNoti(int groupBuyId) throws DataAccessException{
+		groupBuyMapper.updateGroupBuyNoti(groupBuyId);
+	}
+	
+	public int[] getGroupBuyIdForNoti() {
+		return groupBuyMapper.getGroupBuyIdForNoti();
+	}
+	
 	public List<GroupBuy> getRecentGroupBuyList(){
 		return groupBuyMapper.getRecentGroupBuyList();
 	}

@@ -133,7 +133,7 @@ public class AuctionFormController implements ApplicationContextAware  {
 		}
 		
 //		스케줄러 => create / update 시 endDate로 설정
-//		auctionService.deadLineScheduler(auctionForm.getAuction().getEndDate(), auctionForm.getAuction().getAuctionId());
+		auctionService.deadLineScheduler();
 		
 //		view에 전송할 attribute
 		session.setAttribute("bidForm", new BidForm());

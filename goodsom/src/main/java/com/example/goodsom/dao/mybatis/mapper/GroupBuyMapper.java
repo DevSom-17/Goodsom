@@ -35,6 +35,12 @@ public interface GroupBuyMapper { // GroupBuyMapper.xml에서 구현한 method �
 	
 	void closeEvent(Date curTime) throws DataAccessException;
 	
+	void achieveEvent() throws DataAccessException;
+	
+	void updateGroupBuyNoti(int groupBuyId) throws DataAccessException;
+	
+	int[] getGroupBuyIdForNoti() throws DataAccessException;
+	
 	List<GroupBuy> getRecentGroupBuyList() throws DataAccessException;
 	
 //	keyword로 검색

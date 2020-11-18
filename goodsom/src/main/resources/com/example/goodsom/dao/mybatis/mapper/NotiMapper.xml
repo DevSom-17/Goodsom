@@ -13,10 +13,10 @@
 <!-- AUCTION/BID -->
   <insert id="createNoti_a" parameterType="com.example.goodsom.domain.Bid">
   	INSERT INTO NOTIFICATIONS_A (<include refid="BaseColumns_Noti_Auction" />)
-	VALUES (NOTIID_A_SEQ.nextval, #{auctionTitle}, SYSDATE, #{userId}, #{auctionId}, 'closed')
+	VALUES (NOTIID_A_SEQ.nextval, #{auctionTitle}, now(), #{userId}, #{auctionId}, 'closed')
 
   	<selectKey keyProperty="notiId" resultType="int" order="AFTER">
-  		SELECT NOTIID_A_SEQ.currval AS notiId FROM DUAL
+  		SELECT LAST_INSERT_ID()
   	</selectKey>	
   </insert>
   
@@ -37,23 +37,21 @@
   
   
  <!-- GROUPBUY -->
-   <insert id="createNoti_g" parameterType="com.example.goodsom.domain.GroupBuy">
+   <insert id="createNoti_g" parameterType="com.example.goodsom.domain.Notification">
   	INSERT INTO NOTIFICATIONS_G (<include refid="BaseColumns_Noti_GroupBuy" />)
-	VALUES (NOTIID_G_SEQ.nextval, #{title}, SYSDATE, #{userId}, #{groupBuyId}, #{state})
+	VALUES (NOTIID_G_SEQ.nextval, #{title}, now(), #{userId}, #{groupBuyId}, #{state})
 
   	<selectKey keyProperty="notiId" resultType="int" order="AFTER">
-  		SELECT NOTIID_G_SEQ.currval AS notiId FROM DUAL
+  		SELECT LAST_INSERT_ID()
   	</selectKey>	
   </insert>
   
-  
-  <update id="notiUserUpdate" parameterType="int">
-    UPDATE NOTIFICATIONS_G n set n.userId = (
-        SELECT DISTINCT o.userId
-        FROM orders o , lineGroupBuys l
-        WHERE o.orderId = l.orderId AND n.groupBuyId = l.groupBuyID)
-    WHERE n.groupBuyId = #{groupBuyId}
-  </update>
+  <!-- 해당 공동구매에 참가한 모든 유저id 반환 -->
+  <select id="getUserIdByGroupBuyId" resultType="Integer" parameterType="Integer">
+	  	SELECT DISTINCT userId
+    	FROM orders o, lineGroupBuys g
+	    WHERE o.orderId=g.orderId AND g.groupBuyId=#{groupBuyId}
+  </select>
   
   <select id="getGroupBuyNotiByUserId" resultType="com.example.goodsom.domain.Notification">
 	  SELECT * FROM NOTIFICATIONS_G

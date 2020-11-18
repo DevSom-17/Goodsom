@@ -143,7 +143,7 @@ function delItem(id) {
 					<select name="option" id="option">
 						<option value="chooseOption" selected disabled>옵션 선택</option>
 						<c:forEach var="option" items="${groupBuy.options}" varStatus="status">
-							<option value="${options.content}">${option.content}</option>
+							<option value="${option.name}">${option.name}</option>
 						</c:forEach>
 					</select> <br />
 					<strong>수량</strong>

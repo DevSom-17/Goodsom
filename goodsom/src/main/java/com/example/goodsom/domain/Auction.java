@@ -47,6 +47,7 @@ public class Auction implements Serializable {
 	String isAmPm;
 	int hour;
 	int minute;
+	int sendNoti;
 	
 	List<Bid> bids = new ArrayList<Bid>();
 	
@@ -172,6 +173,14 @@ public class Auction implements Serializable {
 	public void setReceive(int receive) {
 		this.receive = receive;
 	}
+	
+	public int getSendNoti() {
+		return sendNoti;
+	}
+
+	public void setSendNoti(int sendNoti) {
+		this.sendNoti = sendNoti;
+	}
 
 	public String getIsAmPm() {
 		return isAmPm;
@@ -205,6 +214,7 @@ public class Auction implements Serializable {
         state = PROCEEDING;
         count = 0;
         menuId = MENUID_AUCTION;
+        sendNoti = 0;
 	}
 	
 	public void timeSet() {

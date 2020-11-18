@@ -29,6 +29,12 @@ public interface GroupBuyDao {
 	
 	void closeEvent(Date curTime) throws DataAccessException;
 	
+	void achieveEvent() throws DataAccessException;
+	
+	void updateGroupBuyNoti(int groupBuyId) throws DataAccessException;
+	
+	int[] getGroupBuyIdForNoti() throws DataAccessException;
+	
 	List<GroupBuy> getRecentGroupBuyList() throws DataAccessException;
 	
 	List<GroupBuy> groupBuyListByKeyword(String keyword) throws DataAccessException;

@@ -47,8 +47,12 @@ public class MybatisNotiDao implements NotificationDao {
 		return notiMapper.getGroupBuyNotiByUserId(userId);
 	}
 	
-	public void createNoti_g(GroupBuy groupBuy) throws DataAccessException{
-		notiMapper.createNoti_g(groupBuy);
+	public void createNoti_g(Notification noti) throws DataAccessException{
+		notiMapper.createNoti_g(noti);
+	}
+	
+	public int[] getUserIdByGroupBuyId(int groupBuyId) throws DataAccessException{
+		return notiMapper.getUserIdByGroupBuyId(groupBuyId);
 	}
 	
 	public void deleteAuctionNoti(int notiId) throws DataAccessException{

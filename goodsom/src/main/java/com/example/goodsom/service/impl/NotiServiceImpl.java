@@ -47,8 +47,8 @@ public class NotiServiceImpl implements NotiService {
 	}
 	
 	@Override
-	public void createNoti_g(GroupBuy groupBuy) {
-		notiDao.createNoti_g(groupBuy);
+	public void createNoti_g(Notification noti) {
+		notiDao.createNoti_g(noti);
 	}
 	
 	@Override

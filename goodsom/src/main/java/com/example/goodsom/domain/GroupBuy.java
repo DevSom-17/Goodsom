@@ -68,6 +68,7 @@ public class GroupBuy implements Serializable {
 	int minute;
 	
 	int notiId;
+	int sendNoti;
 	
 	int receive;
 	
@@ -285,6 +286,13 @@ public class GroupBuy implements Serializable {
 		this.notiId = notiId;
 	}
 	
+	public int getSendNoti() {
+		return sendNoti;
+	}
+
+	public void setSendNoti(int sendNoti) {
+		this.sendNoti = sendNoti;
+	}
 	
 	public GroupBuy() {
 	}
@@ -306,6 +314,7 @@ public class GroupBuy implements Serializable {
         participants = 0;			// 참여자 수
         menuId = MENUID_GROUPBUY;	// 메뉴
         receive = 0;				// 수령 여부
+        sendNoti = 0; 				// 알림 안보냄
         
         System.out.println("[initGroupBuy] uploadDate: " + uploadDate + ", userId: " + userId
         		 + ", count: " + count  + ", state: " + state  + ", rate: " + rate  
@@ -357,7 +366,7 @@ public class GroupBuy implements Serializable {
 		
 		for(int i = 0; i < optionList.length; i++) {
 			Option op = new Option();
-			op.setContent(optionList[i]);
+			op.setName(optionList[i]);
 			op.setGroupBuyId(groupBuyId);
 			options.add(i, op);
 		}
@@ -374,7 +383,7 @@ public class GroupBuy implements Serializable {
 		Math.abs(dDay);
 		Math.abs(dHour);
 		String str = dDay + "일 " + dHour + "시간  \n(" + sdf.format(getEndDate()) + "까지)";
-		System.out.println("str");
+		System.out.println(str);
 		return str;
 	}
 	

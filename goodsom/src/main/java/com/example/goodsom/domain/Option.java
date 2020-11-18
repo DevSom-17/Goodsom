@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class Option implements Serializable {
 	int optionId;
 	int groupBuyId;
-	String content;
+	String name;
 	
 	
 	public int getOptionId() {
@@ -15,11 +15,11 @@ public class Option implements Serializable {
 	public void setOptionId(int optionId) {
 		this.optionId = optionId;
 	}
-	public String getContent() {
-		return content;
+	public String getName() {
+		return name;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public int getGroupBuyId() {
 		return groupBuyId;
@@ -29,7 +29,7 @@ public class Option implements Serializable {
 	}
 	
 	public String toString() {
-		return "[optionId: " + optionId + "groupBuyId: " + groupBuyId + "content: " + content + "]";
+		return "[optionId: " + optionId + "groupBuyId: " + groupBuyId + "name: " + name + "]";
 	}
 	
 }

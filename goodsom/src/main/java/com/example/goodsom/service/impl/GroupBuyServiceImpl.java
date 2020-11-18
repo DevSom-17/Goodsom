@@ -1,21 +1,18 @@
 package com.example.goodsom.service.impl;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.goodsom.dao.GroupBuyDao;
 import com.example.goodsom.dao.NotificationDao;
 import com.example.goodsom.domain.GroupBuy;
-import com.example.goodsom.domain.Option;
+import com.example.goodsom.domain.Notification;
 import com.example.goodsom.service.GroupBuyService;
 
 /**
@@ -30,16 +27,15 @@ import com.example.goodsom.service.GroupBuyService;
 
 @Service
 @Transactional
+@Component
 public class GroupBuyServiceImpl implements GroupBuyService {
-	
+	private static final String CLOSED = "closed";
+	private static final String ACHIEVED = "achieved";
 	@Autowired
 	private GroupBuyDao groupBuyDao;
 	
 	@Autowired
 	private NotificationDao notiDao;
-	
-	@Autowired
-	private ThreadPoolTaskScheduler scheduler;
 	
 	public GroupBuy getGroupBuy(int groupBuyId) {
 		return groupBuyDao.getGroupBuy(groupBuyId);
@@ -84,33 +80,32 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	public List<GroupBuy> getRecentGroupBuyList() {
 		return groupBuyDao.getRecentGroupBuyList();
 	}
-//	@Scheduled(fixedDelay = 1000)	
-//	public void deadLineScheduler(Date endDate, final int groupBuyId) {
-//		Runnable updateTableRunner = new Runnable() {	
-//			// anonymous class 정의
-//			@Override
-//			public void run() {   // 스케쥴러에 의해 미래의 특정 시점에 실행될 작업을 정의				
-//				Date curTime = new Date();
-//				// 실행 시점의 시각을 전달하여 그 시각 이전의 closing time 값을 갖는 event의 상태를 변경 
-//				groupBuyDao.closeEvent(curTime);	// EVENTS 테이블의 레코드 갱신	
-//				System.out.println("updateTableRunner is executed at " + curTime);
-//				
-//				String state = groupBuyDao.getGroupBuy(groupBuyId).getState();
-//				
-//				if(state.equals("closed")) {
-//					GroupBuy groupBuy = groupBuyDao.getGroupBuy(groupBuyId);
-//					notiDao.createNoti_g(groupBuy);
-//					notiDao.notiUserUpdate(groupBuyId);
-//					System.out.println("****closed groupBuy and create noti ");
-//				}
-//			}
-//		};
-//		
-//		// 스케줄 생성: closingTime에 updateTableRunner.run() 메소드 실행
-//		scheduler.schedule(updateTableRunner, endDate);  
-//		
-//		System.out.println("updateTableRunner has been scheduled to execute at " + endDate);
-//
-//	}
-
+	
+	@Scheduled(fixedDelay = 1000)	// 1초마다
+	public void deadLineScheduler() {		
+		Date curTime = new Date();
+		groupBuyDao.closeEvent(curTime);	// 마감 시간 확인
+		groupBuyDao.achieveEvent();			// 달성 여부 확인
+		
+		int[] groupBuyId = groupBuyDao.getGroupBuyIdForNoti();
+		
+		for(int i = 0; i < groupBuyId.length; i++) { // 동시에 여러 공동구매가 마감될 경우
+			int[] userId = notiDao.getUserIdByGroupBuyId(groupBuyId[i]); // 해당 공동구매에 참여한 유저
+			GroupBuy groupBuy = groupBuyDao.getGroupBuy(groupBuyId[i]);
+			String state = groupBuy.getState();
+			
+			for(int j = 0; j < userId.length; j++) {
+				Notification noti = new Notification();
+				noti.setTitle(groupBuy.getTitle());
+				noti.setUserId(userId[j]);
+				noti.setGroupBuyId(groupBuyId[i]);
+				noti.setState(state);
+				
+				// 알림 생성: 유저가 알림 페이지에 들어갈 때 DB에서 읽어서 즉시 생성
+				notiDao.createNoti_g(noti);
+				groupBuyDao.updateGroupBuyNoti(groupBuyId[i]);
+			}
+			
+		}
+	}
 }
