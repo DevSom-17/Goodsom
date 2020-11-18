@@ -65,14 +65,15 @@
 	                <h4><a href="<c:url value='/auction/detail.do'><c:param name="auctionId" value="${auction.auctionId}"/>
 								 </c:url>">${auction.title}</a></h4>
 								 
-					<%-- <span class="mx-2">가격</span> 
+					<%-- <span class="mx-2">시작 가격</span> 
 					<a href="#"><fmt:formatNumber value="${auction.price}" pattern="#,###원"/></a> <br/><br/>
 				
 					<span class="mx-2">현재 최고 금액</span> 
 					<a href="#"><fmt:formatNumber value="${auction.maxPrice}" pattern="#,###원"/></a> --%>
 
 					<%-- <p><c:out value="${auction.content}" ></c:out><p> --%>		
-                <p>현재 최고 금액: <fmt:formatNumber value="${auction.maxPrice}" pattern="#,###원"/></p>
+                <p>현재 최고 금액  <fmt:formatNumber value="${auction.maxPrice}" pattern="#,###원"/></p>
+                <p class="portfolio-info-endDate">~<fmt:formatDate value="${auction.endDate}" pattern="yyyy-MM-dd" /></p>
               </div>
             </div>
           </div>
