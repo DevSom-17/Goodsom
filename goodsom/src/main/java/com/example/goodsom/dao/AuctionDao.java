@@ -40,6 +40,10 @@ public interface AuctionDao {
 //	스케줄러
 	void closeEvent(Date curTime);
 	
+	void updateAuctionNoti(int auctionId) throws DataAccessException;
+	
+	int[] getAuctionIdForNoti();
+	
 	public Integer getSuccessBidderUserId(int auctionId);
 	
 	public SuccessBidder getSuccessBidderByAuctionId(int auctionId);

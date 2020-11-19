@@ -92,15 +92,10 @@ public class OrderFormController {
 			return new ModelAndView(orderFormView);
 		}
 		
-		String beforeState = orderForm.getOrder().getGroupBuy().getState();
+		// 참여인원 update
 		int totalQuantity = orderForm.getOrder().getTotalQuantity();
 		orderForm.getOrder().getGroupBuy().orderSet(totalQuantity);
-		
-		GroupBuy groupBuy = orderForm.getOrder().getGroupBuy();
-		if(groupBuy.getState().equals("achieved") && beforeState.equals("proceeding")) {
-			notiService.createNoti_g(groupBuy);
-		}
-		
+	
 		int result = orderService.createOrder(orderForm.getOrder());
 		
 		ModelAndView mav = new ModelAndView(detailView);

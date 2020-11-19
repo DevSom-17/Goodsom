@@ -36,7 +36,11 @@ public interface AuctionMapper { // AuctionMapper.xml에서 구현한 method 이
 	
 	void increaseCount(Auction auction) throws DataAccessException;
 	
-	void closeEvent(Date curTime);
+	void closeEvent(Date curTime) throws DataAccessException;
+	
+	void updateAuctionNoti(int auctionId) throws DataAccessException;
+	
+	int[] getAuctionIdForNoti() throws DataAccessException;
 	
 	Integer getSuccessBidderUserId(int auctionId);
 	

@@ -6,9 +6,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<%@ include file="../IncludeTop.jsp"%>
+<%@ include file="../includeTop.jsp"%>
 
-<%@ include file="../IncludeBanner.jsp" %> 
+<%@ include file="../header.jsp" %> 
 
 		<div class="site-section-cover">
 			<div class="container">

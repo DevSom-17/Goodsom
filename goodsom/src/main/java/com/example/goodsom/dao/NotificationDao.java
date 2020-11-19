@@ -20,7 +20,7 @@ public interface NotificationDao {
 	void createNoti_a(Bid bid) throws DataAccessException; // successBidders table
 	
 	
-	void createNoti_g(GroupBuy groupBuy) throws DataAccessException;
+	void createNoti_g(Notification noti) throws DataAccessException;
 	
 	List<Notification> getGroupBuyNotiByUserId(int userId) throws DataAccessException;
 	
@@ -29,6 +29,8 @@ public interface NotificationDao {
 	void deleteGroupBuyNoti(int notiId) throws DataAccessException;
 	
 	void notiUserUpdate(int groupBuyId) throws DataAccessException;
+	
+	int[] getUserIdByGroupBuyId(int groupBuyId) throws DataAccessException;
 	
 //	List<Bid> getBidByUserId(int userId) throws DataAccessException;
 }

@@ -95,6 +95,14 @@ public class MybatisAuctionDao implements AuctionDao {
 	public void closeEvent(Date curTime) {
 		auctionMapper.closeEvent(curTime);
 	}
+	
+	public void updateAuctionNoti(int auctionId) throws DataAccessException{
+		auctionMapper.updateAuctionNoti(auctionId);
+	}
+	
+	public int[] getAuctionIdForNoti() {
+		return auctionMapper.getAuctionIdForNoti();
+	}
 		
 	@Override
 	public Integer getSuccessBidderUserId(int auctionId) {

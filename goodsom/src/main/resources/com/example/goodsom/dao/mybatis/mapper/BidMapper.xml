@@ -49,10 +49,10 @@
   
   <select id="getSuccessBidByAuctionId" resultType="com.example.goodsom.domain.Bid" parameterType="int">
    <![CDATA[
-    SELECT *
-	FROM (SELECT * FROM BIDS
-		  ORDER BY BIDPRICE DESC)
-	WHERE ROWNUM <=1 AND AUCTIONID = #{auctionId}
+	SELECT *
+	FROM BIDS
+	WHERE AUCTIONID = #{auctionId}
+	ORDER BY BIDPRICE DESC LIMIT 1
 	]]>
   </select> 
   
