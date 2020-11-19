@@ -31,9 +31,10 @@
             </ul>
           </div>
         </div>
-
-
-
+        <div class="form-group" align="left" style="margin-bottom:50px;">
+          <a class="btn btn-primary py-3 px-5" href="<c:url value='/auction/create.do'></c:url>">경매 등록</a>
+        </div>
+	
 
         <div class="row portfolio-container">
 		<c:forEach var="auction" items="${auctionList}" varStatus="status">
