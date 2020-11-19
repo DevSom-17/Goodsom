@@ -4,16 +4,16 @@
 <mapper namespace="com.example.goodsom.dao.mybatis.mapper.NotiMapper">
   <cache />
   <sql id="BaseColumns_Noti_Auction">
-  		NOTIID, TITLE, NOTIDATE, USERID, AUCTIONID, STATE
+  		 TITLE, NOTIDATE, USERID, AUCTIONID, STATE
   </sql>
   <sql id="BaseColumns_Noti_GroupBuy">
-  		NOTIID, TITLE, NOTIDATE, USERID, GROUPBUYID, STATE
+  		TITLE, NOTIDATE, USERID, GROUPBUYID, STATE
   </sql>
 
 <!-- AUCTION/BID -->
   <insert id="createNoti_a" parameterType="com.example.goodsom.domain.Bid">
   	INSERT INTO NOTIFICATIONS_A (<include refid="BaseColumns_Noti_Auction" />)
-	VALUES (NOTIID_A_SEQ.nextval, #{auctionTitle}, now(), #{userId}, #{auctionId}, 'closed')
+	VALUES (#{auctionTitle}, now(), #{userId}, #{auctionId}, 'closed')
 
   	<selectKey keyProperty="notiId" resultType="int" order="AFTER">
   		SELECT LAST_INSERT_ID()
@@ -39,7 +39,7 @@
  <!-- GROUPBUY -->
    <insert id="createNoti_g" parameterType="com.example.goodsom.domain.Notification">
   	INSERT INTO NOTIFICATIONS_G (<include refid="BaseColumns_Noti_GroupBuy" />)
-	VALUES (NOTIID_G_SEQ.nextval, #{title}, now(), #{userId}, #{groupBuyId}, #{state})
+	VALUES (#{title}, now(), #{userId}, #{groupBuyId}, #{state})
 
   	<selectKey keyProperty="notiId" resultType="int" order="AFTER">
   		SELECT LAST_INSERT_ID()

@@ -129,30 +129,45 @@
   </update>
   
   <!-- 스케줄러: 공동구매 마감 -->
-  <update id="closeEvent" parameterType="Date">
+  <update id="closeEvent">
     <![CDATA[
      UPDATE GROUPBUYS SET STATE = 'closed'
-     WHERE DATEDIFF(ENDDATE, #{curTime}) <= 0 AND sendNoti=0
+     WHERE (ENDDATE - now()) <= 0 AND STATE != 'closed'
     ]]>
   </update>
-  <!-- 스케줄러: 공동구매 성사 / 진행중일때만 -->
+  <!-- 스케줄러: 공동구매 성사 / 진행중일때만  -->
   <update id="achieveEvent">
     <![CDATA[
      UPDATE GROUPBUYS SET STATE = 'achieved'
-     WHERE participants >= minNo
+     WHERE participants >= minNo AND STATE = 'proceeding'
     ]]>
   </update>
   
-  <!-- 공동구매가 마감된 이후에 알림을 보내기 위한 쿼리 -->
-  <select id="getGroupBuyIdForNoti" resultType="Integer">
-	  	SELECT *
+  <!-- 성사된 공동구매 알림 -->
+  <select id="getGroupBuyIdForAchieveNoti" resultType="Integer">
+	  	SELECT groupBuyId
     	FROM GROUPBUYS
-	    WHERE STATE = 'closed' AND sendNoti=0
+	    WHERE STATE = 'achieved' AND sendNoti=0
   </select>
-  <!-- 알림을 보낸 후 sendNoti를 1로 업데이트 -->
-  <update id="updateGroupBuyNoti" parameterType="Integer">
+  <!-- 마감된 공동구매 알림 -->
+  <select id="getGroupBuyIdForCloseNoti" resultType="Integer">
+	  	SELECT groupBuyId
+    	FROM GROUPBUYS
+	    WHERE STATE = 'closed' AND sendNoti != 2
+  </select>
+  
+  <!-- 알림을 보낸 후
+  		알림을 보내지 않음: sendNoti=0
+  		성사 알림을 보낸 상태: sendNoti=1
+		마감 알림을 보낸 상태: sendNoti=2-->
+  <update id="updateAchieveNoti" parameterType="Integer">
   	UPDATE GROUPBUYS
   	SET sendNoti=1
+  	WHERE GROUPBUYID=#{groupBuyId}
+  </update>
+  <update id="updateCloseNoti" parameterType="Integer">
+  	UPDATE GROUPBUYS
+  	SET sendNoti=2
   	WHERE GROUPBUYID=#{groupBuyId}
   </update>
   
