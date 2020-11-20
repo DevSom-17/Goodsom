@@ -209,16 +209,17 @@ public class Auction implements Serializable {
         java.util.Date date = calendar.getTime();
         System.out.println(date);
         
-        uploadDate = date;
-        userId = user.getUserId();
-        state = PROCEEDING;
-        count = 0;
-        menuId = MENUID_AUCTION;
-        sendNoti = 0;
+        uploadDate = date;			// 게시물 업로드 일자
+        userId = user.getUserId();	// 게시물 작성자
+        state = PROCEEDING;			// 경매 상태 (PROCEEDING: 진행 중, CLOSED: 마감)
+        count = 0;					// 조회수
+        menuId = MENUID_AUCTION;	// 메뉴 (1: auction, 2: groupbuy, 3: post)
+        receive = 0;				// 수령 여부
+        sendNoti = 0;				// 알림 안 보냄
 	}
 	
 	public void timeSet() {
-		 SimpleDateFormat KSTFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+		SimpleDateFormat KSTFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
         SimpleDateFormat tmpFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat sdfHour = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         
@@ -265,12 +266,10 @@ public class Auction implements Serializable {
 	public String toString() {
 		return "Auction [auctionId=" + auctionId + ", title=" + title + ", report=" + report + ", content=" + content
 				+ ", img=" + img + ", startPrice=" + startPrice + ", uploadDate=" + uploadDate + ", endDate=" + endDate
-				+ ", count=" + count + ", maxPrice=" + maxPrice + ", state=" + state + ", menuId=" + menuId
-				+ ", userId=" + userId + ", isAmPm=" + isAmPm + ", hour=" + hour + ", minute=" + minute + ", bids="
-				+ bids + "]";
+				+ ", count=" + count + ", maxPrice=" + maxPrice + ", state=" + state + ", receive=" + receive
+				+ ", menuId=" + menuId + ", userId=" + userId + ", isAmPm=" + isAmPm + ", hour=" + hour + ", minute="
+				+ minute + ", sendNoti=" + sendNoti + ", bids=" + bids + "]";
 	}
-
-	
 	
 	
 }
