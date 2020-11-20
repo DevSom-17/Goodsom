@@ -33,16 +33,16 @@
         <div class="portfolio-details-container">
 
           <div class="owl-carousel portfolio-details-carousel">
-            <img src="<%=request.getContextPath()%>/assets/img/portfolio-details-1.jpg" class="img-fluid" alt="">
+            <img src="${auction.img}" class="img-fluid" alt="">
             <img src="<%=request.getContextPath()%>/assets/img/portfolio-details-2.jpg" class="img-fluid" alt="">
             <img src="<%=request.getContextPath()%>/assets/img/portfolio-details-3.jpg" class="img-fluid" alt="">
           </div>
 
           <div class="portfolio-info">
-            <h3>Project information</h3>
+            <h3>${auction.title}</h3>
             <ul>
-              <li><strong>Category</strong>: Web design</li>
-              <li><strong>Client</strong>: ASU Company</li>
+              <li><strong>작성자</strong>: ${writer}</li>
+              <li><strong>현재 최고 금액</strong>: ${auction.maxPrice}</li>
               <li><strong>Project date</strong>: 01 March, 2020</li>
               <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
             </ul>
