@@ -156,7 +156,7 @@ function auctionSubmit(isNewAuction) {
 												class="form-control" placeholder="yyyy-MM-dd" />
 										</c:when>
 										<c:otherwise>
-											<fmt:formatDate value='${groupBuyForm.groupBuy.endDate}'
+											<fmt:formatDate value='${auctionForm.auction.endDate}'
 												pattern='yyyy-MM-dd' var="dateFormat" />
 											<form:input type="date" path="auction.endDate"
 												class="form-control" value="${dateFormat}" />
