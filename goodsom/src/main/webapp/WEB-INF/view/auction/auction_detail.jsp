@@ -39,12 +39,14 @@
           </div>
 
           <div class="portfolio-info">
-            <h3>${auction.title}</h3>
+            <h3><fmt:formatDate value="${auction.endDate}" pattern="yyyy-MM-dd HH:mm" />까지</h3>
             <ul>
+              <li><strong>조회수</strong>: ${auction.count}</li>
               <li><strong>작성자</strong>: ${writer}</li>
-              <li><strong>현재 최고 금액</strong>: ${auction.maxPrice}</li>
-              <li><strong>Project date</strong>: 01 March, 2020</li>
-              <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
+              <li><strong>작성일</strong>: <fmt:formatDate value="${auction.uploadDate}" pattern="yyyy-MM-dd" /></li>
+              <li><strong>현재 최고 금액</strong>: <fmt:formatNumber value="${auction.maxPrice}" pattern="#,###원" /></li>
+              <li><strong>최고 금액 입찰자</strong>: <fmt:formatDate value="${date_maxBid}" pattern="yyyy-MM-dd" /> <br/> 
+							${user_maxBid}</li>
             </ul>
           </div>
 
@@ -52,10 +54,10 @@
 
         <div class="portfolio-description">
       		<c:if test="${auction.state eq 'proceeding'}" >
-				<h2>Proceeding</h2>
+				<h2>진행 중</h2>
 			</c:if>
 			<c:if test="${auction.state eq 'closed'}" >
-				<h2>Closed</h2>
+				<h2>마감</h2>
 			</c:if>
           <p>
             <c:out value="${auction.content}" ></c:out>
