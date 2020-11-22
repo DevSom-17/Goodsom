@@ -109,8 +109,12 @@ public class AuctionFormController implements ApplicationContextAware  {
 		if (requestUrl.equals("/auction/update.do")) { // update
 			Auction oldAuction = auctionService.getAuction(auctionForm.getAuction().getAuctionId());
 //			기존 파일 삭제 후 파일 업로드
-			String[] oldFileName = oldAuction.getImg().split("/");
-			if (deleteFile(uploadDir + oldFileName[4])) {
+			String[] oldFileName = oldAuction.getImg().split("/");	// /resources/images/사진이름
+			System.out.println("uploadDir: " + uploadDir);
+			for (int i = 0; i < oldFileName.length; i++) {
+				System.out.println("oldFileName[" + i + "]: " + oldFileName[i]);
+			}
+			if (deleteFile(uploadDir + oldFileName[3])) {
 				System.out.println("파일 삭제 성공! 이제부터 파일 업로드.");
 			}
 //			파일 업로드 기능
