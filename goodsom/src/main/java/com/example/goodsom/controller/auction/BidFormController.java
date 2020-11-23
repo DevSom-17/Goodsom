@@ -32,7 +32,7 @@ import com.example.goodsom.service.AuctionService;
 
 @Controller
 @SessionAttributes("bidForm")
-@RequestMapping("/auction/bid/create.do")
+@RequestMapping("/auction/bidCreate.do")
 public class BidFormController {
 
 	private static final String AUCTION_DETAIL = "auction/auction_detail";

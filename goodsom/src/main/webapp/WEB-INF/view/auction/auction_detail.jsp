@@ -82,6 +82,7 @@ function orderAuction() {
 						<ul>
 							<li><strong>조회수</strong>: ${auction.count}</li>
 							<li><strong>작성자</strong>: ${writer}</li>
+							<li><strong>시작 금액</strong>: ${auction.startPrice}</li>
 							<li><strong>작성일</strong>: <fmt:formatDate
 									value="${auction.uploadDate}" pattern="yyyy-MM-dd" /></li>
 							<li><strong>현재 최고 금액</strong>: <fmt:formatNumber
@@ -128,9 +129,7 @@ function orderAuction() {
 					<c:if test="${auction.state eq 'closed'}">
 						<h2>마감</h2>
 					</c:if>
-					<p>
-						<c:out value="${auction.content}"></c:out>
-					</p>
+					<p style="white-space:pre;"><c:out value="${auction.content}" escapeXml="false"></c:out></p>
 				</div>
 
 			</div>

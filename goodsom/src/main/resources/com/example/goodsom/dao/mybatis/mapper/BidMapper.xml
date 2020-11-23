@@ -25,7 +25,7 @@
 			FROM BIDS
 			WHERE AUCTIONID = #{param1}
 			ORDER BY BIDPRICE DESC )
-	WHERE ROWNUM = '1'
+	LIMIT 1
   </select> 
   
   <select id="getBidByMaxPrice" resultType="com.example.goodsom.domain.Bid">
@@ -36,13 +36,16 @@
   
   <insert id="createBid" parameterType="com.example.goodsom.domain.Bid">
   	INSERT INTO BIDS
-  	  (BIDID, BIDPRICE, BIDDATE, USERID, AUCTIONID)
+  	  (BIDPRICE, BIDDATE, USERID, AUCTIONID)
   	VALUES 
-  	  (BIDID_SEQ.nextval, #{bidPrice}, #{bidDate}, #{userId}, #{auctionId}) 
+  	  (#{bidPrice}, #{bidDate}, #{userId}, #{auctionId}) 
+  	<selectKey keyProperty="bidId" resultType="int" order="BEFORE">
+  		SELECT LAST_INSERT_ID()
+     </selectKey>
   </insert>
   
   <select id="getBidByUserId" resultType="com.example.goodsom.domain.Bid" parameterType="int">
-    SELECT *
+   SELECT *
    FROM BIDS
    WHERE USERID = #{userId}
   </select> 

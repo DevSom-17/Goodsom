@@ -1,10 +1,12 @@
 package com.example.goodsom.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
-public class Bid {
+@SuppressWarnings("serial")
+public class Bid implements Serializable {
 	int bidId;
 	int userId;
 	int auctionId;
