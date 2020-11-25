@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.example.goodsom.controller.mypage.ReportForm;
 import com.example.goodsom.dao.UserDao;
 import com.example.goodsom.domain.Auction;
 import com.example.goodsom.domain.GroupBuy;
@@ -71,6 +72,26 @@ public class UserServiceImpl implements UserService {
 	@Override	
 	public List<Auction> getAuctionList(int userId) { // 마이페이지 경매 등록 목록 보기
 		return userDao.getAuctionList(userId);
+	}
+	
+	public ReportForm getReportList(int userId) {
+		List<String> reportList = userDao.getReportList(userId);
+		
+		ReportForm reportForm = new ReportForm();
+		int abuse = 0;
+		int destroy = 0;
+		
+		for (String val : reportList) {
+			if (val.equals('0')) { // 욕설 및 비방
+				abuse++;
+			} else { // 거래 파기 '1'
+				destroy++;
+			}
+		}
+		reportForm.setAbuse(abuse);
+		reportForm.setDestroy(destroy);
+		
+		return reportForm;
 	}
 	
 	public boolean isUnClosedExist(int userId) {

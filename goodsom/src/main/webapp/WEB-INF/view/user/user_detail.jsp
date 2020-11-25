@@ -6,7 +6,6 @@
 
 <%@ include file="../includeTop.jsp" %> 
 
-
 <script>
 
 	function logoutCheck() {
@@ -48,8 +47,8 @@
 			<div class="container">
 
 				<div class="section-title">
-					<h2>마이페이지</h2>
-					<p>회원 정보 조회 및 수정, 공동구매 및 경매에 등록한 목록이나 결제한 목록, 알림 등을 볼 수 있는 페이지</p>
+					<h2>회원정보</h2>
+					<p>회원 정보 조회 및 수정</p>
 				</div>
 
 				<div class="site-section">
@@ -59,7 +58,6 @@
 								<div class="col-md-12">
 									<div class="car-details">
 										<div class="text text-left">
-											<span class="subheading">회원 정보</span>
 											<h1>
 												<b>${userForm.user.userName}</b>
 											</h1>
@@ -70,26 +68,30 @@
 											<table class="table table-striped">
 												<tbody>
 													<tr>
-														<th scope="row">Email</th>
+														<th scope="row">이메일</th>
 														<td>${userForm.user.email}</td>
 													</tr>
 													<tr>
-														<th scope="row">Nickname</th>
+														<th scope="row">닉네임</th>
 														<td>${userForm.user.nickname}</td>
 													</tr>
 													<tr>
-														<th scope="row">Phone</th>
+														<th scope="row">전화번호</th>
 														<td>${userForm.user.phone}</td>
 													</tr>
 													<tr>
-														<th scope="row">Address</th>
+														<th scope="row">주소</th>
 														<td>${userForm.user.address1}-
 															${userForm.user.address2} - ${userForm.user.address3}</td>
 													</tr>
 													<tr>
-														<th scope="row">Account</th>
+														<th scope="row">계좌번호</th>
 														<td>${userForm.user.refundBank}&nbsp;
 															${userForm.user.refundAccount}</td>
+													</tr>
+													<tr>
+														<th scope="row">경고횟수</th>
+														<td><a href="../mypage/report/detail.do">${userForm.user.warning}</a> / 3</td>
 													</tr>
 												</tbody>
 											</table>
