@@ -90,4 +90,15 @@
   	ORDER BY auctionId DESC
   </select> <!-- user가 등록한 AuctionList를 가져옴 for 마이페이지 경매 등록 목록 보기 -->
   
+  <select id="getReportList" parameterType="int"
+  		resultType="String">
+  	SELECT content
+  	FROM reports_a
+  	WHERE userId = #{userId}
+  	UNION ALL
+  	SELECT content
+  	FROM reports_g
+  	WHERE userId = #{userId}	
+  </select>
+   
 </mapper>

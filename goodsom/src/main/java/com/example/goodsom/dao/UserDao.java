@@ -36,4 +36,5 @@ public interface UserDao {
 	
 	List<Auction> getAuctionList(int userId); // 마이페이지 경매 등록 목록 보기
 	
+	List<String> getReportList(int userId); // 신고 현황 상세 페이지
 }

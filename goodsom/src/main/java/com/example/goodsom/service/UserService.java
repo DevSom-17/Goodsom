@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
+import com.example.goodsom.controller.mypage.ReportForm;
 import com.example.goodsom.domain.Auction;
 import com.example.goodsom.domain.GroupBuy;
 import com.example.goodsom.domain.Order;
@@ -35,6 +36,8 @@ public interface UserService {
 	List<GroupBuy> getGroupBuyList(int userId); // 마이페이지 공동구매 등록 목록 보기
 	
 	List<Auction> getAuctionList(int userId); // 마이페이지 경매 등록 목록 보기
+	
+	ReportForm getReportList(int userId); // 신고 현황 상세 페이지
 	
 	boolean isUnClosedExist(int userId);
 }
