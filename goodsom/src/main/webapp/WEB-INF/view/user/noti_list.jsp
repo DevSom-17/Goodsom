@@ -6,12 +6,12 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<%@ include file="../IncludeTop.jsp" %> 
+<%@ include file="../includeTop.jsp" %> 
 
 <script>
 
 </script>
-<%@ include file="../IncludeBanner.jsp" %> 
+ <%@ include file="../header.jsp" %> 
 
 		<div class="site-section-cover">
 			<div class="container">
@@ -112,5 +112,5 @@
 			</section>
 		</div>
 		
-<%@ include file="../IncludeBottom.jsp" %>
+	<%@ include file="../includeBottom.jsp" %>
 

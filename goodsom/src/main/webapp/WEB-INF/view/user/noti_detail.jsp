@@ -6,7 +6,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<%@ include file="../IncludeTop.jsp" %> 
+<%@ include file="../includeTop.jsp" %> 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script>
@@ -58,7 +58,7 @@ function getGroupBuyInfo(notiId){
 };
 </script>
 
-<%@ include file="../IncludeBanner.jsp" %> 
+ <%@ include file="../header.jsp" %> 
     
     <div class="site-section-cover">
       <div class="container">
@@ -138,4 +138,4 @@ function getGroupBuyInfo(notiId){
 	    					
    </div>
     
-<%@ include file="../IncludeBottom.jsp" %>
+	<%@ include file="../includeBottom.jsp" %>
