@@ -12,6 +12,7 @@
 .springBeans
 .sts4-cache
 application.properties
+mail.properties
 
 ### NetBeans ###
 /nbproject/private/

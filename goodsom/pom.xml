@@ -70,6 +70,14 @@
 		</dependency>
 	-->
 	
+		<!-- 이메일 인증 -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-mail</artifactId>
+		    <version>1.4.3.RELEASE</version>
+		</dependency>
+		
+		
 		<!-- MyBatis -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>

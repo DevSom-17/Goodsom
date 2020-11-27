@@ -7,13 +7,60 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <%@ include file="../includeTop.jsp" %> 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script>
 	
 	function home(targetUri) {
 		form.action = targetUri;
 		form.submit();
 	}
+
+	// submit
+	function emailSubmit(){
+		var emailId = document.getElementById('user.email').value;
+		var reqUrl = "/email/send";
+		
+		$.ajax({
+			type: 'post',
+			url: reqUrl,
+			processData: false,
+			contentType: 'application/json',
+			data: JSON.stringify(emailId),
+			success: function(){	// object parsed from JSON text	
+				var code = prompt("인증번호를 입력하세요.");
+
+				codeCheck(code);
+			},
+			error: function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
+	};
+
+	function codeCheck(code){
+		var reqUrl = "/email/verifyCode";
+
+		$.ajax({
+			type: 'post',
+			url: reqUrl,
+			processData: false,
+			contentType: 'application/json',
+			data: JSON.stringify(code),
+			success: function(codeMatch){	// object parsed from JSON text	
+				if(codeMatch){
+					var checkBtn = document.getElementById('emailVerify');
+					alert(checkBtn);
+					checkBtn.value="이메일 인증 완료";
+					checkBtn.disabled=true;
+				}else{
+					alert("잘못된 인증번호입니다!");
+				}
+			},
+			error: function(request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
+	};
 
 </script>
 <style>
@@ -37,6 +84,10 @@
 						<form:input path="user.email" class="form-control" placeholder="Email ex) 20170000@dongduk.ac.kr" />
 						<form:errors path="user.email" cssClass="error" />
 						<form:errors cssClass="error" />
+					</div>
+					
+					<div class="form-group">
+						<input type="button" id="emailVerify" value="이메일 인증" onClick="emailSubmit()" />
 					</div>
 
 					<div class="form-group">
