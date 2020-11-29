@@ -1,4 +1,4 @@
-package com.example.goodsom.controller.mypage;
+ package com.example.goodsom.controller.mypage;
 
 import java.util.List;
 
@@ -33,16 +33,17 @@ public class ListMypageController {
 	@RequestMapping("/mypage/list.do")
 	public ModelAndView handleRequest(
 			@ModelAttribute("userSession") UserSession userSession,
-			@RequestParam(required = false) Integer menuId) {
+			@RequestParam(required = false) Integer listType) {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("user/mypage_list");
 		int userId = userSession.getUser().getUserId();
-		
-		if (menuId == null) {
-			menuId = 1;
+
+		if (listType == null) {
+			listType = 1;
 		}
-		mav.addObject("menuId", menuId);
+		
+		mav.addObject("listType", listType); // 1 - 등록목록 / 2 - 결제목록 / 3 - 좋아요한 목록
 		
 //		경매 등록 목록
 		mav.addObject("auctionList", userService.getAuctionList(userId));

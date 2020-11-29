@@ -29,11 +29,18 @@
           <li class="drop-down"><a href="<%=request.getContextPath()%>/user/detail.do">${userSession.user.nickname}</a>
           	  <ul>
 	              <li><a href="<%=request.getContextPath()%>/user/detail.do">회원정보</a></li>
-	              <li class="drop-down"><a href="<%=request.getContextPath()%>/index.do">목록보기</a>
+	              <li class="drop-down"><a href="<%=request.getContextPath()%>/mypage/list.do">목록보기</a>
 	              	<ul>
-	                  <li><a href="<%=request.getContextPath()%>/mypage/list.do">등록한 게시글 목록</a></li>
-	                  <li><a href="<%=request.getContextPath()%>/mypage/list.do">결제한 목록</a></li>
-	                  <li><a href="<%=request.getContextPath()%>/mypage/list.do">좋아요한 목록</a></li>
+	                  <li><a href="<c:url value='<%=request.getContextPath() + "/mypage/list.do"%>'>
+	                  					<c:param name="listType" value ="1" />
+	                  			   </c:url>">등록한 게시글 목록</a></li>
+	                  <li><a href="<c:url value='<%=request.getContextPath() + "/mypage/list.do"%>'>
+	                  					<c:param name="listType" value ="2" />
+	                  			   </c:url>">결제 목록</a></li>
+	                  <li><a href="<c:url value='<%=request.getContextPath() + "/mypage/list.do"%>'>
+	                  					<c:param name="listType" value ="3" />
+	                  			   </c:url>">좋아요한 목록</a></li>
+	                  <li><a href="<%=request.getContextPath()%>/noti/list.do">알림 목록</a></li>
 	                </ul>
 	              </li>
 	              <li><a href="javascript:logoutCheck()">로그아웃</a></li>

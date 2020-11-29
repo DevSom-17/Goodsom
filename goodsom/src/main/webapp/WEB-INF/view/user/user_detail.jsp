@@ -47,13 +47,11 @@
 			<div class="container">
 
 				<div class="section-title">
-					<h2>회원정보</h2>
-					<p>회원 정보 조회 및 수정</p>
+					<h2>회원 정보</h2>
 				</div>
 
 				<div class="site-section">
-					<section class="ftco-section ftco-car-details">
-						<div class="container">
+						<div class="container" style="width:80%">
 							<div class="row justify-content-center">
 								<div class="col-md-12">
 									<div class="car-details">
@@ -96,30 +94,20 @@
 												</tbody>
 											</table>
 										</div>
-										<br>
-										<br>
-
-										<div class="container">
+										
+										<div class="container" style="text-align:center">
 											<a class="btn btn-primary py-3 px-5"
-												href="<c:url value='/mypage/list.do'></c:url>">목록 보기</a>
-											&nbsp; <a class="btn btn-primary py-3 px-5"
-												href="<c:url value='/user/update.do'></c:url>">회원 정보 수정</a>
-											&nbsp; <a class="btn btn-primary py-3 px-5"
-												href="<c:url value='/noti/list.do'></c:url>">알림 목록 보기</a>
-											&nbsp; <a class="btn btn-primary py-3 px-5"
-												href="javascript:logoutCheck()">로그아웃</a> &nbsp; <a
-												class="btn btn-primary py-3 px-5"
-												href="javascript:removeCheck()">회원 탈퇴</a>
+												href="<c:url value='/user/update.do'></c:url>">수정하기</a>
+											&nbsp; <a class="btn btn-danger py-3 px-5"
+												href="javascript:removeCheck()">회원탈퇴</a>
 										</div>
-
 									</div>
 								</div>
 							</div>
 						</div>
-					</section>
+					</div>
 				</div>
-			</div>
-		</section>
-	</main>
+			</section>
+		</main>
 
 	<%@ include file="../includeBottom.jsp" %>
