@@ -11,20 +11,21 @@ import  com.example.goodsom.controller.groupBuy.LineGroupBuyForm;
  */
 
 public class Order {
-	int orderId;
-	String cardBank;
-	String cardNo;
-	String validDate;
-	String cvc;
-	String address1;
-	String address2;
-	String address3;
-	String phone;
-	String refundBank;
-	String refundAccount;
-	int totalPrice;
-	Date orderDate;
-	int userId;
+	private int orderId;
+	private String cardBank;
+	private String cardNo;
+	private String validDate;
+	private String cvc;
+	private String address;
+	private String detailAddress;
+	private String extraAddress;
+	private int postcode;
+	private String phone;
+	private String refundBank;
+	private String refundAccount;
+	private int totalPrice;
+	private Date orderDate;
+	private int userId;
 	
 	List<LineGroupBuy> lineGroupBuys;
 	GroupBuy groupBuy;
@@ -156,29 +157,37 @@ public class Order {
 	public void setCvc(String cvc) {
 		this.cvc = cvc;
 	}
-
-	public String getAddress1() {
-		return address1;
+	
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAddress1(String address1) {
-		this.address1 = address1;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
-	public String getAddress2() {
-		return address2;
+	public String getDetailAddress() {
+		return detailAddress;
 	}
 
-	public void setAddress2(String address2) {
-		this.address2 = address2;
+	public void setDetailAddress(String detailAddress) {
+		this.detailAddress = detailAddress;
 	}
 
-	public String getAddress3() {
-		return address3;
+	public String getExtraAddress() {
+		return extraAddress;
 	}
 
-	public void setAddress3(String address3) {
-		this.address3 = address3;
+	public void setExtraAddress(String extraAddress) {
+		this.extraAddress = extraAddress;
+	}
+
+	public int getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(int postcode) {
+		this.postcode = postcode;
 	}
 
 	public String getPhone() {
@@ -217,9 +226,10 @@ public class Order {
 		userId = user.getUserId();
 		
 		// 주소 불러오기
-		address1 = user.getAddress1();
-		address2 = user.getAddress2();
-		address3 = user.getAddress3();
+		address = user.getAddress();
+		detailAddress = user.getDetailAddress();
+		extraAddress = user.getExtraAddress();
+		postcode = user.getPostcode();
 		
 		// 전화번호 불러오기
 		phone = user.getPhone();
@@ -286,12 +296,12 @@ public class Order {
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", cardBank=" + cardBank + ", cardNo=" + cardNo + ", validDate="
-				+ validDate + ", cvc=" + cvc + ", address1=" + address1 + ", address2=" + address2 + ", address3="
-				+ address3 + ", phone=" + phone + ", refundBank=" + refundBank + ", refundAccount=" + refundAccount
-				+ ", userId=" + userId + ", lineGroupBuys=" + lineGroupBuys + ", groupBuy=" + groupBuy
-				+ ", successBidder=" + successBidder + ", auction=" + auction + ", totalPrice=" + totalPrice
-				+ ", orderDate=" + orderDate + ", menuId=" + menuId + ", groupBuyId="
-				+ groupBuyId + ", auctionId=" + auctionId + "]";
+				+ validDate + ", cvc=" + cvc + ", address=" + address + ", detailAddress=" + detailAddress
+				+ ", extraAddress=" + extraAddress + ", postcode=" + postcode + ", phone=" + phone + ", refundBank="
+				+ refundBank + ", refundAccount=" + refundAccount + ", totalPrice=" + totalPrice + ", orderDate="
+				+ orderDate + ", userId=" + userId + ", lineGroupBuys=" + lineGroupBuys + ", groupBuy=" + groupBuy
+				+ ", successBidder=" + successBidder + ", auction=" + auction + ", menuId=" + menuId + ", groupBuyId="
+				+ groupBuyId + ", auctionId=" + auctionId + ", totalQuantity=" + totalQuantity + "]";
 	}
 
 }

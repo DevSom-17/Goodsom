@@ -6,7 +6,7 @@
   <sql id="BaseColumns">
   	orderId,
   	cardBank, cardNo, validDate, cvc,
-  	address1, address2, address3,
+  	address, detailAddress, extraAddress,
   	phone,
   	refundBank, refundAccount,
   	totalPrice, <!-- 총 가격 -->
@@ -20,15 +20,15 @@
   	WHERE orderId = #{orderId}
   </select>
   
-  <resultMap id="resultMap" type="com.example.goodsom.domain.Order">
+  <resultMap id="lineGroupBuyResultMap" type="com.example.goodsom.domain.Order">
 		<id column="orderId" property="orderId" />
 		<result column="cardBank" property="cardBank" />
 		<result column="cardNo" property="cardNo" />
 		<result column="validDate" property="validDate" />
 		<result column="cvc" property="cvc" />
-		<result column="address1" property="address1" />
-		<result column="address2" property="address2" />
-		<result column="address3" property="address3" />
+		<result column="address" property="address" />
+		<result column="detailAddress" property="detailAddress" />
+		<result column="extraAddress" property="extraAddress" />
 		<result column="phone" property="phone" />
 		<result column="refundBank" property="refundBank" />
 		<result column="refundAccount" property="refundAccount" />
@@ -46,9 +46,9 @@
   		</collection>
   </resultMap> 
   
-  <select id="getOrderWithLineGroupBuys" parameterType="int" resultMap="resultMap">
+  <select id="getOrderWithLineGroupBuys" parameterType="int" resultMap="lineGroupBuyResultMap">
   	SELECT o.orderId, o.cardBank, o.cardNo, o.validDate, o.cvc,
-  		   o.address1, o.address2, o.address3, o.phone,
+  		   o.address, o.detailAddress, o.extraAddress, o.phone,
   		   o.refundBank, o.refundAccount, o.totalPrice, o.orderDate, o.userId,
   		   l.lineId, l.orderId AS line_orderId, l.groupBuyId, l.quantity, l.selectOption, l.unitPrice
   	FROM orders o, lineGroupBuys l
@@ -62,7 +62,7 @@
    
   	INSERT INTO orders (<include refid="BaseColumns" />)
   	VALUES (#{orderId}, #{cardBank}, #{cardNo}, #{validDate}, #{cvc},
-  		#{address1}, #{address2}, #{address3}, #{phone},
+  		#{address}, #{detailAddress}, #{extraAddress}, #{phone},
   		#{refundBank}, #{refundAccount}, #{totalPrice}, 
   		SYSDATE, #{userId})
   </insert>

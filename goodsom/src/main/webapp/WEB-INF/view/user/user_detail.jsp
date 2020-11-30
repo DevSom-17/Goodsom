@@ -79,8 +79,7 @@
 													</tr>
 													<tr>
 														<th scope="row">주소</th>
-														<td>${userForm.user.address1}-
-															${userForm.user.address2} - ${userForm.user.address3}</td>
+														<td>(${userForm.user.postcode}) &nbsp; ${userForm.user.address} &nbsp; ${userForm.user.detailAddress} &nbsp; ${userForm.user.extraAddress}</td>
 													</tr>
 													<tr>
 														<th scope="row">계좌번호</th>

@@ -2,26 +2,27 @@ package com.example.goodsom.domain;
 import java.io.Serializable;
 
 /**
- * @author kimdahyee
- * @since  2020.06.12
+ * @author Seonmi-Hwang
+ * @since  2020.06.12 | 2020.11.30 update
  */
 
 @SuppressWarnings("serial")
 public class User implements Serializable {
 	
-	int userId;
-	String email;
-	String passwd;
-	String userName;
-	String nickname;
-	String address1;
-	String address2;
-	String address3;
-	String phone;
-	String refundBank;
-	String refundAccount;
-	int report;
-	int warning;
+	private int userId;
+	private String email;
+	private String passwd;
+	private String userName;
+	private String nickname;
+	private String address;
+	private String detailAddress;
+	private String extraAddress;
+	private int postcode;
+	private String phone;
+	private String refundBank;
+	private String refundAccount;
+	private int report;
+	private int warning;
 	
 	/*
 	public User() {}
@@ -48,11 +49,9 @@ public class User implements Serializable {
 		return userId;
 	}
 
-
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-
 
 	public String getPasswd() {
 		return passwd;
@@ -85,31 +84,39 @@ public class User implements Serializable {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-
-	public String getAddress1() {
-		return address1;
+	
+	public String getAddress() {
+		return address;
 	}
-
-	public void setAddress1(String address1) {
-		this.address1 = address1;
+	
+	public void setAddress(String address) {
+		this.address = address;
 	}
-
-	public String getAddress2() {
-		return address2;
+	
+	public String getDetailAddress() {
+		return detailAddress;
 	}
-
-	public void setAddress2(String address2) {
-		this.address2 = address2;
+	
+	public void setDetailAddress(String detailAddress) {
+		this.detailAddress = detailAddress;
 	}
-
-	public String getAddress3() {
-		return address3;
+	
+	public String getExtraAddress() {
+		return extraAddress;
 	}
-
-	public void setAddress3(String address3) {
-		this.address3 = address3;
+	
+	public void setExtraAddress(String extraAddress) {
+		this.extraAddress = extraAddress;
 	}
-
+	
+	public int getPostcode() {
+		return postcode;
+	}
+	
+	public void setPostcode(int postcode) {
+		this.postcode = postcode;
+	}
+	
 	public String getRefundBank() {
 		return refundBank;
 	}
@@ -142,28 +149,24 @@ public class User implements Serializable {
 		return report;
 	}
 
-
 	public void setReport(int report) {
 		this.report = report;
 	}
-
 
 	public int getWarning() {
 		return warning;
 	}
 
-
 	public void setWarning(int warning) {
 		this.warning = warning;
 	}
 
-
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", email=" + email + ", passwd=" + passwd + ", userName=" + userName
-				+ ", nickname=" + nickname + ", address1=" + address1 + ", address2=" + address2 + ", address3="
-				+ address3 + ", phone=" + phone + ", refundBank=" + refundBank + ", refundAccount=" + refundAccount
-				+ ", report=" + report + ", warning=" + warning + "]";
+				+ ", nickname=" + nickname + ", address=" + address + ", detailAddress=" + detailAddress
+				+ ", extraAddress=" + extraAddress + ", postcode=" + postcode + ", phone=" + phone + ", refundBank="
+				+ refundBank + ", refundAccount=" + refundAccount + ", report=" + report + ", warning=" + warning + "]";
 	}
 
 }
