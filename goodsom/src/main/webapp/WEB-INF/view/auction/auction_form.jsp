@@ -82,16 +82,7 @@ function auctionSubmit(isNewAuction) {
 								<label for="auction.title">제목</label> &nbsp;&nbsp;&nbsp;
 								<form:errors path="auction.title" cssClass="error" />
 								<form:input path="auction.title" class="form-control"
-									placeholder="Title" />
-
-								<%-- <c:choose>
-										<c:when test="${auctionForm.newAuction}">
-											<form:input path="auction.title" class="form-control" placeholder="Title" />
-										</c:when>
-										<c:otherwise>
-											<form:input path="auction.title" class="form-control" value="${auctionForm.auction.title}" />
-										</c:otherwise>
-									</c:choose> --%>
+									placeholder="제목을 입력해주세요." />
 							</div>
 						</div>
 
@@ -100,7 +91,7 @@ function auctionSubmit(isNewAuction) {
 								<label for="auction.report">대표 이미지</label>&nbsp;&nbsp;&nbsp;
 								<form:errors path="auction.report" cssClass="error" />
 								<br />
-								<form:input type="file" path="auction.report" />
+								<form:input type="file" path="auction.report" multiple="multiple"/>
 
 							</div>
 						</div>
@@ -112,7 +103,7 @@ function auctionSubmit(isNewAuction) {
 								<c:choose>
 									<c:when test="${auctionForm.newAuction}">
 										<form:textarea path="auction.content" class="form-control"
-											placeholder="Write description." cols="30" rows="10" />
+											placeholder="상세 설명을 적어주세요." cols="30" rows="10" />
 									</c:when>
 									<c:otherwise>
 										<form:textarea path="auction.content" class="form-control"

@@ -5,8 +5,8 @@ public class Image_g {
 	int fileNo;
 	String url;
 	
-	public Image_g(int groupBuyId, int fileNo, String url) {
-		this.groupBuyId = groupBuyId;
+	public Image_g(int fileNo, String url) {
+		this.groupBuyId = -1;
 		this.fileNo = fileNo;
 		this.url = url;
 	}
