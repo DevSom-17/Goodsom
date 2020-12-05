@@ -24,10 +24,10 @@ public class Auction implements Serializable {
 	int auctionId;
 	@NotEmpty
 	String title;
-	MultipartFile report;
+	List<MultipartFile> report;
 	@NotEmpty
 	String content;
-	String img;
+//	String img;
 	@NotNull @Positive
 	int startPrice;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
@@ -50,7 +50,11 @@ public class Auction implements Serializable {
 	int sendNoti;
 	
 	List<Bid> bids = new ArrayList<Bid>();
+	List<Image_a> imgs_a = new ArrayList<Image_a>();
 	
+	public Auction() {
+	}
+
 	public int getUserId() {
 		return userId;
 	}
@@ -59,14 +63,6 @@ public class Auction implements Serializable {
 			this.userId = userId;
 	}
 	
-	public List<Bid> getBids() {
-		return bids;
-	}
-
-	public void setBids(List<Bid> bids) {
-		this.bids = bids;
-	}
-
 	public int getMenuId() {
 		return menuId;
 	}
@@ -75,8 +71,6 @@ public class Auction implements Serializable {
 		this.menuId = menuId;
 	}
 
-	public Auction() {
-	}
 	
 	public int getAuctionId() {
 		return auctionId;
@@ -94,11 +88,11 @@ public class Auction implements Serializable {
 		this.title = title;
 	}
 
-	public MultipartFile getReport() {
+	public List<MultipartFile> getReport() {
 		return report;
 	}
 
-	public void setReport(MultipartFile report) {
+	public void setReport(List<MultipartFile> report) {
 		this.report = report;
 	}
 
@@ -110,13 +104,13 @@ public class Auction implements Serializable {
 		this.content = content;
 	}
 
-	public String getImg() {
-		return img;
-	}
-
-	public void setImg(String img) {
-		this.img = img;
-	}
+//	public String getImg() {
+//		return img;
+//	}
+//
+//	public void setImg(String img) {
+//		this.img = img;
+//	}
 
 	public int getStartPrice() {
 		return startPrice;
@@ -173,14 +167,6 @@ public class Auction implements Serializable {
 	public void setReceive(int receive) {
 		this.receive = receive;
 	}
-	
-	public int getSendNoti() {
-		return sendNoti;
-	}
-
-	public void setSendNoti(int sendNoti) {
-		this.sendNoti = sendNoti;
-	}
 
 	public String getIsAmPm() {
 		return isAmPm;
@@ -204,6 +190,30 @@ public class Auction implements Serializable {
 		this.minute = minute;
 	}
 	
+	public int getSendNoti() {
+		return sendNoti;
+	}
+	
+	public void setSendNoti(int sendNoti) {
+		this.sendNoti = sendNoti;
+	}
+	
+	public List<Bid> getBids() {
+		return bids;
+	}
+	
+	public void setBids(List<Bid> bids) {
+		this.bids = bids;
+	}
+	
+	public List<Image_a> getImgs_a() {
+		return imgs_a;
+	}
+
+	public void setImgs_a(List<Image_a> imgs_a) {
+		this.imgs_a = imgs_a;
+	}
+
 	public void initAuction(User user) {
 		Calendar calendar = Calendar.getInstance();
         java.util.Date date = calendar.getTime();
@@ -257,18 +267,18 @@ public class Auction implements Serializable {
 		}
 	}
 	
-//	기본 이미지 지정하는 메서드
-	public void initImg(String contextPath) {
-		img = contextPath + "/resources/images/somsom.jpg";
-	}
+////	기본 이미지 지정하는 메서드
+//	public void initImg(String contextPath) {
+//		img = contextPath + "/resources/images/somsom.jpg";
+//	}
 
 	@Override
 	public String toString() {
 		return "Auction [auctionId=" + auctionId + ", title=" + title + ", report=" + report + ", content=" + content
-				+ ", img=" + img + ", startPrice=" + startPrice + ", uploadDate=" + uploadDate + ", endDate=" + endDate
+				+ "startPrice=" + startPrice + ", uploadDate=" + uploadDate + ", endDate=" + endDate
 				+ ", count=" + count + ", maxPrice=" + maxPrice + ", state=" + state + ", receive=" + receive
 				+ ", menuId=" + menuId + ", userId=" + userId + ", isAmPm=" + isAmPm + ", hour=" + hour + ", minute="
-				+ minute + ", sendNoti=" + sendNoti + ", bids=" + bids + "]";
+				+ minute + ", sendNoti=" + sendNoti + ", bids의 크기=" + bids.size() + ", imgs_a의 크기=" + imgs_a.size() + "]";
 	}
 	
 	
