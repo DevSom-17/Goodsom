@@ -66,11 +66,9 @@ function orderAuction() {
 				<div class="portfolio-details-container">
 
 					<div class="owl-carousel portfolio-details-carousel">
-						<img src="${auction.img}" class="img-fluid" alt=""> <img
-							src="<%=request.getContextPath()%>/assets/img/portfolio-details-2.jpg"
-							class="img-fluid" alt=""> <img
-							src="<%=request.getContextPath()%>/assets/img/portfolio-details-3.jpg"
-							class="img-fluid" alt="">
+						<c:forEach items="${auction.imgs_a}" var="img">
+							<img src="${img.url}" class="img-fluid" alt="">
+						</c:forEach>
 					</div>
 
 					<div class="portfolio-info">
