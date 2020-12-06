@@ -8,8 +8,8 @@ public class Image_g implements Serializable {
 	int fileNo;
 	String url;
 	
-	public Image_g(int fileNo, String url) {
-		this.groupBuyId = -1;
+	public Image_g(int groupBuyId, int fileNo, String url) {
+		this.groupBuyId = groupBuyId;
 		this.fileNo = fileNo;
 		this.url = url;
 	}

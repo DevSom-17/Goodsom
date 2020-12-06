@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.example.goodsom.dao.GroupBuyDao;
 import com.example.goodsom.dao.mybatis.mapper.GroupBuyMapper;
 import com.example.goodsom.domain.GroupBuy;
+import com.example.goodsom.domain.Image_a;
+import com.example.goodsom.domain.Image_g;
 
 
 /**
@@ -24,11 +26,17 @@ public class MybatisGroupBuyDao implements GroupBuyDao {
 	private GroupBuyMapper groupBuyMapper;
 	
 	public GroupBuy getGroupBuy(int groupBuyId) throws DataAccessException{
-		return groupBuyMapper.getGroupBuy(groupBuyId);
+		GroupBuy groupBuy = groupBuyMapper.getGroupBuy(groupBuyId);
+		System.out.println(groupBuy.toString());
+		for (Image_g img : groupBuy.getImgs_g()) {
+			System.out.println("Auction의 Img["+img.getFileNo() + "]: " + img.getUrl());
+		}
+		return groupBuy;
 	}
 
-	public void createGroupBuy(GroupBuy groupBuy) throws DataAccessException{
+	public int createGroupBuy(GroupBuy groupBuy) throws DataAccessException{
 		groupBuyMapper.createGroupBuy(groupBuy);
+		return groupBuy.getGroupBuyId();
 	}
 
 	public int updateGroupBuy(GroupBuy groupBuy) throws DataAccessException{

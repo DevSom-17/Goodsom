@@ -4,19 +4,20 @@ import java.util.Date;
 import java.util.List;
 
 import com.example.goodsom.domain.GroupBuy;
+import com.example.goodsom.domain.Image_g;
 
 /**
- * @author Seonmi Hwang | HK
- * @since 2020.05.06	| 2020.06.26
+ * @author Seonmi Hwang | HK			| YeJin Lee
+ * @since 2020.05.06	| 2020.06.26	| 2020.12.06
  */
 
 public interface GroupBuyService {
 	
 	public GroupBuy getGroupBuy(int groupBuyId);
 	
-	public void createGroupBuy(GroupBuy groupBuy);
+	public int createGroupBuy(GroupBuy groupBuy, List<Image_g> groupBuyImgs);
 	
-	public int updateGroupBuy(GroupBuy groupBuy);
+	public int updateGroupBuy(GroupBuy groupBuy, List<Image_g> groupBuyImgs);
 	
 	public void deleteOptions(int groupBuyId);
 	

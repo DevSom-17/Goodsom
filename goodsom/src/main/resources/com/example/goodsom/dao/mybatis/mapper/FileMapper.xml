@@ -45,7 +45,7 @@
   <select id="getGroupBuyImgs" resultType="com.example.goodsom.domain.Image_g">
     SELECT GROUPBUYID, FILENO, URL
     FROM IMAGES_G
-    WHERE GROUPBUYID = #{param1}
+    WHERE GROUPBUYID = #{groupBuyId}
     ORDER BY FILENO
   </select> 
   

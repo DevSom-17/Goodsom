@@ -11,7 +11,7 @@ public interface GroupBuyDao {
 	
 	GroupBuy getGroupBuy(int groupBuyId) throws DataAccessException;
 
-	void createGroupBuy(GroupBuy groupBuy) throws DataAccessException;
+	int createGroupBuy(GroupBuy groupBuy) throws DataAccessException;
 
 	int updateGroupBuy(GroupBuy groupBuy) throws DataAccessException;
 	

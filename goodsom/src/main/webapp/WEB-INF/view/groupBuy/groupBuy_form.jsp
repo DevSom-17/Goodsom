@@ -97,7 +97,7 @@ function input_append(ff){
 			
 			<div class="form-group">
 				<label for="report">대표 이미지</label>&nbsp;&nbsp;&nbsp;<form:errors path="groupBuy.report" cssClass="error"/><br/>
-				<form:input type="file" path="groupBuy.report"/>
+				<form:input type="file" path="groupBuy.report" multiple="multiple"/>
           	</div>
           				
 			<div class="form-group">
