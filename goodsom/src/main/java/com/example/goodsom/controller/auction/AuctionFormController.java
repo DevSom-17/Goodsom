@@ -65,7 +65,7 @@ public class AuctionFormController implements ApplicationContextAware  {
 		if(auctionId == null) { //create: '/auction/form.do' 로 들어옴
 			return new AuctionForm();
 		} else { // update: '/auction/form.do?auctionId=' 로 들어옴
-			Auction auction = auctionService.getAuction(Integer.valueOf(auctionId));
+			Auction auction = auctionService.getAuctionById(Integer.valueOf(auctionId));
 			System.out.println("수정 전 auction 객체: " + auction.toString());
 			return new AuctionForm(auction);
 		}
@@ -110,7 +110,7 @@ public class AuctionFormController implements ApplicationContextAware  {
 		System.out.println("이미지 파일이 저장될 경로인 imagePath: " + imagePath);
 //		경매 update/create 작업
 		if (requestUrl.equals("/auction/update.do")) { // update
-			Auction oldAuction = auctionService.getAuction(auctionForm.getAuction().getAuctionId());
+			Auction oldAuction = auctionService.getAuctionById(auctionForm.getAuction().getAuctionId());
 //			기존 파일 삭제 후 파일 업로드
 			System.out.println("경매 udpate를 위해 삭제할 이미지파일이 있는 uploadDir: " + uploadDir);
 			for (Image_a oldAuctionImg : oldAuction.getImgs_a()) {
@@ -126,17 +126,14 @@ public class AuctionFormController implements ApplicationContextAware  {
 			List<String> savedFileNames = uploadFile(auctionForm.getAuction().getReport());
 			System.out.println(auctionForm.getAuction().toString());
 			auctionForm.getAuction().setState("proceeding");
-			int auctionId = auctionService.updateAuction(auctionForm.getAuction());
-			System.out.println("경매 수정 후 auctionId: " + auctionId);
-			// images_a 테이블에 저장
 			int fileNo = 1;
-			List<Image_a> imgs_a = new ArrayList<Image_a>();
+			List<Image_a> auctionImgs = new ArrayList<Image_a>();
 			for (String savedFileName: savedFileNames){
-				imgs_a.add(new Image_a(auctionId, fileNo++, imagePath + savedFileName));
+				auctionImgs.add(new Image_a(auctionForm.getAuction().getAuctionId(), fileNo++, imagePath + savedFileName));
 			}
+			int auctionId = auctionService.updateAuction(auctionForm.getAuction(), auctionImgs);
 //			auctionForm.getAuction().setImg(request.getContextPath() + "/resources/images/"+ savedFileName);
-			
-			model.addAttribute("auction", auctionService.getAuction(auctionId));
+			model.addAttribute("auction", auctionService.getAuctionById(auctionId));
 		} else { // create
 //			파일 업로드 기능
 			List<String> savedFileNames = uploadFile(auctionForm.getAuction().getReport());

@@ -4,7 +4,7 @@
 <mapper namespace="com.example.goodsom.dao.mybatis.mapper.BidMapper">
   <cache />
   <sql id="BaseColumns_Bid">
-  		NOTIID, TITLE, NOTIDATE, USERID, AUCTIONID, STATE
+  		BIDID, BIDPRICE, BIDDATE, USERID, AUCTIONID
   </sql>
   <select id="getBid" resultType="com.example.goodsom.domain.Bid">
     SELECT BIDID, BIDPRICE, BIDDATE, USERID, AUCTIONID

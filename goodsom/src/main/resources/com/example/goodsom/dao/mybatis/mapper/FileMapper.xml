@@ -20,17 +20,17 @@
   	INSERT INTO IMAGES_G
   	  (GROUPBUYID, FILENO, URL)
   	VALUES 
- 	 	<foreach item="item" collection="list" separator=",">
+ 	 	<foreach item="item" collection="groupBuyImgsList" separator=",">
            (#{item.groupBuyId}, #{item.fileNo}, #{item.url}) 
         </foreach>
   </insert>
   
-  <delete id="deleteAuctionImgs" parameterType="com.example.goodsom.domain.Image_a">
+  <delete id="deleteAuctionImgs" parameterType="java.lang.Integer">
   	DELETE FROM IMAGES_A
     WHERE  AUCTIONID=#{auctionId}	
   </delete>
   
-  <delete id="deleteGroupBuyImgs" parameterType="com.example.goodsom.domain.Image_a">
+  <delete id="deleteGroupBuyImgs" parameterType="java.lang.Integer">
   	DELETE FROM IMAGES_G
     WHERE  GROUPBUYID=#{groupBuyId}	
   </delete>
@@ -38,7 +38,7 @@
   <select id="getAuctionImgs" resultType="com.example.goodsom.domain.Image_a">
     SELECT AUCTIONID, FILENO, URL
     FROM IMAGES_A
-    WHERE AUCTIONID = #{param1}
+    WHERE AUCTIONID = #{auctionId}
     ORDER BY FILENO
   </select> 
  

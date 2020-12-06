@@ -21,12 +21,11 @@ import com.example.goodsom.service.UserService;
 import com.example.goodsom.domain.Bid;
 import com.example.goodsom.domain.SuccessBidder;
 import com.example.goodsom.domain.User;
-//import com.example.goodsom.domain.SuccessBidder;
 import com.example.goodsom.service.BidService;
 
 /**
- * @author Hyekyung Kim	| Yejin Lee   | kimdahyee  | Seonmi Hwang
- * @since 2020.05.08	| 2020.06.14  | 2020.06.25 | 2020.06.29
+ * @author Yejin Lee   
+ * @since  2020.06.14 
  */
 
 
@@ -67,7 +66,7 @@ public class AuctionController {
 		ModelAndView mav = new ModelAndView(AUCTION_DETAIL);
 
 //		auction 정보 가져오기
-		Auction auction = auctionService.getAuction(auctionId); 
+		Auction auction = auctionService.getAuctionById(auctionId); 
 		
 // 		낙찰자 정보 가져오기 (낙찰자의 userId) -> 낙찰자에게만 '결제하기'버튼이 보이게 하기 위해
 		mav.addObject("successBidderUserId", auctionService.getSuccessBidderUserId(auctionId));

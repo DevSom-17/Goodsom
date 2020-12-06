@@ -1,6 +1,9 @@
 package com.example.goodsom.domain;
 
-public class Image_a {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Image_a implements Serializable {
 	int auctionId;
 	int fileNo;
 	String url;

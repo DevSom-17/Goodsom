@@ -11,6 +11,7 @@ import com.example.goodsom.dao.AuctionDao;
 import com.example.goodsom.dao.mybatis.mapper.AuctionMapper;
 import com.example.goodsom.dao.mybatis.mapper.SuccessBidderMapper;
 import com.example.goodsom.domain.Auction;
+import com.example.goodsom.domain.Image_a;
 import com.example.goodsom.domain.SuccessBidder;
 
 /**
@@ -29,10 +30,16 @@ public class MybatisAuctionDao implements AuctionDao {
 	protected SuccessBidderMapper successBidderMapper;
 	
 	@Override
-	public Auction getAuction(int auctionId) throws DataAccessException {
-		Auction auction = auctionMapper.getAuctionWithBids(auctionId);
-		if (auction == null) {
-			auction = auctionMapper.getAuction(auctionId);			
+	public Auction getAuctionById(int auctionId) throws DataAccessException {
+//		왜 getAuctionWithBids()가 필요한가?
+//		Auction auction = auctionMapper.getAuctionWithBids(auctionId);
+//		if (auction == null) {
+//			auction = auctionMapper.getAuction(auctionId);			
+//		}
+		Auction auction = auctionMapper.getAuctionById(auctionId);
+		System.out.println(auction.toString());
+		for (Image_a img : auction.getImgs_a()) {
+			System.out.println("Auction의 Img["+img.getFileNo() + "]: " + img.getUrl());
 		}
 		return auction;
 	}
@@ -46,7 +53,6 @@ public class MybatisAuctionDao implements AuctionDao {
 	@Override
 	public int updateAuction(Auction auction) throws DataAccessException {
 		auctionMapper.updateAuction(auction);
-		System.out.println(auction.getAuctionId());
 		return auction.getAuctionId();
 	}
 	
@@ -73,7 +79,7 @@ public class MybatisAuctionDao implements AuctionDao {
 
 	@Override
 	public boolean isAuctionClosed(int auctionId, Date currentTime) throws DataAccessException {
-		Auction auction = auctionMapper.getAuction(auctionId);
+		Auction auction = auctionMapper.getAuctionById(auctionId);
 		if (auction.getEndDate().compareTo(currentTime) == 0) {
 			auction.setState(closed);
 			updateAuction(auction);

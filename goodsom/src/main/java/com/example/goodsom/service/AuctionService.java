@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.example.goodsom.domain.Auction;
+import com.example.goodsom.domain.Image_a;
 import com.example.goodsom.domain.SuccessBidder;
 
 
@@ -14,11 +15,11 @@ import com.example.goodsom.domain.SuccessBidder;
 
 public interface AuctionService {
 	
-	Auction getAuction(int auctionId);
+	Auction getAuctionById(int auctionId);
 	
-	int createAuction(Auction auction);
+	int createAuction(Auction auction, List<Image_a> auctionImgs);
 	
-	int updateAuction(Auction auction);
+	int updateAuction(Auction auction, List<Image_a> auctionImgs);
 	
 	int updateAuctionMaxPrice(int maxPrice, int auctionId);
 	
