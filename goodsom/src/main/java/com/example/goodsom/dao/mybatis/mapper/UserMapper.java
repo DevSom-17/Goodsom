@@ -32,7 +32,7 @@ public interface UserMapper {
 	
 	List<GroupBuy> getGroupBuyList(int userId); // 마이페이지 공동구매 등록 목록 보기
 	
-	List<Auction> getAuctionList(int userId); // 마이페이지 경매 등록 목록 보기
+//	List<Auction> getAuctionList(int userId); // 마이페이지 경매 등록 목록 보기  -> AuctionMapper.xml의 getAuctionListByUserId(int userId)가 대신 함!
 	
 	List<String> getReportList(int userId); // 신고 현황 상세 페이지
 }

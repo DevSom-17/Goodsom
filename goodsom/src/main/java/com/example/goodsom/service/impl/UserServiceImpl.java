@@ -7,6 +7,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.example.goodsom.controller.mypage.ReportForm;
+import com.example.goodsom.dao.AuctionDao;
 import com.example.goodsom.dao.UserDao;
 import com.example.goodsom.domain.Auction;
 import com.example.goodsom.domain.GroupBuy;
@@ -24,6 +25,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private AuctionDao auctionDao;
 	
 	public User getUser(String email, String password) {
 		return userDao.getUser(email, password);
@@ -69,10 +73,10 @@ public class UserServiceImpl implements UserService {
 		return userDao.getGroupBuyList(userId);
 	}
 	
-	@Override	
-	public List<Auction> getAuctionList(int userId) { // 마이페이지 경매 등록 목록 보기
-		return userDao.getAuctionList(userId);
-	}
+//	@Override	
+//	public List<Auction> getAuctionList(int userId) { // 마이페이지 경매 등록 목록 보기
+//		return userDao.getAuctionList(userId);
+//	}
 	
 	public ReportForm getReportList(int userId) {
 		List<String> reportList = userDao.getReportList(userId);
@@ -96,7 +100,7 @@ public class UserServiceImpl implements UserService {
 	
 	public boolean isUnClosedExist(int userId) {
 		List<GroupBuy> groupBuys = userDao.getGroupBuyList(userId);
-		List<Auction> auctions = userDao.getAuctionList(userId);
+		List<Auction> auctions = auctionDao.getAuctionListByUserId(userId);
 		
 		if (groupBuys != null && auctions != null) {
 			for (GroupBuy groupBuy : groupBuys) {
