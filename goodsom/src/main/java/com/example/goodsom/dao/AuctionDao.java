@@ -28,6 +28,9 @@ public interface AuctionDao {
 	
 	List<Auction> getAuctionList() throws DataAccessException;
 	
+//	작성한 경매 목록 보기
+	List<Auction> getAuctionListByUserId(int userId) throws DataAccessException;
+	
 	List<Auction> getAuctionListByKeyword(String keyword) throws DataAccessException;
 	
 	boolean isAuctionClosed(int auctionId, Date currentTime) throws DataAccessException;

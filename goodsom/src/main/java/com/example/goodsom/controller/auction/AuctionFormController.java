@@ -20,10 +20,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.goodsom.controller.user.UserSession;
 import com.example.goodsom.domain.Auction;
@@ -43,6 +45,7 @@ public class AuctionFormController implements ApplicationContextAware  {
 //	request handler가 보내줄 view이름 지정
 	private static final String AUCTION_FORM = "auction/auction_form";
 	private static final String AUCTION_DETAIL = "auction/auction_detail";
+	private static final String AUCTION_LIST = "auction/auction_list";
 //	파일 업로드 위한 변수
 	private WebApplicationContext context;	
 	private String uploadDir;
@@ -87,7 +90,7 @@ public class AuctionFormController implements ApplicationContextAware  {
 		String requestUrl = reqPage.trim();
 
 //		대표 이미지 선택 안 했을 시
-		if (auctionForm.getAuction().getReport().size() == 0) {
+		if (auctionForm.getAuction().getReport().get(0).isEmpty()) {
 			result.rejectValue("auction.report", "notSelected");
 		}
 //		AuctionForm객체 validation
@@ -189,6 +192,25 @@ public class AuctionFormController implements ApplicationContextAware  {
 		}
 		return savedNames;
 			
+	}
+	
+	@RequestMapping(value="/auction/delete.do")
+	public ModelAndView auctionDelete(HttpServletRequest request,
+			@RequestParam("auctionId") int auctionId){
+//		서버에서 경매 이미지들 삭제
+		List<Image_a> auctionImgs = auctionService.getAuctionById(auctionId).getImgs_a();
+		for (Image_a auctionImg : auctionImgs) {
+			String[] fileName = auctionImg.getUrl().split("/");	// /resources/images/사진이름
+			if (deleteFile(uploadDir + fileName[3])) {
+				System.out.println("파일 삭제 성공! 이제부터 파일 업로드.");
+			}
+		}
+//		DB에서 경매 삭제 (테이블: Auctions, Images_a)
+		List<Auction> auctionList = auctionService.deleteAuction(auctionId);
+		
+		ModelAndView mav = new ModelAndView(AUCTION_LIST);
+		mav.addObject("auctionList", auctionList);
+		return mav;
 	}
 	
 //	파일명 삭제 메서드

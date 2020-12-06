@@ -52,6 +52,11 @@ public class AuctionServiceImpl implements AuctionService {
 	public List<Auction> getAuctionList() {
 		return auctionDao.getAuctionList();
 	}
+	
+	@Override
+	public List<Auction> getAuctionListByUserId(int userId) {
+		return auctionDao.getAuctionListByUserId(userId);
+	}
 
 	@Transactional
 	public int createAuction(Auction auction, List<Image_a> auctionImgs) {

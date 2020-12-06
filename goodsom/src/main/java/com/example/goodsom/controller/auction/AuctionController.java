@@ -109,14 +109,4 @@ public class AuctionController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/auction/delete.do")
-	public ModelAndView auctionDelete(HttpServletRequest request,
-			@RequestParam("auctionId") int auctionId){
-		
-		ModelAndView mav = new ModelAndView(AUCTION_LIST);
-		List<Auction> auctionList = auctionService.deleteAuction(auctionId);
-		mav.addObject("auctionList", auctionList);
-		
-		return mav;
-	}
 }

@@ -45,6 +45,14 @@
     ORDER BY uploadDate DESC
   </select>
   
+  <!-- Get all auctions by userId(작성한 경매 게시글 목록 보기)-->
+  <select id="getAuctionListByUserId" parameterType="java.lang.Integer" resultMap="resultMap_auction">
+    SELECT auctionId, title, content, startPrice, uploadDate, endDate, count, maxPrice, state, 
+    		receive, menuId, userId, sendNoti
+    FROM AUCTIONS
+    WHERE userId = #{userId}
+    ORDER BY auctionId DESC
+  </select>
 <!--   <select id="getAuctionWithBids" parameterType="java.lang.Integer" resultMap="resultMap"> bid있는 Auction객체, 경매 결제에서 이용
     SELECT a.auctionId, a.title, a.content, a.startPrice, a.uploadDate, a.endDate, a.count,
     		a.maxPrice, a.state, a.receive, a.menuId, a.userId AS writerId, b.bidId, b.bidPrice
