@@ -15,7 +15,7 @@ import com.example.goodsom.domain.SuccessBidder;
 
 public interface AuctionDao {
 	
-	Auction getAuctionById(int auctionId) throws DataAccessException;
+	Auction getAuction(int auctionId) throws DataAccessException;
 	
 //	Return auctionID
 	int createAuction(Auction auction) throws DataAccessException;

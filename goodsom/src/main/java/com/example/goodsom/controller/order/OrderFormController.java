@@ -121,7 +121,7 @@ public class OrderFormController {
 		UserSession userSession = (UserSession) request.getSession().getAttribute("userSession");
 		User user = userSession.getUser();
 
-		orderForm.getOrder().initOrder(user, null, auctionService.getAuctionById(auctionId));
+		orderForm.getOrder().initOrder(user, null, auctionService.getAuction(auctionId));
 		return mav;
 	}
 	

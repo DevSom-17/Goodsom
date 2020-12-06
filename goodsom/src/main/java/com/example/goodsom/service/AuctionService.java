@@ -15,7 +15,7 @@ import com.example.goodsom.domain.SuccessBidder;
 
 public interface AuctionService {
 	
-	Auction getAuctionById(int auctionId);
+	Auction getAuction(int auctionId);
 	
 	int createAuction(Auction auction, List<Image_a> auctionImgs);
 	

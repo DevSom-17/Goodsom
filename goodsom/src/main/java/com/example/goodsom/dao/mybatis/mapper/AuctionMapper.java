@@ -14,7 +14,7 @@ import com.example.goodsom.domain.Auction;
 
 public interface AuctionMapper { // AuctionMapper.xml에서 구현한 method 이름과 일치해야함!
 	
-	Auction getAuctionById(int auctionId) throws DataAccessException;
+	Auction getAuction(int auctionId) throws DataAccessException;
 	
 	Auction getAuctionWithBids(int auctionId) throws DataAccessException;
 	

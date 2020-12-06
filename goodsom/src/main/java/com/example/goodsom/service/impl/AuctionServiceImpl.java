@@ -43,8 +43,8 @@ public class AuctionServiceImpl implements AuctionService {
 	@Autowired
 	private FileDao fileDao;
 	
-	public Auction getAuctionById(int auctionId) throws DataAccessException {
-		Auction auction = auctionDao.getAuctionById(auctionId);
+	public Auction getAuction(int auctionId) throws DataAccessException {
+		Auction auction = auctionDao.getAuction(auctionId);
 //		auction.setImgs_a(fileDao.getAuctionImgs(auctionId));
 		return auction;
 	}
@@ -116,11 +116,11 @@ public class AuctionServiceImpl implements AuctionService {
 		
 		for(int i = 0; i < auctionId.length; i++) {
 			
-			if(auctionDao.getAuctionById(auctionId[i]).getState().equals(CLOSED)) {
+			if(auctionDao.getAuction(auctionId[i]).getState().equals(CLOSED)) {
 				Bid bid = bidDao.getSuccessBidByAuctionId(auctionId[i]);
 				
 				if(bid != null) {
-					bid.setAuctionTitle(auctionDao.getAuctionById(auctionId[i]).getTitle());
+					bid.setAuctionTitle(auctionDao.getAuction(auctionId[i]).getTitle());
 					notiDao.createNoti_a(bid);
 					auctionDao.updateAuctionNoti(auctionId[i]);
 				}

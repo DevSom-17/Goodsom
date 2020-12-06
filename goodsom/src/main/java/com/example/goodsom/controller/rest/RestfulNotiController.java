@@ -41,7 +41,7 @@ public class RestfulNotiController {
 		System.out.println("/rest/auction/{notiId} request accepted: {notiId} = " + notiId);
 		
 		int auctionId = notiService.getAuctionNoti(notiId).getAuctionId();
-		Auction auction = auctionService.getAuctionById(auctionId);
+		Auction auction = auctionService.getAuction(auctionId);
 		if (auction == null) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return null;

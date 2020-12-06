@@ -30,7 +30,7 @@
   		<result property="userId" column="bidderId"/>
   	</collection> -->
   
-  <select id="getAuctionById" parameterType="java.lang.Integer" resultMap="resultMap_auction"> 
+  <select id="getAuction" parameterType="java.lang.Integer" resultMap="resultMap_auction"> 
     SELECT auctionId, title, content, startPrice, uploadDate, endDate, count, maxPrice, state, 
     		receive, menuId, userId, sendNoti
     FROM AUCTIONS

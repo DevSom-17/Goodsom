@@ -67,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
 	
 	public Auction getAuction(int orderId) {
 		int auctionId = orderDao.getAuctionId(orderId);
-		return auctionDao.getAuctionById(auctionId);
+		return auctionDao.getAuction(auctionId);
 	}
 	
 	
@@ -81,7 +81,7 @@ public class OrderServiceImpl implements OrderService {
 		
 		for (Order order : auctionOrderList) {
 			int auctionId = order.getAuctionId();
-			order.setAuction(auctionDao.getAuctionById(auctionId));
+			order.setAuction(auctionDao.getAuction(auctionId));
 			order.setMenuId(1);
 		}
 		return auctionOrderList;
