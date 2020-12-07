@@ -61,6 +61,10 @@ public class MybatisGroupBuyDao implements GroupBuyDao {
 		return groupBuyMapper.getGroupBuyList();
 	}
 	
+	public List<GroupBuy> getGroupBuyListByUserId(int userId) throws DataAccessException {
+		return groupBuyMapper.getGroupBuyListByUserId(userId);
+	}
+
 	public void increaseCount(GroupBuy groupBuy) throws DataAccessException{
 		groupBuyMapper.increaseCount(groupBuy);
 	}
@@ -100,5 +104,6 @@ public class MybatisGroupBuyDao implements GroupBuyDao {
 	public List<GroupBuy> groupBuyListByKeyword(String keyword) {
 		return groupBuyMapper.groupBuyListByKeyword(keyword);
 	}
+
 	
 }

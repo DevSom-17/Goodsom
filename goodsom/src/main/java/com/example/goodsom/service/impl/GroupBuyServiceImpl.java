@@ -98,6 +98,10 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 		return groupBuyDao.getGroupBuyList();
 	}
 
+	public List<GroupBuy> getGroupBuyListByUserId(int userId) {
+		return groupBuyDao.getGroupBuyListByUserId(userId);
+	}
+
 	public void increaseCount(GroupBuy groupBuy) {
 		groupBuyDao.increaseCount(groupBuy);
 	}
@@ -162,4 +166,5 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 			groupBuyDao.updateCloseNoti(closeId[i]);
 		}
 	}
+
 }

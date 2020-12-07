@@ -33,7 +33,7 @@ public interface UserService {
 	
 	List<Order> getGroupBuyOrderList(int userId);
 	
-	List<GroupBuy> getGroupBuyList(int userId); // 마이페이지 공동구매 등록 목록 보기
+//	List<GroupBuy> getGroupBuyList(int userId); // 마이페이지 공동구매 등록 목록 보기
 	
 //	List<Auction> getAuctionList(int userId); // 마이페이지 경매 등록 목록 보기
 	

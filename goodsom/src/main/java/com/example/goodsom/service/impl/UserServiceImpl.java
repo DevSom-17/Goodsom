@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.goodsom.controller.mypage.ReportForm;
 import com.example.goodsom.dao.AuctionDao;
+import com.example.goodsom.dao.GroupBuyDao;
 import com.example.goodsom.dao.UserDao;
 import com.example.goodsom.domain.Auction;
 import com.example.goodsom.domain.GroupBuy;
@@ -25,6 +26,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private GroupBuyDao groupBuyDao;
 	
 	@Autowired
 	private AuctionDao auctionDao;
@@ -68,10 +72,10 @@ public class UserServiceImpl implements UserService {
 		return userDao.getGroupBuyOrderList(userId);
 	}
 	
-	@Override	
-	public List<GroupBuy> getGroupBuyList(int userId) { // 마이페이지 공동구매 등록 목록 보기
-		return userDao.getGroupBuyList(userId);
-	}
+//	@Override	
+//	public List<GroupBuy> getGroupBuyList(int userId) { // 마이페이지 공동구매 등록 목록 보기
+//		return userDao.getGroupBuyList(userId);
+//	}
 	
 //	@Override	
 //	public List<Auction> getAuctionList(int userId) { // 마이페이지 경매 등록 목록 보기
@@ -99,7 +103,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	public boolean isUnClosedExist(int userId) {
-		List<GroupBuy> groupBuys = userDao.getGroupBuyList(userId);
+		List<GroupBuy> groupBuys = groupBuyDao.getGroupBuyListByUserId(userId);
 		List<Auction> auctions = auctionDao.getAuctionListByUserId(userId);
 		
 		if (groupBuys != null && auctions != null) {

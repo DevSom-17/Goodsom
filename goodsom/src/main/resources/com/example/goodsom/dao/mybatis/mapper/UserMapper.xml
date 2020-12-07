@@ -76,13 +76,13 @@
 		ORDER BY orderId DESC
 	</select>
 
-  <select id="getGroupBuyList" parameterType="int"
+<!--   <select id="getGroupBuyList" parameterType="int"
   		resultType="com.example.goodsom.domain.GroupBuy">
   	SELECT groupBuyId, title, content, img, minNo, uploadDate, endDate, count, state, rate, participants, menuId, catId, userId, price
   	FROM groupBuys
   	WHERE userId = #{userId}
   	ORDER BY groupBuyId DESC
-  </select> <!-- user가 등록한 GroupBuyList를 가져옴 for 마이페이지 공동구매 등록 목록 보기 -->
+  </select>  --><!-- user가 등록한 GroupBuyList를 가져옴 for 마이페이지 공동구매 등록 목록 보기 -->
   
 <!--     <select id="getAuctionList" parameterType="int"
   		resultType="com.example.goodsom.domain.Auction">

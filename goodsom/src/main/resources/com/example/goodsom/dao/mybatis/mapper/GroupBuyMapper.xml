@@ -110,6 +110,14 @@
     ORDER BY UPLOADDATE DESC
   </select>
   
+  <!-- Get all groupBuys by userId (작성한 공구 게시글 목록 보기) -->
+    <select id="getGroupBuyListByUserId" parameterType="java.lang.Integer" resultMap="collectionResultMap">
+    SELECT <include refid="BaseColumns_GroupBuys" />
+    FROM GROUPBUYS
+    WHERE userId = #{userId}
+    ORDER BY groupBuyId DESC
+  </select>
+  
    <!-- Search groupBuy by Keyword -->
   <select id="groupBuyListByKeyword" resultType="com.example.goodsom.domain.GroupBuy">
   	<bind name="pattern" value="'%' + _parameter + '%'" />

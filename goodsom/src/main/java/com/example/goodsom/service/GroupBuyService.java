@@ -29,6 +29,8 @@ public interface GroupBuyService {
 	
 	public List<GroupBuy> getGroupBuyList();
 	
+	public List<GroupBuy> getGroupBuyListByUserId(int userId);
+	
 	public void increaseCount(GroupBuy groupBuy);
 	
 	public void deadLineScheduler();
