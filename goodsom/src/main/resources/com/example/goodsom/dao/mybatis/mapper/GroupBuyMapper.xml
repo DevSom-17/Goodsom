@@ -4,16 +4,16 @@
 <mapper namespace="com.example.goodsom.dao.mybatis.mapper.GroupBuyMapper">
   <cache />
   <sql id="BaseColumns_GroupBuys">
-  		GROUPBUYID, TITLE, CONTENT, IMG, MINNO, UPLOADDATE, ENDDATE, 
+  		GROUPBUYID, TITLE, CONTENT, MINNO, UPLOADDATE, ENDDATE, 
   		COUNT, STATE, RATE, PARTICIPANTS, RECEIVE, MENUID, CATID, USERID, PRICE, SENDNOTI
   </sql>
 
   
   <insert id="createGroupBuy" parameterType="com.example.goodsom.domain.GroupBuy">
   	
-  	INSERT INTO GROUPBUYS (TITLE, CONTENT, IMG, MINNO, UPLOADDATE, ENDDATE, COUNT,
+  	INSERT INTO GROUPBUYS (TITLE, CONTENT, MINNO, UPLOADDATE, ENDDATE, COUNT,
   			 STATE, RATE, PARTICIPANTS, RECEIVE, MENUID, CATID, USERID, PRICE, SENDNOTI)
-	VALUES (#{title}, #{content}, #{img}, #{minNo}, #{uploadDate}, #{endDate}, 
+	VALUES (#{title}, #{content}, #{minNo}, #{uploadDate}, #{endDate}, 
 			#{count}, #{state}, #{rate}, #{participants}, #{receive}, #{menuId}, 
 			#{catId}, #{userId}, #{price}, #{sendNoti})
 		
@@ -26,7 +26,7 @@
   
   <update id="updateGroupBuy" parameterType="com.example.goodsom.domain.GroupBuy" >
    	UPDATE GROUPBUYS
-    SET TITLE=#{title}, IMG=#{img}, PRICE=#{price}, CONTENT=#{content}, CATID=#{catId},
+    SET TITLE=#{title}, PRICE=#{price}, CONTENT=#{content}, CATID=#{catId},
     	MINNO=#{minNo}, ENDDATE=#{endDate}
   	WHERE  GROUPBUYID=#{groupBuyId}
 	
@@ -65,7 +65,6 @@
   	<id column="groupBuyId" jdbcType="INTEGER" property="groupBuyId"/>
   	<result column="title" jdbcType="VARCHAR" property="title"/>
   	<result column="content" jdbcType="VARCHAR" property="content"/>
-  	<result column="img" jdbcType="VARCHAR" property="img"/>
   	<result column="minNo" jdbcType="INTEGER" property="minNo"/>
   	<result column="uploadDate" jdbcType="TIMESTAMP" property="uploadDate"/>
   	<result column="endDate" jdbcType="TIMESTAMP" property="endDate"/>
@@ -84,9 +83,12 @@
   		<result property="groupBuyId" column="groupBuyId"/>
   		<result property="name" column="name"/>
   	</collection>
+  	<collection property="imgs_g" javaType="java.util.ArrayList" ofType="com.example.goodsom.domain.Image_g"
+  			column="groupBuyId=groupBuyId" select="com.example.goodsom.dao.mybatis.mapper.FileMapper.getGroupBuyImgs">
+  	</collection>
   </resultMap> 
   <select id="getGroupBuy" parameterType="java.lang.Integer" resultMap="collectionResultMap">
-    SELECT g.GROUPBUYID, g.TITLE, g.CONTENT, g.IMG, g.MINNO, g.UPLOADDATE, g.ENDDATE, 
+    SELECT g.GROUPBUYID, g.TITLE, g.CONTENT, g.MINNO, g.UPLOADDATE, g.ENDDATE, 
   			g.COUNT, g.STATE, g.RATE, g.PARTICIPANTS, g.MENUID, g.CATID, g.USERID, g.PRICE, g.sendNoti,
     		op.OPTIONID, op.GROUPBUYID, op.NAME
     FROM GROUPBUYS AS g
@@ -102,10 +104,18 @@
   </select>
  -->
  
-  <select id="getGroupBuyList" resultType="com.example.goodsom.domain.GroupBuy">
+  <select id="getGroupBuyList" resultMap="collectionResultMap">
     SELECT <include refid="BaseColumns_GroupBuys" />
     FROM GROUPBUYS
     ORDER BY UPLOADDATE DESC
+  </select>
+  
+  <!-- Get all groupBuys by userId (작성한 공구 게시글 목록 보기) -->
+    <select id="getGroupBuyListByUserId" parameterType="java.lang.Integer" resultMap="collectionResultMap">
+    SELECT <include refid="BaseColumns_GroupBuys" />
+    FROM GROUPBUYS
+    WHERE userId = #{userId}
+    ORDER BY groupBuyId DESC
   </select>
   
    <!-- Search groupBuy by Keyword -->

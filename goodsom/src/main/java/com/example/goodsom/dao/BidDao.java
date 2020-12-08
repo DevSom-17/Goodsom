@@ -20,7 +20,7 @@ public interface BidDao {
 	
 	String getMaxPrice(int auctionId);
 	
-	Bid getBidByMaxPrice(int bidPrice, int auctionId);
+	Bid getBidByMaxPrice(int bidMaxPrice, int auctionId);
 	
 	void createBid(Bid bid) throws DataAccessException;	
 	

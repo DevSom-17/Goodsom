@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.goodsom.controller.user.UserSession;
 import com.example.goodsom.domain.Order;
+import com.example.goodsom.service.AuctionService;
+import com.example.goodsom.service.GroupBuyService;
 import com.example.goodsom.service.OrderService;
 import com.example.goodsom.service.UserService;
 
@@ -29,6 +31,10 @@ public class ListMypageController {
 	UserService userService;
 	@Autowired
 	OrderService orderService;
+	@Autowired
+	AuctionService auctionService;
+	@Autowired
+	GroupBuyService groupBuyService;
 	
 	@RequestMapping("/mypage/list.do")
 	public ModelAndView handleRequest(
@@ -46,9 +52,9 @@ public class ListMypageController {
 		mav.addObject("listType", listType); // 1 - 등록목록 / 2 - 결제목록 / 3 - 좋아요한 목록
 		
 //		경매 등록 목록
-		mav.addObject("auctionList", userService.getAuctionList(userId));
+		mav.addObject("auctionList", auctionService.getAuctionListByUserId(userId));
 //		공동구매 등록 목록
-		mav.addObject("groupBuyList", userService.getGroupBuyList(userId));
+		mav.addObject("groupBuyList",groupBuyService.getGroupBuyListByUserId(userId));
 		
 		List<Order> auctionOrderList =  userService.getAuctionOrderList(userId);
 		List<Order> groupBuyOrderList =  userService.getGroupBuyOrderList(userId);

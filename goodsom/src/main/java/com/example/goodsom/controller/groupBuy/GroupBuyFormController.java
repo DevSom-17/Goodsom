@@ -29,6 +29,8 @@ import com.example.goodsom.controller.groupBuy.Hour;
 import com.example.goodsom.controller.groupBuy.Minute;
 import com.example.goodsom.controller.user.UserSession;
 import com.example.goodsom.domain.GroupBuy;
+import com.example.goodsom.domain.Image_a;
+import com.example.goodsom.domain.Image_g;
 import com.example.goodsom.service.GroupBuyService;
 
 @Controller
@@ -86,9 +88,8 @@ public class GroupBuyFormController implements ApplicationContextAware {
 		groupBuyForm.getGroupBuy().initGroupBuy(user.getUser());
 		
 //		대표 이미지 선택 안 했을 시
-		System.out.println("groupBuy.getReport: " + groupBuyForm.getGroupBuy().getReport().getSize());
-		if (groupBuyForm.getGroupBuy().getReport().getSize() == 0) {
-			result.rejectValue("groupBuy.report", "notSelected");
+		if (groupBuyForm.getGroupBuy().getReport().get(0).isEmpty()) {
+			result.rejectValue("auction.report", "notSelected");
 		}
 		
 		if(result.hasErrors()) {
@@ -102,25 +103,41 @@ public class GroupBuyFormController implements ApplicationContextAware {
 //		시간 세팅
 		groupBuyForm.getGroupBuy().timeSet();
 		
+//		이미지 파일이 저장될 경로
+		String imagePath = request.getContextPath() + "/resources/images/";
 		if (reqPage.trim().equals("/groupBuy/update.do")) { 	//		update
-//			기존 파일 삭제 후 파일 업로드
 			GroupBuy oldGroupBuy = groupBuyService.getGroupBuy(groupBuyForm.getGroupBuy().getGroupBuyId());
-			String[] oldFileName = oldGroupBuy.getImg().split("/");
-			if (deleteFile(uploadDir + oldFileName[4])) {
-				System.out.println("파일 삭제 성공! 이제부터 파일 업로드.");
+//			기존 파일 삭제 후 파일 업로드
+			System.out.println("공동구매 udpate를 위해 삭제할 이미지파일이 있는 uploadDir: " + uploadDir);
+			for (Image_g oldGroupBuyImg : oldGroupBuy.getImgs_g()) {
+				String[] oldFileName = oldGroupBuyImg.getUrl().split("/");	// /resources/images/사진이름
+				for (int i = 0; i < oldFileName.length; i++) {
+					System.out.println("oldFileName[" + i + "]: " + oldFileName[i]);
+				}
+				if (deleteFile(uploadDir + oldFileName[3])) {
+					System.out.println("파일 삭제 성공! 이제부터 파일 업로드.");
+				}
 			}
 //			파일 업로드 기능
-			String savedFileName = uploadFile(groupBuyForm.getGroupBuy().getReport());
-			groupBuyForm.getGroupBuy().setImg(request.getContextPath() + "/resources/images/"+ savedFileName);
+			List<String> savedFileNames = uploadFile(groupBuyForm.getGroupBuy().getReport());
+//			GroupBuy객체에 setImgs_g()
+			List<Image_g> groupBuyImgs = new ArrayList<Image_g>();
+			for (int i = 1; i <= savedFileNames.size(); i++) {
+				groupBuyImgs.add(new Image_g(oldGroupBuy.getGroupBuyId(), i, imagePath + savedFileNames.get(i-1)));
+			}
 //			db: groupBuy update & option 삭제 후, 다시 생성
-			groupBuyId = groupBuyService.updateGroupBuy(groupBuyForm.getGroupBuy());
+			groupBuyId = groupBuyService.updateGroupBuy(groupBuyForm.getGroupBuy(), groupBuyImgs);
 			groupBuyService.updateOptions(groupBuyForm.getGroupBuy());
 		} else { 	// create
 //			파일 업로드 기능
-			String savedFileName = uploadFile(groupBuyForm.getGroupBuy().getReport());
-			groupBuyForm.getGroupBuy().setImg(request.getContextPath() + "/resources/images/"+ savedFileName);	
+			List<String> savedFileNames = uploadFile(groupBuyForm.getGroupBuy().getReport());
 //			db: groupBuy create 후, id 받아오기
-			groupBuyService.createGroupBuy(groupBuyForm.getGroupBuy());
+//			GroupBuy객체에 setImgs_g()
+			List<Image_g> groupBuyImgs = new ArrayList<Image_g>();
+			for (int i = 1; i <= savedFileNames.size(); i++) {
+				groupBuyImgs.add(new Image_g(0, i, imagePath + savedFileNames.get(i-1)));
+			}
+			groupBuyService.createGroupBuy(groupBuyForm.getGroupBuy(), groupBuyImgs);
 			groupBuyId = groupBuyForm.getGroupBuy().getGroupBuyId();
 			
 //			받아온 id와 option 파라미터를 Option객체에 세팅 후, create option
@@ -153,19 +170,26 @@ public class GroupBuyFormController implements ApplicationContextAware {
 	}
 		
 //	파일명 랜덤생성 메서드
-	private String uploadFile(MultipartFile report) {
+	private List<String> uploadFile(List<MultipartFile> reports) {
+		List<String> savedNames = new ArrayList<String>();
+		for (MultipartFile report: reports) {
+			/* 서버에 파일 업로드*/
 //		uuid 생성(Universal Unique IDentifier, 범용 고유 식별자)
-		UUID uuid = UUID.randomUUID();
+			UUID uuid = UUID.randomUUID();
 //		랜덤생성 + 파일이름 저장
-		String savedName = uuid.toString() + "_" + report.getOriginalFilename();
+//		String savedName = uuid.toString() + "_" + report.getOriginalFilename();
+			String savedName = "Goodsom_groupBuy_" + uuid.toString();
 //		임시디렉토리에 저장된 업로드된 파일을 지정된 디렉토리로 복사
-		File file = new File(uploadDir + savedName);
-		try {
-			report.transferTo(file);
-		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
+			File file = new File(uploadDir + savedName);
+			try {
+				report.transferTo(file);
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+			savedNames.add(savedName);
 		}
-		return savedName;
+		return savedNames;
+			
 	}
 	
 //	파일명 삭제 메서드

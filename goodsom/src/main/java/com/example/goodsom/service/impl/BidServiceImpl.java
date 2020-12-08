@@ -32,8 +32,8 @@ public class BidServiceImpl implements BidService{
 		return bidDao.getMaxPrice(auctionId);
 	}
 	
-	public Bid getBidByMaxPrice(int bidPrice, int auctionId) {
-		return bidDao.getBidByMaxPrice(bidPrice, auctionId);
+	public Bid getBidByMaxPrice(int bidMaxPrice, int auctionId) {
+		return bidDao.getBidByMaxPrice(bidMaxPrice, auctionId);
 	}
 
 	public void createBid(Bid bid) {

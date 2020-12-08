@@ -38,7 +38,9 @@
           <div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
             <div class="portfolio-wrap">
               <figure>
-				<img src="${groupBuy.img}" class="img-fluid" alt="">
+				<c:forEach items="${groupBuy.imgs_g}" var="img">
+					<img src="${img.url}" class="img-fluid" alt="">
+				</c:forEach> 
                 <a href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
                 <a href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/></c:url>" 
                 	class="link-details" title="More Details"><i class="bx bx-link"></i></a>

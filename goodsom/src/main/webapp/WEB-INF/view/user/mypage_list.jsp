@@ -38,7 +38,9 @@
 
 								<div class="portfolio-wrap">
 									<figure>
-										<img src="${groupBuy.img}" class="img-fluid" alt="">
+										<c:forEach items="${groupBuy.imgs_g}" var="img">
+											<img src="${img.url}" class="img-fluid" alt="">
+										</c:forEach> 
 										<a
 											href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg"
 											data-gall="portfolioGallery" class="link-preview venobox"
@@ -89,7 +91,9 @@
 										<a
 											href="<c:url value='../auction/detail.do'>
 									<c:param name="auctionId" value="${auction.auctionId}"/></c:url>">
-											<img src="${auction.img}" class="img-fluid" alt="">
+											<c:forEach items="${auction.imgs_a}" var="img">
+											<img src="${img.url}" class="img-fluid" alt="">
+										</c:forEach> 
 										</a>
 										<a
 											href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg"
@@ -137,7 +141,9 @@
 										href="<c:url value='../groupBuy/detail.do'>
 												<c:param name="groupBuyId" value="${order.groupBuyId}" />
 											</c:url>">
-										<img src="${order.groupBuy.img}" alt="Image" class="img-fluid">
+										<c:forEach items="${order.groupBuy.imgs_g}" var="img">
+											<img src="${img.url}" class="img-fluid" alt="">
+										</c:forEach> 
 									</a>
 									<div class="post-entry-1-contents">
 										<h2>
@@ -181,7 +187,9 @@
 										href="<c:url value='../auction/detail.do'>
 												<c:param name="auctionId" value="${order.auctionId}" />
 											</c:url>">
-										<img src="${order.auction.img}" alt="Image" class="img-fluid">
+										<c:forEach items="${order.auction.imgs_a}" var="img">
+											<img src="${img.url}" class="img-fluid" alt="">
+										</c:forEach> 
 									</a>
 									<div class="post-entry-1-contents">
 

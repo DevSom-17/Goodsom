@@ -11,7 +11,7 @@ public interface GroupBuyDao {
 	
 	GroupBuy getGroupBuy(int groupBuyId) throws DataAccessException;
 
-	void createGroupBuy(GroupBuy groupBuy) throws DataAccessException;
+	int createGroupBuy(GroupBuy groupBuy) throws DataAccessException;
 
 	int updateGroupBuy(GroupBuy groupBuy) throws DataAccessException;
 	
@@ -22,6 +22,8 @@ public interface GroupBuyDao {
 	void createOptions(GroupBuy groupBuy) throws DataAccessException;
 	
 	List<GroupBuy> getGroupBuyList() throws DataAccessException;
+	
+	List<GroupBuy> getGroupBuyListByUserId(int userId) throws DataAccessException;
 	
 	void increaseCount(GroupBuy groupBuy) throws DataAccessException;
 

@@ -9,9 +9,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.goodsom.dao.FileDao;
 import com.example.goodsom.dao.GroupBuyDao;
 import com.example.goodsom.dao.NotificationDao;
 import com.example.goodsom.domain.GroupBuy;
+import com.example.goodsom.domain.Image_a;
+import com.example.goodsom.domain.Image_g;
 import com.example.goodsom.domain.Notification;
 import com.example.goodsom.service.GroupBuyService;
 
@@ -21,8 +24,8 @@ import com.example.goodsom.service.GroupBuyService;
  */
 
 /**
- * @author hk
- * @since 2020.06.14
+ * @author hk			| YeJin Lee
+ * @since 2020.06.14	| 2020.12.07
  */
 
 @Service
@@ -35,26 +38,48 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	private GroupBuyDao groupBuyDao;
 	
 	@Autowired
+	private FileDao fileDao;
+	
+	@Autowired
 	private NotificationDao notiDao;
 	
 	public GroupBuy getGroupBuy(int groupBuyId) {
 		return groupBuyDao.getGroupBuy(groupBuyId);
 	}
 	
-	public void createGroupBuy(GroupBuy groupBuy) {
-		groupBuyDao.createGroupBuy(groupBuy);
+	@Transactional
+	public int createGroupBuy(GroupBuy groupBuy, List<Image_g> groupBuyImgs) {
+		int groupBuyId = groupBuyDao.createGroupBuy(groupBuy);
+		System.out.println("경매 생성 후 바로 받아온 auctionId: " + groupBuyId);
+		for (Image_g groupBuyImg : groupBuyImgs) {
+			groupBuyImg.setGroupBuyId(groupBuyId);
+			System.out.println("사진 저장 전 auctionId=" + groupBuyImg.getGroupBuyId() + "의 fileNo: " + groupBuyImg.getFileNo() + " url:" + groupBuyImg.getUrl());
+		}
+		groupBuy.setImgs_g(groupBuyImgs);
+		fileDao.saveGroupBuyImgs(groupBuyImgs);
+		return groupBuyId;
 	}
 	
-	public int updateGroupBuy(GroupBuy groupBuy) {
-		groupBuyDao.updateGroupBuy(groupBuy);
-		return groupBuy.getGroupBuyId();
+	@Transactional
+	public int updateGroupBuy(GroupBuy groupBuy, List<Image_g> groupBuyImgs) {
+		fileDao.deleteGroupBuyImgs(groupBuy.getGroupBuyId());
+		int groupBuyId = groupBuyDao.updateGroupBuy(groupBuy);
+		for (Image_g groupBuyImg : groupBuyImgs) {
+			groupBuyImg.setGroupBuyId(groupBuyId);
+			System.out.println("사진 저장 전 groupBuyId=" + groupBuyImg.getGroupBuyId() + "의 fileNo: " + groupBuyImg.getFileNo() + " url:" + groupBuyImg.getUrl());
+		}
+		groupBuy.setImgs_g(groupBuyImgs);
+		fileDao.saveGroupBuyImgs(groupBuyImgs);
+		return groupBuyId;
 	}
 	
 	public void deleteOptions(int groupBuyId) {
 		groupBuyDao.deleteOptions(groupBuyId);
 	}
 	
+	@Transactional
 	public void deleteGroupBuy(int groupBuyId) {
+		fileDao.deleteGroupBuyImgs(groupBuyId);
 		groupBuyDao.deleteGroupBuy(groupBuyId);
 	}
 	
@@ -71,6 +96,10 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	
 	public List<GroupBuy> getGroupBuyList() {
 		return groupBuyDao.getGroupBuyList();
+	}
+
+	public List<GroupBuy> getGroupBuyListByUserId(int userId) {
+		return groupBuyDao.getGroupBuyListByUserId(userId);
 	}
 
 	public void increaseCount(GroupBuy groupBuy) {
@@ -137,4 +166,5 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 			groupBuyDao.updateCloseNoti(closeId[i]);
 		}
 	}
+
 }

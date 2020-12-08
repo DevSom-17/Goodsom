@@ -20,13 +20,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.goodsom.controller.user.UserSession;
 import com.example.goodsom.domain.Auction;
+import com.example.goodsom.domain.Image_a;
 import com.example.goodsom.service.AuctionService;
 
 /**
@@ -42,6 +45,7 @@ public class AuctionFormController implements ApplicationContextAware  {
 //	request handler가 보내줄 view이름 지정
 	private static final String AUCTION_FORM = "auction/auction_form";
 	private static final String AUCTION_DETAIL = "auction/auction_detail";
+	private static final String AUCTION_LIST = "auction/auction_list";
 //	파일 업로드 위한 변수
 	private WebApplicationContext context;	
 	private String uploadDir;
@@ -86,7 +90,7 @@ public class AuctionFormController implements ApplicationContextAware  {
 		String requestUrl = reqPage.trim();
 
 //		대표 이미지 선택 안 했을 시
-		if (auctionForm.getAuction().getReport().getSize() == 0) {
+		if (auctionForm.getAuction().getReport().get(0).isEmpty()) {
 			result.rejectValue("auction.report", "notSelected");
 		}
 //		AuctionForm객체 validation
@@ -104,35 +108,47 @@ public class AuctionFormController implements ApplicationContextAware  {
 		System.out.println(user.toString());
 //		시간세팅
 		auctionForm.getAuction().timeSet();
-
+//		이미지 파일이 저장될 경로
+		String imagePath = request.getContextPath() + "/resources/images/";
+		System.out.println("이미지 파일이 저장될 경로인 imagePath: " + imagePath);
 //		경매 update/create 작업
 		if (requestUrl.equals("/auction/update.do")) { // update
 			Auction oldAuction = auctionService.getAuction(auctionForm.getAuction().getAuctionId());
 //			기존 파일 삭제 후 파일 업로드
-			String[] oldFileName = oldAuction.getImg().split("/");	// /resources/images/사진이름
-			System.out.println("uploadDir: " + uploadDir);
-			for (int i = 0; i < oldFileName.length; i++) {
-				System.out.println("oldFileName[" + i + "]: " + oldFileName[i]);
-			}
-			if (deleteFile(uploadDir + oldFileName[3])) {
-				System.out.println("파일 삭제 성공! 이제부터 파일 업로드.");
+			System.out.println("경매 udpate를 위해 삭제할 이미지파일이 있는 uploadDir: " + uploadDir);
+			for (Image_a oldAuctionImg : oldAuction.getImgs_a()) {
+				String[] oldFileName = oldAuctionImg.getUrl().split("/");	// /resources/images/사진이름
+				for (int i = 0; i < oldFileName.length; i++) {
+					System.out.println("oldFileName[" + i + "]: " + oldFileName[i]);
+				}
+				if (deleteFile(uploadDir + oldFileName[3])) {
+					System.out.println("파일 삭제 성공! 이제부터 파일 업로드.");
+				}
 			}
 //			파일 업로드 기능
-			String savedFileName = uploadFile(auctionForm.getAuction().getReport());
-			auctionForm.getAuction().setImg(request.getContextPath() + "/resources/images/"+ savedFileName);
-			
+			List<String> savedFileNames = uploadFile(auctionForm.getAuction().getReport());
 			System.out.println(auctionForm.getAuction().toString());
 			auctionForm.getAuction().setState("proceeding");
-			int auctionId = auctionService.updateAuction(auctionForm.getAuction());
+			int fileNo = 1;
+			List<Image_a> auctionImgs = new ArrayList<Image_a>();
+			for (String savedFileName: savedFileNames){
+				auctionImgs.add(new Image_a(auctionForm.getAuction().getAuctionId(), fileNo++, imagePath + savedFileName));
+			}
+			int auctionId = auctionService.updateAuction(auctionForm.getAuction(), auctionImgs);
+//			auctionForm.getAuction().setImg(request.getContextPath() + "/resources/images/"+ savedFileName);
 			model.addAttribute("auction", auctionService.getAuction(auctionId));
 		} else { // create
 //			파일 업로드 기능
-			String savedFileName = uploadFile(auctionForm.getAuction().getReport());
-			auctionForm.getAuction().setImg(request.getContextPath() + "/resources/images/" + savedFileName);
-			
+			List<String> savedFileNames = uploadFile(auctionForm.getAuction().getReport());
+//			Auction객체에 setImgs_a()
+			List<Image_a> auctionImgs = new ArrayList<Image_a>();
+			for (int i = 1; i <= savedFileNames.size(); i++) {
+				auctionImgs.add(new Image_a(0, i, imagePath + savedFileNames.get(i-1)));
+			}
             auctionForm.getAuction().initAuction(user.getUser());
 			System.out.println("[AuctionFormController] auctionForm 값: " + auctionForm.toString());
-			auctionService.createAuction(auctionForm.getAuction());
+			auctionService.createAuction(auctionForm.getAuction(), auctionImgs);
+//			auctionForm.getAuction().setImgs_a(imgs);
 			model.addAttribute("auction", auctionForm.getAuction());
 		}
 		
@@ -156,20 +172,45 @@ public class AuctionFormController implements ApplicationContextAware  {
 	}
 	
 //	파일명 랜덤생성 메서드
-	private String uploadFile(MultipartFile report) {
+	private List<String> uploadFile(List<MultipartFile> reports) {
+		List<String> savedNames = new ArrayList<String>();
+		for (MultipartFile report: reports) {
+			/* 서버에 파일 업로드*/
 //		uuid 생성(Universal Unique IDentifier, 범용 고유 식별자)
-		UUID uuid = UUID.randomUUID();
+			UUID uuid = UUID.randomUUID();
 //		랜덤생성 + 파일이름 저장
 //		String savedName = uuid.toString() + "_" + report.getOriginalFilename();
-		String savedName = "Goodsom_auction_" + uuid.toString();
+			String savedName = "Goodsom_auction_" + uuid.toString();
 //		임시디렉토리에 저장된 업로드된 파일을 지정된 디렉토리로 복사
-		File file = new File(uploadDir + savedName);
-		try {
-			report.transferTo(file);
-		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
+			File file = new File(uploadDir + savedName);
+			try {
+				report.transferTo(file);
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+			savedNames.add(savedName);
 		}
-		return savedName;
+		return savedNames;
+			
+	}
+	
+	@RequestMapping(value="/auction/delete.do")
+	public ModelAndView auctionDelete(HttpServletRequest request,
+			@RequestParam("auctionId") int auctionId){
+//		서버에서 경매 이미지들 삭제
+		List<Image_a> auctionImgs = auctionService.getAuction(auctionId).getImgs_a();
+		for (Image_a auctionImg : auctionImgs) {
+			String[] fileName = auctionImg.getUrl().split("/");	// /resources/images/사진이름
+			if (deleteFile(uploadDir + fileName[3])) {
+				System.out.println("파일 삭제 성공! 이제부터 파일 업로드.");
+			}
+		}
+//		DB에서 경매 삭제 (테이블: Auctions, Images_a)
+		List<Auction> auctionList = auctionService.deleteAuction(auctionId);
+		
+		ModelAndView mav = new ModelAndView(AUCTION_LIST);
+		mav.addObject("auctionList", auctionList);
+		return mav;
 	}
 	
 //	파일명 삭제 메서드

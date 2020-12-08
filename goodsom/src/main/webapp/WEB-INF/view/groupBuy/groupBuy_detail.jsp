@@ -126,7 +126,9 @@ function delItem(id) {
         <div class="portfolio-details-container">
 
           <div class="owl-carousel portfolio-details-carousel">
-          	<img src="${groupBuy.img}" alt="Image" class="img-fluid">
+          	<c:forEach items="${groupBuy.imgs_g}" var="img">
+				<img src="${img.url}" class="img-fluid" alt="">
+			</c:forEach>
           </div>
 
           <div class="portfolio-info">

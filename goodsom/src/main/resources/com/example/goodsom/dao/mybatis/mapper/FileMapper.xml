@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.goodsom.dao.mybatis.mapper.FileMapper">
+  <cache />
+  <sql id="BaseColumns_File">
+  		NOTIID, TITLE, NOTIDATE, USERID, AUCTIONID, STATE
+  </sql>
+  
+  <insert id="saveAuctionImgs" parameterType="java.util.Map">
+  	INSERT INTO IMAGES_A
+  	  (AUCTIONID, FILENO, URL)
+  	VALUES 
+  		<foreach item="item" collection="list" separator=",">
+           (#{item.auctionId},#{item.fileNo},#{item.url})
+        </foreach>
+  </insert>
+  
+  <insert id="saveGroupBuyImgs" parameterType="java.util.Map">
+  	INSERT INTO IMAGES_G
+  	  (GROUPBUYID, FILENO, URL)
+  	VALUES 
+ 	 	<foreach item="item" collection="groupBuyImgsList" separator=",">
+           (#{item.groupBuyId}, #{item.fileNo}, #{item.url}) 
+        </foreach>
+  </insert>
+  
+  <delete id="deleteAuctionImgs" parameterType="java.lang.Integer">
+  	DELETE FROM IMAGES_A
+    WHERE  AUCTIONID=#{auctionId}	
+  </delete>
+  
+  <delete id="deleteGroupBuyImgs" parameterType="java.lang.Integer">
+  	DELETE FROM IMAGES_G
+    WHERE  GROUPBUYID=#{groupBuyId}	
+  </delete>
+  
+  <select id="getAuctionImgs" resultType="com.example.goodsom.domain.Image_a">
+    SELECT AUCTIONID, FILENO, URL
+    FROM IMAGES_A
+    WHERE AUCTIONID = #{auctionId}
+    ORDER BY FILENO
+  </select> 
+ 
+  <select id="getGroupBuyImgs" resultType="com.example.goodsom.domain.Image_g">
+    SELECT GROUPBUYID, FILENO, URL
+    FROM IMAGES_G
+    WHERE GROUPBUYID = #{groupBuyId}
+    ORDER BY FILENO
+  </select> 
+  
+</mapper>

@@ -6,13 +6,11 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 import com.example.goodsom.domain.Auction;
-import com.example.goodsom.domain.Bid;
-import com.example.goodsom.domain.GroupBuy;
 import com.example.goodsom.domain.SuccessBidder;
 
 /**
- * @author Hyekyung Kim | Yejin Lee  | kimdahyee  | Seonmi Hwang
- * @since  2020.05.05   | 2020.06.12 | 2020.06.25 | 2020.06.29
+ * @author Yejin Lee 
+ * @since  2020.06.12
  */
 
 public interface AuctionDao {
@@ -29,6 +27,9 @@ public interface AuctionDao {
 	void deleteAuction(int auctionId) throws DataAccessException;
 	
 	List<Auction> getAuctionList() throws DataAccessException;
+	
+//	작성한 경매 목록 보기
+	List<Auction> getAuctionListByUserId(int userId) throws DataAccessException;
 	
 	List<Auction> getAuctionListByKeyword(String keyword) throws DataAccessException;
 	

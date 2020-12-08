@@ -21,12 +21,11 @@ import com.example.goodsom.service.UserService;
 import com.example.goodsom.domain.Bid;
 import com.example.goodsom.domain.SuccessBidder;
 import com.example.goodsom.domain.User;
-//import com.example.goodsom.domain.SuccessBidder;
 import com.example.goodsom.service.BidService;
 
 /**
- * @author Hyekyung Kim	| Yejin Lee   | kimdahyee  | Seonmi Hwang
- * @since 2020.05.08	| 2020.06.14  | 2020.06.25 | 2020.06.29
+ * @author Yejin Lee   
+ * @since  2020.06.14 
  */
 
 
@@ -110,14 +109,4 @@ public class AuctionController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/auction/delete.do")
-	public ModelAndView auctionDelete(HttpServletRequest request,
-			@RequestParam("auctionId") int auctionId){
-		
-		ModelAndView mav = new ModelAndView(AUCTION_LIST);
-		List<Auction> auctionList = auctionService.deleteAuction(auctionId);
-		mav.addObject("auctionList", auctionList);
-		
-		return mav;
-	}
 }

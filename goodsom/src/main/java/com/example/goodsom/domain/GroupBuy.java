@@ -25,10 +25,9 @@ public class GroupBuy implements Serializable {
 	int groupBuyId;
 	@NotEmpty
 	String title;
-	MultipartFile report;
+	List<MultipartFile> report;
 	@NotEmpty
 	String content;
-	String img;
 	
 	@Positive
 	int minNo;
@@ -75,7 +74,8 @@ public class GroupBuy implements Serializable {
 	List<Option> options = new ArrayList<Option>();
 	List<User> groupBuyUsers = new ArrayList<User>();
 	List<Question> questions = new ArrayList<Question>();
-
+	List<Image_g> imgs_g = new ArrayList<Image_g>();
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -136,12 +136,12 @@ public class GroupBuy implements Serializable {
 		this.title = title;
 	}
 	
-	public MultipartFile getReport() {
+	public List<MultipartFile> getReport() {
 		return report;
 		
 	}
 
-	public void setReport(MultipartFile report) {
+	public void setReport(List<MultipartFile> report) {
 		this.report = report;
 	}
 
@@ -151,14 +151,6 @@ public class GroupBuy implements Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public String getImg() {
-		return img;
-	}
-
-	public void setImg(String img) {
-		this.img = img;
 	}
 
 	public int getMinNo() {
@@ -294,12 +286,15 @@ public class GroupBuy implements Serializable {
 		this.sendNoti = sendNoti;
 	}
 	
-	public GroupBuy() {
+	public List<Image_g> getImgs_g() {
+		return imgs_g;
 	}
 
-//	기본 이미지 지정하는 메서드
-	public void initImg(String contextPath) {
-		img = contextPath + "/resources/images/somsom.jpg";
+	public void setImgs_g(List<Image_g> imgs_g) {
+		this.imgs_g = imgs_g;
+	}
+
+	public GroupBuy() {
 	}
 	
 	public void initGroupBuy(User user) {
@@ -403,8 +398,8 @@ public class GroupBuy implements Serializable {
 	}
 	
 	public String toString() {
-		String str = "groupBuyId: " + groupBuyId + ", title: " + title + ", content: " + content + ", img: " + img 
-				+ ", minNo: " + minNo + ", uploadDate: " + uploadDate + ", endDate: " + endDate + ", state: " + state + ", catId: " + catId;
+		String str = "groupBuyId: " + groupBuyId + ", title: " + title + ", content: " + content + ", minNo: " + minNo 
+				+ ", uploadDate: " + uploadDate + ", endDate: " + endDate + ", state: " + state + ", catId: " + catId;
 		str += "\noptions --> ";
 		for(Option op:options) {
 			str += op.toString() + "\n";
