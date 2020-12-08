@@ -12,7 +12,7 @@ public interface LikeMapper {
 	
 	int unlikeGroupBuy(int userId, int groupBuyId);
 	
-	List<Integer> getAuctionOrderList(int userId);
+	List<Integer> getLikeListOfAuction(int userId);
 	
-	List<Integer> getLikeGroupBuyListByUserId(int userId);
+	List<Integer> getLikeListOfGroupBuy(int userId);
 }

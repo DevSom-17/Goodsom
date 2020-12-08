@@ -4,25 +4,17 @@
 <!-- AuctionMapper 인터페이스의 package이름과 같아야 함 -->
 <mapper namespace="com.example.goodsom.dao.mybatis.mapper.AuctionMapper">
   
-  <select id="getAuction" parameterType="java.lang.Integer" resultMap="resultMap_auction"> 
-    SELECT auctionId, title, content, startPrice, uploadDate, endDate, count, maxPrice, state, 
-    		receive, menuId, userId, sendNoti
-    FROM AUCTIONS
-    WHERE auctionId = #{auctionId}
+  <select id="getLikeListOfAuction" parameterType="java.lang.Integer" resultMap="resultMap_auction"> 
+    
   </select>
   
-  <insert id="createAuction" parameterType="com.example.goodsom.domain.Auction">
+  <insert id="likeAuction" parameterType="com.example.goodsom.domain.Auction">
   	
-  	INSERT INTO AUCTIONS (TITLE, CONTENT, STARTPRICE, UPLOADDATE, ENDDATE, COUNT, 
-  							MAXPRICE, STATE, RECEIVE, MENUID, USERID, SENDNOTI)
-	VALUES (#{title}, #{content}, #{startPrice}, #{uploadDate}, #{endDate}, #{count}, 
-			#{maxPrice}, #{state}, #{receive}, #{menuId}, #{userId}, #{sendNoti})
-  	<selectKey keyProperty="auctionId" resultType="int" order="AFTER">
-  		SELECT LAST_INSERT_ID()
-     </selectKey>
   </insert>
   
-
+  <insert id="likeGroupBuy" parameterType="com.example.goodsom.domain.Auction">
+  	
+  </insert>
    
   <delete id="deleteAuction" parameterType="java.lang.Integer">
     DELETE FROM AUCTIONS
