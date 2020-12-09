@@ -1,33 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- AuctionMapper 인터페이스의 package이름과 같아야 함 -->
-<mapper namespace="com.example.goodsom.dao.mybatis.mapper.AuctionMapper">
+<mapper namespace="com.example.goodsom.dao.mybatis.mapper.LikeMapper">
   
-  <select id="getLikeListOfAuction" parameterType="java.lang.Integer" resultMap="resultMap_auction"> 
-    
-  </select>
-  
-  <insert id="likeAuction" parameterType="com.example.goodsom.domain.Auction">
-  	
+  <insert id="likeAuction" parameterType="java.lang.Integer">
+  	INSERT INTO LIKES_A
+  	(USERID, AUCTIONID)
+  	VALUES
+  	(#{param1}, #{param2})
   </insert>
   
-  <insert id="likeGroupBuy" parameterType="com.example.goodsom.domain.Auction">
-  	
+  <insert id="likeGroupBuy" parameterType="java.lang.Integer">
+  	INSERT INTO LIKES_G
+  	(USERID, GROUPBUYID)
+  	VALUES
+  	(#{param1}, #{param2})
   </insert>
-   
-  <delete id="deleteAuction" parameterType="java.lang.Integer">
-    DELETE FROM AUCTIONS
-    WHERE  AUCTIONID=#{auctionId}
+
+  <delete id="unlikeAuction" parameterType="java.lang.Integer">
+  	DELETE FROM LIKES_A
+  	WHERE USERID = #{param1} AND AUCTIONID = #{param2}
   </delete>
 
+  <delete id="unlikeGroupBuy" parameterType="java.lang.Integer">
+  	DELETE FROM LIKES_G
+  	WHERE USERID = #{param1} AND GROUPBUYID = #{param2}
+  </delete>
   
-  <!-- 경매가 마감된 이후에 알림을 보내기 위한 쿼리 -->
-  <select id="getAuctionIdForNoti" resultType="Integer">
-	  	SELECT auctionId
-    	FROM AUCTIONS
-	    WHERE STATE = 'closed' AND sendNoti=0
+  <select id="getLikeListOfAuction" resultType="java.lang.Integer"> 
+    SELECT AUCTIONID
+    FROM LIKES_A
+    WHERE userId = #{param1}
   </select>
   
-
+  <select id="getLikeListOfGroupBuy" resultType="java.lang.Integer"> 
+    SELECT GROUPBUYID
+    FROM LIKES_G
+    WHERE userId = #{param1}
+  </select>
+  
 </mapper>

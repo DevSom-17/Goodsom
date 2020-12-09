@@ -8,11 +8,12 @@ public interface LikeMapper {
 	
 	void likeGroupBuy(int userId, int groupBuyId);
 
-	int unlikeAuction(int userId, int auctionId);
+	void unlikeAuction(int userId, int auctionId);
 	
-	int unlikeGroupBuy(int userId, int groupBuyId);
+	void unlikeGroupBuy(int userId, int groupBuyId);
 	
 	List<Integer> getLikeListOfAuction(int userId);
 	
 	List<Integer> getLikeListOfGroupBuy(int userId);
+	
 }
