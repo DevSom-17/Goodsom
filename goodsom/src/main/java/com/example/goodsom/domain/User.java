@@ -25,8 +25,8 @@ public class User implements Serializable {
 	private String refundAccount;
 	private int report;
 	private int warning;
-	List<Integer> Likes_a = new ArrayList<Integer>();
-	List<Integer> Likes_g = new ArrayList<Integer>();
+	List<Integer> likes_a = new ArrayList<Integer>();
+	List<Integer> likes_g = new ArrayList<Integer>();
 	/*
 	public User() {}
 	

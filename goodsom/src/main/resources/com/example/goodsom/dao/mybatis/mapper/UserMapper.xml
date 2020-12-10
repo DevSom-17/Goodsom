@@ -4,6 +4,27 @@
 <mapper namespace="com.example.goodsom.dao.mybatis.mapper.UserMapper">
   <cache />
  	
+   <resultMap id="resultMap" type="com.example.goodsom.domain.User">
+  	<id column="userId" jdbcType="INTEGER" property="userId"/>
+  	<result column="email" jdbcType="VARCHAR" property="email"/>
+  	<result column="passwd" jdbcType="VARCHAR" property="passwd"/>
+  	<result column="userName" jdbcType="VARCHAR" property="userName"/>
+  	<result column="nickName" jdbcType="VARCHAR" property="nickName"/>
+  	<result column="address" jdbcType="VARCHAR" property="address"/>
+  	<result column="detailAddress" jdbcType="VARCHAR" property="detailAddress"/>
+  	<result column="extraAddress" jdbcType="VARCHAR" property="extraAddress"/>
+  	<result column="postcode" jdbcType="INTEGER" property="postcode"/>
+  	<result column="phone" jdbcType="VARCHAR" property="participants"/>
+  	<result column="refundBank" jdbcType="VARCHAR" property="refundBank"/>
+  	<result column="refundAccount" jdbcType="VARCHAR" property="refundAccount"/>
+  	<result column="report" jdbcType="INTEGER" property="report"/>
+  	<result column="warning" jdbcType="INTEGER" property="warning"/>
+  	
+  	<collection property="likes_g" javaType="java.util.ArrayList" ofType="String"
+  			column="userId=userId" select="com.example.goodsom.dao.mybatis.mapper.LikeMapper.getLikeListOfAuction">
+  	</collection>
+  </resultMap>
+  
   <select id="getUser" resultType="com.example.goodsom.domain.User">
     SELECT USERID, EMAIL, PASSWD, USERNAME, NICKNAME, ADDRESS, DETAILADDRESS, EXTRAADDRESS, POSTCODE, PHONE, REFUNDBANK, REFUNDACCOUNT
     FROM USERS 
