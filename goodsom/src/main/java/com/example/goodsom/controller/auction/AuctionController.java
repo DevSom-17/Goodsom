@@ -106,6 +106,15 @@ public class AuctionController {
 		mav.addObject("auction", auction);
 		mav.addObject("bidForm", session.getAttribute("bidForm"));
 		mav.addObject("writer", userService.getUserByUserId(auction.getUserId()).getNickname());
+//		Like한 공구/경매 가져오기
+		List<Integer> likeAuctionIds = user.getUser().getLikes_a();
+		for (int likeAuctionId : likeAuctionIds) {
+			if (auctionId == likeAuctionId) {
+				mav.addObject("like", true);
+				return mav;
+			}
+		}
+		mav.addObject("like", false);
 		return mav;
 	}
 	

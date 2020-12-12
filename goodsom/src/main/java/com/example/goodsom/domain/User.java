@@ -164,6 +164,23 @@ public class User implements Serializable {
 		this.warning = warning;
 	}
 
+	
+	public List<Integer> getLikes_a() {
+		return likes_a;
+	}
+
+	public void setLikes_a(List<Integer> likes_a) {
+		this.likes_a = likes_a;
+	}
+
+	public List<Integer> getLikes_g() {
+		return likes_g;
+	}
+
+	public void setLikes_g(List<Integer> likes_g) {
+		this.likes_g = likes_g;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", email=" + email + ", passwd=" + passwd + ", userName=" + userName

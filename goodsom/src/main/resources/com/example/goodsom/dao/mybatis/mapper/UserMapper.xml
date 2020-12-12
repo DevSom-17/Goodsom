@@ -20,12 +20,15 @@
   	<result column="report" jdbcType="INTEGER" property="report"/>
   	<result column="warning" jdbcType="INTEGER" property="warning"/>
   	
-  	<collection property="likes_g" javaType="java.util.ArrayList" ofType="String"
+  	<collection property="likes_a" javaType="java.util.ArrayList" ofType="String"
   			column="userId=userId" select="com.example.goodsom.dao.mybatis.mapper.LikeMapper.getLikeListOfAuction">
+  	</collection>
+  	<collection property="likes_g" javaType="java.util.ArrayList" ofType="String"
+  			column="userId=userId" select="com.example.goodsom.dao.mybatis.mapper.LikeMapper.getLikeListOfGroupBuy">
   	</collection>
   </resultMap>
   
-  <select id="getUser" resultType="com.example.goodsom.domain.User">
+  <select id="getUser" resultMap="resultMap">
     SELECT USERID, EMAIL, PASSWD, USERNAME, NICKNAME, ADDRESS, DETAILADDRESS, EXTRAADDRESS, POSTCODE, PHONE, REFUNDBANK, REFUNDACCOUNT
     FROM USERS 
     WHERE EMAIL = #{param1}
