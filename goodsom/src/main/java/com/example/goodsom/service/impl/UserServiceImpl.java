@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService {
 		int destroy = 0;
 		
 		for (String val : reportList) {
-			if (val.equals('0')) { // 욕설 및 비방
+			if (val.equals("0")) { // 욕설 및 비방
 				abuse++;
 			} else { // 거래 파기 '1'
 				destroy++;

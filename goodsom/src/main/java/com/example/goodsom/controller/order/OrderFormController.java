@@ -97,6 +97,8 @@ public class OrderFormController {
 		orderForm.getOrder().getGroupBuy().orderSet(totalQuantity);
 	
 		int result = orderService.createOrder(orderForm.getOrder());
+
+		System.out.println("create order success? : " + result);
 		
 		ModelAndView mav = new ModelAndView(detailView);
 		mav.addObject("order", orderForm.getOrder());

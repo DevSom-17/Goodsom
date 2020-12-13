@@ -23,37 +23,23 @@ public class OrderFormValidator implements Validator {
 		OrderForm regReq = (OrderForm) target;
 
 		// 필수 입력 항목
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.cardBank", "required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.cardNo", "required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.validDate", "required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.cvc", "required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.address1", "required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.address2", "required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.address3", "required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.name", "required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.phone", "required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.refundBank", "required");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.refundAccount", "required");
-		
-		String cardNo = regReq.getOrder().getCardNo();
-		if (!cardNo.equals("") && !cardNo.matches("^\\d{4}-\\d{4}-\\d{4}-\\d{4}$")) {
-			errors.rejectValue("order.cardNo", "typeMismatch"); // xxxx-xxxx-xxxx-xxxx인지 검증
-		}
-		
-		String validDate = regReq.getOrder().getValidDate();
-		if (!validDate.equals("") && !validDate.matches("^(0[1-9]|1[0-2])/[0-9]{2}$")) {
-			errors.rejectValue("order.validDate", "typeMismatch"); // MM/YY 인지 검증
-		}
-		
-		String cvc = regReq.getOrder().getCvc();
-		if (!cvc.equals("") && !cvc.matches("^\\d{3}$")) {
-			errors.rejectValue("order.cvc", "typeMismatch"); // 세 자리 숫자인지 검증
-		}
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.bank", "required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.account", "required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.address", "required");
+//		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.postcode", "required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.depositTime", "required");
 		
 		String phone = regReq.getOrder().getPhone();
 		if (!phone.equals("") && !phone.matches("^[0][1]\\d{1}-\\d{3,4}-\\d{4}$")) {
 			errors.rejectValue("order.phone", "typeMismatch"); // 01x-xxx-xxxx or 01x-xxxx-xxxx인지 검증
 		}
 
+		String depositTime = regReq.getOrder().getDepositTime();
+		if (!depositTime.equals("") && !depositTime.matches("^[0-9]{4}-[0-9]{2}-[0-9]{2}\\s[0-9]{2}:[0-9]{2}:[0-9]{2}$")) {
+			errors.rejectValue("order.depositTime", "typeMismatch"); // yyyy-MM-DD HH:mm:ss
+		}
 	}
 
 }
