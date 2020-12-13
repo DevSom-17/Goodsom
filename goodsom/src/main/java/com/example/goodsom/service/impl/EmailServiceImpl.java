@@ -79,14 +79,13 @@ public class EmailServiceImpl implements EmailService{
 
 	@Override
 	public void sendSimpleMessage(String to) throws Exception {
-		// TODO Auto-generated method stub
 		MimeMessage message = createMessage(to);
-		        try{//예외처리
-		        	emailSender.send(message);
-		        }catch(MailException es){
-		        	es.printStackTrace();
-		            throw new IllegalArgumentException();
-		        }
-		
+        try{//예외처리
+        	emailSender.send(message);
+        }catch(MailException es){
+        	es.printStackTrace();
+            throw new IllegalArgumentException();
+        }
+
 	}
 }
