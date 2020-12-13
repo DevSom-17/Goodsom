@@ -1,7 +1,9 @@
 package com.example.goodsom.domain;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Notification {
+@SuppressWarnings("serial")
+public class Notification implements Serializable {
 	int notiId;
 	int userId;
 	int groupBuyId;
