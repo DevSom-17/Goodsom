@@ -89,7 +89,7 @@ public class AuctionController {
 			mav.addObject("isWriter", false);
 		}
 
-		if (auction.getBids().isEmpty()) {// 아무도 입찰 안 했을 때
+		if (auction.getMaxPrice() == 0) { // 아무도 입찰 안 했을 때
 			mav.addObject("date_maxBid", "");
 			mav.addObject("user_maxBid", "아직 입찰자가 없습니다.");
 		} else {

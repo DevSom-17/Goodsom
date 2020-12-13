@@ -59,7 +59,7 @@
 
  <select id="getAuctionWithBids" parameterType="java.lang.Integer" resultMap="resultMap_auction"> <!--  bid있는 Auction객체, 경매 결제에서 이용 -->
     SELECT a.auctionId, a.title, a.content, a.startPrice, a.uploadDate, a.endDate, a.count,
-    		a.maxPrice, a.state, a.receive, a.menuId, a.userId, a.sendNoti, b.bidId, b.bidPrice, b.userId <!-- AS writerId -->
+    		a.maxPrice, a.state, a.receive, a.menuId, a.userId, a.sendNoti, b.bidId, b.bidPrice <!-- AS writerId -->
     FROM AUCTIONS a, BIDS b
     WHERE a.auctionId = b.auctionId AND a.auctionId = #{auctionId}
   </select>
