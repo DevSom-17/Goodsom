@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.goodsom.dao.mybatis.mapper.UserMapper">
-  <cache />
  	
   <select id="getUser" resultType="com.example.goodsom.domain.User">
     SELECT USERID, EMAIL, PASSWD, USERNAME, NICKNAME, ADDRESS, DETAILADDRESS, EXTRAADDRESS, POSTCODE, PHONE, REFUNDBANK, REFUNDACCOUNT

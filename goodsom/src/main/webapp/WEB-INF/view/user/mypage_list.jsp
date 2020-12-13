@@ -137,8 +137,7 @@
 							<c:forEach var="order" items="${groupBuyOrderList}"
 								varStatus="status">
 								<div class="post-entry-1 h-100">
-									<a
-										href="<c:url value='../groupBuy/detail.do'>
+									<a href="<c:url value='../groupBuy/detail.do'>
 												<c:param name="groupBuyId" value="${order.groupBuyId}" />
 											</c:url>">
 										<c:forEach items="${order.groupBuy.imgs_g}" var="img">

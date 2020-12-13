@@ -4,12 +4,10 @@
 <mapper namespace="com.example.goodsom.dao.mybatis.mapper.LineGroupBuyMapper">
 	<cache />
 
-	<insert id="insertLineGroupBuy" parameterType="com.example.goodsom.domain.LineGroupBuy">
-		<selectKey keyProperty="lineId" resultType="int" order="BEFORE">
-			SELECT lineId_seq.nextval AS lineId FROM DUAL
-		</selectKey>
-		INSERT INTO LineGroupBuys (lineId, quantity, selectOption, unitPrice, groupBuyId, orderId)
-		VALUES (#{lineId}, #{quantity}, #{selectOption},
+	<insert id="insertLineGroupBuy" parameterType="com.example.goodsom.domain.LineGroupBuy"
+		useGeneratedKeys="true" keyProperty="lineId">
+		INSERT INTO LineGroupBuys (quantity, selectOption, unitPrice, groupBuyId, orderId)
+		VALUES (#{quantity}, #{selectOption},
 		#{unitPrice}, #{groupBuyId}, #{orderId})
 	</insert>
 

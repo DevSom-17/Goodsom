@@ -48,6 +48,7 @@ public class OrderServiceImpl implements OrderService {
 		try {
 			orderDao.createOrder(order);
 		} catch(DataAccessException ex) {
+			ex.printStackTrace();
 			return 0;
 		}
 		return 1;

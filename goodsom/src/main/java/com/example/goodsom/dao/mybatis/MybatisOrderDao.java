@@ -59,7 +59,7 @@ public class MybatisOrderDao implements OrderDao {
 				lineGroupBuyMapper.insertLineGroupBuy(lineGroupBuy);
 			}
 			// GROUPBUYS 테이블에 참여자, 달성률, 상태 update
-			groupBuyMapper.updateState(order.getGroupBuy());
+			groupBuyMapper.updateParticipants(order.getGroupBuy());
 		}
 		
 		// Auction을 결제하는 경우
