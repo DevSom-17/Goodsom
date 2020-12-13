@@ -2,16 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.goodsom.dao.mybatis.mapper.OrderMapper">
-  <cache />
   <sql id="BaseColumns">
-  	orderId,
-  	cardBank, cardNo, validDate, cvc,
-  	address, detailAddress, extraAddress,
-  	phone,
-  	refundBank, refundAccount,
-  	totalPrice, <!-- 총 가격 -->
-  	orderDate, <!-- 승인 일시 -->
-  	userId
+  	orderId, userId,
+  	name, phone, bank, account,
+  	address, detailAddress, extraAddress, postcode,
+  	depositTime, depositCheck, isDelivered,
+  	totalPrice, orderDate <!-- 승인 일시 -->
   </sql>
   
   <select id="getOrder" parameterType="int" resultType="com.example.goodsom.domain.Order">
@@ -22,19 +18,20 @@
   
   <resultMap id="lineGroupBuyResultMap" type="com.example.goodsom.domain.Order">
 		<id column="orderId" property="orderId" />
-		<result column="cardBank" property="cardBank" />
-		<result column="cardNo" property="cardNo" />
-		<result column="validDate" property="validDate" />
-		<result column="cvc" property="cvc" />
+		<result column="userId" property="userId" />
+		<result column="name" property="name" />
+		<result column="phone" property="phone" />
+		<result column="bank" property="bank" />
+		<result column="account" property="account" />
 		<result column="address" property="address" />
 		<result column="detailAddress" property="detailAddress" />
 		<result column="extraAddress" property="extraAddress" />
-		<result column="phone" property="phone" />
-		<result column="refundBank" property="refundBank" />
-		<result column="refundAccount" property="refundAccount" />
+		<result column="postcode" property="postcode" />
+		<result column="depositTime" property="depositTime" />
+		<result column="depositCheck" property="depositCheck" />
+		<result column="isDelivered" property="isDelivered" />
 		<result column="totalPrice" property="totalPrice" />
 		<result column="orderDate" property="orderDate" />
-		<result column="userId" property="userId" />
 		
   		<collection property="lineGroupBuys" ofType="com.example.goodsom.domain.LineGroupBuy">
   			<id property="lineId" column="lineId" />
@@ -47,24 +44,26 @@
   </resultMap> 
   
   <select id="getOrderWithLineGroupBuys" parameterType="int" resultMap="lineGroupBuyResultMap">
-  	SELECT o.orderId, o.cardBank, o.cardNo, o.validDate, o.cvc,
-  		   o.address, o.detailAddress, o.extraAddress, o.phone,
-  		   o.refundBank, o.refundAccount, o.totalPrice, o.orderDate, o.userId,
+  	SELECT o.orderId, o.userId, o.name, o.phone, o.bank, o.account,
+  		   o.address, o.detailAddress, o.extraAddress, o.postcode,
+  		   o.depositTime, o.depositCheck, o.isDelivered, o.totalPrice, o.orderDate,
   		   l.lineId, l.orderId AS line_orderId, l.groupBuyId, l.quantity, l.selectOption, l.unitPrice
   	FROM orders o, lineGroupBuys l
   	WHERE o.orderId = l.orderId AND o.orderId = #{orderId}
   </select>
 
-  <insert id="createOrder" parameterType="com.example.goodsom.domain.Order">
-		<selectKey keyProperty="orderId" resultType="int" order="BEFORE">
-			SELECT orderId_seq.nextval AS orderId FROM DUAL
-		</selectKey>
-   
-  	INSERT INTO orders (<include refid="BaseColumns" />)
-  	VALUES (#{orderId}, #{cardBank}, #{cardNo}, #{validDate}, #{cvc},
-  		#{address}, #{detailAddress}, #{extraAddress}, #{phone},
-  		#{refundBank}, #{refundAccount}, #{totalPrice}, 
-  		SYSDATE, #{userId})
+  <insert id="createOrder" parameterType="com.example.goodsom.domain.Order"
+  		useGeneratedKeys="true" keyProperty="orderId">
+  	INSERT INTO orders (userId, 
+  						name, phone, bank, account,
+  						address, detailAddress, extraAddress, postcode,
+  						depositTime, depositCheck, isDelivered,
+  						totalPrice, orderDate)
+  	VALUES (#{userId}, 
+  		#{name}, #{phone}, #{bank}, #{account},
+  		#{address}, #{detailAddress}, #{extraAddress}, #{postcode},
+  		#{depositTime}, #{depositCheck}, #{isDelivered}, 
+  		#{totalPrice}, curdate())
   </insert>
   
   <select id="getGroupBuyId" parameterType="int" resultType="int">

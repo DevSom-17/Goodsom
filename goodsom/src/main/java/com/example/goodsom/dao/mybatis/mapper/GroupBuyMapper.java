@@ -33,7 +33,7 @@ public interface GroupBuyMapper { // GroupBuyMapper.xml에서 구현한 method �
 	
 	void increaseCount(GroupBuy groupBuy) throws DataAccessException;
 	
-	int updateState(GroupBuy groupBuy) throws DataAccessException;
+	int updateParticipants(GroupBuy groupBuy) throws DataAccessException;
 	
 	void closeEvent() throws DataAccessException;
 	

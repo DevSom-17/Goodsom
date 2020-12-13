@@ -1,4 +1,5 @@
 package com.example.goodsom.domain;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,25 +8,25 @@ import  com.example.goodsom.controller.groupBuy.LineGroupBuyForm;
 
 /**
  * @author Seonmi Hwang
- * @since 2020.05.06
+ * @since 2020.05.06 | 2020.12.12(update)
  */
 
 public class Order {
 	private int orderId;
-	private String cardBank;
-	private String cardNo;
-	private String validDate;
-	private String cvc;
+	private int userId;
+	private String name;
+	private String phone;
+	private String bank; 
+	private String account;
 	private String address;
 	private String detailAddress;
 	private String extraAddress;
 	private int postcode;
-	private String phone;
-	private String refundBank;
-	private String refundAccount;
+	private String depositTime;
+	private String depositCheck;
+	private String isDelivered;
 	private int totalPrice;
 	private Date orderDate;
-	private int userId;
 	
 	List<LineGroupBuy> lineGroupBuys;
 	GroupBuy groupBuy;
@@ -37,87 +38,6 @@ public class Order {
 	int auctionId;
 	int totalQuantity; // groupBuy의 state를 update하기 위함
 
-	
-	public int getGroupBuyId() {
-		return groupBuyId;
-	}
-
-	public void setGroupBuyId(int groupBuyId) {
-		this.groupBuyId = groupBuyId;
-	}
-
-	public int getAuctionId() {
-		return auctionId;
-	}
-
-	public void setAuctionId(int auctionId) {
-		this.auctionId = auctionId;
-	}
-
-	public int getMenuId() {
-		return menuId;
-	}
-
-	public void setMenuId(int menuId) {
-		this.menuId = menuId;
-	}
-
-	public GroupBuy getGroupBuy() {
-		return groupBuy;
-	}
-
-	public void setGroupBuy(GroupBuy groupBuy) {
-		this.groupBuy = groupBuy;
-	}
-
-	public Auction getAuction() {
-		return auction;
-	}
-
-	public void setAuction(Auction auction) {
-		this.auction = auction;
-	}
-	
-	public int getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(int totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-
-	public Date getOrderDate() {
-		return orderDate;
-	}
-
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
-	}
-	
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-	
-	public SuccessBidder getSuccessBidder() {
-		return successBidder;
-	}
-
-	public void setSuccessBidder(SuccessBidder successBidder) {
-		this.successBidder = successBidder;
-	}
-
-	public List<LineGroupBuy> getLineGroupBuys() {
-		return lineGroupBuys;
-	}
-
-	public void setLineGroupBuys(List<LineGroupBuy> lineGroupBuys) {
-		this.lineGroupBuys = lineGroupBuys;
-	}
-
 	public int getOrderId() {
 		return orderId;
 	}
@@ -126,38 +46,46 @@ public class Order {
 		this.orderId = orderId;
 	}
 
-	public String getCardBank() {
-		return cardBank;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setCardBank(String cardBank) {
-		this.cardBank = cardBank;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
-	public String getCardNo() {
-		return cardNo;
+	public String getName() {
+		return name;
 	}
 
-	public void setCardNo(String cardNo) {
-		this.cardNo = cardNo;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getValidDate() {
-		return validDate;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setValidDate(String validDate) {
-		this.validDate = validDate;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
-	public String getCvc() {
-		return cvc;
+	public String getBank() {
+		return bank;
 	}
 
-	public void setCvc(String cvc) {
-		this.cvc = cvc;
+	public void setBank(String bank) {
+		this.bank = bank;
 	}
-	
+
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
 	public String getAddress() {
 		return address;
 	}
@@ -190,30 +118,102 @@ public class Order {
 		this.postcode = postcode;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getDepositTime() {
+		return depositTime;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setDepositTime(String depositTime) {
+		this.depositTime = depositTime;
 	}
 
-	public String getRefundBank() {
-		return refundBank;
+	public String getDepositCheck() {
+		return depositCheck;
 	}
 
-	public void setRefundBank(String refundBank) {
-		this.refundBank = refundBank;
+	public void setDepositCheck(String depositCheck) {
+		this.depositCheck = depositCheck;
 	}
 
-	public String getRefundAccount() {
-		return refundAccount;
+	public String getIsDelivered() {
+		return isDelivered;
 	}
 
-	public void setRefundAccount(String refundAccount) {
-		this.refundAccount = refundAccount;
+	public void setIsDelivered(String isDelivered) {
+		this.isDelivered = isDelivered;
 	}
-	
+
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public Date getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	public List<LineGroupBuy> getLineGroupBuys() {
+		return lineGroupBuys;
+	}
+
+	public void setLineGroupBuys(List<LineGroupBuy> lineGroupBuys) {
+		this.lineGroupBuys = lineGroupBuys;
+	}
+
+	public GroupBuy getGroupBuy() {
+		return groupBuy;
+	}
+
+	public void setGroupBuy(GroupBuy groupBuy) {
+		this.groupBuy = groupBuy;
+	}
+
+	public SuccessBidder getSuccessBidder() {
+		return successBidder;
+	}
+
+	public void setSuccessBidder(SuccessBidder successBidder) {
+		this.successBidder = successBidder;
+	}
+
+	public Auction getAuction() {
+		return auction;
+	}
+
+	public void setAuction(Auction auction) {
+		this.auction = auction;
+	}
+
+	public int getMenuId() {
+		return menuId;
+	}
+
+	public void setMenuId(int menuId) {
+		this.menuId = menuId;
+	}
+
+	public int getGroupBuyId() {
+		return groupBuyId;
+	}
+
+	public void setGroupBuyId(int groupBuyId) {
+		this.groupBuyId = groupBuyId;
+	}
+
+	public int getAuctionId() {
+		return auctionId;
+	}
+
+	public void setAuctionId(int auctionId) {
+		this.auctionId = auctionId;
+	}
+
 	public int getTotalQuantity() {
 		return totalQuantity;
 	}
@@ -225,18 +225,28 @@ public class Order {
 	public void initOrder(User user, LineGroupBuyForm lineGroupBuyForm, Auction auction) {
 		userId = user.getUserId();
 		
+		// user 정보 불러오기
+		name = user.getUserName();
+		phone = user.getPhone();
+		
+		// 환불계좌 정보 불러오기
+		bank = user.getRefundBank();
+		account = user.getRefundAccount();
+		
 		// 주소 불러오기
 		address = user.getAddress();
 		detailAddress = user.getDetailAddress();
 		extraAddress = user.getExtraAddress();
 		postcode = user.getPostcode();
 		
-		// 전화번호 불러오기
-		phone = user.getPhone();
+		// 입금 체크 초기화
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date time = new Date();
 		
-		// 환불계좌 정보 불러오기
-		refundBank = user.getRefundBank();
-		refundAccount = user.getRefundAccount();
+		String nowTime = format.format(time);
+		depositTime = nowTime; // 현재 시간으로 초기화
+		depositCheck = "F"; // false 초기화
+		isDelivered = "F"; // false 초기화
 		
 		totalPrice = 0;
 		totalQuantity = 0;
@@ -282,7 +292,7 @@ public class Order {
 			successBidder = new SuccessBidder();
 			successBidder.setAuctionId(auctionId);
 			successBidder.setUserId(user.getUserId());
-			
+
 			for (Bid bid : bids) {
 				if (bid.getBidPrice() == totalPrice) {
 					successBidder.setBidId(bid.getBidId());
@@ -295,11 +305,11 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", cardBank=" + cardBank + ", cardNo=" + cardNo + ", validDate="
-				+ validDate + ", cvc=" + cvc + ", address=" + address + ", detailAddress=" + detailAddress
-				+ ", extraAddress=" + extraAddress + ", postcode=" + postcode + ", phone=" + phone + ", refundBank="
-				+ refundBank + ", refundAccount=" + refundAccount + ", totalPrice=" + totalPrice + ", orderDate="
-				+ orderDate + ", userId=" + userId + ", lineGroupBuys=" + lineGroupBuys + ", groupBuy=" + groupBuy
+		return "Order [orderId=" + orderId + ", userId=" + userId + ", name=" + name + ", phone=" + phone + ", bank="
+				+ bank + ", account=" + account + ", address=" + address + ", detailAddress=" + detailAddress
+				+ ", extraAddress=" + extraAddress + ", postcode=" + postcode + ", depositTime=" + depositTime
+				+ ", depositCheck=" + depositCheck + ", isDelivered=" + isDelivered + ", totalPrice=" + totalPrice
+				+ ", orderDate=" + orderDate + ", lineGroupBuys=" + lineGroupBuys + ", groupBuy=" + groupBuy
 				+ ", successBidder=" + successBidder + ", auction=" + auction + ", menuId=" + menuId + ", groupBuyId="
 				+ groupBuyId + ", auctionId=" + auctionId + ", totalQuantity=" + totalQuantity + "]";
 	}

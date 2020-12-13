@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.goodsom.dao.OrderDao;
+import com.example.goodsom.dao.mybatis.mapper.BidMapper;
 import com.example.goodsom.dao.mybatis.mapper.GroupBuyMapper;
 import com.example.goodsom.dao.mybatis.mapper.LineGroupBuyMapper;
 import com.example.goodsom.dao.mybatis.mapper.OrderMapper;
@@ -59,7 +60,7 @@ public class MybatisOrderDao implements OrderDao {
 				lineGroupBuyMapper.insertLineGroupBuy(lineGroupBuy);
 			}
 			// GROUPBUYS 테이블에 참여자, 달성률, 상태 update
-			groupBuyMapper.updateState(order.getGroupBuy());
+			groupBuyMapper.updateParticipants(order.getGroupBuy());
 		}
 		
 		// Auction을 결제하는 경우
