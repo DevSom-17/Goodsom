@@ -1,7 +1,5 @@
 package com.example.goodsom.domain;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Seonmi-Hwang
@@ -25,8 +23,6 @@ public class User implements Serializable {
 	private String refundAccount;
 	private int report;
 	private int warning;
-	List<Integer> likes_a = new ArrayList<Integer>();
-	List<Integer> likes_g = new ArrayList<Integer>();
 	/*
 	public User() {}
 	
@@ -162,23 +158,6 @@ public class User implements Serializable {
 
 	public void setWarning(int warning) {
 		this.warning = warning;
-	}
-
-	
-	public List<Integer> getLikes_a() {
-		return likes_a;
-	}
-
-	public void setLikes_a(List<Integer> likes_a) {
-		this.likes_a = likes_a;
-	}
-
-	public List<Integer> getLikes_g() {
-		return likes_g;
-	}
-
-	public void setLikes_g(List<Integer> likes_g) {
-		this.likes_g = likes_g;
 	}
 
 	@Override

@@ -6,6 +6,14 @@ import org.springframework.dao.DataAccessException;
 
 public interface LikeDao {
 
+	int getLikeCountOfAuction(int auctionId) throws DataAccessException;
+	
+	int getLikeCountOfGroupBuy(int groupBuyId) throws DataAccessException;
+
+	int likeCheckOfAuctionByUserId(int userId, int auctionId) throws DataAccessException;
+	
+	int likeCheckOfGroupBuyByUserId(int userId, int auctionId) throws DataAccessException;
+	
 	void likeAuction(int userId, int auctionId) throws DataAccessException;
 	
 	void likeGroupBuy(int userId, int groupBuyId) throws DataAccessException;
@@ -14,8 +22,8 @@ public interface LikeDao {
 	
 	void unlikeGroupBuy(int userId, int groupBuyId) throws DataAccessException;
 	
-	List<Integer> getLikeListOfAuction(int userId) throws DataAccessException;
+	List<Integer> getLikedAuctionListByUserId(int userId) throws DataAccessException;
 	
-	List<Integer> getLikeListOfGroupBuy(int userId) throws DataAccessException;
-	
+	List<Integer> getLikedGroupBuyListByUserId(int userId) throws DataAccessException;
+
 }

@@ -2,18 +2,28 @@ package com.example.goodsom.dao.mybatis.mapper;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
+
 public interface LikeMapper {
 
-	void likeAuction(int userId, int auctionId);
+	int getLikeCountOfAuction(int auctionId) throws DataAccessException;
 	
-	void likeGroupBuy(int userId, int groupBuyId);
+	int getLikeCountOfGroupBuy(int groupBuyId) throws DataAccessException;
 
-	void unlikeAuction(int userId, int auctionId);
+	int likeCheckOfAuctionByUserId(int userId, int auctionId) throws DataAccessException;
 	
-	void unlikeGroupBuy(int userId, int groupBuyId);
+	int likeCheckOfGroupBuyByUserId(int userId, int auctionId) throws DataAccessException;
+
+	void likeAuction(int userId, int auctionId) throws DataAccessException;;
 	
-	List<Integer> getLikeListOfAuction(int userId);
+	void likeGroupBuy(int userId, int groupBuyId) throws DataAccessException;;
+
+	void unlikeAuction(int userId, int auctionId) throws DataAccessException;;
 	
-	List<Integer> getLikeListOfGroupBuy(int userId);
+	void unlikeGroupBuy(int userId, int groupBuyId) throws DataAccessException;;
+	
+	List<Integer> getLikedAuctionListByUserId(int userId) throws DataAccessException;;
+	
+	List<Integer> getLikedGroupBuyListByUserId(int userId) throws DataAccessException;;
 	
 }

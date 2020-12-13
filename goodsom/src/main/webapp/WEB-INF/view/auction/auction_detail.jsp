@@ -31,6 +31,43 @@ function orderAuction() {
 	location.href= "../order/auction/create.do?auctionId=${auction.auctionId}";
 }
 
+/* JSP SCRIPT */
+var auctionId = ${auction.auctionId};
+var userId = ${loginUserId};
+ 
+var btn_like = document.getElementById("btn_like");
+ btn_like.onclick = function(){ changeHeart(); }
+ 
+/* 좋아요 버튼 눌렀을떄 */
+ function changeHeart(){ 
+     $.ajax({
+            type : "POST",  
+            url : "/clickLike",       
+            dataType : "json",   
+            data : "auctionId="+auctionId+"&userId="+userId,
+            error : function(){
+                Rnd.alert("통신 에러","error","확인",function(){});
+            },
+            success : function(jdata) {
+                if(jdata.resultCode == -1){
+                    Rnd.alert("좋아요 오류","error","확인",function(){});
+                }
+                else{
+                    if(jdata.likecheck == 1){
+                        $("#btn_like").attr("src","/assets/img/liked(pink).png");
+                        $("#likecnt").empty();
+                        $("#likecnt").append(jdata.likecnt);
+                    }
+                    else if (jdata.likecheck == 0){
+                        $("#btn_like").attr("src","/home/img/ico_like_before.png");
+                        $("#likecnt").empty();
+                        $("#likecnt").append(jdata.likecnt);
+                        
+                    }
+                }
+            }
+        });
+ }
 </script>
 <style>
 .error {
@@ -133,6 +170,19 @@ function orderAuction() {
 			</div>
 		</section>
 		<!-- End Portfolio Details Section -->
+		<div class="form-group" align="center">
+			<dl>
+				<c:choose>
+					<c:when test="${like eq true}">
+						<img id="btn_like" src="/assets/img/liked(pink).png" class="img-fluid" style="cursor:pointer;">
+					</c:when>
+					<c:otherwise>
+						<img id="btn_like" src="/assets/img/unliked.png" class="img-fluid" style="cursor:pointer;">
+					</c:otherwise>
+				</c:choose>	
+				<dd id="likeCount" style="margin-left:5px;">${auction.likeCount}</dd>
+			</dl>
+		</div>
 
 		<div class="form-group" align="center">
 				<%-- <c:if test="${(isWriter eq true) and (empty bids) and (auction.state eq 'proceeding')}"> --%>
@@ -141,7 +191,8 @@ function orderAuction() {
 					<a class="btn btn-primary py-3 px-5" href="javascript:deleteAuction()" >삭제</a>
 				</c:if>
 					<a class="btn btn-primary py-3 px-5" href="<c:url value='/auction/list.do'></c:url>">목록</a>
-			</div>
+		</div>
+		
 	</main>
 	<!-- End #main -->
 	<%@ include file="../includeBottom.jsp"%>

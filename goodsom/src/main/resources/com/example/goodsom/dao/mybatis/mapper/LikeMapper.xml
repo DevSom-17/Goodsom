@@ -3,6 +3,30 @@
 
 <mapper namespace="com.example.goodsom.dao.mybatis.mapper.LikeMapper">
   
+  <select id="getLikeCountOfAuction" resultType="java.lang.Integer">
+  	SELECT COUNT(userId)
+  	FROM LIKES_A
+  	WHERE AUCTIONID = #{auctionId}
+  </select>
+  
+  <select id="getLikeCountOfGroupBuy" resultType="java.lang.Integer">
+  	SELECT COUNT(userId)
+  	FROM LIKES_G
+  	WHERE GROUPBUYID = #{groupBuyId}
+  </select>
+  
+  <select id="likeCheckOfAuctionByUserId" resultType="java.lang.Integer">
+  	SELECT COUNT(userId)
+  	FROM LIKES_A
+  	WHERE USERID = #{param1} AND AUCTIONID = #{param2}
+  </select>
+  
+  <select id="likeCheckOfGroupBuyByUserId" resultType="java.lang.Integer">
+  	SELECT COUNT(userId)
+  	FROM LIKES_G
+  	WHERE USERID = #{param1} AND GROUPBUYID = #{param2}
+  </select>
+
   <insert id="likeAuction" parameterType="java.lang.Integer">
   	INSERT INTO LIKES_A
   	(USERID, AUCTIONID)
@@ -27,13 +51,13 @@
   	WHERE USERID = #{param1} AND GROUPBUYID = #{param2}
   </delete>
   
-  <select id="getLikeListOfAuction" resultType="java.lang.Integer"> 
+  <select id="getLikedAuctionListByUserId" resultType="java.lang.Integer"> 
     SELECT AUCTIONID
     FROM LIKES_A
     WHERE userId = #{param1}
   </select>
   
-  <select id="getLikeListOfGroupBuy" resultType="java.lang.Integer"> 
+  <select id="getLikedGroupBuyListByUserId" resultType="java.lang.Integer"> 
     SELECT GROUPBUYID
     FROM LIKES_G
     WHERE userId = #{param1}

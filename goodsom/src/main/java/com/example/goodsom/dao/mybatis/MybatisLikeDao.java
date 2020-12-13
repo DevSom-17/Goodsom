@@ -16,6 +16,26 @@ public class MybatisLikeDao implements LikeDao {
 	private LikeMapper likeMapper;
 	
 	@Override
+	public int getLikeCountOfAuction(int auctionId) throws DataAccessException {
+		return likeMapper.getLikeCountOfAuction(auctionId);
+	}
+	
+	@Override
+	public int getLikeCountOfGroupBuy(int groupBuyId) throws DataAccessException {
+		return likeMapper.getLikeCountOfGroupBuy(groupBuyId);
+	}
+	
+	@Override
+	public int likeCheckOfAuctionByUserId(int userId, int auctionId) throws DataAccessException {
+		return likeMapper.likeCheckOfAuctionByUserId(userId, auctionId);
+	}
+	
+	@Override
+	public int likeCheckOfGroupBuyByUserId(int userId, int auctionId) throws DataAccessException {
+		return likeMapper.likeCheckOfGroupBuyByUserId(userId, auctionId);
+	}
+
+	@Override
 	public void likeAuction(int userId, int auctionId) throws DataAccessException {
 		likeMapper.likeAuction(userId, auctionId);
 	}
@@ -36,13 +56,13 @@ public class MybatisLikeDao implements LikeDao {
 	}
 
 	@Override
-	public List<Integer> getLikeListOfAuction(int userId) throws DataAccessException {
-		return likeMapper.getLikeListOfAuction(userId);
+	public List<Integer> getLikedAuctionListByUserId(int userId) throws DataAccessException {
+		return likeMapper.getLikedAuctionListByUserId(userId);
 	}
 
 	@Override
-	public List<Integer> getLikeListOfGroupBuy(int userId) throws DataAccessException {
-		return likeMapper.getLikeListOfGroupBuy(userId);
+	public List<Integer> getLikedGroupBuyListByUserId(int userId) throws DataAccessException {
+		return likeMapper.getLikedAuctionListByUserId(userId);
 	}
 
 }

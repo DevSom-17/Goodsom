@@ -51,6 +51,7 @@ public class Auction implements Serializable {
 	
 	List<Bid> bids = new ArrayList<Bid>();
 	List<Image_a> imgs_a = new ArrayList<Image_a>();
+	int likeCount;
 	
 	public Auction() {
 	}
@@ -103,14 +104,6 @@ public class Auction implements Serializable {
 	public void setContent(String content) {
 		this.content = content;
 	}
-
-//	public String getImg() {
-//		return img;
-//	}
-//
-//	public void setImg(String img) {
-//		this.img = img;
-//	}
 
 	public int getStartPrice() {
 		return startPrice;
@@ -214,6 +207,14 @@ public class Auction implements Serializable {
 		this.imgs_a = imgs_a;
 	}
 
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+
 	public void initAuction(User user) {
 		Calendar calendar = Calendar.getInstance();
         java.util.Date date = calendar.getTime();
@@ -226,6 +227,7 @@ public class Auction implements Serializable {
         menuId = MENUID_AUCTION;	// 메뉴 (1: auction, 2: groupbuy, 3: post)
         receive = 0;				// 수령 여부
         sendNoti = 0;				// 알림 안 보냄
+        likeCount = 0;				// 좋아요 수
 	}
 	
 	public void timeSet() {
