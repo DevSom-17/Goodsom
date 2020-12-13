@@ -23,6 +23,7 @@ public class User implements Serializable {
 	private String refundAccount;
 	private int report;
 	private int warning;
+	private String code;
 	
 	/*
 	public User() {}
@@ -159,6 +160,14 @@ public class User implements Serializable {
 
 	public void setWarning(int warning) {
 		this.warning = warning;
+	}
+	
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	@Override

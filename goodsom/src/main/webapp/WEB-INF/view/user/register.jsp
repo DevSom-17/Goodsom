@@ -27,9 +27,8 @@
 			contentType: 'application/json',
 			data: JSON.stringify(emailId),
 			success: function(){	// object parsed from JSON text	
-				var code = prompt("인증번호를 입력하세요.");
-
-				codeCheck(code);
+				var codeBtn = document.getElementById('codeVerify');
+				codeBtn.disabled=false;
 			},
 			error: function(request,status,error){
                 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -37,8 +36,10 @@
 		});
 	};
 
-	function codeCheck(code){
+	function codeSubmit(){
 		var reqUrl = "/email/verifyCode";
+
+		var code = document.getElementById('user.code').value;
 
 		$.ajax({
 			type: 'post',
@@ -49,9 +50,12 @@
 			success: function(codeMatch){	// object parsed from JSON text	
 				if(codeMatch){
 					var checkBtn = document.getElementById('emailVerify');
-					alert(checkBtn);
 					checkBtn.value="이메일 인증 완료";
 					checkBtn.disabled=true;
+
+					var codeBtn = document.getElementById('codeVerify');
+					codeBtn.disabled=true;
+					
 				}else{
 					alert("잘못된 인증번호입니다!");
 				}
@@ -88,6 +92,17 @@
 					
 					<div class="form-group">
 						<input type="button" id="emailVerify" value="이메일 인증" onClick="emailSubmit()" />
+					</div>
+					
+					<div class="form-group">
+						<label for="name">인증번호</label> 
+						<form:input path="user.code" class="form-control" placeholder="ex) 20170000@dongduk.ac.kr" />
+						<form:errors path="user.code" cssClass="error" />
+						<form:errors cssClass="error" />
+					</div>
+					
+					<div class="form-group">
+						<input type="button" id="codeVerify" value="확인" onClick="codeSubmit()" disabled/>
 					</div>
 
 					<div class="form-group">
