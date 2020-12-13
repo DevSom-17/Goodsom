@@ -293,13 +293,8 @@ public class Order {
 			successBidder.setAuctionId(auctionId);
 			successBidder.setUserId(user.getUserId());
 
-			System.out.println("경매 결제 시작입니다.");
-			System.out.println(bids);
-			
 			for (Bid bid : bids) {
-				System.out.println("Bid for문 시작");
-				if (bid.getUserId() == user.getUserId()) {
-					System.out.println("bid Id set 성공~!");
+				if (bid.getBidPrice() == totalPrice) {
 					successBidder.setBidId(bid.getBidId());
 					break;
 				}

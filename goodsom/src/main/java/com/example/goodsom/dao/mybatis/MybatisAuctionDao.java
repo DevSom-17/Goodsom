@@ -31,12 +31,11 @@ public class MybatisAuctionDao implements AuctionDao {
 	
 	@Override
 	public Auction getAuction(int auctionId) throws DataAccessException {
-//		왜 getAuctionWithBids()가 필요한가?
-//		Auction auction = auctionMapper.getAuctionWithBids(auctionId);
-//		if (auction == null) {
-//			auction = auctionMapper.getAuction(auctionId);			
-//		}
-		Auction auction = auctionMapper.getAuction(auctionId);
+		Auction auction = auctionMapper.getAuctionWithBids(auctionId);
+		if (auction == null) {
+			auction = auctionMapper.getAuction(auctionId);
+		}
+		
 		System.out.println(auction.toString());
 		for (Image_a img : auction.getImgs_a()) {
 			System.out.println("Auction의 Img["+img.getFileNo() + "]: " + img.getUrl());

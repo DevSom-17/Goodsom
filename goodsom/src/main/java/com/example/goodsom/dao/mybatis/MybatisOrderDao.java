@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.goodsom.dao.OrderDao;
+import com.example.goodsom.dao.mybatis.mapper.BidMapper;
 import com.example.goodsom.dao.mybatis.mapper.GroupBuyMapper;
 import com.example.goodsom.dao.mybatis.mapper.LineGroupBuyMapper;
 import com.example.goodsom.dao.mybatis.mapper.OrderMapper;
