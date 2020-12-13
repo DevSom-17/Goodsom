@@ -17,6 +17,8 @@ public class Bid implements Serializable {
 	User user = new User();
 	
 	String auctionTitle;
+	
+	int notiId;
 	public Bid() {
 		
 	}
@@ -92,6 +94,14 @@ public class Bid implements Serializable {
 		this.auctionTitle = auctionTitle;
 	}
 
+	public int getNotiId() {
+		return notiId;
+	}
+	
+	public void getNotiId(int notiId) {
+		this.notiId = notiId;
+	}
+	
 	public String toString() {
 		String str = "Bid [ bidId: " + bidId + ", userId" + userId + ", auctionId" + auctionId 
 				 + ", bidPrice" + bidPrice + ", isBidded" + isBidded + ", bidDate" + bidDate;
