@@ -18,17 +18,20 @@
   	<result column="menuId" property="menuId" />
   	<result column="userId" property="userId" />
   	<result column="sendNoti" property="sendNoti" />
+  	
   	<collection property="imgs_a" javaType="java.util.ArrayList" ofType="com.example.goodsom.domain.Image_a"
   			column="auctionId=auctionId" select="com.example.goodsom.dao.mybatis.mapper.FileMapper.getAuctionImgs">
   	</collection>
-  </resultMap>
-  
-<!--   	<collection property="bids" ofType="com.example.goodsom.domain.Bid">
+  	
+  	<collection property="bids" ofType="com.example.goodsom.domain.Bid">
   		<id property="bidId" column="bidId"/>
   		<result property="bidPrice" column="bidPrice"/>
   		<result property="bidDate" column="bidDate"/>
-  		<result property="userId" column="bidderId"/>
-  	</collection> -->
+  		<result property="userId" column="userId"/>
+  	</collection>
+  </resultMap>
+  
+   	
   
   <select id="getAuction" parameterType="java.lang.Integer" resultMap="resultMap_auction"> 
     SELECT auctionId, title, content, startPrice, uploadDate, endDate, count, maxPrice, state, 
@@ -53,12 +56,13 @@
     WHERE userId = #{userId}
     ORDER BY auctionId DESC
   </select>
-<!--   <select id="getAuctionWithBids" parameterType="java.lang.Integer" resultMap="resultMap"> bid있는 Auction객체, 경매 결제에서 이용
+
+ <select id="getAuctionWithBids" parameterType="java.lang.Integer" resultMap="resultMap_auction"> <!--  bid있는 Auction객체, 경매 결제에서 이용 -->
     SELECT a.auctionId, a.title, a.content, a.startPrice, a.uploadDate, a.endDate, a.count,
-    		a.maxPrice, a.state, a.receive, a.menuId, a.userId AS writerId, b.bidId, b.bidPrice
+    		a.maxPrice, a.state, a.receive, a.menuId, a.userId, a.sendNoti, b.bidId, b.bidPrice, b.userId <!-- AS writerId -->
     FROM AUCTIONS a, BIDS b
     WHERE a.auctionId = b.auctionId AND a.auctionId = #{auctionId}
-  </select> -->
+  </select>
   
   <insert id="createAuction" parameterType="com.example.goodsom.domain.Auction">
   	
