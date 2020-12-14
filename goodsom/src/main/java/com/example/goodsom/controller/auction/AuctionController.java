@@ -92,23 +92,6 @@ public class AuctionController {
 			mav.addObject("isWriter", false);
 		}
 
-		if (auction.getMaxPrice() == 0) { // 아무도 입찰 안 했을 때
-			mav.addObject("date_maxBid", "");
-			mav.addObject("user_maxBid", "아직 입찰자가 없습니다.");
-		} else {
-//			auction의 최고 금액에 해당하는 bid 정보 가져오기
-			Bid maxPriceBid = bidService.getBidByMaxPrice(auction.getMaxPrice(), auctionId); 
-			mav.addObject("date_maxBid", maxPriceBid.getBidDate());
-			User user_maxBid = userService.getUserByUserId(maxPriceBid.getUserId());
-			mav.addObject("user_maxBid", user_maxBid.getNickname());
-		}
-			
-//		현재 최고 금액을 입찰한 사람의 정보
-		session.setAttribute("bidForm", new BidForm());
-		session.setAttribute("auctionId", auctionId);
-		mav.addObject("auction", auction);
-		mav.addObject("bidForm", session.getAttribute("bidForm"));
-		mav.addObject("writer", userService.getUserByUserId(auction.getUserId()).getNickname());
 //		해당 경매의 좋아요 수
 		auction.setLikeCount(likeService.getLikeCountOfAuction(auctionId));
 //		사용자가 like했는지 안 했는지
@@ -122,6 +105,24 @@ public class AuctionController {
 			System.out.println("[AuctionDetail]likeService.likeCheckOfAuctionByUserId()오류!");
 			mav.addObject("like", false);
 		}
+
+		if (auction.getMaxPrice() == 0) { // 아무도 입찰 안 했을 때
+			mav.addObject("date_maxBid", "");
+			mav.addObject("user_maxBid", "아직 입찰자가 없습니다.");
+		} else {
+//			auction의 최고 금액에 해당하는 bid 정보 가져오기
+			Bid maxPriceBid = bidService.getBidByMaxPrice(auction.getMaxPrice(), auctionId); 
+			mav.addObject("date_maxBid", maxPriceBid.getBidDate());
+			User user_maxBid = userService.getUserByUserId(maxPriceBid.getUserId());
+			mav.addObject("user_maxBid", user_maxBid.getNickname());
+		}
+
+		//		현재 최고 금액을 입찰한 사람의 정보
+		session.setAttribute("bidForm", new BidForm());
+		session.setAttribute("auctionId", auctionId);
+		mav.addObject("auction", auction);
+		mav.addObject("bidForm", session.getAttribute("bidForm"));
+		mav.addObject("writer", userService.getUserByUserId(auction.getUserId()).getNickname());
 		return mav;
 	}
 	

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.goodsom.controller.user.UserSession;
 import com.example.goodsom.domain.GroupBuy;
 import com.example.goodsom.service.GroupBuyService;
+import com.example.goodsom.service.LikeService;
 import com.example.goodsom.service.UserService;
 
 /**
@@ -33,6 +34,8 @@ public class DetailGroupBuyController {
 	GroupBuyService groupBuyService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	LikeService likeService;
 	
 	// home -> list
 	// form -> list : detail에서 취소 후 왔을 때 해당정보 유지
@@ -60,23 +63,38 @@ public class DetailGroupBuyController {
 		ModelAndView mav = new ModelAndView(GROUPBUY_DETAIL);
 		HttpSession session = request.getSession();
 		UserSession user  = (UserSession)session.getAttribute("userSession");
+		int loginUserId = user.getUser().getUserId();
 		
 		// db : option & groupBuy
 		GroupBuy groupBuy = groupBuyService.getGroupBuy(groupBuyId);
 		System.out.println("groupBuyID: " + groupBuyId);
 		System.out.println("groupBuy: " + groupBuy.toString());
-		System.out.println("user: " + user.getUser().getUserId());
+		System.out.println("user: " + loginUserId);
 		
 		// 조회수 증가
 		groupBuyService.increaseCount(groupBuy);
 		
 		// 작성자인지 여부 
-		if (user.getUser().getUserId() == groupBuy.getUserId()) {
+		if (loginUserId == groupBuy.getUserId()) {
 			model.addAttribute("isWriter", true);
 		} else {
 			model.addAttribute("isWriter", false);
 		}
 		
+//		해당 경매의 좋아요 수
+		groupBuy.setLikeCount(likeService.getLikeCountOfGroupBuy(groupBuyId));
+//		사용자가 like했는지 안 했는지
+		mav.addObject("loginUserId", loginUserId);
+		int result = likeService.likeCheckOfGroupBuyByUserId(loginUserId, groupBuyId);
+		if (result == 1) {
+			mav.addObject("like", true);
+		} else if (result == 0) {
+			mav.addObject("like", false);
+		} else {
+			System.out.println("[GroupBuyDetail]likeService.likeCheckOfGroupBuyByUserId()오류!");
+			mav.addObject("like", false);
+		}
+
 		// LineGroupBuyForm 값 지정
 		LineGroupBuyForm lineGroupBuyForm = new LineGroupBuyForm();
 		lineGroupBuyForm.setGroupBuyId(groupBuyId);
@@ -87,9 +105,8 @@ public class DetailGroupBuyController {
 		mav.addObject("groupBuy", groupBuy);
 		mav.addObject("writer", userService.getUserByUserId(groupBuy.getUserId()).getNickname());
 		model.addAttribute("dDay", groupBuy.getDday(groupBuy.getEndDate().getTime()));
-		
-		 
 		return mav;
+		
 	}
 	
 }
