@@ -226,9 +226,9 @@ var btn_like = document.getElementById("btn_like");
 function changeHeart(){ 
      $.ajax({
             type : "POST",  
-            url : "/clickLikeAuction.do",       
+            url : "/clickLikeGroupBuy.do",       
             dataType : "json",   
-            data : "auctionId="+auctionId+"&userId="+userId,
+            data : "groupBuyId="+groupBuyId+"&userId="+userId,
 			error : function(){
                 alert("통신 에러","error","확인",function(){});
             },
