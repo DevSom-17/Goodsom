@@ -75,6 +75,7 @@ public class GroupBuy implements Serializable {
 	List<User> groupBuyUsers = new ArrayList<User>();
 	List<Question> questions = new ArrayList<Question>();
 	List<Image_g> imgs_g = new ArrayList<Image_g>();
+	int likeCount;
 	
 	public int getUserId() {
 		return userId;
@@ -294,6 +295,14 @@ public class GroupBuy implements Serializable {
 		this.imgs_g = imgs_g;
 	}
 
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+
 	public GroupBuy() {
 	}
 	
@@ -310,6 +319,7 @@ public class GroupBuy implements Serializable {
         menuId = MENUID_GROUPBUY;	// 메뉴
         receive = 0;				// 수령 여부
         sendNoti = 0; 				// 알림 안보냄
+        likeCount = 0;				// 좋아요 수
         
         System.out.println("[initGroupBuy] uploadDate: " + uploadDate + ", userId: " + userId
         		 + ", count: " + count  + ", state: " + state  + ", rate: " + rate  

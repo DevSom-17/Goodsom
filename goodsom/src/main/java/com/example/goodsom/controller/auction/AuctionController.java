@@ -22,6 +22,7 @@ import com.example.goodsom.domain.Bid;
 import com.example.goodsom.domain.SuccessBidder;
 import com.example.goodsom.domain.User;
 import com.example.goodsom.service.BidService;
+import com.example.goodsom.service.LikeService;
 
 /**
  * @author Yejin Lee   
@@ -42,7 +43,8 @@ public class AuctionController {
 	UserService userService;
 	@Autowired
 	BidService bidService;
-	
+	@Autowired
+	LikeService likeService;
 	
 	@RequestMapping(value="/auction/list.do", method=RequestMethod.GET)
 	public ModelAndView auctionList(SessionStatus sessionStatus, HttpSession session){
@@ -81,12 +83,27 @@ public class AuctionController {
 		
 //		로그인 한 사용자가 작성자가 아닐 경우 조회수 증가시킨 후 해당 정보 넘겨줌
 		UserSession user  = (UserSession)request.getSession().getAttribute("userSession");
-		if (user.getUser().getUserId() == auction.getUserId()) {
+		int loginUserId = user.getUser().getUserId();
+		if (loginUserId == auction.getUserId()) {
 			mav.addObject("isWriter", true);
 		} else {
 			auction.setCount(auction.getCount()+1);
 			auctionService.increaseCount(auction);
 			mav.addObject("isWriter", false);
+		}
+
+//		해당 경매의 좋아요 수
+		auction.setLikeCount(likeService.getLikeCountOfAuction(auctionId));
+//		사용자가 like했는지 안 했는지
+		mav.addObject("loginUserId", loginUserId);
+		int result = likeService.likeCheckOfAuctionByUserId(loginUserId, auctionId);
+		if (result == 1) {
+			mav.addObject("like", true);
+		} else if (result == 0) {
+			mav.addObject("like", false);
+		} else {
+			System.out.println("[AuctionDetail]likeService.likeCheckOfAuctionByUserId()오류!");
+			mav.addObject("like", false);
 		}
 
 		if (auction.getMaxPrice() == 0) { // 아무도 입찰 안 했을 때
@@ -99,8 +116,8 @@ public class AuctionController {
 			User user_maxBid = userService.getUserByUserId(maxPriceBid.getUserId());
 			mav.addObject("user_maxBid", user_maxBid.getNickname());
 		}
-			
-//		현재 최고 금액을 입찰한 사람의 정보
+
+		//		현재 최고 금액을 입찰한 사람의 정보
 		session.setAttribute("bidForm", new BidForm());
 		session.setAttribute("auctionId", auctionId);
 		mav.addObject("auction", auction);

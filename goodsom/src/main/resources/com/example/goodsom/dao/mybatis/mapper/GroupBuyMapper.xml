@@ -190,5 +190,10 @@
    ]]>
   </select>
   
-  
+  <select id="getLikedGroupBuyListByUserId" parameterType="Integer" resultMap="collectionResultMap">
+    SELECT <include refid="BaseColumns_GroupBuys" />
+    FROM GROUPBUYS
+    WHERE GROUPBUYID IN (SELECT GROUPBUYID FROM LIKES_G WHERE USERID = 1) 
+    ORDER BY UPLOADDATE DESC
+  </select>
 </mapper>

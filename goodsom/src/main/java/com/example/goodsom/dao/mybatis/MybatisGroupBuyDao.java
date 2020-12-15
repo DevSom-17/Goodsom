@@ -1,6 +1,5 @@
 package com.example.goodsom.dao.mybatis;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.example.goodsom.dao.GroupBuyDao;
 import com.example.goodsom.dao.mybatis.mapper.GroupBuyMapper;
 import com.example.goodsom.domain.GroupBuy;
-import com.example.goodsom.domain.Image_a;
 import com.example.goodsom.domain.Image_g;
 
 
@@ -103,6 +101,11 @@ public class MybatisGroupBuyDao implements GroupBuyDao {
 	
 	public List<GroupBuy> groupBuyListByKeyword(String keyword) {
 		return groupBuyMapper.groupBuyListByKeyword(keyword);
+	}
+
+	@Override
+	public List<GroupBuy> getLikedGroupBuyListByUserId(int userId) throws DataAccessException {
+		return groupBuyMapper.getLikedGroupBuyListByUserId(userId);
 	}
 
 	

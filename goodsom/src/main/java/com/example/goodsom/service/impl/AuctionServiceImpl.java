@@ -14,11 +14,14 @@ import com.example.goodsom.dao.AuctionDao;
 import com.example.goodsom.dao.BidDao;
 import com.example.goodsom.dao.FileDao;
 import com.example.goodsom.dao.NotificationDao;
+import com.example.goodsom.dao.UserDao;
 import com.example.goodsom.domain.Auction;
 import com.example.goodsom.domain.Bid;
 import com.example.goodsom.domain.Image_a;
 import com.example.goodsom.domain.SuccessBidder;
+import com.example.goodsom.domain.User;
 import com.example.goodsom.service.AuctionService;
+import com.example.goodsom.service.NotiMailService;
 
 
 /**
@@ -42,6 +45,12 @@ public class AuctionServiceImpl implements AuctionService {
 	
 	@Autowired
 	private FileDao fileDao;
+	
+	@Autowired
+	private NotiMailService notiMailService;
+	
+	@Autowired
+	private UserDao userDao;
 	
 	public Auction getAuction(int auctionId) throws DataAccessException {
 		Auction auction = auctionDao.getAuction(auctionId);
@@ -115,14 +124,27 @@ public class AuctionServiceImpl implements AuctionService {
 		int[] auctionId = auctionDao.getAuctionIdForNoti(); // 동시에 여러 경매가 마감될 경우
 		
 		for(int i = 0; i < auctionId.length; i++) {
+			Auction auction = auctionDao.getAuction(auctionId[i]);
 			
-			if(auctionDao.getAuction(auctionId[i]).getState().equals(CLOSED)) {
-				Bid bid = bidDao.getSuccessBidByAuctionId(auctionId[i]);
+			if(auction.getState().equals(CLOSED)) { // 마감일때 알림 보내기
+				Bid bid = bidDao.getSuccessBidByAuctionId(auctionId[i]); // 낙찰자
 				
 				if(bid != null) {
 					bid.setAuctionTitle(auctionDao.getAuction(auctionId[i]).getTitle());
-					notiDao.createNoti_a(bid);
-					auctionDao.updateAuctionNoti(auctionId[i]);
+					notiDao.createNoti_a(bid); // 알림 생성
+					
+					// 메일 보내기 - 마감이면서 알림을 보내지 않았을 때
+					if(auction.getSendNoti() == 0) {
+						try {
+							// 메일 전송
+							User successUser = userDao.getUserByUserId(bid.getUserId());
+							notiMailService.sendAuctionMessage(successUser.getEmail());
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+					
+					auctionDao.updateAuctionNoti(auctionId[i]); // 알림 보냄으로 상태변경
 				}
 			}
 		}
@@ -139,6 +161,11 @@ public class AuctionServiceImpl implements AuctionService {
 	
 	public SuccessBidder getSuccessBidderByAuctionId(int auctionId) {
 		return auctionDao.getSuccessBidderByAuctionId(auctionId);
+	}
+
+	@Override
+	public List<Auction> getLikedAuctionListByUserId(int userId) {
+		return auctionDao.getLikedAuctionListByUserId(userId);
 	}
 	
 }

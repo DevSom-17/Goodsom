@@ -18,6 +18,7 @@ import javax.validation.Valid;
 
 import com.example.goodsom.domain.Bid;
 import com.example.goodsom.service.BidService;
+import com.example.goodsom.service.LikeService;
 import com.example.goodsom.domain.User;
 import com.example.goodsom.service.UserService;
 import com.example.goodsom.controller.user.UserSession;
@@ -46,15 +47,20 @@ public class BidFormController {
 
 	@Autowired
 	UserService userService;
-
 	@Autowired
 	AuctionService auctionService;
-
+	@Autowired
+	LikeService likeService;
+	
 	@RequestMapping(method = RequestMethod.POST)
 	public String create(HttpServletRequest request,
 			@Valid @ModelAttribute("bidForm") BidForm bidForm, BindingResult result, 
 			HttpServletResponse response, HttpSession session, Model model, SessionStatus sessionStatus) throws Exception {
+		
 		int auctionId = bidForm.getBid().getAuctionId();
+//		bid 생성 위해 현재 로그인한 User객체 필요
+		UserSession userSession = (UserSession)session.getAttribute("userSession");
+		int userId = (int) userSession.getUser().getUserId();
 //		BidForm객체 validation
 		Auction auction = auctionService.getAuction(auctionId);
 		model.addAttribute("writer", userService.getUserByUserId(auction.getUserId()).getNickname());
@@ -68,6 +74,20 @@ public class BidFormController {
 			if (bidForm.getBid().getBidPrice() <= auction.getMaxPrice()) {
 				result.rejectValue("bid.bidPrice", "smallerThanMaxPrice");
 			}
+		}
+
+//		해당 경매의 좋아요 수
+		auction.setLikeCount(likeService.getLikeCountOfAuction(auctionId));
+//		사용자가 like했는지 안 했는지
+		model.addAttribute("loginUserId", userId);
+		int likeCheck = likeService.likeCheckOfAuctionByUserId(userId, auctionId);
+		if (likeCheck == 1) {
+			model.addAttribute("like", true);
+		} else if (likeCheck == 0) {
+			model.addAttribute("like", false);
+		} else {
+			System.out.println("[AuctionDetail]likeService.likeCheckOfAuctionByUserId()오류!");
+			model.addAttribute("like", false);
 		}
 
 //		BidForm객체 validation
@@ -85,10 +105,6 @@ public class BidFormController {
 			return AUCTION_DETAIL;
 		}
 		
-//		bid 생성
-		UserSession userSession = (UserSession)session.getAttribute("userSession");
-		int userId = (int) userSession.getUser().getUserId();
-		
 		java.util.Date utilDate = new java.util.Date();
 		java.sql.Date bidDate = new java.sql.Date(utilDate.getTime());
 
@@ -104,7 +120,10 @@ public class BidFormController {
 
 //		Auction객체의 최고 금액 변경 후 Auction객체 다시 가져와 넘겨주기
 		int updatedAutionId = auctionService.updateAuctionMaxPrice(bidForm.getBid().getBidPrice(), auctionId); // auction table maxPrice update
-		model.addAttribute("auction", auctionService.getAuction(updatedAutionId));;
+		Auction updatedAuction = auctionService.getAuction(updatedAutionId);
+//		해당 경매의 좋아요 수
+		updatedAuction.setLikeCount(likeService.getLikeCountOfAuction(updatedAutionId));
+		model.addAttribute("auction", updatedAuction);
 		
 //		auction_detail.jsp에 넘겨줄 model 값 설정
 		model.addAttribute("date_maxBid", bid.getBidDate());

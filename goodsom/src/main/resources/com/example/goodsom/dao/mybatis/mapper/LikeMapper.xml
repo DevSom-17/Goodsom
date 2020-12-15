@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.goodsom.dao.mybatis.mapper.LikeMapper">
+  
+  <select id="getLikeCountOfAuction" resultType="java.lang.Integer">
+  	SELECT COUNT(userId)
+  	FROM LIKES_A
+  	WHERE AUCTIONID = #{auctionId}
+  </select>
+  
+  <select id="getLikeCountOfGroupBuy" resultType="java.lang.Integer">
+  	SELECT COUNT(userId)
+  	FROM LIKES_G
+  	WHERE GROUPBUYID = #{groupBuyId}
+  </select>
+  
+  <select id="likeCheckOfAuctionByUserId" resultType="java.lang.Integer">
+  	SELECT COUNT(userId)
+  	FROM LIKES_A
+  	WHERE USERID = #{param1} AND AUCTIONID = #{param2}
+  </select>
+  
+  <select id="likeCheckOfGroupBuyByUserId" resultType="java.lang.Integer">
+  	SELECT COUNT(userId)
+  	FROM LIKES_G
+  	WHERE USERID = #{param1} AND GROUPBUYID = #{param2}
+  </select>
+
+  <insert id="likeAuction" parameterType="java.lang.Integer">
+  	INSERT INTO LIKES_A
+  	(USERID, AUCTIONID)
+  	VALUES
+  	(#{param1}, #{param2})
+  </insert>
+  
+  <insert id="likeGroupBuy" parameterType="java.lang.Integer">
+  	INSERT INTO LIKES_G
+  	(USERID, GROUPBUYID)
+  	VALUES
+  	(#{param1}, #{param2})
+  </insert>
+
+  <delete id="unlikeAuction" parameterType="java.lang.Integer">
+  	DELETE FROM LIKES_A
+  	WHERE USERID = #{param1} AND AUCTIONID = #{param2}
+  </delete>
+
+  <delete id="unlikeGroupBuy" parameterType="java.lang.Integer">
+  	DELETE FROM LIKES_G
+  	WHERE USERID = #{param1} AND GROUPBUYID = #{param2}
+  </delete>
+  
+</mapper>

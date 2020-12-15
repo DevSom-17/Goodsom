@@ -1,6 +1,5 @@
 package  com.example.goodsom.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -45,4 +44,6 @@ public interface GroupBuyDao {
 	
 	List<GroupBuy> groupBuyListByKeyword(String keyword) throws DataAccessException;
 	
+	List<GroupBuy> getLikedGroupBuyListByUserId(int userId) throws DataAccessException;
+
 }

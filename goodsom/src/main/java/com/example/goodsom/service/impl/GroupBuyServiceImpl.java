@@ -1,6 +1,5 @@
 package com.example.goodsom.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.goodsom.dao.FileDao;
 import com.example.goodsom.dao.GroupBuyDao;
 import com.example.goodsom.dao.NotificationDao;
+import com.example.goodsom.dao.UserDao;
 import com.example.goodsom.domain.GroupBuy;
-import com.example.goodsom.domain.Image_a;
 import com.example.goodsom.domain.Image_g;
 import com.example.goodsom.domain.Notification;
+import com.example.goodsom.domain.User;
 import com.example.goodsom.service.GroupBuyService;
+import com.example.goodsom.service.NotiMailService;
 
 /**
  * @author Seonmi Hwang
@@ -42,6 +43,12 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	
 	@Autowired
 	private NotificationDao notiDao;
+	
+	@Autowired
+	private NotiMailService notiMailService;
+	
+	@Autowired
+	private UserDao userDao;
 	
 	public GroupBuy getGroupBuy(int groupBuyId) {
 		return groupBuyDao.getGroupBuy(groupBuyId);
@@ -132,11 +139,23 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 			noti.setGroupBuyId(achieveId[i]);
 			noti.setState(ACHIEVED);
 			
+			// 공구에 참여한 모든 유저에게
 			for(int j = 0; j < userId.length; j++) {
 				noti.setUserId(userId[j]);
 				
 				// 알림 생성: 유저가 알림 페이지에 들어갈 때 DB에서 읽어서 즉시 생성
 				notiDao.createNoti_g(noti);
+				
+				// 메일 보내기 - 성사됐고 알림을 보내지 않았을 때
+				if(groupBuy.getSendNoti() == 0) {
+					try {
+						// 메일 전송
+						User user = userDao.getUserByUserId(userId[j]);
+						notiMailService.sendGroupBuyAchieveMessage(user.getEmail());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
 			}
 			// 달성 알림을 보냈다는 표시
 			groupBuyDao.updateAchieveNoti(achieveId[i]);
@@ -155,16 +174,34 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 			noti.setTitle(groupBuy.getTitle());
 			noti.setGroupBuyId(closeId[i]);
 			noti.setState(CLOSED);
+			
+			// 공구에 참여한 모든 유저에게
 			for(int j = 0; j < userId.length; j++) {
 				noti.setUserId(userId[j]);
 				
 				// 알림 생성: 유저가 알림 페이지에 들어갈 때 DB에서 읽어서 즉시 생성
 				notiDao.createNoti_g(noti);
 				
+				// 메일 보내기 - 마감됐고 알림을 보내지 않았을 때
+				if(groupBuy.getSendNoti() != 2) {
+					try {
+						// 메일 전송
+						User user = userDao.getUserByUserId(userId[j]);
+						notiMailService.sendGroupBuyCloseMessage(user.getEmail());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				
 			}
 			// 마감 알림을 보냈다는 표시
 			groupBuyDao.updateCloseNoti(closeId[i]);
 		}
+	}
+
+	@Override
+	public List<GroupBuy> getLikedGroupBuyListByUserId(int userId) {
+		return groupBuyDao.getLikedGroupBuyListByUserId(userId);
 	}
 
 }

@@ -32,6 +32,7 @@ import com.example.goodsom.domain.GroupBuy;
 import com.example.goodsom.domain.Image_a;
 import com.example.goodsom.domain.Image_g;
 import com.example.goodsom.service.GroupBuyService;
+import com.example.goodsom.service.LikeService;
 
 @Controller
 @SessionAttributes("groupBuyForm")
@@ -52,6 +53,8 @@ public class GroupBuyFormController implements ApplicationContextAware {
 	
 	@Autowired
 	private GroupBuyService groupBuyService;
+	@Autowired
+	private LikeService likeService;
 
 	@ModelAttribute("groupBuyForm")
 	public GroupBuyForm formBacking(HttpServletRequest request,
@@ -128,6 +131,16 @@ public class GroupBuyFormController implements ApplicationContextAware {
 //			db: groupBuy update & option 삭제 후, 다시 생성
 			groupBuyId = groupBuyService.updateGroupBuy(groupBuyForm.getGroupBuy(), groupBuyImgs);
 			groupBuyService.updateOptions(groupBuyForm.getGroupBuy());
+			
+			int likeCheck = likeService.likeCheckOfGroupBuyByUserId(user.getUser().getUserId(), groupBuyId);
+			if (likeCheck == 1) {
+				model.addAttribute("like", true);
+			} else if (likeCheck == 0) {
+				model.addAttribute("like", false);
+			} else {
+				System.out.println("[AuctionUpdate후]likeService.likeCheckOfAuctionByUserId()오류!");
+				model.addAttribute("like", false);
+			}
 		} else { 	// create
 //			파일 업로드 기능
 			List<String> savedFileNames = uploadFile(groupBuyForm.getGroupBuy().getReport());
@@ -142,6 +155,7 @@ public class GroupBuyFormController implements ApplicationContextAware {
 			
 //			받아온 id와 option 파라미터를 Option객체에 세팅 후, create option
 			groupBuyService.createOptions(groupBuyForm.getGroupBuy());
+			model.addAttribute("like", false);
 		}
 //		스케줄러 => create / update 시 resultDate로 설정
 		groupBuyService.deadLineScheduler();
@@ -153,6 +167,11 @@ public class GroupBuyFormController implements ApplicationContextAware {
 		}else {
 			model.addAttribute("isWriter", false);
 		}
+//		좋아요 수
+		groupBuy.setLikeCount(likeService.likeCheckOfGroupBuyByUserId(user.getUser().getUserId(), groupBuyId));
+//		좋아요 기능에 필요
+		model.addAttribute("loginUserId", user.getUser().getUserId());
+		
 		model.addAttribute("groupBuy", groupBuy);
 		model.addAttribute("writer", user.getUser().getNickname());
 		model.addAttribute("dDay", groupBuy.getDday(groupBuy.getEndDate().getTime()));

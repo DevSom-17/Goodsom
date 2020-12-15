@@ -23,6 +23,7 @@ import com.example.goodsom.service.NotiService;
  */
 
 @Controller
+@RequestMapping(value="/rest")
 public class RestfulNotiController {
 	
 	@Autowired

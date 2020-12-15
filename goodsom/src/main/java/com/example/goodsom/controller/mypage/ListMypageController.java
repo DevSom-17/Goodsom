@@ -48,20 +48,24 @@ public class ListMypageController {
 		if (listType == null) {
 			listType = 1;
 		}
-		
 		mav.addObject("listType", listType); // 1 - 등록목록 / 2 - 결제목록 / 3 - 좋아요한 목록
 		
+		if (listType == 1) {
 //		경매 등록 목록
-		mav.addObject("auctionList", auctionService.getAuctionListByUserId(userId));
+			mav.addObject("auctionList", auctionService.getAuctionListByUserId(userId));
 //		공동구매 등록 목록
-		mav.addObject("groupBuyList",groupBuyService.getGroupBuyListByUserId(userId));
-		
-		List<Order> auctionOrderList =  userService.getAuctionOrderList(userId);
-		List<Order> groupBuyOrderList =  userService.getGroupBuyOrderList(userId);
-		
-		mav.addObject("auctionOrderList", orderService.setAuctionInfo(auctionOrderList));
-		mav.addObject("groupBuyOrderList", orderService.setGroupBuyInfo(groupBuyOrderList));
-		
+			mav.addObject("groupBuyList", groupBuyService.getGroupBuyListByUserId(userId));
+		} else if (listType == 2) {
+			List<Order> auctionOrderList =  userService.getAuctionOrderList(userId);
+			List<Order> groupBuyOrderList =  userService.getGroupBuyOrderList(userId);
+			
+			mav.addObject("auctionOrderList", orderService.setAuctionInfo(auctionOrderList));
+			mav.addObject("groupBuyOrderList", orderService.setGroupBuyInfo(groupBuyOrderList));
+		} else { 
+//		좋아요를 누른 공동구매/경매 목록 가져오기 (listType == 3)
+			mav.addObject("likedAuctionList", auctionService.getLikedAuctionListByUserId(userId));
+			mav.addObject("likedGroupBuyList", groupBuyService.getLikedGroupBuyListByUserId(userId));
+		}
 		return mav;
 	}
 	

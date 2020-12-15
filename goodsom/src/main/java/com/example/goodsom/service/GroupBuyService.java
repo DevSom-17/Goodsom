@@ -1,6 +1,5 @@
 package com.example.goodsom.service;
 
-import java.util.Date;
 import java.util.List;
 
 import com.example.goodsom.domain.GroupBuy;
@@ -37,4 +36,6 @@ public interface GroupBuyService {
 	
 	public List<GroupBuy> getRecentGroupBuyList();
 	
+	List<GroupBuy> getLikedGroupBuyListByUserId(int userId);
+
 }

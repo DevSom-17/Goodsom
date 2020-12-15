@@ -31,6 +31,7 @@ import com.example.goodsom.controller.user.UserSession;
 import com.example.goodsom.domain.Auction;
 import com.example.goodsom.domain.Image_a;
 import com.example.goodsom.service.AuctionService;
+import com.example.goodsom.service.LikeService;
 
 /**
  * @author Hyekyung Kim | Yejin Lee  | kimdahyee
@@ -52,6 +53,8 @@ public class AuctionFormController implements ApplicationContextAware  {
 //	Service 객체
 	@Autowired
 	private AuctionService auctionService;
+	@Autowired
+	private LikeService likeService;
 
 	@Override					// life-cycle callback method
 	public void setApplicationContext(ApplicationContext appContext)
@@ -136,7 +139,19 @@ public class AuctionFormController implements ApplicationContextAware  {
 			}
 			int auctionId = auctionService.updateAuction(auctionForm.getAuction(), auctionImgs);
 //			auctionForm.getAuction().setImg(request.getContextPath() + "/resources/images/"+ savedFileName);
-			model.addAttribute("auction", auctionService.getAuction(auctionId));
+			Auction auction = auctionService.getAuction(auctionId);
+//			해당 경매의 좋아요 수
+			auction.setLikeCount(likeService.getLikeCountOfAuction(auctionId));
+			model.addAttribute("auction", auction);
+			int likeCheck = likeService.likeCheckOfAuctionByUserId(user.getUser().getUserId(), auctionId);
+			if (likeCheck == 1) {
+				model.addAttribute("like", true);
+			} else if (likeCheck == 0) {
+				model.addAttribute("like", false);
+			} else {
+				System.out.println("[AuctionUpdate후]likeService.likeCheckOfAuctionByUserId()오류!");
+				model.addAttribute("like", false);
+			}
 		} else { // create
 //			파일 업로드 기능
 			List<String> savedFileNames = uploadFile(auctionForm.getAuction().getReport());
@@ -148,7 +163,8 @@ public class AuctionFormController implements ApplicationContextAware  {
             auctionForm.getAuction().initAuction(user.getUser());
 			System.out.println("[AuctionFormController] auctionForm 값: " + auctionForm.toString());
 			auctionService.createAuction(auctionForm.getAuction(), auctionImgs);
-//			auctionForm.getAuction().setImgs_a(imgs);
+//			like
+			model.addAttribute("like", false);
 			model.addAttribute("auction", auctionForm.getAuction());
 		}
 		
@@ -163,6 +179,8 @@ public class AuctionFormController implements ApplicationContextAware  {
 		model.addAttribute("isWriter", true);
 		model.addAttribute("writer", user.getUser().getNickname());
 		model.addAttribute("bidForm", session.getAttribute("bidForm"));
+//		like
+		model.addAttribute("loginUserId", user.getUser().getUserId());
 		sessionStatus.setComplete();
 		return AUCTION_DETAIL;
 	}

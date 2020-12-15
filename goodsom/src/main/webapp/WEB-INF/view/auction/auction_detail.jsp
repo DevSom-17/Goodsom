@@ -32,6 +32,7 @@ function orderAuction() {
 }
 
 </script>
+
 <style>
 .error {
 	color: #ff0000;
@@ -133,6 +134,19 @@ function orderAuction() {
 			</div>
 		</section>
 		<!-- End Portfolio Details Section -->
+		<div class="form-group" align="center">
+			<dl>
+				<c:choose>
+					<c:when test="${like eq true}">
+						<img id="btn_like" src="/assets/img/liked(bright_red).png" class="img-fluid" style="cursor:pointer;">
+					</c:when>
+					<c:otherwise>
+						<img id="btn_like" src="/assets/img/unliked.png" class="img-fluid" style="cursor:pointer;">
+					</c:otherwise>
+				</c:choose>	
+				<dd id="likeCount" style="margin-left:5px;">${auction.likeCount}</dd>
+			</dl>
+		</div>
 
 		<div class="form-group" align="center">
 				<%-- <c:if test="${(isWriter eq true) and (empty bids) and (auction.state eq 'proceeding')}"> --%>
@@ -146,7 +160,46 @@ function orderAuction() {
 					<a class="btn btn-primary py-3 px-5" href="javascript:deleteAuction()" >삭제</a>
 				</c:if>
 					<a class="btn btn-primary py-3 px-5" href="<c:url value='/auction/list.do'></c:url>">목록</a>
-			</div>
+		</div>
+		
 	</main>
 	<!-- End #main -->
+	<script>
+/* JSP SCRIPT */
+var auctionId = ${auction.auctionId};
+var userId = ${loginUserId};
+ 
+var btn_like = document.getElementById("btn_like");
+ btn_like.onclick = function(){ changeHeart(); }
+ 
+/* 좋아요 버튼 눌렀을떄 */
+function changeHeart(){ 
+     $.ajax({
+            type : "POST",  
+            url : "/clickLikeAuction.do",       
+            dataType : "json",   
+            data : "auctionId="+auctionId+"&userId="+userId,
+			error : function(){
+                alert("통신 에러","error","확인",function(){});
+            },
+            success : function(jdata) {
+                if(jdata.resultCode == -1){
+                    alert("좋아요 오류","error","확인",function(){});
+                }
+                else{
+                    if(jdata.likeCheck == 1){
+                        $("#btn_like").attr("src","/assets/img/liked(bright_red).png");
+                        $("#likeCount").empty();
+                        $("#likeCount").append(jdata.likeCount);
+                    }
+                    else if (jdata.likeCheck == 0){
+                        $("#btn_like").attr("src","/assets/img/unliked.png");
+                        $("#likeCount").empty();
+                        $("#likeCount").append(jdata.likeCount);
+                    }
+                }
+            }
+        });
+ }
+</script>
 	<%@ include file="../includeBottom.jsp"%>
