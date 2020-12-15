@@ -20,6 +20,8 @@ public interface OrderDao {
 	  List<Order> getOrdersByAuctionId(int auctionId) throws DataAccessException;
 	  
 	  void createOrder(Order order) throws DataAccessException;
+	  
+	  void updateOrder(Order order) throws DataAccessException;
 
 	  Order getOrderWithLineGroupBuys(int orderId) throws DataAccessException;
 

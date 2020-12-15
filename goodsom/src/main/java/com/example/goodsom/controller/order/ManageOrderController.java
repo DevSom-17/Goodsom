@@ -2,22 +2,23 @@ package com.example.goodsom.controller.order;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.goodsom.controller.user.UserSession;
 import com.example.goodsom.domain.Order;
 import com.example.goodsom.service.AuctionService;
 import com.example.goodsom.service.GroupBuyService;
 import com.example.goodsom.service.OrderService;
 
 @Controller
-@SessionAttributes("userSession")
 public class ManageOrderController {
 	
 	@Autowired
@@ -27,33 +28,71 @@ public class ManageOrderController {
 	@Autowired
 	AuctionService auctionService;
 	
-	
-	@RequestMapping("/order/groupBuy/manage.do")
-	public ModelAndView groupBuyHandleRequest( // 공동구매
-			@ModelAttribute("userSession") UserSession userSession,
+	@RequestMapping(value = "/order/groupBuy/manage.do", method = RequestMethod.GET)
+	public ModelAndView groupBuyHandleRequestGet( // 공동구매
 			@RequestParam("groupBuyId") int groupBuyId) throws Exception {
 			
 			System.out.println("/order/groupbuy/manage.do 실행");
 		
 			ModelAndView mav = new ModelAndView("order/order_manage");
-			List<Order> orderList = orderService.getOrdersByGroupBuyId(groupBuyId);
+			
+			List<Order> list = orderService.getOrdersByGroupBuyId(groupBuyId);
+			OrderListForm orderListForm = new OrderListForm();	
+			orderListForm.setOrderList(list);
 			
 			mav.addObject("groupBuy", groupBuyService.getGroupBuy(groupBuyId));
-			mav.addObject("orderList", orderList);
+			mav.addObject("orderListForm", orderListForm);
 			return mav;
 	}
 	
-	@RequestMapping("/order/auction/manage.do")
-	public ModelAndView auctionHandleRequest( // 경매
-			@ModelAttribute("userSession") UserSession userSession,
+	@RequestMapping(value = "/order/groupBuy/manage.do", method = RequestMethod.POST)
+	public ModelAndView groupBuyHandleRequestPost( // 공동구매
+			@ModelAttribute("orderListForm") OrderListForm orderListForm) throws Exception {
+			
+			System.out.println("/order/groupbuy/manage.do 실행");
+			
+			List<Order> list = orderListForm.getOrderList();
+			
+			for (int i = 0; i < list.size(); i++) {
+				System.out.println(list.get(i));
+				orderService.updateOrder(list.get(i));
+			}
+			
+			ModelAndView mav = new ModelAndView("order/order_manage");
+			mav.addObject("groupBuy", groupBuyService.getGroupBuy(orderListForm.getGroupBuyId()));
+			return mav;
+	}
+	
+	@RequestMapping(value = "/order/auction/manage.do", method = RequestMethod.GET)
+	public ModelAndView auctionHandleRequestGet( // 경매
 			@RequestParam("auctionId") int auctionId) throws Exception {
 		
 		ModelAndView mav = new ModelAndView("order/order_manage");
-		List<Order> orderList = orderService.getOrdersByAuctionId(auctionId);
+		
+		List<Order> list = orderService.getOrdersByAuctionId(auctionId);
+		OrderListForm orderListForm = new OrderListForm();
+		orderListForm.setOrderList(list);
 		
 		mav.addObject("auction", auctionService.getAuction(auctionId));
-		mav.addObject("orderList", orderList);
+		mav.addObject("orderListForm", orderListForm);
 		return mav;
 	}
 
+	@RequestMapping(value = "/order/auction/manage.do", method = RequestMethod.POST)
+	public ModelAndView auctionHandleRequestPost( // 공동구매
+			@ModelAttribute("orderListForm") OrderListForm orderListForm) throws Exception {
+			
+			System.out.println("/order/auction/manage.do 실행");
+			
+			List<Order> list = orderListForm.getOrderList();
+			
+			for (int i = 0; i < list.size(); i++) {
+				System.out.println(list.get(i));
+				orderService.updateOrder(list.get(i));
+			}
+			
+			ModelAndView mav = new ModelAndView("order/order_manage");
+			mav.addObject("auction", auctionService.getAuction(orderListForm.getAuctionId()));
+			return mav;
+	}
 }

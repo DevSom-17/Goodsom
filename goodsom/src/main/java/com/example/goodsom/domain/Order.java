@@ -23,8 +23,8 @@ public class Order {
 	private String extraAddress;
 	private int postcode;
 	private String depositTime;
-	private String depositCheck;
-	private String isDelivered;
+	private boolean depositCheck;
+	private boolean isDelivered;
 	private int totalPrice;
 	private Date orderDate;
 	
@@ -126,19 +126,19 @@ public class Order {
 		this.depositTime = depositTime;
 	}
 
-	public String getDepositCheck() {
+	public boolean getDepositCheck() {
 		return depositCheck;
 	}
 
-	public void setDepositCheck(String depositCheck) {
+	public void setDepositCheck(boolean depositCheck) {
 		this.depositCheck = depositCheck;
 	}
 
-	public String getIsDelivered() {
+	public boolean getIsDelivered() {
 		return isDelivered;
 	}
 
-	public void setIsDelivered(String isDelivered) {
+	public void setIsDelivered(boolean isDelivered) {
 		this.isDelivered = isDelivered;
 	}
 
@@ -245,8 +245,8 @@ public class Order {
 		
 		String nowTime = format.format(time);
 		depositTime = nowTime; // 현재 시간으로 초기화
-		depositCheck = "F"; // false 초기화
-		isDelivered = "F"; // false 초기화
+		depositCheck = false; // false 초기화
+		isDelivered = false; // false 초기화
 		
 		totalPrice = 0;
 		totalQuantity = 0;

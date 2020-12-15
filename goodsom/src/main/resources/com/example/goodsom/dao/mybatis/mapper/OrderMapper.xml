@@ -82,6 +82,13 @@
   		#{totalPrice}, curdate())
   </insert>
   
+  <update id="updateOrder" parameterType="com.example.goodsom.domain.Order">
+  	UPDATE ORDERS SET
+  		depositCheck = #{depositCheck},
+  		isDelivered = #{isDelivered}
+  	WHERE orderId = #{orderId}
+  </update>
+  
   <select id="getGroupBuyId" parameterType="int" resultType="int">
   	SELECT DISTINCT groupBuyId
 	FROM lineGroupBuys
