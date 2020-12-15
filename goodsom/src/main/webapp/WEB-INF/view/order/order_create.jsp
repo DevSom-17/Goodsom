@@ -23,7 +23,7 @@
       <div class="container">
 
         <div class="section-title">
-          <h2>결제 진행</h2>
+          <h2>입금 진행</h2>
         </div>
 
 		<div class="site-section">

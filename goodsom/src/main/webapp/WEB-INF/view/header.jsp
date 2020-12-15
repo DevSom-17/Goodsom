@@ -36,7 +36,7 @@
 	                  			   </c:url>">등록한 게시글 목록</a></li>
 	                  <li><a href="<c:url value='<%=request.getContextPath() + "/mypage/list.do"%>'>
 	                  					<c:param name="listType" value ="2" />
-	                  			   </c:url>">결제 목록</a></li>
+	                  			   </c:url>">구매한 목록</a></li>
 	                  <li><a href="<c:url value='<%=request.getContextPath() + "/mypage/list.do"%>'>
 	                  					<c:param name="listType" value ="3" />
 	                  			   </c:url>">좋아요한 목록</a></li>

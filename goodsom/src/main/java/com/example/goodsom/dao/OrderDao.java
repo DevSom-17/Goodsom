@@ -1,5 +1,7 @@
 package  com.example.goodsom.dao;
 
+import java.util.List;
+
 import org.springframework.dao.DataAccessException;
 
 import com.example.goodsom.domain.Order;
@@ -13,6 +15,10 @@ public interface OrderDao {
 
 	  Order getOrder(int orderId) throws DataAccessException;
 
+	  List<Order> getOrdersByGroupBuyId(int groupBuyId) throws DataAccessException;
+	  
+	  List<Order> getOrdersByAuctionId(int auctionId) throws DataAccessException;
+	  
 	  void createOrder(Order order) throws DataAccessException;
 
 	  Order getOrderWithLineGroupBuys(int orderId) throws DataAccessException;

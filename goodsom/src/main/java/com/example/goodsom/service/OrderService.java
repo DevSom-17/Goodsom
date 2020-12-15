@@ -18,6 +18,10 @@ public interface OrderService {
 	
 	public Order getOrder(int orderId); // DetailOrderController에서 사용
 	
+	List<Order> getOrdersByGroupBuyId(int groupBuyId);
+	  
+	List<Order> getOrdersByAuctionId(int auctionId);
+	
 	public int createOrder(Order order);
 
 	public Order getOrderWithLineGroupBuys(int orderId);

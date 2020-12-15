@@ -19,7 +19,7 @@
 				<div class="section-title">
 					<h2>
 						<c:if test="${listType eq 1}">등록한 게시글 목록</c:if>
-						<c:if test="${listType eq 2}">결제 목록</c:if>
+						<c:if test="${listType eq 2}">구매한 목록</c:if>
 						<c:if test="${listType eq 3}">좋아요한 목록</c:if>
 					</h2>
 				</div>
@@ -106,8 +106,7 @@
 
 									<div class="portfolio-info">
 										<h4>
-											<a
-												href="<c:url value='/auction/detail.do'><c:param name="auctionId" value="${auction.auctionId}"/>
+											<a href="<c:url value='/auction/detail.do'><c:param name="auctionId" value="${auction.auctionId}"/>
 								 </c:url>">${auction.title}</a>
 										</h4>
 										<p>
@@ -133,7 +132,7 @@
 					<br />
 					<div class="row">
 						<div class="col-lg-4 col-md-6 mb-4">
-							<c:if test="${empty groupBuyOrderList}">결제한 공동구매 내역이 없습니다.</c:if>
+							<c:if test="${empty groupBuyOrderList}">구매한 공동구매 내역이 없습니다.</c:if>
 							<c:forEach var="order" items="${groupBuyOrderList}"
 								varStatus="status">
 								<div class="post-entry-1 h-100">
@@ -177,7 +176,7 @@
 					<br />
 					<div class="row">
 						<div class="col-lg-4 col-md-6 mb-4">
-							<c:if test="${empty auctionOrderList}">결제한 경매 내역이 없습니다.</c:if>
+							<c:if test="${empty auctionOrderList}">구매한 경매 내역이 없습니다.</c:if>
 							<c:forEach var="order" items="${auctionOrderList}"
 								varStatus="status">
 

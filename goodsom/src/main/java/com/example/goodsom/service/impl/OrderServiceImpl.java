@@ -42,6 +42,16 @@ public class OrderServiceImpl implements OrderService {
 	public Order getOrder(int orderId) {
 		return orderDao.getOrder(orderId);
 	}
+	
+	@Override
+	public List<Order> getOrdersByGroupBuyId(int groupBuyId) {
+		return orderDao.getOrdersByGroupBuyId(groupBuyId);
+	}
+	  
+	@Override
+	public List<Order> getOrdersByAuctionId(int auctionId) {
+		return orderDao.getOrdersByAuctionId(auctionId);
+	}
 
 	@Override
 	public int createOrder(Order order) {

@@ -136,6 +136,11 @@ function orderAuction() {
 
 		<div class="form-group" align="center">
 				<%-- <c:if test="${(isWriter eq true) and (empty bids) and (auction.state eq 'proceeding')}"> --%>
+				<c:if test="${isWriter eq true}">
+					<a class="btn btn-primary py-3 px-5" href="<c:url value='../order/auction/manage.do'>
+																<c:param name="auctionId" value="${auction.auctionId}" />
+														 	  </c:url>">참여현황</a>
+				</c:if>	
 				<c:if test="${(isWriter eq true) and (empty auction.bids)}">
 					<a class="btn btn-primary py-3 px-5" href="javascript:updateAuction()" >수정</a>
 					<a class="btn btn-primary py-3 px-5" href="javascript:deleteAuction()" >삭제</a>

@@ -40,6 +40,16 @@ public class MybatisOrderDao implements OrderDao {
 	    return order;
 	}
 
+	@Override
+	public List<Order> getOrdersByGroupBuyId(int groupBuyId) {
+		return orderMapper.getOrdersByGroupBuyId(groupBuyId);
+	}
+	  
+	@Override
+	public List<Order> getOrdersByAuctionId(int auctionId) {
+		return orderMapper.getOrdersByAuctionId(auctionId);
+	}
+	
 	@Override	
 	public Order getOrderWithLineGroupBuys(int orderId) throws DataAccessException {
 		return orderMapper.getOrderWithLineGroupBuys(orderId);

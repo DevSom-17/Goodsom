@@ -188,6 +188,12 @@ function delItem(id) {
     </section><!-- End Portfolio Details Section -->
 
 		<div class="form-group" align="right">
+		<c:if test="${isWriter eq true}">
+			<a class="btn btn-primary py-3 px-5" href="<c:url value='../order/groupBuy/manage.do'>
+														<c:param name="groupBuyId" value="${groupBuy.groupBuyId}" />
+												 	  </c:url>">참여현황</a>
+		</c:if>
+		
 	    <c:if test="${(isWriter eq true) and (groupBuy.participants eq 0)}">
 	   		<a class="btn btn-primary py-3 px-5" href="<c:url value='/groupBuy/form.do'>
 				<c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>

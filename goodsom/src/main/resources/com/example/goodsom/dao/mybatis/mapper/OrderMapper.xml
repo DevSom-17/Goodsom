@@ -16,6 +16,22 @@
   	WHERE orderId = #{orderId}
   </select>
   
+  <select id="getOrdersByGroupBuyId" parameterType="int" resultType="com.example.goodsom.domain.Order">
+  	SELECT <include refid="BaseColumns" />
+  	FROM orders
+  	WHERE orderId IN (SELECT DISTINCT orderId
+  					 FROM 	lineGroupBuys
+  					 WHERE groupBuyId = #{groupBuyId})
+  </select>
+  
+  <select id="getOrdersByAuctionId" parameterType="int" resultType="com.example.goodsom.domain.Order">
+  	SELECT <include refid="BaseColumns" />
+  	FROM orders
+  	WHERE orderId IN (SELECT orderId
+  					 FROM 	successBidders
+  					 WHERE auctionId = #{auctionId})
+  </select>
+  
   <resultMap id="lineGroupBuyResultMap" type="com.example.goodsom.domain.Order">
 		<id column="orderId" property="orderId" />
 		<result column="userId" property="userId" />

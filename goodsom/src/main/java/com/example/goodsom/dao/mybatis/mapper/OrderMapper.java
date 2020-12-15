@@ -1,5 +1,7 @@
 package com.example.goodsom.dao.mybatis.mapper;
 
+import java.util.List;
+
 import org.springframework.dao.DataAccessException;
 
 import com.example.goodsom.domain.Order;
@@ -12,7 +14,11 @@ import com.example.goodsom.domain.Order;
 public interface OrderMapper {
 
 	  Order getOrder(int orderId) throws DataAccessException;
+	  
+	  List<Order> getOrdersByGroupBuyId(int groupBuyId) throws DataAccessException;
 
+	  List<Order> getOrdersByAuctionId(int auctionId) throws DataAccessException;
+	  
 	  int createOrder(Order order) throws DataAccessException;
 	  
 	  Order getOrderWithLineGroupBuys(int orderId) throws DataAccessException; 
