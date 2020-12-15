@@ -1,6 +1,5 @@
 package com.example.goodsom.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import com.example.goodsom.dao.GroupBuyDao;
 import com.example.goodsom.dao.NotificationDao;
 import com.example.goodsom.dao.UserDao;
 import com.example.goodsom.domain.GroupBuy;
-import com.example.goodsom.domain.Image_a;
 import com.example.goodsom.domain.Image_g;
 import com.example.goodsom.domain.Notification;
 import com.example.goodsom.domain.User;
@@ -199,6 +197,11 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 			// 마감 알림을 보냈다는 표시
 			groupBuyDao.updateCloseNoti(closeId[i]);
 		}
+	}
+
+	@Override
+	public List<GroupBuy> getLikedGroupBuyListByUserId(int userId) {
+		return groupBuyDao.getLikedGroupBuyListByUserId(userId);
 	}
 
 }

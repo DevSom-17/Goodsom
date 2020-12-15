@@ -1,7 +1,5 @@
 package com.example.goodsom.dao.mybatis;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
@@ -53,16 +51,6 @@ public class MybatisLikeDao implements LikeDao {
 	@Override
 	public void unlikeGroupBuy(int userId, int groupBuyId) throws DataAccessException {
 		likeMapper.unlikeGroupBuy(userId, groupBuyId);
-	}
-
-	@Override
-	public List<Integer> getLikedAuctionListByUserId(int userId) throws DataAccessException {
-		return likeMapper.getLikedAuctionListByUserId(userId);
-	}
-
-	@Override
-	public List<Integer> getLikedGroupBuyListByUserId(int userId) throws DataAccessException {
-		return likeMapper.getLikedAuctionListByUserId(userId);
 	}
 
 }

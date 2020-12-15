@@ -41,4 +41,6 @@ public interface AuctionService {
 	
 	public SuccessBidder getSuccessBidderByAuctionId(int auctionId);
 	
+	List<Auction> getLikedAuctionListByUserId(int userId);
+
 }

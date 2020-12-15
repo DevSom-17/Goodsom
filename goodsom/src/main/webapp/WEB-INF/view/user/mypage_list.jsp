@@ -225,15 +225,12 @@
 					<h3><b>공동구매</b></h3>
 					<br />
 					<div class="row portfolio-container">
-						<div
-							class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
-							<!--<c:if test="${empty groupBuyList}">좋아요한 공동구매 게시글이 없습니다.</c:if>
-							<c:forEach var="groupBuy" items="${groupBuyList}"
-								varStatus="status">
-
+						<c:if test="${empty likedGroupBuyList}">좋아요한 공동구매 게시글이 없습니다.</c:if>
+						<c:forEach var="groupBuy" items="${likedGroupBuyList}" varStatus="status">
+							<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
 								<div class="portfolio-wrap">
 									<figure>
-										<img src="${groupBuy.img}" class="img-fluid" alt="">
+										<img src="${groupBuy.imgs_g[0].url}" class="img-fluid" alt="">
 										<a
 											href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg"
 											data-gall="portfolioGallery" class="link-preview venobox"
@@ -243,28 +240,30 @@
 											class="link-details" title="More Details"><i
 											class="bx bx-link"></i></a>
 									</figure>
-
 									<div class="portfolio-info">
 										<h4>
-											<a
-												href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
-							</c:url>">${groupBuy.title}</a>
+											<a href="<c:url value='/groupBuy/detail.do'>
+														<c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
+													</c:url>">${groupBuy.title}</a>
 										</h4>
-
 										<div>
 											<span class="mx-2" style="float: left;">금액: <fmt:formatNumber
 													value="${groupBuy.price}" pattern="#,###원" />
-											</span> <br /> <span style="color: red; float: left;"><fmt:formatNumber
-													value="${groupBuy.rate}" />% 달성</span> <span
+											</span>
+											<br />
+											<span style="color: red; float: left;"><fmt:formatNumber
+													value="${groupBuy.rate}" />% 달성
+											</span>
+											<span
 												style="float: right;">&nbsp; 마감일: <fmt:formatDate
 													value="${groupBuy.endDate}" pattern="yyyy-MM-dd" />
 											</span>
-
+	
 										</div>
 									</div>
 								</div>
-							</c:forEach>-->
-						</div>
+							</div>
+						</c:forEach>
 					</div>
 
 					<br>
@@ -274,17 +273,14 @@
 					<h3><b>경매</b></h3>
 					<br />
 					<div class="row portfolio-container">
-						<div
-							class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
-							<!--<c:if test="${empty auctionList}">좋아요한 경매 게시글이 없습니다.</c:if>
-							<c:forEach var="auction" items="${auctionList}"
-								varStatus="status">
+						<c:if test="${empty likedAuctionList}">좋아요한 경매 게시글이 없습니다.</c:if>
+						<c:forEach var="auction" items="${likedAuctionList}" varStatus="status">
+							<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
 								<div class="portfolio-wrap">
 									<figure>
-										<a
-											href="<c:url value='../auction/detail.do'>
-									<c:param name="auctionId" value="${auction.auctionId}"/></c:url>">
-											<img src="${auction.img}" class="img-fluid" alt="">
+										<a href="<c:url value='../auction/detail.do'>
+												<c:param name="auctionId" value="${auction.auctionId}"/></c:url>">
+											<img src="${auction.imgs_a[0].url}" class="img-fluid" alt="">
 										</a>
 										<a
 											href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg"
@@ -293,28 +289,24 @@
 										<a href="portfolio-details.html" class="link-details"
 											title="More Details"><i class="bx bx-link"></i></a>
 									</figure>
-
-
+	
+	
 									<div class="portfolio-info">
 										<h4>
-											<a
-												href="<c:url value='/auction/detail.do'><c:param name="auctionId" value="${auction.auctionId}"/>
-								 </c:url>">${auction.title}</a>
+											<a href="<c:url value='/auction/detail.do'>
+												<c:param name="auctionId" value="${auction.auctionId}"/>
+											</c:url>">${auction.title}</a>
 										</h4>
 										<p>
-											현재 최고 금액
-											<fmt:formatNumber value="${auction.maxPrice}"
-												pattern="#,###원" />
+											현재 최고 금액 <fmt:formatNumber value="${auction.maxPrice}" pattern="#,###원" />
 										</p>
 										<p class="portfolio-info-endDate">
-											~
-											<fmt:formatDate value="${auction.endDate}"
-												pattern="yyyy-MM-dd" />
+												~ <fmt:formatDate value="${auction.endDate}" pattern="yyyy-MM-dd" />
 										</p>
 									</div>
 								</div>
-							</c:forEach>-->
-						</div>
+							</div>
+						</c:forEach>
 					</div>
 				</c:if>				
 

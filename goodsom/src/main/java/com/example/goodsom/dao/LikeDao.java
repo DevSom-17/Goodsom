@@ -1,7 +1,5 @@
 package com.example.goodsom.dao;
 
-import java.util.List;
-
 import org.springframework.dao.DataAccessException;
 
 public interface LikeDao {
@@ -22,8 +20,4 @@ public interface LikeDao {
 	
 	void unlikeGroupBuy(int userId, int groupBuyId) throws DataAccessException;
 	
-	List<Integer> getLikedAuctionListByUserId(int userId) throws DataAccessException;
-	
-	List<Integer> getLikedGroupBuyListByUserId(int userId) throws DataAccessException;
-
 }

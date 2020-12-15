@@ -51,16 +51,4 @@
   	WHERE USERID = #{param1} AND GROUPBUYID = #{param2}
   </delete>
   
-  <select id="getLikedAuctionListByUserId" resultType="java.lang.Integer"> 
-    SELECT AUCTIONID
-    FROM LIKES_A
-    WHERE userId = #{param1}
-  </select>
-  
-  <select id="getLikedGroupBuyListByUserId" resultType="java.lang.Integer"> 
-    SELECT GROUPBUYID
-    FROM LIKES_G
-    WHERE userId = #{param1}
-  </select>
-  
 </mapper>

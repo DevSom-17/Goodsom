@@ -1,6 +1,5 @@
 package com.example.goodsom.dao.mybatis.mapper;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -51,4 +50,7 @@ public interface GroupBuyMapper { // GroupBuyMapper.xml에서 구현한 method �
 	
 //	keyword로 검색
 	List<GroupBuy> groupBuyListByKeyword(String keyword);
+	
+	List<GroupBuy> getLikedGroupBuyListByUserId(int userId) throws DataAccessException;
+
 }

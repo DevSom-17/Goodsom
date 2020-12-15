@@ -1,7 +1,5 @@
 package com.example.goodsom.service;
 
-import java.util.List;
-
 public interface LikeService {
 
 	int getLikeCountOfAuction(int auctionId);
@@ -19,9 +17,5 @@ public interface LikeService {
 	void unlikeAuction(int userId, int auctionId);
 	
 	void unlikeGroupBuy(int userId, int groupBuyId);
-	
-	List<Integer> getLikedAuctionListByUserId(int userId);
-	
-	List<Integer> getLikedGroupBuyListByUserId(int userId);
 
 }
