@@ -141,7 +141,7 @@ function orderAuction() {
 																<c:param name="auctionId" value="${auction.auctionId}" />
 														 	  </c:url>">참여현황</a>
 				</c:if>	
-				<c:if test="${(isWriter eq true) and (empty auction.bids)}">
+				<c:if test="${(isWriter eq true) and (auction.maxPrice == 0)}">
 					<a class="btn btn-primary py-3 px-5" href="javascript:updateAuction()" >수정</a>
 					<a class="btn btn-primary py-3 px-5" href="javascript:deleteAuction()" >삭제</a>
 				</c:if>
