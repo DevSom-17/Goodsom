@@ -65,6 +65,11 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
+	public void updateOrder(Order order) {
+		orderDao.updateOrder(order);
+	}
+	
+	@Override
 	public Order getOrderWithLineGroupBuys(int orderId) {
 		return orderDao.getOrderWithLineGroupBuys(orderId);
 	}

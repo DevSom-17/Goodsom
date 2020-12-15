@@ -23,6 +23,8 @@ public interface OrderService {
 	List<Order> getOrdersByAuctionId(int auctionId);
 	
 	public int createOrder(Order order);
+	
+	public void updateOrder(Order order);
 
 	public Order getOrderWithLineGroupBuys(int orderId);
 	
