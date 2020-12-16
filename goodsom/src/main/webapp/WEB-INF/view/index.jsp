@@ -18,31 +18,31 @@
 
         <div class="section-title">
           <h2>What We Do</h2>
-          <p>Magnam dolores commodi suscipit consequatur ex aliquid</p>
+          <p>Goodsom이 대표적으로 제공하는 기능에 대해 소개합니다.</p>
         </div>
 
         <div class="row">
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div class="icon-box">
               <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4><a href="">Lorem Ipsum</a></h4>
-              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+              <h4><a href="<%=request.getContextPath()%>/groupBuy/list.do">공동구매</a></h4>
+              <p>동덕여대 솜솜이들이 굿즈를 직접 기획하고 제작하여 공동구매를 진행할 수 있는 기능을 지원합니다.</p>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
             <div class="icon-box">
               <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="">Sed ut perspiciatis</a></h4>
-              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
+              <h4><a href="<%=request.getContextPath()%>/auction/list.do">경매</a></h4>
+              <p>더 이상 판매되지 않는 동덕여대 굿즈가 활발히 교류될 수 있게 경매 기능을 지원합니다.</p>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
             <div class="icon-box">
               <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4><a href="">Magni Dolores</a></h4>
-              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+              <h4><a href="<%=request.getContextPath()%>/user/detail.do">마이페이지</a></h4>
+              <p>회원정보 변경 및 알림 기능과 참여하거나 좋아요를 누른 공동구매/경매의 목록들을 볼 수 있는 기능을 지원합니다.</p>
             </div>
           </div>
 

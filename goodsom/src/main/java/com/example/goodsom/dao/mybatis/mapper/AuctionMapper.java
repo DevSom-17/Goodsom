@@ -46,8 +46,6 @@ public interface AuctionMapper { // AuctionMapper.xml에서 구현한 method 이
 	
 	Integer getSuccessBidderUserId(int auctionId);
 	
-	List<Auction> auctionListByKeyword(String keyword);
-	
 	List<Auction> getLikedAuctionListByUserId(int userId) throws DataAccessException;
 
 }

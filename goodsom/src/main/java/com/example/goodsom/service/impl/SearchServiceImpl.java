@@ -25,13 +25,13 @@ public class SearchServiceImpl implements SearchService{
 	private AuctionDao auction;	
 	
 	@Override
-	public List<GroupBuy> groupBuyListByKeyword(String keyword) {
-		return groupBuy.groupBuyListByKeyword(keyword);
+	public List<GroupBuy> getGroupBuyListByKeyword(String keyword) {
+		return groupBuy.getGroupBuyListByKeyword(keyword);
 	}
 
 	@Override
-	public List<Auction> auctionListByKeyword(String keyword) {
-		return auction.auctionListByKeyword(keyword);
+	public List<Auction> getAuctionListByKeyword(String keyword) {
+		return auction.getAuctionListByKeyword(keyword);
 	}
 	
 }

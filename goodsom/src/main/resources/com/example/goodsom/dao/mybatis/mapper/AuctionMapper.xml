@@ -101,11 +101,12 @@
   </delete>
   
   <!-- Search auctions by Keyword -->
-  <select id="auctionListByKeyword" resultType="com.example.goodsom.domain.Auction">
+  <select id="getAuctionListByKeyword" resultMap="resultMap_auction">
   	<bind name="pattern" value="'%' + _parameter + '%'" />
 	  	SELECT  <include refid="BaseColumns_Auction" />
     	FROM AUCTIONS
 	    WHERE title LIKE #{pattern}
+	    ORDER BY uploadDate DESC
   </select>
   
   <update id="increaseCount" parameterType="com.example.goodsom.domain.Auction">

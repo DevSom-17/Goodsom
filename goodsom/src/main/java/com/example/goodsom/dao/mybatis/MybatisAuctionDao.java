@@ -124,11 +124,6 @@ public class MybatisAuctionDao implements AuctionDao {
 		return successBidderMapper.getSuccessBidderByAuctionId(auctionId);
 	}
 	
-//	keyword로 검색
-	public List<Auction> auctionListByKeyword(String keyword) {
-		return auctionMapper.auctionListByKeyword(keyword);
-	}
-
 	@Override
 	public List<Auction> getLikedAuctionListByUserId(int userId) throws DataAccessException {
 		return auctionMapper.getLikedAuctionListByUserId(userId);

@@ -119,11 +119,12 @@
   </select>
   
    <!-- Search groupBuy by Keyword -->
-  <select id="groupBuyListByKeyword" resultType="com.example.goodsom.domain.GroupBuy">
+  <select id="getGroupBuyListByKeyword" resultMap="collectionResultMap">
   	<bind name="pattern" value="'%' + _parameter + '%'" />
 	  	SELECT <include refid="BaseColumns_GroupBuys" />
     	FROM GROUPBUYS
-	    WHERE title LIKE #{pattern} 
+	    WHERE title LIKE #{pattern}
+	    ORDER BY UPLOADDATE DESC
   </select>
   
   <update id="increaseCount" parameterType="com.example.goodsom.domain.GroupBuy">

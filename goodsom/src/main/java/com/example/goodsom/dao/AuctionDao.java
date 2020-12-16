@@ -48,9 +48,6 @@ public interface AuctionDao {
 	public Integer getSuccessBidderUserId(int auctionId) throws DataAccessException;
 	
 	public SuccessBidder getSuccessBidderByAuctionId(int auctionId) throws DataAccessException;
-	
-//	keyword로 검색
-	public List<Auction> auctionListByKeyword(String keyword) throws DataAccessException;
 
 	List<Auction> getLikedAuctionListByUserId(int userId) throws DataAccessException;
 

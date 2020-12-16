@@ -42,7 +42,7 @@ public interface GroupBuyDao {
 	
 	List<GroupBuy> getRecentGroupBuyList() throws DataAccessException;
 	
-	List<GroupBuy> groupBuyListByKeyword(String keyword) throws DataAccessException;
+	List<GroupBuy> getGroupBuyListByKeyword(String keyword) throws DataAccessException;
 	
 	List<GroupBuy> getLikedGroupBuyListByUserId(int userId) throws DataAccessException;
 
