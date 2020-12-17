@@ -46,7 +46,7 @@
                 	class="link-details" title="More Details"><i class="bx bx-link"></i></a>
               </figure>
               
-              <div class="portfolio-info">
+              <div class="portfolio-info" style="height: 105px;">
               	<h4><a href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
 							</c:url>">${groupBuy.title}</a></h4>
 				

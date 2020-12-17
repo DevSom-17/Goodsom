@@ -51,7 +51,7 @@
               </figure>
               
 
-              <div class="portfolio-info">
+              <div class="portfolio-info" style="height: 105px;">
               	<%-- <div style="float:right">조회수: ${auction.count}&nbsp;&nbsp;</div> --%>
 				<div>
 					<%-- <div>

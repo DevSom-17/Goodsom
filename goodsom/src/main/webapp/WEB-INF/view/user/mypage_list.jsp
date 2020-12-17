@@ -290,7 +290,7 @@
 									</figure>
 	
 	
-									<div class="portfolio-info">
+									<div class="portfolio-info" style="height: 105px;">
 										<h4>
 											<a href="<c:url value='/auction/detail.do'>
 												<c:param name="auctionId" value="${auction.auctionId}"/>
