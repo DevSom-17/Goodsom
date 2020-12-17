@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.util.WebUtils;
 
 import com.example.goodsom.service.UserService;
@@ -16,6 +17,7 @@ import com.example.goodsom.service.UserService;
  */
 
 @Controller
+@SessionAttributes("userSession")
 public class DetailUserController {
 
 	private static final String detailViewName = "user/user_detail";
