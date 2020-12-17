@@ -114,7 +114,13 @@ function delItem(id) {
             <li>공동구매 상세보기</li>
           </ol>
         </div>
-		<p>작성자 : &nbsp; &nbsp; ${writer} <br/> 
+		<p>작성자 : &nbsp; &nbsp; ${writer} &nbsp;
+		
+		<a href="<c:url value='../report/create.do'>
+					<c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
+					<c:param name="writerId" value="${groupBuy.userId}"/>
+				</c:url>">신고하기</a> 
+		<br/> 
          	작성일 : &nbsp; &nbsp; <fmt:formatDate value="${groupBuy.uploadDate}" pattern="yyyy-MM-dd" />
       </div>
     </section><!-- End Breadcrumbs -->
@@ -204,7 +210,7 @@ function delItem(id) {
 		<c:if test="${isWriter eq true}">
 			<a class="btn btn-primary py-3 px-5" href="<c:url value='../order/groupBuy/manage.do'>
 														<c:param name="groupBuyId" value="${groupBuy.groupBuyId}" />
-												 	  </c:url>">참여현황</a>
+												 	  </c:url>">참여자 현황</a>
 		</c:if>
 		
 	    <c:if test="${(isWriter eq true) and (groupBuy.participants eq 0)}">
