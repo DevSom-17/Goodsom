@@ -37,7 +37,7 @@
 		<c:forEach var="groupBuy" items="${groupBuyList}" varStatus="status">
           <div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
             <div class="portfolio-wrap">
-              <figure>
+              <figure style="background: white; text-align: center;">
 				<c:forEach items="${groupBuy.imgs_g}" var="img">
 					<img src="${img.url}" class="img-fluid" alt="">
 				</c:forEach> 

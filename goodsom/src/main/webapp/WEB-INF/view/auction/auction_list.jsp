@@ -40,7 +40,7 @@
 		<c:forEach var="auction" items="${auctionList}" varStatus="status">
           <div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
             <div class="portfolio-wrap">
-              <figure>
+              <figure style="background: white; text-align: center;">
               	<a href="<c:url value='/auction/detail.do'>
 									<c:param name="auctionId" value="${auction.auctionId}"/></c:url>">
 										<c:forEach items="${auction.imgs_a}" var="img">

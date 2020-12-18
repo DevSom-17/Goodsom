@@ -30,17 +30,14 @@
 					<h3><b>공동구매</b></h3>
 					<br />
 					<div class="row portfolio-container">
-						<div
-							class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
 							<c:if test="${empty groupBuyList}">등록한 공동구매 게시글이 없습니다.</c:if>
 							<c:forEach var="groupBuy" items="${groupBuyList}"
 								varStatus="status">
 
+							<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
 								<div class="portfolio-wrap">
-									<figure>
-										<c:forEach items="${groupBuy.imgs_g}" var="img">
-											<img src="${img.url}" class="img-fluid" alt="">
-										</c:forEach> 
+									<figure style="background: white; text-align: center;">
+										<img src="${groupBuy.imgs_g[0].url}" class="img-fluid" alt="">
 										<a
 											href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg"
 											data-gall="portfolioGallery" class="link-preview venobox"
@@ -70,8 +67,8 @@
 										</div>
 									</div>
 								</div>
-							</c:forEach>
-						</div>
+							</div>
+						</c:forEach>
 					</div>
 
 					<br>
@@ -81,19 +78,15 @@
 					<h3><b>경매</b></h3>
 					<br />
 					<div class="row portfolio-container">
-						<div
-							class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
 							<c:if test="${empty auctionList}">등록한 경매 게시글이 없습니다.</c:if>
 							<c:forEach var="auction" items="${auctionList}"
 								varStatus="status">
+							<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
 								<div class="portfolio-wrap">
-									<figure>
-										<a
-											href="<c:url value='../auction/detail.do'>
-									<c:param name="auctionId" value="${auction.auctionId}"/></c:url>">
-											<c:forEach items="${auction.imgs_a}" var="img">
-											<img src="${img.url}" class="img-fluid" alt="">
-										</c:forEach> 
+									<figure style="background: white; text-align: center;">
+										<a href="<c:url value='../auction/detail.do'>
+											<c:param name="auctionId" value="${auction.auctionId}"/></c:url>">
+											<img src="${auction.imgs_a[0].url}" class="img-fluid" alt="">
 										</a>
 										<a
 											href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg"
@@ -106,8 +99,10 @@
 
 									<div class="portfolio-info">
 										<h4>
-											<a href="<c:url value='/auction/detail.do'><c:param name="auctionId" value="${auction.auctionId}"/>
-								 </c:url>">${auction.title}</a>
+											<a href="<c:url value='/auction/detail.do'>
+												<c:param name="auctionId" value="${auction.auctionId}"/>
+								 				</c:url>">${auction.title}
+								 			</a>
 										</h4>
 										<p>
 											현재 최고 금액
@@ -121,8 +116,8 @@
 										</p>
 									</div>
 								</div>
-							</c:forEach>
-						</div>
+							</div>
+						</c:forEach>
 					</div>
 				</c:if>
 
@@ -139,9 +134,7 @@
 									<a href="<c:url value='../groupBuy/detail.do'>
 												<c:param name="groupBuyId" value="${order.groupBuyId}" />
 											</c:url>">
-										<c:forEach items="${order.groupBuy.imgs_g}" var="img">
-											<img src="${img.url}" class="img-fluid" alt="">
-										</c:forEach> 
+											<img src="${order.groupBuy.imgs_g[0].url}" class="img-fluid" alt="">
 									</a>
 									<div class="post-entry-1-contents">
 										<h2>
@@ -175,19 +168,17 @@
 					<h3><b>경매</b></h3>
 					<br />
 					<div class="row">
-						<div class="col-lg-4 col-md-6 mb-4">
 							<c:if test="${empty auctionOrderList}">구매한 경매 내역이 없습니다.</c:if>
 							<c:forEach var="order" items="${auctionOrderList}"
 								varStatus="status">
 
+							<div class="col-lg-4 col-md-6 mb-4">
 								<div class="post-entry-1 h-100">
 									<a
 										href="<c:url value='../auction/detail.do'>
 												<c:param name="auctionId" value="${order.auctionId}" />
 											</c:url>">
-										<c:forEach items="${order.auction.imgs_a}" var="img">
-											<img src="${img.url}" class="img-fluid" alt="">
-										</c:forEach> 
+											<img src="${order.auction.imgs_a[0].url}" class="img-fluid" alt="">
 									</a>
 									<div class="post-entry-1-contents">
 
@@ -212,8 +203,8 @@
 											상세보기 > </a>
 									</p>
 								</div>
-							</c:forEach>
-						</div>
+							</div>
+						</c:forEach>
 					</div>
 				</c:if>
 				
@@ -228,7 +219,7 @@
 						<c:forEach var="groupBuy" items="${likedGroupBuyList}" varStatus="status">
 							<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
 								<div class="portfolio-wrap">
-									<figure>
+									<figure style="background: white; text-align: center;">
 										<img src="${groupBuy.imgs_g[0].url}" class="img-fluid" alt="">
 										<a
 											href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg"
@@ -276,7 +267,7 @@
 						<c:forEach var="auction" items="${likedAuctionList}" varStatus="status">
 							<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
 								<div class="portfolio-wrap">
-									<figure>
+									<figure style="background: white; text-align: center;">
 										<a href="<c:url value='../auction/detail.do'>
 												<c:param name="auctionId" value="${auction.auctionId}"/></c:url>">
 											<img src="${auction.imgs_a[0].url}" class="img-fluid" alt="">

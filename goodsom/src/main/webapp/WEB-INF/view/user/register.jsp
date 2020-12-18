@@ -8,6 +8,12 @@
 
 <%@ include file="../includeTop.jsp" %> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+<script>
+
+</script>
 <script>
 	
 	function home(targetUri) {
