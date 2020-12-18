@@ -56,5 +56,5 @@ public class MybatisBidDao implements BidDao {
 	public Bid getBidByUserIdAndAuctionId(int userId, int auctionId) {
 		return bidMapper.getBidByUserIdAndAuctionId(userId, auctionId);
 	}
-
+	
 }

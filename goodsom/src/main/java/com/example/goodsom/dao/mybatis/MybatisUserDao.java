@@ -6,12 +6,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.goodsom.domain.Auction;
 import com.example.goodsom.domain.GroupBuy;
 import com.example.goodsom.domain.Order;
 import com.example.goodsom.domain.User;
+import com.example.goodsom.controller.user.CreateReportForm;
 import com.example.goodsom.dao.UserDao;
+import com.example.goodsom.dao.mybatis.mapper.BidMapper;
+import com.example.goodsom.dao.mybatis.mapper.LikeMapper;
+import com.example.goodsom.dao.mybatis.mapper.NotiMapper;
 import com.example.goodsom.dao.mybatis.mapper.UserMapper;
 
 /**
@@ -24,6 +29,13 @@ public class MybatisUserDao implements UserDao {
 	
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private NotiMapper notiMapper;
+	@Autowired
+	private LikeMapper likeMapper;
+	@Autowired
+	private BidMapper bidMapper;
 	
 	public User getUser(String email, String passwd) throws DataAccessException {
 		return userMapper.getUser(email, passwd);
@@ -45,8 +57,23 @@ public class MybatisUserDao implements UserDao {
 		return userMapper.updateUser(user);
 	}
 
-	public int deleteUser(User user) throws DataAccessException {
-		return userMapper.deleteUser(user);
+	@Transactional
+	public void deleteUser(User user) throws DataAccessException { // 알림, 좋아요, 신고, 베팅 목록 삭제
+		int userId = user.getUserId();
+		
+//		 알림, 좋아요, 신고, 베팅 목록 삭제
+		notiMapper.deleteNotisByUserId_a(userId);
+		notiMapper.deleteNotisByUserId_g(userId);
+		
+		likeMapper.deletelikesByUserId_a(userId);
+		likeMapper.deletelikesByUserId_g(userId);
+		
+		userMapper.deleteReportsByUserId_a(userId);
+		userMapper.deleteReportsByUserId_g(userId);
+
+		bidMapper.deleteBidsByUserId(userId);
+		
+		userMapper.deleteUser(user);
 	}
 	
 	public List<Order> getAuctionOrderList(int orderId) throws DataAccessException { // 마이페이지 결제 목록 보기
@@ -68,4 +95,17 @@ public class MybatisUserDao implements UserDao {
 	public List<String> getReportList(int userId) throws DataAccessException { // 신고 현황 상세 페이지 
 		return userMapper.getReportList(userId);
 	}
+	
+	public void createReport_a(CreateReportForm reportForm) throws DataAccessException { // 신고 현황 상세 페이지 
+		userMapper.createReport_a(reportForm);
+	}
+	
+	public void createReport_g(CreateReportForm reportForm) throws DataAccessException { // 신고 현황 상세 페이지 
+		userMapper.createReport_g(reportForm);
+	}
+	
+	public void updateReport(int userId) throws DataAccessException {
+		userMapper.updateReport(userId);
+	}
+	
 }

@@ -5,10 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.goodsom.controller.mypage.ReportForm;
+import com.example.goodsom.controller.user.CreateReportForm;
 import com.example.goodsom.dao.AuctionDao;
+import com.example.goodsom.dao.BidDao;
 import com.example.goodsom.dao.GroupBuyDao;
+import com.example.goodsom.dao.LikeDao;
+import com.example.goodsom.dao.NotificationDao;
 import com.example.goodsom.dao.UserDao;
 import com.example.goodsom.domain.Auction;
 import com.example.goodsom.domain.GroupBuy;
@@ -22,10 +27,18 @@ import com.example.goodsom.service.UserService;
  */
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private NotificationDao notiDao;
+	@Autowired
+	private LikeDao likeDao;
+	@Autowired
+	private BidDao bidDao;
 	
 	@Autowired
 	private GroupBuyDao groupBuyDao;
@@ -58,8 +71,20 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int deleteUser(User user) {
-		return userDao.deleteUser(user);
+	public int deleteUser(User user) { // 알림, 좋아요, 베팅, 신고 목록 삭제
+		try {
+//		    DAO method들을 호출 (트랜잭션으로 실행)
+			userDao.deleteUser(user);
+		  } catch (DataAccessException ex) {
+		     // 트랜잭션에서 오류 발생 시 실행해야 할 코드 작성
+			  ex.getStackTrace();
+			  System.out.println("ex.getMessage() : ");
+		      ex.getMessage();
+			  System.out.println("ex.getRootCause() : ");
+		      ex.getRootCause();
+		      return 0;
+		  }
+		  return 1;
 	}
 
 	@Override
@@ -121,5 +146,16 @@ public class UserServiceImpl implements UserService {
 		}
 		return false;
 	}
-
+	
+	public void createReport_a(CreateReportForm reportForm) throws DataAccessException { // 신고 현황 상세 페이지 
+		userDao.createReport_a(reportForm);
+	}
+	
+	public void createReport_g(CreateReportForm reportForm) throws DataAccessException { // 신고 현황 상세 페이지 
+		userDao.createReport_g(reportForm);
+	}
+	
+	public void updateReport(int userId) throws DataAccessException {
+		userDao.updateReport(userId);
+	}
 }

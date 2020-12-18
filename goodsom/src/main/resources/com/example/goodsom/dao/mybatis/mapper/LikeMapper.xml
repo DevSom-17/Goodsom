@@ -51,4 +51,13 @@
   	WHERE USERID = #{param1} AND GROUPBUYID = #{param2}
   </delete>
   
+  <delete id="deletelikesByUserId_a" parameterType="java.lang.Integer">
+  	DELETE FROM LIKES_A
+  	WHERE USERID = #{userId}
+  </delete>
+  <delete id="deletelikesByUserId_g" parameterType="java.lang.Integer">
+  	DELETE FROM LIKES_G
+  	WHERE USERID = #{userId}
+  </delete>
+  
 </mapper>

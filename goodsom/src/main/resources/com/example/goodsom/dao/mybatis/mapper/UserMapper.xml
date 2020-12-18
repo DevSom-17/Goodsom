@@ -125,5 +125,29 @@
   	FROM reports_g
   	WHERE userId = #{userId}	
   </select>
+  
+  <insert id="createReport_a" parameterType="com.example.goodsom.controller.user.CreateReportForm">
+	INSERT INTO REPORTS_A (auctionId, reporterId, content, userId)
+	VALUES (#{id}, #{reporterId}, #{content}, #{userId});
+  </insert>
+  
+  <insert id="createReport_g" parameterType="com.example.goodsom.controller.user.CreateReportForm">
+	INSERT INTO REPORTS_G (groupBuyId, reporterId, content, userId)
+	VALUES (#{id}, #{reporterId}, #{content}, #{userId});
+  </insert>
+  
+  <update id="updateReport" parameterType="int">
+  	UPDATE USERS SET report = report + 1 WHERE userId = #{userId}; 
+  </update>
+  
+  <delete id="deleteReportsByUserId_a" parameterType="int">
+  	DELETE FROM REPORTS_A
+  	WHERE USERID = #{userId}
+  </delete>
+  <delete id="deleteReportsByUserId_g" parameterType="int">
+  	DELETE FROM REPORTS_G
+  	WHERE USERID = #{userId}
+  </delete>
+
    
 </mapper>

@@ -71,4 +71,9 @@
   	WHERE bidId = #{bidId}
   </update>
   
+  <delete id="deleteBidsByUserId" parameterType="int">
+  	DELETE FROM BIDS
+  	WHERE USERID = #{userId}
+  </delete>
+ 
 </mapper>
