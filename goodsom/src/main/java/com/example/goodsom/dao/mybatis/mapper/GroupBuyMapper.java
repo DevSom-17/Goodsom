@@ -49,7 +49,7 @@ public interface GroupBuyMapper { // GroupBuyMapper.xml에서 구현한 method �
 	List<GroupBuy> getRecentGroupBuyList() throws DataAccessException;
 	
 //	keyword로 검색
-	List<GroupBuy> groupBuyListByKeyword(String keyword);
+	List<GroupBuy> getGroupBuyListByKeyword(String keyword);
 	
 	List<GroupBuy> getLikedGroupBuyListByUserId(int userId) throws DataAccessException;
 

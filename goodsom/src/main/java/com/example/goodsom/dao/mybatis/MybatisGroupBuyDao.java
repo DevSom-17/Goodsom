@@ -99,8 +99,8 @@ public class MybatisGroupBuyDao implements GroupBuyDao {
 		return groupBuyMapper.getRecentGroupBuyList();
 	}
 	
-	public List<GroupBuy> groupBuyListByKeyword(String keyword) {
-		return groupBuyMapper.groupBuyListByKeyword(keyword);
+	public List<GroupBuy> getGroupBuyListByKeyword(String keyword) {
+		return groupBuyMapper.getGroupBuyListByKeyword(keyword);
 	}
 
 	@Override

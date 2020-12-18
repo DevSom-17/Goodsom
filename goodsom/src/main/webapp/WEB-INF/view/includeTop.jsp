@@ -25,7 +25,7 @@
 
   <!-- Template Main CSS File -->
   <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/assets/css/style.css">
-
+  
   <!-- =======================================================
   * Template Name: Lumia - v2.1.0
   * Template URL: https://bootstrapmade.com/lumia-bootstrap-business-template/
