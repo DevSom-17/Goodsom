@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
+import com.example.goodsom.domain.User;
 import com.example.goodsom.service.UserService;
 
 @Controller
@@ -73,6 +74,11 @@ public class CreateReportController {
 			userService.createReport_g(reportForm);
 		}
 		userService.updateReport(reportForm.getUserId());
+		
+		User user = userService.getUserByUserId(reportForm.getUserId()); // 신고 받은 회원의 정보
+		if (user.getWarning() >= 3) { // 경고 3회 이상이면 자동 탈퇴
+			userService.deleteUser(user);
+		}
 		
 		System.out.println(reportForm);
 		

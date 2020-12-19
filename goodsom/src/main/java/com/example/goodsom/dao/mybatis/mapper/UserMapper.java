@@ -35,15 +35,4 @@ public interface UserMapper {
 	
 //	List<Auction> getAuctionList(int userId); // 마이페이지 경매 등록 목록 보기  -> AuctionMapper.xml의 getAuctionListByUserId(int userId)가 대신 함!
 	
-	List<String> getReportList(int userId); // 신고 현황 상세 페이지
-	
-	void createReport_a(CreateReportForm reportForm);
-	
-	void createReport_g(CreateReportForm reportForm);
-	
-	void updateReport(int userId);
-	
-	void deleteReportsByUserId_a(int userId);
-	
-	void deleteReportsByUserId_g(int userId);
 }

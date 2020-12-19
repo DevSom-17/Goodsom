@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.goodsom.dao.mybatis.mapper.ReportMapper">
+
+  <select id="getReportList" parameterType="int" resultType="String">
+  	SELECT content
+  	FROM reports_a
+  	WHERE userId = #{userId}
+  	UNION ALL
+  	SELECT content
+  	FROM reports_g
+  	WHERE userId = #{userId}	
+  </select>
+  
+  <insert id="createReport_a" parameterType="com.example.goodsom.controller.user.CreateReportForm">
+	INSERT INTO REPORTS_A (auctionId, reporterId, content, userId)
+	VALUES (#{id}, #{reporterId}, #{content}, #{userId});
+  </insert>
+  
+  <insert id="createReport_g" parameterType="com.example.goodsom.controller.user.CreateReportForm">
+	INSERT INTO REPORTS_G (groupBuyId, reporterId, content, userId)
+	VALUES (#{id}, #{reporterId}, #{content}, #{userId});
+  </insert>
+  
+  <select id="getReport" resultType="int">
+  	SELECT report
+  	FROM users
+  	WHERE userId = #{userId}
+  </select>
+  
+  <update id="updateReport" parameterType="int">
+  	UPDATE USERS SET report = report + 1 WHERE userId = #{userId}; 
+  </update>
+  
+  <delete id="deleteReportsByUserId_a" parameterType="int">
+  	DELETE FROM REPORTS_A
+  	WHERE USERID = #{userId}
+  </delete>
+  
+  <delete id="deleteReportsByUserId_g" parameterType="int">
+  	DELETE FROM REPORTS_G
+  	WHERE USERID = #{userId}
+  </delete>
+  
+  <update id="updateWarning" parameterType="int">
+  	UPDATE USERS SET warning = #{param1} WHERE userId = #{param2}; 
+  </update>
+
+</mapper> 	
