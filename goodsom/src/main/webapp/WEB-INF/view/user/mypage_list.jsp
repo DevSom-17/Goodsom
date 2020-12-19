@@ -37,7 +37,7 @@
 							<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
 								<div class="portfolio-wrap">
 									<figure style="background: white; text-align: center;">
-										<img src="${groupBuy.imgs_g[0].url}" class="img-fluid" alt="">
+										<img src="${groupBuy.imgs_g[0].url}" class="img-fluid" alt="" style="height: 100%;">
 										<a
 											href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg"
 											data-gall="portfolioGallery" class="link-preview venobox"
@@ -86,7 +86,7 @@
 									<figure style="background: white; text-align: center;">
 										<a href="<c:url value='../auction/detail.do'>
 											<c:param name="auctionId" value="${auction.auctionId}"/></c:url>">
-											<img src="${auction.imgs_a[0].url}" class="img-fluid" alt="">
+											<img src="${auction.imgs_a[0].url}" class="img-fluid" alt="" style="height: 100%;">
 										</a>
 										<a
 											href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg"
@@ -220,7 +220,7 @@
 							<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
 								<div class="portfolio-wrap">
 									<figure style="background: white; text-align: center;">
-										<img src="${groupBuy.imgs_g[0].url}" class="img-fluid" alt="">
+										<img src="${groupBuy.imgs_g[0].url}" class="img-fluid" alt="" style="height: 100%;">
 										<a
 											href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg"
 											data-gall="portfolioGallery" class="link-preview venobox"
@@ -270,7 +270,7 @@
 									<figure style="background: white; text-align: center;">
 										<a href="<c:url value='../auction/detail.do'>
 												<c:param name="auctionId" value="${auction.auctionId}"/></c:url>">
-											<img src="${auction.imgs_a[0].url}" class="img-fluid" alt="">
+											<img src="${auction.imgs_a[0].url}" class="img-fluid" alt="" style="height: 100%;">
 										</a>
 										<a
 											href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg"

@@ -42,10 +42,9 @@
             <div class="portfolio-wrap">
               <figure style="background: white; text-align: center;">
               	<a href="<c:url value='/auction/detail.do'>
-									<c:param name="auctionId" value="${auction.auctionId}"/></c:url>">
-										<c:forEach items="${auction.imgs_a}" var="img">
-											<img src="${img.url}" class="img-fluid" alt="">
-										</c:forEach> </a>
+					<c:param name="auctionId" value="${auction.auctionId}"/></c:url>">
+					<img src="${auction.imgs_a[0].url}" class="img-fluid" alt="" style="height: 100%;">
+				</a>
                 <a href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
                 <a href="portfolio-details.html" class="link-details" title="More Details"><i class="bx bx-link"></i></a>
               </figure>
