@@ -14,6 +14,7 @@ import com.example.goodsom.dao.BidDao;
 import com.example.goodsom.dao.GroupBuyDao;
 import com.example.goodsom.dao.LikeDao;
 import com.example.goodsom.dao.NotificationDao;
+import com.example.goodsom.dao.ReportDao;
 import com.example.goodsom.dao.UserDao;
 import com.example.goodsom.domain.Auction;
 import com.example.goodsom.domain.GroupBuy;
@@ -32,13 +33,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserDao userDao;
-	
-	@Autowired
-	private NotificationDao notiDao;
-	@Autowired
-	private LikeDao likeDao;
-	@Autowired
-	private BidDao bidDao;
+
+	@Autowired 
+	private ReportDao reportDao;
 	
 	@Autowired
 	private GroupBuyDao groupBuyDao;
@@ -77,11 +74,7 @@ public class UserServiceImpl implements UserService {
 			userDao.deleteUser(user);
 		  } catch (DataAccessException ex) {
 		     // 트랜잭션에서 오류 발생 시 실행해야 할 코드 작성
-			  ex.getStackTrace();
-			  System.out.println("ex.getMessage() : ");
 		      ex.getMessage();
-			  System.out.println("ex.getRootCause() : ");
-		      ex.getRootCause();
 		      return 0;
 		  }
 		  return 1;
@@ -107,15 +100,15 @@ public class UserServiceImpl implements UserService {
 //		return userDao.getAuctionList(userId);
 //	}
 	
-	public ReportForm getReportList(int userId) {
-		List<String> reportList = userDao.getReportList(userId);
+	public ReportForm getReportList(int userId) throws DataAccessException {
+		List<String> reportList = reportDao.getReportList(userId);
 		
 		ReportForm reportForm = new ReportForm();
 		int abuse = 0;
 		int destroy = 0;
 		
 		for (String val : reportList) {
-			if (val.equals("0")) { // 욕설 및 비방
+			if (val.equals("욕설 및 비방")) { // 욕설 및 비방
 				abuse++;
 			} else { // 거래 파기 '1'
 				destroy++;
@@ -148,14 +141,14 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	public void createReport_a(CreateReportForm reportForm) throws DataAccessException { // 신고 현황 상세 페이지 
-		userDao.createReport_a(reportForm);
+		reportDao.createReport_a(reportForm);
 	}
 	
 	public void createReport_g(CreateReportForm reportForm) throws DataAccessException { // 신고 현황 상세 페이지 
-		userDao.createReport_g(reportForm);
+		reportDao.createReport_g(reportForm);
 	}
 	
 	public void updateReport(int userId) throws DataAccessException {
-		userDao.updateReport(userId);
+		reportDao.updateReport(userId);
 	}
 }

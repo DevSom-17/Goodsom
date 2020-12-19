@@ -17,6 +17,7 @@ import com.example.goodsom.dao.UserDao;
 import com.example.goodsom.dao.mybatis.mapper.BidMapper;
 import com.example.goodsom.dao.mybatis.mapper.LikeMapper;
 import com.example.goodsom.dao.mybatis.mapper.NotiMapper;
+import com.example.goodsom.dao.mybatis.mapper.ReportMapper;
 import com.example.goodsom.dao.mybatis.mapper.UserMapper;
 
 /**
@@ -36,6 +37,8 @@ public class MybatisUserDao implements UserDao {
 	private LikeMapper likeMapper;
 	@Autowired
 	private BidMapper bidMapper;
+	@Autowired
+	private ReportMapper reportMapper;
 	
 	public User getUser(String email, String passwd) throws DataAccessException {
 		return userMapper.getUser(email, passwd);
@@ -61,15 +64,14 @@ public class MybatisUserDao implements UserDao {
 	public void deleteUser(User user) throws DataAccessException { // 알림, 좋아요, 신고, 베팅 목록 삭제
 		int userId = user.getUserId();
 		
-//		 알림, 좋아요, 신고, 베팅 목록 삭제
 		notiMapper.deleteNotisByUserId_a(userId);
 		notiMapper.deleteNotisByUserId_g(userId);
 		
 		likeMapper.deletelikesByUserId_a(userId);
 		likeMapper.deletelikesByUserId_g(userId);
 		
-		userMapper.deleteReportsByUserId_a(userId);
-		userMapper.deleteReportsByUserId_g(userId);
+		reportMapper.deleteReportsByUserId_a(userId);
+		reportMapper.deleteReportsByUserId_g(userId);
 
 		bidMapper.deleteBidsByUserId(userId);
 		
@@ -91,21 +93,5 @@ public class MybatisUserDao implements UserDao {
 //	public List<Auction> getAuctionList(int orderId) throws DataAccessException { // 마이페이지 경매 등록 목록 보기
 //		return userMapper.getAuctionList(orderId);
 //	}
-	
-	public List<String> getReportList(int userId) throws DataAccessException { // 신고 현황 상세 페이지 
-		return userMapper.getReportList(userId);
-	}
-	
-	public void createReport_a(CreateReportForm reportForm) throws DataAccessException { // 신고 현황 상세 페이지 
-		userMapper.createReport_a(reportForm);
-	}
-	
-	public void createReport_g(CreateReportForm reportForm) throws DataAccessException { // 신고 현황 상세 페이지 
-		userMapper.createReport_g(reportForm);
-	}
-	
-	public void updateReport(int userId) throws DataAccessException {
-		userMapper.updateReport(userId);
-	}
-	
+
 }
