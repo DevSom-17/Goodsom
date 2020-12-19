@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
+import com.example.goodsom.controller.user.CreateReportForm;
 import com.example.goodsom.domain.Auction;
 import com.example.goodsom.domain.GroupBuy;
 import com.example.goodsom.domain.Order;
@@ -26,7 +27,7 @@ public interface UserDao {
 
 	int updateUser(User user) throws DataAccessException;
 
-	int deleteUser(User user) throws DataAccessException;
+	void deleteUser(User user) throws DataAccessException;
 	
 	List<Order> getAuctionOrderList(int userId);
 	
@@ -36,5 +37,4 @@ public interface UserDao {
 	
 //	List<Auction> getAuctionList(int userId); // 마이페이지 경매 등록 목록 보기
 	
-	List<String> getReportList(int userId); // 신고 현황 상세 페이지
 }

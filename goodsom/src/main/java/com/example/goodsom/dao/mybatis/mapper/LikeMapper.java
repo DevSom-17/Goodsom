@@ -20,4 +20,7 @@ public interface LikeMapper {
 	
 	void unlikeGroupBuy(int userId, int groupBuyId) throws DataAccessException;
 	
+	void deletelikesByUserId_a(int userId) throws DataAccessException;
+	
+	void deletelikesByUserId_g(int userId) throws DataAccessException;
 }

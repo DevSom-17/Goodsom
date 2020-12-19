@@ -80,7 +80,13 @@ function orderAuction() {
 						</h3>
 						<ul>
 							<li><strong>조회수</strong>: ${auction.count}</li>
-							<li><strong>작성자</strong>: ${writer}</li>
+							<li><strong>작성자</strong>: ${writer} &nbsp;
+								<a href="<c:url value='../report/create.do'>
+											<c:param name="auctionId" value="${auction.auctionId}"/>
+											<c:param name="writerId" value="${auction.userId}"/>
+										</c:url>">신고하기</a> 
+								<br/>
+							</li>
 							<li><strong>시작 금액</strong>: ${auction.startPrice}</li>
 							<li><strong>작성일</strong>: <fmt:formatDate
 									value="${auction.uploadDate}" pattern="yyyy-MM-dd" /></li>
@@ -153,7 +159,7 @@ function orderAuction() {
 				<c:if test="${isWriter eq true}">
 					<a class="btn btn-primary py-3 px-5" href="<c:url value='../order/auction/manage.do'>
 																<c:param name="auctionId" value="${auction.auctionId}" />
-														 	  </c:url>">참여현황</a>
+														 	  </c:url>">낙찰자 현황</a>
 				</c:if>	
 				<c:if test="${(isWriter eq true) and (auction.maxPrice == 0)}">
 					<a class="btn btn-primary py-3 px-5" href="javascript:updateAuction()" >수정</a>

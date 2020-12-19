@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 import com.example.goodsom.controller.mypage.ReportForm;
+import com.example.goodsom.controller.user.CreateReportForm;
 import com.example.goodsom.domain.Auction;
 import com.example.goodsom.domain.GroupBuy;
 import com.example.goodsom.domain.Order;
@@ -40,4 +41,10 @@ public interface UserService {
 	ReportForm getReportList(int userId); // 신고 현황 상세 페이지
 	
 	boolean isUnClosedExist(int userId);
+	
+	void createReport_a(CreateReportForm reportForm);
+	
+	void createReport_g(CreateReportForm reportForm);
+	
+	void updateReport(int userId);
 }

@@ -67,4 +67,14 @@
     DELETE FROM NOTIFICATIONS_G
     WHERE NOTIID = #{notiId}
   </delete>
+  
+  <delete id="deleteNotisByUserId_a" parameterType="Integer">
+  	DELETE FROM NOTIFICATIONS_A
+  	WHERE USERID = #{userId}
+  </delete>
+  <delete id="deleteNotisByUserId_g" parameterType="Integer">
+  	DELETE FROM NOTIFICATIONS_G
+  	WHERE USERID = #{userId}
+  </delete>
+
 </mapper>

@@ -35,13 +35,13 @@
   </select> 
   
   <select id="getUserByEmail" resultType="com.example.goodsom.domain.User">
-  	SELECT USERID, EMAIL, PASSWD, USERNAME, NICKNAME, ADDRESS, DETAILADDRESS, EXTRAADDRESS, POSTCODE, PHONE, REFUNDBANK, REFUNDACCOUNT
+  	SELECT USERID, EMAIL, PASSWD, USERNAME, NICKNAME, ADDRESS, DETAILADDRESS, EXTRAADDRESS, POSTCODE, PHONE, REFUNDBANK, REFUNDACCOUNT, REPORT, WARNING
     FROM USERS 
     WHERE EMAIL = #{param1}
   </select>
   
   <select id="getUserByUserId" resultType="com.example.goodsom.domain.User">
-  	SELECT USERID, EMAIL, PASSWD, USERNAME, NICKNAME, ADDRESS, DETAILADDRESS, EXTRAADDRESS, POSTCODE, PHONE, REFUNDBANK, REFUNDACCOUNT
+  	SELECT USERID, EMAIL, PASSWD, USERNAME, NICKNAME, ADDRESS, DETAILADDRESS, EXTRAADDRESS, POSTCODE, PHONE, REFUNDBANK, REFUNDACCOUNT, REPORT, WARNING
     FROM USERS 
     WHERE USERID = #{param1}
   </select>
@@ -81,7 +81,9 @@
   		POSTCODE = null,
   		PHONE = null,
   		REFUNDBANK = null,
-  		REFUNDACCOUNT = null
+  		REFUNDACCOUNT = null,
+  		REPORT = 0,
+  		WARNING = 0
   	WHERE USERID = #{userId}
   </update>
 
@@ -115,15 +117,4 @@
   	ORDER BY auctionId DESC
   </select>  --><!-- user가 등록한 AuctionList를 가져옴 for 마이페이지 경매 등록 목록 보기 -->
   
-  <select id="getReportList" parameterType="int"
-  		resultType="String">
-  	SELECT content
-  	FROM reports_a
-  	WHERE userId = #{userId}
-  	UNION ALL
-  	SELECT content
-  	FROM reports_g
-  	WHERE userId = #{userId}	
-  </select>
-   
 </mapper>

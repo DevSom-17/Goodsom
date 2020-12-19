@@ -2,6 +2,7 @@ package com.example.goodsom.dao.mybatis.mapper;
 
 import java.util.List;
 
+import com.example.goodsom.controller.user.CreateReportForm;
 import com.example.goodsom.domain.Auction;
 import com.example.goodsom.domain.GroupBuy;
 import com.example.goodsom.domain.Order;
@@ -24,7 +25,7 @@ public interface UserMapper {
 
 	int updateUser(User user);
 
-	int deleteUser(User user);
+	void deleteUser(User user);
 	
 	List<Order> getAuctionOrderList(int userId);
 	
@@ -34,5 +35,4 @@ public interface UserMapper {
 	
 //	List<Auction> getAuctionList(int userId); // 마이페이지 경매 등록 목록 보기  -> AuctionMapper.xml의 getAuctionListByUserId(int userId)가 대신 함!
 	
-	List<String> getReportList(int userId); // 신고 현황 상세 페이지
 }
