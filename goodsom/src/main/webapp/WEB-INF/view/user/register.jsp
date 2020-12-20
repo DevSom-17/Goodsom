@@ -66,6 +66,17 @@
 		});
 	};
 
+	function emailCheck(){
+		var checkBtn = document.getElementById('emailVerify');
+		
+		if(checkBtn.value == '이메일 인증 완료'){
+			return true;
+		}else{
+			alert("이메일 인증을 완료해주세요!");
+			return false;
+		}
+	}
+
 </script>
 <style>
 	.error {
@@ -81,7 +92,7 @@
 
 				<h2 class="text-center">Register</h2><br/>
 
-				<form:form modelAttribute="userForm" method="POST" action="register.do" class="bg-light p-5 contact-form">
+				<form:form modelAttribute="userForm" method="POST" onsubmit="return emailCheck()" action="register.do" class="bg-light p-5 contact-form">
 
 					<div class="form-group">
 						<label for="name">이메일</label> 
@@ -96,9 +107,7 @@
 					
 					<div class="form-group">
 						<label for="name">인증번호</label> 
-						<form:input path="user.code" class="form-control" placeholder="ex) 20170000@dongduk.ac.kr" />
-						<form:errors path="user.code" cssClass="error" />
-						<form:errors cssClass="error" />
+						<form:input path="user.code" class="form-control" placeholder="ex) D2f24fd1" />
 					</div>
 					
 					<div class="form-group">
