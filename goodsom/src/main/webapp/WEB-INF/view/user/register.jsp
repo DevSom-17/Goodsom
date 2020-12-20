@@ -8,53 +8,8 @@
 
 <%@ include file="../includeTop.jsp" %> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<!-- iamport.payment.js -->
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-<script>
-$('#sendPhoneNumber').click(function(){
-    /* let phoneNumber = $('#user.phone').val(); */
-    let phoneNumber = document.getElementById('user.phone').value;
-    Swal.fire('인증번호 발송 완료!')
-
-    $.ajax({
-        type: "GET",
-        url: "/check/sendSMS",
-        data: {
-            "phoneNumber" : phoneNumber
-        },
-        success: function(res){
-            $('#checkBtn').click(function(){
-                if($.trim(res) ==$('#inputCertifiedNumber').val()){
-                    Swal.fire(
-                        '인증성공!',
-                        '휴대폰 인증이 정상적으로 완료되었습니다.',
-                        'success'
-                    )
-/* 
-                    $.ajax({
-                        type: "GET",
-                        url: "/update/phone",
-                        data: {
-                            "phoneNumber" : $('#user.phone').val()
-                        }
-                    })
-                    document.location.href="/home"; */
-                }else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: '인증오류',
-                        text: '인증번호가 올바르지 않습니다!',
-                        footer: '<a href="/">다음에 인증하기</a>'
-                    })
-                }
-            })
-
-
-        }
-    })
-});
-</script>
 <script>
 	
 	function home(targetUri) {
@@ -187,14 +142,14 @@ $('#sendPhoneNumber').click(function(){
 
 					<div class="form-group">
 						<label for="name" style="display: block;">전화번호</label> 
-						<form:input path="user.phone" class="form-control" placeholder="ex) 010-0000-0000" style="width: 50%; float: left; display: block;"/>
-						<input type="button" id="sendPhoneNumber" value="인증번호 발송" style="display: block; margin-inline-start: auto;"/>
-						<form:errors path="user.phone" cssClass="error" />
+						<form:input path="user.phone" id="inputPhoneNumber" class="form-control" placeholder="ex) 010-0000-0000" style="width: 50%; float: left; display: block;"/>
+						<input type="button" id="sendPhoneNumber" value="인증번호 발송" onClick="sendSMS()" style="display: block; margin-inline-start: auto;"/>
+						<form:errors path="user.phone" id="inputPhoneNumber" cssClass="error" />
 					</div>
 					
 					<div class="form-group">
 						<label for="name" style="display: block;">인증번호</label> 
-						<input type="text" id="inputCertifiedNumber" class="form-control" style="width: 50%; float: left; display: block;"/>
+						<input type="text" id="inputCertifiedNumber" class="form-control" disabled style="width: 50%; float: left; display: block;"/>
 						<input type="button" id="checkBtn" value="확인" style="display: block; margin-inline-start: auto;" disabled/>
 					</div>
 
@@ -309,5 +264,66 @@ $('#sendPhoneNumber').click(function(){
 			</div>
 		</div>
 	</div>
+	
+<script>
+var inputCertifiedNum = document.getElementById('inputCertifiedNumber');
+var checkBtn = document.getElementById('checkBtn');
+
+$('#sendPhoneNumber').click(function(){
+	let phoneNumber = $('#inputPhoneNumber').val();
+	checkBtn.value='휴대폰 인증하기';
+	inputCertifiedNum.value='';
+	
+	var regPhone = /^01(0|1|[6-9]{1})-([0-9]{3,4})-([0-9]{4})$/; //숫자와 문자 포함 형태의 6~12자리 이내의 암호 정규식
+	if (regPhone.test(phoneNumber)==false) {
+		Swal.fire({
+            icon: 'error',
+            title: '주의',
+            text: '전화번호를 제대로 입력해주세요!',
+            confirmButtonText: '다시 입력하기',
+            confirmButtonColor: '#2778c4'
+        })
+        $('#inputPhoneNumber').val('');
+        return false;
+	}
+
+    $.ajax({
+        type: "GET",
+        url: "/sendSMS.do",
+        data: {
+            "phoneNumber" : phoneNumber
+        },
+        success: function(res){
+        	inputCertifiedNum.disabled=false;
+        	checkBtn.disabled=false;
+        	Swal.fire('인증번호 발송 완료!')
+            
+            $('#checkBtn').click(function(){
+                if($.trim(res) ==$('#inputCertifiedNumber').val()){
+                    Swal.fire(
+                        '인증성공!',
+                        '휴대폰 인증이 정상적으로 완료되었습니다.',
+                        'success'
+                    )
+                    checkBtn.value='휴대폰 인증 완료';
+                    inputCertifiedNum.disabled=true;
+                	checkBtn.disabled=true;
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: '인증오류',
+                        text: '인증번호가 올바르지 않습니다!',
+                        confirmButtonText: '다시 인증하기',
+                        confirmButtonColor: '#2778c4'
+                    })
+                }
+            })
+
+
+        }
+    })
+});
+
+</script>
 </body>
 </html>
