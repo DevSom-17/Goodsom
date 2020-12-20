@@ -58,6 +58,39 @@ function getGroupBuyInfo(notiId){
 };
 </script>
 
+<style>
+.btn-submit {
+	position: relative;
+	top: 0;
+	right: 5px;
+	bottom: 0;
+	border: 0;
+	background: none;
+	font-size: 16px;
+	padding: 8px 30px;
+	background: #3498db;
+	color: #fff;
+	transition: 0.3s;
+	border-radius: 0px 0px 0px 0px;
+	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+.btn-danger {
+	position: relative;
+	top: 0;
+	right: 5px;
+	bottom: 0;
+	border: 0;
+	background: none;
+	font-size: 16px;
+	padding: 8px 30px;
+	background: #bb404c;
+	color: #fff;
+	transition: 0.3s;
+	border-radius: 0px 0px 0px 0px;
+	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+</style>
+
 <body>
 
  <%@ include file="../header.jsp" %> 
@@ -114,13 +147,13 @@ function getGroupBuyInfo(notiId){
 			</c:if>
 			
 			<div class="form-group" align="right">
-		   		<a class="btn btn-primary py-3 px-5" href="<c:url value='/noti/list.do'>
-					</c:url>">확인</a>
-	   			<a class="btn btn-primary py-3 px-5" href="<c:url value='/noti/delete.do'>
+				<a class="btn-danger" href="<c:url value='/noti/delete.do'>
 	   				<c:param name="notiId" value="${noti.notiId}"/>
 	   				<c:param name="type" value="${type}"/>
 	   				</c:url>" 
-			   		onClick="return deleteNoti();">삭제</a>	
+			   		onClick="return deleteNoti();">삭제</a>
+		   		<a class="btn-submit" href="<c:url value='/noti/list.do'>
+					</c:url>">확인</a>
      		</div>	
 	   </div>
 	</section>	  	

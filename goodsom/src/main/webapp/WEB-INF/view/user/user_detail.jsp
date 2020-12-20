@@ -37,6 +37,39 @@
 	</c:otherwise>
 </c:choose>
 
+<style>
+.btn-submit {
+	position: relative;
+	top: 0;
+	right: 5px;
+	bottom: 0;
+	border: 0;
+	background: none;
+	font-size: 16px;
+	padding: 8px 30px;
+	background: #3498db;
+	color: #fff;
+	transition: 0.3s;
+	border-radius: 0px 0px 0px 0px;
+	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+.btn-danger {
+	position: relative;
+	top: 0;
+	right: 5px;
+	bottom: 0;
+	border: 0;
+	background: none;
+	font-size: 16px;
+	padding: 8px 30px;
+	background: #bb404c;
+	color: #fff;
+	transition: 0.3s;
+	border-radius: 0px 0px 0px 0px;
+	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+</style>
+
 <body>
 
  <%@ include file="../header.jsp" %>
@@ -51,20 +84,17 @@
 				</div>
 
 				<div class="site-section">
-						<div class="container" style="width:80%">
+						<div class="container">
 							<div class="row justify-content-center">
 								<div class="col-md-12">
 									<div class="car-details">
 										<div class="text text-left">
-											<h1>
-												<b>${userForm.user.userName}</b>
-											</h1>
-										</div>
-										<br>
-
-										<div class="text text-left">
 											<table class="table table-striped">
 												<tbody>
+													<tr>
+														<th scope="row">이름</th>
+														<td>${userForm.user.userName}</td>
+													</tr>
 													<tr>
 														<th scope="row">이메일</th>
 														<td>${userForm.user.email}</td>
@@ -93,11 +123,11 @@
 												</tbody>
 											</table>
 										</div>
-										
+										<br>
 										<div class="container" style="text-align:center">
-											<a class="btn btn-primary py-3 px-5"
+											<a class="btn-submit"
 												href="<c:url value='/user/update.do'></c:url>">수정하기</a>
-											&nbsp; <a class="btn btn-danger py-3 px-5"
+											&nbsp; <a class="btn-danger"
 												href="javascript:removeCheck()">회원탈퇴</a>
 										</div>
 									</div>

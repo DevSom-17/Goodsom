@@ -130,6 +130,21 @@ $('#sendPhoneNumber').click(function(){
 		color: #ff0000;
 		/* font-weight: bold; */
 	}
+	.btn-submit {
+	position: relative;
+	top: 0;
+	right: 5px;
+	bottom: 0;
+	border: 0;
+	background: none;
+	font-size: 16px;
+	padding: 8px 30px;
+	background: #3498db;
+	color: #fff;
+	transition: 0.3s;
+	border-radius: 0px 0px 0px 0px;
+	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+	}
 </style>
 
 <body bgcolor="black">
@@ -137,7 +152,7 @@ $('#sendPhoneNumber').click(function(){
 		<div class="row block-9 justify-content-center mb-5">
 			<div class="col-md-8 mb-md-5">
 
-				<h2 class="text-center">Register</h2><br/>
+				<h2 class="text-center">회원가입</h2><br/>
 
 				<form:form modelAttribute="userForm" method="POST" onsubmit="return emailCheck()" action="register.do" class="bg-light p-5 contact-form">
 
@@ -301,8 +316,8 @@ $('#sendPhoneNumber').click(function(){
 					<br/>
 
 					<div class="form-group" align="center">
-						<a class="btn btn-primary py-3 px-5" href="<c:url value='login.do'></c:url>">취소</a> &nbsp;
-						<input type="submit" value="완료" class="btn btn-primary py-3 px-5"> 
+						<a class="btn-submit" href="<c:url value='login.do'></c:url>">취소</a> &nbsp;
+						<input type="submit" value="완료" class="btn-submit"> 
 					</div>
 					
 				</form:form>

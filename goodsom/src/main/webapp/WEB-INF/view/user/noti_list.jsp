@@ -24,7 +24,7 @@
 
 
 			<div class="site-section">
-				<div class="container" style="width: 80%">
+				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-md-12">
 							<div class="car-details">
@@ -43,7 +43,6 @@
 												<th scope="row">날짜</th>
 												<th scope="row">내용</th>
 											</tr>
-											<c:if test="${empty groupBuyNotiList}">공동구매 알림이 없습니다.</c:if>
 											<c:forEach var="noti_g" items="${groupBuyNotiList}"
 												varStatus="status">
 												<tr>
@@ -78,7 +77,6 @@
 												<th scope="row">날짜</th>
 												<th scope="row">내용</th>
 											</tr>
-											<c:if test="${empty bidNotiList}">경매 알림이 없습니다.</c:if>
 											<c:forEach var="noti_a" items="${bidNotiList}"
 												varStatus="status">
 												<tr>
