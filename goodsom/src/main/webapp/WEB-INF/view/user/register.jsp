@@ -12,7 +12,48 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <script>
+$('#sendPhoneNumber').click(function(){
+    /* let phoneNumber = $('#user.phone').val(); */
+    let phoneNumber = document.getElementById('user.phone').value;
+    Swal.fire('인증번호 발송 완료!')
 
+    $.ajax({
+        type: "GET",
+        url: "/check/sendSMS",
+        data: {
+            "phoneNumber" : phoneNumber
+        },
+        success: function(res){
+            $('#checkBtn').click(function(){
+                if($.trim(res) ==$('#inputCertifiedNumber').val()){
+                    Swal.fire(
+                        '인증성공!',
+                        '휴대폰 인증이 정상적으로 완료되었습니다.',
+                        'success'
+                    )
+/* 
+                    $.ajax({
+                        type: "GET",
+                        url: "/update/phone",
+                        data: {
+                            "phoneNumber" : $('#user.phone').val()
+                        }
+                    })
+                    document.location.href="/home"; */
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: '인증오류',
+                        text: '인증번호가 올바르지 않습니다!',
+                        footer: '<a href="/">다음에 인증하기</a>'
+                    })
+                }
+            })
+
+
+        }
+    })
+});
 </script>
 <script>
 	
@@ -136,9 +177,16 @@
 					</div>
 
 					<div class="form-group">
-						<label for="name">전화번호</label> 
-						<form:input path="user.phone" class="form-control" placeholder="ex) 010-0000-0000" />
+						<label for="name" style="display: block;">전화번호</label> 
+						<form:input path="user.phone" class="form-control" placeholder="ex) 010-0000-0000" style="width: 50%; float: left; display: block;"/>
+						<input type="button" id="sendPhoneNumber" value="인증번호 발송" style="display: block; margin-inline-start: auto;"/>
 						<form:errors path="user.phone" cssClass="error" />
+					</div>
+					
+					<div class="form-group">
+						<label for="name" style="display: block;">인증번호</label> 
+						<input type="text" id="inputCertifiedNumber" class="form-control" style="width: 50%; float: left; display: block;"/>
+						<input type="button" id="checkBtn" value="확인" style="display: block; margin-inline-start: auto;" disabled/>
 					</div>
 
 					<div class="form-group">
