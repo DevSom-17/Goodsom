@@ -123,32 +123,35 @@ public class AuctionServiceImpl implements AuctionService {
 		
 		int[] auctionId = auctionDao.getAuctionIdForNoti(); // 동시에 여러 경매가 마감될 경우
 		
+		// 메일 보내기 - 마감이면서 알림을 보내지 않았을 때
 		for(int i = 0; i < auctionId.length; i++) {
 			Auction auction = auctionDao.getAuction(auctionId[i]);
 			
-			if(auction.getState().equals(CLOSED)) { // 마감일때 알림 보내기
-				Bid bid = bidDao.getSuccessBidByAuctionId(auctionId[i]); // 낙찰자
+			if(auction == null) break;
+			try {
+				// 작성자 메일 전송
+				User writeUser = userDao.getUserByUserId(auction.getUserId());
+				notiMailService.sendAuctionWriterMessage(writeUser.getEmail());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			Bid bid = bidDao.getSuccessBidByAuctionId(auctionId[i]); // 낙찰자
+			if(bid != null) {
+				bid.setAuctionTitle(auctionDao.getAuction(auctionId[i]).getTitle());
+				notiDao.createNoti_a(bid); // 알림 생성
 				
-				if(bid != null) {
-					bid.setAuctionTitle(auctionDao.getAuction(auctionId[i]).getTitle());
-					notiDao.createNoti_a(bid); // 알림 생성
-					
-					// 메일 보내기 - 마감이면서 알림을 보내지 않았을 때
-					if(auction.getSendNoti() == 0) {
-						try {
-							// 메일 전송
-							User successUser = userDao.getUserByUserId(bid.getUserId());
-							notiMailService.sendAuctionMessage(successUser.getEmail());
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-					
-					auctionDao.updateAuctionNoti(auctionId[i]); // 알림 보냄으로 상태변경
+				try {
+					// 참여자(낙찰자) 메일 전송
+					User successUser = userDao.getUserByUserId(bid.getUserId());
+					notiMailService.sendAuctionMessage(successUser.getEmail());
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
+			
+			auctionDao.updateAuctionNoti(auctionId[i]); // 알림 보냄으로 상태변경
 		}
-		
 	}
 	
 	public int[] getAuctionIdForNoti() {

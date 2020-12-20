@@ -130,9 +130,17 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 			int[] userId = notiDao.getUserIdByGroupBuyId(achieveId[i]); // 해당 공동구매에 참여한 유저
 			GroupBuy groupBuy = groupBuyDao.getGroupBuy(achieveId[i]);
 			
-			if(userId == null || groupBuy == null) break; // 성사공구나 참여한 유저가 없을때
+			if(groupBuy == null) break; // 달성공구가 없을때
 
 			System.out.println("스케줄러 내의 state: " +achieveId[i]);
+			
+			// 공구 작성자
+			try {
+				User writer = userDao.getUserByUserId(groupBuy.getUserId());
+				notiMailService.sendGroupBuyWriterAchieveMessage(writer.getEmail());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
 			Notification noti = new Notification();
 			noti.setTitle(groupBuy.getTitle());
@@ -140,6 +148,7 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 			noti.setState(ACHIEVED);
 			
 			// 공구에 참여한 모든 유저에게
+			if(userId == null) break;
 			for(int j = 0; j < userId.length; j++) {
 				noti.setUserId(userId[j]);
 				
@@ -147,16 +156,15 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 				notiDao.createNoti_g(noti);
 				
 				// 메일 보내기 - 성사됐고 알림을 보내지 않았을 때
-				if(groupBuy.getSendNoti() == 0) {
-					try {
-						// 메일 전송
-						User user = userDao.getUserByUserId(userId[j]);
-						notiMailService.sendGroupBuyAchieveMessage(user.getEmail());
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+				try {
+					// 공구 참여자
+					User user = userDao.getUserByUserId(userId[j]);
+					notiMailService.sendGroupBuyAchieveMessage(user.getEmail());
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
+			
 			// 달성 알림을 보냈다는 표시
 			groupBuyDao.updateAchieveNoti(achieveId[i]);
 		}
@@ -166,9 +174,17 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 			int[] userId = notiDao.getUserIdByGroupBuyId(closeId[i]); // 해당 공동구매에 참여한 유저
 			GroupBuy groupBuy = groupBuyDao.getGroupBuy(closeId[i]);
 			
-			if(userId == null || groupBuy == null) break; // 마감공구나 참여한 유저가 없을때
+			if(groupBuy == null) break; // 마감공구가 없을때
 
 			System.out.println("스케줄러 내의 state: " +closeId[i]);
+			
+			// 공구 작성자
+			try {
+				User writer = userDao.getUserByUserId(groupBuy.getUserId());
+				notiMailService.sendGroupBuyWriterCloseMessage(writer.getEmail());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
 			Notification noti = new Notification();
 			noti.setTitle(groupBuy.getTitle());
@@ -176,6 +192,7 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 			noti.setState(CLOSED);
 			
 			// 공구에 참여한 모든 유저에게
+			if(userId == null) break;
 			for(int j = 0; j < userId.length; j++) {
 				noti.setUserId(userId[j]);
 				
@@ -183,17 +200,15 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 				notiDao.createNoti_g(noti);
 				
 				// 메일 보내기 - 마감됐고 알림을 보내지 않았을 때
-				if(groupBuy.getSendNoti() != 2) {
-					try {
-						// 메일 전송
-						User user = userDao.getUserByUserId(userId[j]);
-						notiMailService.sendGroupBuyCloseMessage(user.getEmail());
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+				try {
+					// 공구 참여자
+					User user = userDao.getUserByUserId(userId[j]);
+					notiMailService.sendGroupBuyCloseMessage(user.getEmail());
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-				
 			}
+			
 			// 마감 알림을 보냈다는 표시
 			groupBuyDao.updateCloseNoti(closeId[i]);
 		}
