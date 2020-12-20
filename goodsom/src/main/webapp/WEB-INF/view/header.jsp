@@ -25,7 +25,7 @@
 }
 
 #search .search-top {
-	padding: 150px 0 5px 0;
+	padding: 130px 0 5px 0;
 	background: #fff;
 }
 
@@ -44,7 +44,7 @@
 	width: 150px;
 	height: 40px;
 	position: relative;
-	left: 6px;
+	left: -10px;
 	z-index: 1;
 	bottom: 1px;
 	border: 0;
@@ -54,7 +54,7 @@
 	background: #3498db;
 	color: #fff;
 	transition: 0.3s;
-	border-radius: 4px 0px 0px 4px;
+	border-radius: 0px 0px 0px 0px;
 	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -70,7 +70,7 @@
 	background: #3498db;
 	color: #fff;
 	transition: 0.3s;
-	border-radius: 0px 4px 4px 0px;
+	border-radius: 0px 0px 0px 0px;
 	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
 }
 </style>
