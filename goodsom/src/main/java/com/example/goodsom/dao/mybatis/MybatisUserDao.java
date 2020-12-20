@@ -35,8 +35,8 @@ public class MybatisUserDao implements UserDao {
 	private NotiMapper notiMapper;
 	@Autowired
 	private LikeMapper likeMapper;
-	@Autowired
-	private BidMapper bidMapper;
+//	@Autowired
+//	private BidMapper bidMapper;
 	@Autowired
 	private ReportMapper reportMapper;
 	
@@ -73,7 +73,7 @@ public class MybatisUserDao implements UserDao {
 		reportMapper.deleteReportsByUserId_a(userId);
 		reportMapper.deleteReportsByUserId_g(userId);
 
-		bidMapper.deleteBidsByUserId(userId);
+//		bidMapper.deleteBidsByUserId(userId);
 		
 		userMapper.deleteUser(user);
 	}

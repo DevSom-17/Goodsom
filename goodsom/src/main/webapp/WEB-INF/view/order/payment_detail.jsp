@@ -15,7 +15,7 @@
 		<div class="container">
 
 			<div class="section-title">
-				<h2>세부 결제 내역</h2>
+				<h2>세부 구매 내역</h2>
 			</div>
 
 			<div class="site-section">

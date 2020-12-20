@@ -29,5 +29,5 @@ public interface BidMapper {
 	
 	void updateBid(Bid bid);
 	
-	void deleteBidsByUserId(int userId);
+//	void deleteBidsByUserId(int userId);
 }

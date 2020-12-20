@@ -44,8 +44,8 @@ public class OrderFormController {
 	private OrderService orderService;
 	@Autowired
 	private AuctionService auctionService;
-	@Autowired
-	private NotiService notiService;
+//	@Autowired
+//	private NotiService notiService;
 
 	
 	@ModelAttribute("orderForm")
@@ -104,9 +104,9 @@ public class OrderFormController {
 		mav.addObject("order", orderForm.getOrder());
 		
 		if (result == FAIL) {
-			mav.addObject("message", "결제에 실패했습니다.");
+			mav.addObject("message", "구매 처리에 실패했습니다.");
 		} else {
-			mav.addObject("message", "결제가 성공적으로 완료되었습니다.");
+			mav.addObject("message", "구매 처리가 성공적으로 완료되었습니다.");
 		}
 		status.setComplete();  // remove session lineGroupBuyForm and orderForm from session
 		return mav;
@@ -146,9 +146,9 @@ public class OrderFormController {
 		mav.addObject("order", orderForm.getOrder());
 		
 		if (result == FAIL) {
-			mav.addObject("message", "결제에 실패했습니다.");
+			mav.addObject("message", "구매 처리에 실패했습니다.");
 		} else {
-			mav.addObject("message", "결제가 성공적으로 완료되었습니다.");
+			mav.addObject("message", "구매 처리가 성공적으로 완료되었습니다.");
 		}
 		status.setComplete();  // remove session lineGroupBuyForm and orderForm from session
 		return mav;
