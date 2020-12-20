@@ -31,9 +31,7 @@
 					<br />
 					<div class="row portfolio-container">
 							<c:if test="${empty groupBuyList}">등록한 공동구매 게시글이 없습니다.</c:if>
-							<c:forEach var="groupBuy" items="${groupBuyList}"
-								varStatus="status">
-
+							<c:forEach var="groupBuy" items="${groupBuyList}" varStatus="status">
 							<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
 								<div class="portfolio-wrap">
 									<figure style="background: white; text-align: center;">
@@ -125,87 +123,82 @@
 				<c:if test="${listType eq 2}">
 					<h3><b>공동구매</b></h3>
 					<br />
-					<div class="row">
-						<div class="col-lg-4 col-md-6 mb-4">
-							<c:if test="${empty groupBuyOrderList}">구매한 공동구매 내역이 없습니다.</c:if>
-							<c:forEach var="order" items="${groupBuyOrderList}"
-								varStatus="status">
-								<div class="post-entry-1 h-100">
+					<div class="row portfolio-container">
+						<c:if test="${empty groupBuyOrderList}">구매한 공동구매 내역이 없습니다.</c:if>
+						<c:forEach var="order" items="${groupBuyOrderList}" varStatus="status">
+						<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
+				            <div class="portfolio-wrap">
+				              <figure>
 									<a href="<c:url value='../groupBuy/detail.do'>
 												<c:param name="groupBuyId" value="${order.groupBuyId}" />
 											</c:url>">
 											<img src="${order.groupBuy.imgs_g[0].url}" class="img-fluid" alt="">
 									</a>
-									<div class="post-entry-1-contents">
-										<h2>
-											<a
-												href="<c:url value='../groupBuy/detail.do'>
+							  </figure>
+									<div class="portfolio-info">
+										<h4> <a href="<c:url value='../groupBuy/detail.do'>
 														<c:param name="groupBuyId" value="${order.groupBuyId}" />
 													</c:url>">
 												${order.groupBuy.title}</a>
-										</h2>
-
-										<span class="meta d-inline-block mb-3"> <fmt:formatDate
-												value="${order.orderDate}" pattern="yyyy-MM-dd" /> <span
-											class="mx-2"> 총액 : ${order.totalPrice}원</span>
+										</h4>
+									<div>
+										<span class="meta d-inline-block mb-3"> 
+											<fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd" /> 
+											<span class="mx-2"> 총액 : ${order.totalPrice}원</span>
+											<span style="float: right;">
+												<a href="<c:url value='../order/groupBuy/detail.do'>
+													<c:param name="orderId" value ="${order.orderId}" />
+												</c:url>">
+												상세보기 > </a>
+											</span>
 										</span>
 									</div>
-									<p style="text-align: right; padding: 20px;">
-										<a
-											href="<c:url value='../order/groupBuy/detail.do'>
-												<c:param name="orderId" value ="${order.orderId}" />
-											</c:url>">
-											상세보기 > </a>
-									</p>
+									</div>
+								</div>
 								</div>
 							</c:forEach>
 						</div>
-					</div>
 
 					<br>
 					<br>
 
 					<h3><b>경매</b></h3>
 					<br />
-					<div class="row">
-							<c:if test="${empty auctionOrderList}">구매한 경매 내역이 없습니다.</c:if>
-							<c:forEach var="order" items="${auctionOrderList}"
-								varStatus="status">
-
-							<div class="col-lg-4 col-md-6 mb-4">
-								<div class="post-entry-1 h-100">
-									<a
-										href="<c:url value='../auction/detail.do'>
+					<div class="row portfolio-container">
+						<c:if test="${empty auctionOrderList}">구매한 경매 내역이 없습니다.</c:if>
+						<c:forEach var="order" items="${auctionOrderList}" varStatus="status">
+						<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
+				            <div class="portfolio-wrap">
+				              <figure>
+									<a href="<c:url value='../auction/detail.do'>
 												<c:param name="auctionId" value="${order.auctionId}" />
 											</c:url>">
 											<img src="${order.auction.imgs_a[0].url}" class="img-fluid" alt="">
 									</a>
-									<div class="post-entry-1-contents">
-
-										<h2>
-											<a
-												href="<c:url value='../auction/detail.do'>
+							  </figure>
+									<div class="portfolio-info">
+										<h4>
+											<a href="<c:url value='../auction/detail.do'>
 														<c:param name="auctionId" value="${order.auctionId}" />
 													</c:url>">
 												${order.auction.title}</a>
-										</h2>
-
-										<span class="meta d-inline-block mb-3"> <fmt:formatDate
-												value="${order.orderDate}" pattern="yyyy-MM-dd" /> <span
-											class="mx-2"> 총액 : ${order.totalPrice}원</span>
-										</span><br /> <br />
+										</h4>
 									</div>
-									<p style="text-align: right; padding: 20px;">
-										<a
-											href="<c:url value='../order/auction/detail.do'>
-												<c:param name="orderId" value ="${order.orderId}" />
-											</c:url>">
-											상세보기 > </a>
-									</p>
+										<span class="meta d-inline-block mb-3"> 
+											<fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd" /> 
+											<span class="mx-2"> 총액 : ${order.totalPrice}원</span>
+											<span style="float: right;">
+												<a href="<c:url value='../order/auction/detail.do'>
+														<c:param name="orderId" value ="${order.orderId}" />
+													</c:url>">
+													상세보기 > </a>
+											</span>
+										</span>
+									</div>
+									
 								</div>
-							</div>
-						</c:forEach>
-					</div>
+							</c:forEach>
+						</div>
 				</c:if>
 				
 				
