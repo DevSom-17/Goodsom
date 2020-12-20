@@ -40,18 +40,14 @@
 		<c:forEach var="groupBuy" items="${groupBuyList}" varStatus="status">
           <div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
             <div class="portfolio-wrap">
-              <figure>
-				<a href="<c:url value='/groupBuy/detail.do'>
-									<c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/></c:url>">
-										<c:forEach items="${groupBuy.imgs_g}" var="img">
-											<img src="${img.url}" class="img-fluid" alt="">
-										</c:forEach> </a>
+              <figure style="background: white; text-align: center;">
+					<img src="${groupBuy.imgs_g[0].url}" class="img-fluid" alt="" style="height: 100%;">
                 <a href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
                 <a href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/></c:url>" 
                 	class="link-details" title="More Details"><i class="bx bx-link"></i></a>
               </figure>
               
-              <div class="portfolio-info">
+              <div class="portfolio-info" style="height: 105px;">
               	<h4><a href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
 							</c:url>">${groupBuy.title}</a></h4>
 				
