@@ -185,9 +185,7 @@ function delItem(id) {
 
         <div class="portfolio-description">
           <h2>상세정보</h2>
-          <p>
-            ${groupBuy.content}
-          </p>
+          <p style="white-space:pre;"><c:out value="${groupBuy.content}" escapeXml="false"></c:out></p>
         </div>
 
       </div>
