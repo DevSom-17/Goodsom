@@ -58,84 +58,71 @@ function getGroupBuyInfo(notiId){
 };
 </script>
 
+<body>
+
  <%@ include file="../header.jsp" %> 
     
-    <div class="site-section-cover">
+	<!-- ======= Portfolio Section ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
       <div class="container">
-        <div class="row align-items-center text-center justify-content-center">
-          <div class="col-lg-6">
-            <h1 class="text-white mb-4">Noti Page</h1>
-            <p class="lead">알림을 통해 참여한 경매/공동구매 등의 낙찰/마감 여부를 확인할 수 있습니다.</p>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- start groupBuy detail -->
-	<br/>    
-    <div align="center">
-    	<br/><h2 class="text-primary mb-5 font-weight-bold">알림함</h2><br/>
-    </div>
-         	
-     <div class="container">
-       <div>
-          	<div align="right"><p>&nbsp; &nbsp; ${nickname}님의 알림함 <br/></p></div>
-          
-       		<h2 align="center">
-	         	<c:if test="${type eq 1}">
-					<a  href="<c:url value='/auction/detail.do'><c:param name="auctionId" value="${id}"/>
-								</c:url>">제목: ${noti.title}</a>
-				</c:if>
-				<c:if test="${type eq 2}">
-					<a  href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${id}"/>
-								</c:url>">제목: ${noti.title}</a>				
-				</c:if>
-			</h2>  
-         	
-         	<br/>
-         	
-          	<div align="right">
-         	수신일 : &nbsp; &nbsp; <fmt:formatDate value="${noti.notiDate}" pattern="yyyy-MM-dd HH:mm" />
-		  	</div>
-		  	
-			<h5>내용</h5>
-			<h6>${content}</h6>
+	    <!-- start groupBuy detail -->
+	      <div class="d-flex justify-content-between align-items-center">
+	       		<h2>
+		         	<c:if test="${type eq 1}">
+						<a  href="<c:url value='/auction/detail.do'><c:param name="auctionId" value="${id}"/>
+									</c:url>">${noti.title}</a>
+					</c:if>
+					<c:if test="${type eq 2}">
+						<a  href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${id}"/>
+									</c:url>">${noti.title}</a>				
+					</c:if>
+				</h2>  
+				<ol>
+			        <li><a href="#" onclick="history.back()">알림함</a></li>
+			        <li>알림 상세보기</li>
+			    </ol>
+	       </div>
+	       <p> 수신일 : <fmt:formatDate value="${noti.notiDate}" pattern="yyyy-MM-dd HH:mm" /></p>
+	  	
+	  		<br>
+	  		<div>
+	          <p><b>${content}</b></p>
+	        </div>
+	        
+	        <br>
+		
+			<c:if test="${type eq 1}">
+				<a href="javascript:void(0);" onClick="getAuctionInfo(${noti.notiId}); return false;">경매 세부정보 보기</a>
+			</c:if>
+			<c:if test="${type eq 2}">
+				<a href="javascript:void(0);" onClick="getGroupBuyInfo(${noti.notiId}); return false;">공동구매 세부정보 보기</a>
+			</c:if>
 			
-       </div> 
-       
-       <br/><br/>
-		
-		<c:if test="${type eq 1}">
-			<a href="javascript:void(0);" onClick="getAuctionInfo(${noti.notiId}); return false;">경매 세부정보 보기</a>
-		</c:if>
-		<c:if test="${type eq 2}">
-			<a href="javascript:void(0);" onClick="getGroupBuyInfo(${noti.notiId}); return false;">공동구매 세부정보 보기</a>
-		</c:if>
-		
-		<div id="detail"> <!-- REST Service 정보 보여주기 -->
-		</div>
-		
-		<br/><br/>
-		
-		<c:if test="${type eq 1}">
-			<a  href="<c:url value='/auction/detail.do'><c:param name="auctionId" value="${id}"/>
-						</c:url>">해당 경매 바로가기 >></a>
-		</c:if>
-		<c:if test="${type eq 2}">
-			<a  href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${id}"/>
-						</c:url>">해당 공동구매 바로가기 >></a>				
-		</c:if>
-		
-	   <div class="form-group" align="right">
-	   		<a class="btn btn-primary py-3 px-5" href="<c:url value='/noti/list.do'>
-				</c:url>">확인</a>
-   			<a class="btn btn-primary py-3 px-5" href="<c:url value='/noti/delete.do'>
-   				<c:param name="notiId" value="${noti.notiId}"/>
-   				<c:param name="type" value="${type}"/>
-   				</c:url>" 
-		   		onClick="return deleteNoti();">삭제</a>	
-   		</div>	
-	    					
-   </div>
+			<div id="detail"> <!-- REST Service 정보 보여주기 -->
+			</div>
+			
+			<br/>
+			
+			<c:if test="${type eq 1}">
+				<a  href="<c:url value='/auction/detail.do'><c:param name="auctionId" value="${id}"/>
+							</c:url>">해당 경매 바로가기 >></a>
+			</c:if>
+			<c:if test="${type eq 2}">
+				<a  href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${id}"/>
+							</c:url>">해당 공동구매 바로가기 >></a>				
+			</c:if>
+			
+			<div class="form-group" align="right">
+		   		<a class="btn btn-primary py-3 px-5" href="<c:url value='/noti/list.do'>
+					</c:url>">확인</a>
+	   			<a class="btn btn-primary py-3 px-5" href="<c:url value='/noti/delete.do'>
+	   				<c:param name="notiId" value="${noti.notiId}"/>
+	   				<c:param name="type" value="${type}"/>
+	   				</c:url>" 
+			   		onClick="return deleteNoti();">삭제</a>	
+     		</div>	
+	   </div>
+	</section>	  	
     
 	<%@ include file="../includeBottom.jsp" %>
