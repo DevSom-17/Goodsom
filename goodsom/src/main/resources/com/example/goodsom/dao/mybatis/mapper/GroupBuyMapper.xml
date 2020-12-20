@@ -146,6 +146,7 @@
      WHERE (ENDDATE - now()) <= 0 AND STATE != 'closed'
     ]]>
   </update>
+  
   <!-- 스케줄러: 공동구매 성사 / 진행중일때만  -->
   <update id="achieveEvent">
     <![CDATA[

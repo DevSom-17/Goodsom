@@ -211,13 +211,12 @@ function delItem(id) {
 			<a class="btn btn-primary py-3 px-5" href="<c:url value='../order/groupBuy/manage.do'>
 														<c:param name="groupBuyId" value="${groupBuy.groupBuyId}" />
 												 	  </c:url>">참여자 현황</a>
-		</c:if>
-		
-	    <c:if test="${(isWriter eq true) and (groupBuy.participants eq 0)}">
-	   		<a class="btn btn-primary py-3 px-5" href="<c:url value='/groupBuy/form.do'>
-				<c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
-			</c:url>">수정</a>
 			
+			<c:if test="${groupBuy.state ne 'closed'}">			 	  
+		   		<a class="btn btn-primary py-3 px-5" href="<c:url value='/groupBuy/form.do'>
+					<c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
+				</c:url>">수정</a>
+			</c:if>
 	  		<a class="btn btn-primary py-3 px-5" href="<c:url value='/groupBuy/delete.do'>
 	  			<c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/></c:url>" 
 		   	onClick="return deleteGroupBuy('${groupBuy.participants}');">삭제</a>	
