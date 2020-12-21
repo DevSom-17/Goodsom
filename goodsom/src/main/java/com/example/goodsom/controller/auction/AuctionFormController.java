@@ -143,6 +143,7 @@ public class AuctionFormController implements ApplicationContextAware  {
 //			해당 경매의 좋아요 수
 			auction.setLikeCount(likeService.getLikeCountOfAuction(auctionId));
 			model.addAttribute("auction", auction);
+			
 			int likeCheck = likeService.likeCheckOfAuctionByUserId(user.getUser().getUserId(), auctionId);
 			if (likeCheck == 1) {
 				model.addAttribute("like", true);
@@ -152,6 +153,7 @@ public class AuctionFormController implements ApplicationContextAware  {
 				System.out.println("[AuctionUpdate후]likeService.likeCheckOfAuctionByUserId()오류!");
 				model.addAttribute("like", false);
 			}
+			model.addAttribute("dDay", auction.getDday(auction.getEndDate().getTime()));
 		} else { // create
 //			파일 업로드 기능
 			List<String> savedFileNames = uploadFile(auctionForm.getAuction().getReport());
@@ -165,7 +167,10 @@ public class AuctionFormController implements ApplicationContextAware  {
 			auctionService.createAuction(auctionForm.getAuction(), auctionImgs);
 //			like
 			model.addAttribute("like", false);
-			model.addAttribute("auction", auctionForm.getAuction());
+			
+			Auction auction = auctionForm.getAuction();
+			model.addAttribute("auction", auction);
+			model.addAttribute("dDay", auction.getDday(auction.getEndDate().getTime()));
 		}
 		
 //		스케줄러 => create / update 시 endDate로 설정
@@ -175,11 +180,12 @@ public class AuctionFormController implements ApplicationContextAware  {
 		session.setAttribute("bidForm", new BidForm());
 		model.addAttribute("date_maxBid", "");
 		model.addAttribute("user_maxBid", "아직 입찰자가 없습니다.");
+		
 //		작성자만 수정/삭제 버튼 보이게 하기 위해 isWriter, 작성자 출력 위해 writer값을 넘겨준다.
 		model.addAttribute("isWriter", true);
 		model.addAttribute("writer", user.getUser().getNickname());
 		model.addAttribute("bidForm", session.getAttribute("bidForm"));
-//		like
+//		like를 위한 attribute
 		model.addAttribute("loginUserId", user.getUser().getUserId());
 		sessionStatus.setComplete();
 		return AUCTION_DETAIL;

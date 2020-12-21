@@ -200,7 +200,7 @@ function delItem(id) {
 						<img id="btn_like" src="/assets/img/unliked.png" class="img-fluid" style="cursor:pointer;">
 					</c:otherwise>
 				</c:choose>	
-				<dd id="likeCount" style="margin-left:5px;">${groupBuy.likeCount}</dd>
+				<dd id="likeCount" style="margin-left:1px;">${groupBuy.likeCount}</dd>
 			</dl>
 		</div>
 		

@@ -65,7 +65,8 @@ public class BidFormController {
 		Auction auction = auctionService.getAuction(auctionId);
 		model.addAttribute("writer", userService.getUserByUserId(auction.getUserId()).getNickname());
 		model.addAttribute("isWriter", false);
-	
+		model.addAttribute("dDay", auction.getDday(auction.getEndDate().getTime()));
+		
 		if (auction.getBids().isEmpty()) {
 			if (bidForm.getBid().getBidPrice() < auction.getStartPrice()) {
 				result.rejectValue("bid.bidPrice", "smallerThanStartPrice");

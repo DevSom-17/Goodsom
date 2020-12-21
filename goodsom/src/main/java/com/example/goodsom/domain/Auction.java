@@ -269,10 +269,20 @@ public class Auction implements Serializable {
 		}
 	}
 	
-////	기본 이미지 지정하는 메서드
-//	public void initImg(String contextPath) {
-//		img = contextPath + "/resources/images/somsom.jpg";
-//	}
+	public String getDday(long end) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
+		Calendar calendar = Calendar.getInstance();
+        java.util.Date now = calendar.getTime();
+		
+		long timeLength = getEndDate().getTime() - now.getTime();
+		long dHour = (timeLength % ( 24*60*60*1000 )) / ( 60*60*1000 ); 
+		long dDay = timeLength / ( 24*60*60*1000 ); 
+		Math.abs(dDay);
+		Math.abs(dHour);
+		String str = dDay + "일 " + dHour + "시간  \n(" + sdf.format(getEndDate()) + "까지)";
+		System.out.println(str);
+		return str;
+	}
 
 	@Override
 	public String toString() {
