@@ -66,7 +66,23 @@
               
 	                <h4><a href="<c:url value='/auction/detail.do'><c:param name="auctionId" value="${auction.auctionId}"/>
 								 </c:url>">${auction.title}</a></h4>
-								 
+						<div style="float:left; color: #898a8c;">
+							<strong>시작가</strong>: <fmt:formatNumber value="${auction.startPrice}" pattern="#,###원"/>
+						</div>
+						<div style="float:right; color: #898a8c;">
+							<strong>최고가</strong>: <fmt:formatNumber value="${auction.maxPrice}" pattern="#,###원"/>
+						</div>
+						<br/>
+						<div style="float:left; color: #898a8c;">
+							<strong>마감일</strong>: <fmt:formatDate value="${auction.endDate}" pattern="yyyy-MM-dd" />
+						</div>
+						<c:if test="${auction.state eq 'proceeding'}">
+							<span style ="color: #2f94d8; float:right; font-weight: bold;">진행 중</span>
+						</c:if>
+						<c:if test="${auction.state eq 'closed'}">
+							<span style ="color: #ff5757; float:right; font-weight: bold;">마감</span>
+						</c:if>
+	
 					<%-- <span class="mx-2">시작 가격</span> 
 					<a href="#"><fmt:formatNumber value="${auction.price}" pattern="#,###원"/></a> <br/><br/>
 				
@@ -74,8 +90,8 @@
 					<a href="#"><fmt:formatNumber value="${auction.maxPrice}" pattern="#,###원"/></a> --%>
 
 					<%-- <p><c:out value="${auction.content}" ></c:out><p> --%>		
-                <p>현재 최고 금액  <fmt:formatNumber value="${auction.maxPrice}" pattern="#,###원"/></p>
-                <p class="portfolio-info-endDate">~<fmt:formatDate value="${auction.endDate}" pattern="yyyy-MM-dd" /></p>
+                <%-- <p>현재 최고 금액  <fmt:formatNumber value="${auction.maxPrice}" pattern="#,###원"/></p>
+                <p class="portfolio-info-endDate">~<fmt:formatDate value="${auction.endDate}" pattern="yyyy-MM-dd" /></p> --%>
               </div>
             </div>
           </div>

@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -27,7 +28,6 @@ public class Auction implements Serializable {
 	List<MultipartFile> report;
 	@NotEmpty
 	String content;
-//	String img;
 	@NotNull @Positive
 	int startPrice;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
