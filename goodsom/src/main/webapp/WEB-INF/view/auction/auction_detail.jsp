@@ -112,12 +112,13 @@ function orderAuction() {
 					</div>
 
 					<div class="portfolio-info">
-						<c:if test="${auction.state eq 'proceeding'}">
+						<%-- <c:if test="${auction.state eq 'proceeding'}">
 							<h3>진행 중</h3>
 						</c:if>
 						<c:if test="${auction.state eq 'closed'}">
 							<h3>마감</h3>
-						</c:if>
+						</c:if> --%>
+						<h3>상세정보</h3>
 						<ul>
 							<li><strong>조회수</strong>: ${auction.count}</li>
 							<li><strong>남은 시간</strong>: 
@@ -164,7 +165,12 @@ function orderAuction() {
 				</div>
 
 				<div class="portfolio-description">
-					<h2>상세정보</h2>
+					<c:if test="${auction.state eq 'proceeding'}">
+							<h2 style ="color: #2f94d8;">진행 중</h2>
+						</c:if>
+						<c:if test="${auction.state eq 'closed'}">
+							<h2 style ="color: #ff5757;">마감</h2>
+						</c:if>
 					<p style="white-space:pre;"><c:out value="${auction.content}" escapeXml="false"></c:out></p>
 				</div>
 
