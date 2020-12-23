@@ -7,6 +7,8 @@
 
 <%@ include file="../includeTop.jsp"%>
 <%@ include file="../header.jsp"%>
+<script src="<c:url value="/assets/js/imagePreview.js"/>"></script>
+
 <script>
 function auctionSubmit(isNewAuction) {
 
@@ -34,8 +36,7 @@ function auctionSubmit(isNewAuction) {
 
 			<div class="section-title">
 				<h2>경매 등록</h2>
-				<p>Magnam dolores commodi suscipit eius consequatur ex aliquid
-					fuga</p>
+				<p>경매에 등록하고자 하는 물품에 대한 정보들을 입력해주세요!</p>
 			</div>
 
 			<div class="row mt-5 justify-content-center">
@@ -87,11 +88,17 @@ function auctionSubmit(isNewAuction) {
 						</div>
 
 						<div class="form-row">
-							<div class="col-md-6 form-group">
+							<div class="col-md-6 form-group" style="display: inline;">
 								<label for="auction.report">대표 이미지</label>&nbsp;&nbsp;&nbsp;
 								<form:errors path="auction.report" cssClass="error" />
 								<br />
-								<form:input type="file" path="auction.report" multiple="multiple"/>
+								<label for="auction.report">
+									<img src="/assets/img/photo_add.png"  style="width:100px; height:100px; cursor: pointer;">
+								</label>
+								<form:input type="file" path="auction.report" onchange="previewImage(this, 'View_area')"
+											style="display: none;" multiple="multiple"/>
+								<span id="View_area" style="position: relative; color: black; border: 0px solid black;">
+								</span>
 
 							</div>
 						</div>

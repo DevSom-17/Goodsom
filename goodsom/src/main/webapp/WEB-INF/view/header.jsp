@@ -107,7 +107,6 @@ function check() {
 				<li><a href="<%=request.getContextPath()%>/groupBuy/list.do"
 					class="nav-link">공동구매</a></li>
 				<li><a href="<%=request.getContextPath()%>/auction/list.do">경매</a></li>
-				<li><a href="#커뮤니티">커뮤니티</a></li>
 				<li class="drop-down"><a
 					href="<%=request.getContextPath()%>/user/detail.do">${userSession.user.nickname}</a>
 					<ul>
@@ -150,15 +149,6 @@ function check() {
 </header>
 <!-- End Header -->
 
-
-<!-- ======= Hero Section ======= -->
-<!-- <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
-	<h1>Welcome to <span>Goodsom</span></h1>
-      <h2>We are team of talanted designers making websites with Bootstrap</h2>
-      <a href="#about" class="btn-get-started scrollto">Get Started</a>
-</section> -->
-<!-- End Hero -->
-<!-- ======= Footer ======= -->
 <section id="search">
 
 	<div class="search-top">
