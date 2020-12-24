@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,10 +43,13 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private AuctionDao auctionDao;
+
+	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
 	
-	public User getUser(String email, String password) {
-		return userDao.getUser(email, password);
-	}
+//	public User getUser(String email, String password) {
+//		return userDao.getUser(email, password);
+//	}
 	
 	@Override
 	public User getUserByEmail(String email) {
@@ -59,11 +63,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void createUser(User user) {
+	    user.setPasswd(encoder.encode(user.getPasswd()));
 		userDao.createUser(user);
 	}
 
 	@Override
 	public int updateUser(User user) {
+	    user.setPasswd(encoder.encode(user.getPasswd()));
 		return userDao.updateUser(user);
 	}
 

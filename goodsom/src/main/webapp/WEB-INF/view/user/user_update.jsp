@@ -77,7 +77,7 @@
 								
 								<div class="form-group">
 									<label for="phone">전화번호</label> &emsp;
-									<form:input path="user.phone" class="form-control" />
+									<form:input path="user.phone" class="form-control" readonly="true"/>
 									<form:errors path="user.phone" cssClass="error" /><br/>
 								</div>
 								

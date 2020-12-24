@@ -1,6 +1,7 @@
 package com.example.goodsom.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.example.goodsom.domain.User;
@@ -27,7 +28,8 @@ public class AuthenticatorImpl implements Authenticator {
 		}
 		
 		// email과 비밀번호가 일치하지 않는 경우
-		if (!realUser.matchPassword(loginForm.getPassword())) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		if (!encoder.matches(loginForm.getPassword(), realUser.getPasswd())) {
 			throw new AuthenticationException("notMatchPassword");
 		}
 	}

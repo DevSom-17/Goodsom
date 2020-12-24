@@ -92,7 +92,7 @@ public class LoginController {
 		List<GroupBuy> recentGroupBuy = groupBuyService.getRecentGroupBuyList();
 		List<Auction> recentAuction = auctionService.getRecentAuctionList();
 		
-		User user = userService.getUser(loginForm.getEmail(), loginForm.getPassword());
+		User user = userService.getUserByEmail(loginForm.getEmail());
 
 		model.addAttribute("recentGroupBuy", recentGroupBuy);
 		model.addAttribute("recentAuction", recentAuction);

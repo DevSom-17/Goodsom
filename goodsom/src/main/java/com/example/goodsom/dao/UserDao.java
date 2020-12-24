@@ -17,7 +17,7 @@ import com.example.goodsom.domain.User;
 
 public interface UserDao {
 
-	User getUser(String emailId, String password) throws DataAccessException; // login시 필요
+//	User getUser(String emailId, String password) throws DataAccessException; // login시 필요
 	
 	User getUserByEmail(String email) throws DataAccessException; // email로 user객체 얻어옴
 	
