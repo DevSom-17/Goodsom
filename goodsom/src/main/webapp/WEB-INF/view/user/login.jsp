@@ -42,18 +42,19 @@
 				<h2 class="text-center">GOODSOM</h2>
 				<br/>
 				
-				<form:form modelAttribute="loginForm" method="POST" action="login.do" class="bg-light p-5 contact-form">
-					<form:errors cssClass="error" /> <br />
+				<form method="POST" action="login.do" class="bg-light p-5 contact-form">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+<%-- 					<form:errors cssClass="error" /> <br /> --%>
 					<div class="form-group">
 						<label for="email">이메일</label> 
-						<form:input path="email" class="form-control" placeholder="ex) 20170000@dongduk.ac.kr" />
-						<form:errors path="email" cssClass="error" />
+						<input name="email" class="form-control" placeholder="ex) 20170000@dongduk.ac.kr" />
+<%-- 						<form:errors path="email" cssClass="error" /> --%>
 					</div>
 
 					<div class="form-group">
 						<label for="password">비밀번호</label> 
-						<form:input path="password" type="password" class="form-control" placeholder="비밀번호를 입력하세요" />
-						<form:errors path="password" cssClass="error" />
+						<input name="password" type="password" class="form-control" placeholder="비밀번호를 입력하세요" />
+<%-- 						<form:errors path="password" cssClass="error" /> --%>
 					</div>
 					<br />
 
@@ -62,7 +63,7 @@
 					</div>
 					
 					<a style="float:right" href="<c:url value='/user/register.do'></c:url>">계정이 없으신가요?</a>
-				</form:form>
+				</form>
 			</div>
 		</div>
 	</div>

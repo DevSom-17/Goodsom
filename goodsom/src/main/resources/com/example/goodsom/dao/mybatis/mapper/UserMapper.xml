@@ -27,6 +27,12 @@
   	</collection>
   </resultMap> -->
   
+  <select id="findByEmail" resultType="com.example.goodsom.controller.user.LoginForm">
+  	SELECT EMAIL, PASSWD AS PASSWORD
+  	FROM USERS
+  	WHERE EMAIL = #{param1}
+  </select>
+  
   <select id="getUser" resultType="com.example.goodsom.domain.User">
     SELECT USERID, EMAIL, PASSWD, USERNAME, NICKNAME, ADDRESS, DETAILADDRESS, EXTRAADDRESS, POSTCODE, PHONE, REFUNDBANK, REFUNDACCOUNT
     FROM USERS 

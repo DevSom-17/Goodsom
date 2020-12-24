@@ -3,8 +3,11 @@ package  com.example.goodsom.dao;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.example.goodsom.controller.user.CreateReportForm;
+import com.example.goodsom.controller.user.LoginForm;
+import com.example.goodsom.controller.user.UserInfo;
 import com.example.goodsom.domain.Auction;
 import com.example.goodsom.domain.GroupBuy;
 import com.example.goodsom.domain.Order;
@@ -17,6 +20,8 @@ import com.example.goodsom.domain.User;
 
 public interface UserDao {
 
+	LoginForm findByEmail(String email) throws UsernameNotFoundException;
+	
 	User getUser(String emailId, String password) throws DataAccessException; // login시 필요
 	
 	User getUserByEmail(String email) throws DataAccessException; // email로 user객체 얻어옴

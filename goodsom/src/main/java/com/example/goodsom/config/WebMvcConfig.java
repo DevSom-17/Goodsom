@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
@@ -25,5 +26,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
 		sessionLocaleResolver.setDefaultLocale(Locale.US);
 		return sessionLocaleResolver;
+	}
+	
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+	    registry.addViewController("/user/login.do").setViewName("user/login");
 	}
 }

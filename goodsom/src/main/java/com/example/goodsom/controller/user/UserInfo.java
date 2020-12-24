@@ -8,47 +8,21 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-/**
- * @author Seonmi Hwang
- * @since 2020.06.28
- */
+public class UserInfo implements UserDetails {
 
-@SuppressWarnings("serial")
-public class LoginForm implements UserDetails {
+	  private Long code;
 
-	private String email;
-	private String password;
-	private String auth;
+	  private String email;
 
-	public String getEmail() {
-		return email;
-	}
+	  private String password;
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	  private String auth;
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	public String getAuth() {
-		return auth;
-	}
-
-	public void setAuth(String auth) {
-		this.auth = auth;
-	}
-
-	@Override
-	public String toString() {
-		return "LoginForm [email=" + email + ", password=" + password + "]";
-	}
-	
+	  public UserInfo(String email, String password, String auth) {
+	    this.email = email;
+	    this.password = password;
+	    this.auth = auth;
+	  }
 
 	  // 사용자의 권한을 콜렉션 형태로 반환
 	  // 단, 클래스 자료형은 GrantedAuthority를 구현해야함
@@ -65,6 +39,12 @@ public class LoginForm implements UserDetails {
 	  @Override
 	  public String getUsername() {
 	    return email;
+	  }
+
+	  // 사용자의 password를 반환
+	  @Override
+	  public String getPassword() {
+	    return password;
 	  }
 
 	  // 계정 만료 여부 반환

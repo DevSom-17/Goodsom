@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,8 @@ import com.example.goodsom.domain.GroupBuy;
 import com.example.goodsom.domain.Order;
 import com.example.goodsom.domain.User;
 import com.example.goodsom.controller.user.CreateReportForm;
+import com.example.goodsom.controller.user.LoginForm;
+import com.example.goodsom.controller.user.UserInfo;
 import com.example.goodsom.dao.UserDao;
 import com.example.goodsom.dao.mybatis.mapper.BidMapper;
 import com.example.goodsom.dao.mybatis.mapper.LikeMapper;
@@ -39,6 +42,11 @@ public class MybatisUserDao implements UserDao {
 //	private BidMapper bidMapper;
 	@Autowired
 	private ReportMapper reportMapper;
+	
+	public LoginForm findByEmail(String email) throws UsernameNotFoundException {
+		System.out.println("UserDAO : findByEmail() 실행");
+		return userMapper.findByEmail(email);
+	}
 	
 	public User getUser(String email, String passwd) throws DataAccessException {
 		return userMapper.getUser(email, passwd);

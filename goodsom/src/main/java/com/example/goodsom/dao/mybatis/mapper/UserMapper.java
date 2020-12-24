@@ -3,6 +3,8 @@ package com.example.goodsom.dao.mybatis.mapper;
 import java.util.List;
 
 import com.example.goodsom.controller.user.CreateReportForm;
+import com.example.goodsom.controller.user.LoginForm;
+import com.example.goodsom.controller.user.UserInfo;
 import com.example.goodsom.domain.Auction;
 import com.example.goodsom.domain.GroupBuy;
 import com.example.goodsom.domain.Order;
@@ -15,6 +17,8 @@ import com.example.goodsom.domain.User;
 
 public interface UserMapper {
 
+	LoginForm findByEmail(String email);
+	
 	User getUser(String email, String passwd);
 	
 	User getUserByEmail(String email);

@@ -4,11 +4,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.goodsom.controller.mypage.ReportForm;
 import com.example.goodsom.controller.user.CreateReportForm;
+import com.example.goodsom.controller.user.LoginForm;
+import com.example.goodsom.controller.user.UserInfo;
 import com.example.goodsom.dao.AuctionDao;
 import com.example.goodsom.dao.BidDao;
 import com.example.goodsom.dao.GroupBuyDao;
@@ -29,7 +34,7 @@ import com.example.goodsom.service.UserService;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 	
 	@Autowired
 	private UserDao userDao;
@@ -42,6 +47,19 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private AuctionDao auctionDao;
+	
+	/**
+	   * Spring Security 필수 메소드 구현
+	   *
+	   * @param email 이메일
+	   * @return UserDetails
+	   * @throws UsernameNotFoundException 유저가 없을 때 예외 발생
+	   */
+	@Override // 기본적인 반환 타입은 UserDetails, UserDetails를 상속받은 UserInfo로 반환 타입 지정 (자동으로 다운 캐스팅됨)
+	public LoginForm loadUserByUsername(String email) throws UsernameNotFoundException { // 시큐리티에서 지정한 서비스이기 때문에 이 메소드를 필수로 구현
+		System.out.println("UserService : loadUserByUsername() 실행");
+		return userDao.findByEmail(email);
+	}
 	
 	public User getUser(String email, String password) {
 		return userDao.getUser(email, password);
@@ -59,6 +77,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void createUser(User user) {
+	    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	    user.setPasswd(encoder.encode(user.getPasswd()));
+	    
 		userDao.createUser(user);
 	}
 

@@ -3,9 +3,11 @@ package com.example.goodsom.service;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.example.goodsom.controller.mypage.ReportForm;
 import com.example.goodsom.controller.user.CreateReportForm;
+import com.example.goodsom.controller.user.UserInfo;
 import com.example.goodsom.domain.Auction;
 import com.example.goodsom.domain.GroupBuy;
 import com.example.goodsom.domain.Order;

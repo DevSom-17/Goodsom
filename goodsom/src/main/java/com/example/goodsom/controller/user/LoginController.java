@@ -51,7 +51,7 @@ import com.example.goodsom.validator.LoginFormValidator;
 
 @Controller
 @SessionAttributes("userSession")
-@RequestMapping("/user/login.do")
+//@RequestMapping("/user/login.do")
 public class LoginController {
 
 	@Value("user/login")
