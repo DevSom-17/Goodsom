@@ -11,7 +11,7 @@
 
 <script>
 function auctionSubmit(isNewAuction) {
-
+	
 	if(isNewAuction){
 		alert("경매를 등록합니다.");
 		document.auctionForm.action="create.do";
@@ -21,6 +21,7 @@ function auctionSubmit(isNewAuction) {
 	}
 	document.auctionForm.submit();
 }
+
 </script>
 <style>
 .error {
@@ -168,13 +169,13 @@ function auctionSubmit(isNewAuction) {
 								<div class="form-group mr-2">
 									<c:choose>
 										<c:when test="${auctionForm.newAuction}">
-											<form:input type="date" path="auction.endDate"
+											<form:input type="date" path="auction.endDate" id="datepicker"
 												class="form-control" placeholder="yyyy-MM-dd" />
 										</c:when>
 										<c:otherwise>
 											<fmt:formatDate value='${auctionForm.auction.endDate}'
 												pattern='yyyy-MM-dd' var="dateFormat" />
-											<form:input type="date" path="auction.endDate"
+											<form:input type="date" path="auction.endDate" id="datepicker"
 												class="form-control" value="${dateFormat}" />
 										</c:otherwise>
 									</c:choose>
@@ -183,7 +184,7 @@ function auctionSubmit(isNewAuction) {
 						</div>
 
 						<div class="form-group">
-							<form:radiobuttons items="${amPm}" id="amPm"
+							<form:radiobuttons items="${amPm}" id="amPm" name="amPm"
 								path="auction.isAmPm" />
 							&nbsp;&nbsp;&nbsp;
 							<form:errors path="auction.isAmPm" cssClass="error" />
