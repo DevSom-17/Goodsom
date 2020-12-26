@@ -7,9 +7,11 @@
 
 <%@ include file="../includeTop.jsp"%>
 <%@ include file="../header.jsp"%>
+<script src="<c:url value="/assets/js/imagePreview.js"/>"></script>
+
 <script>
 function auctionSubmit(isNewAuction) {
-
+	
 	if(isNewAuction){
 		alert("경매를 등록합니다.");
 		document.auctionForm.action="create.do";
@@ -19,6 +21,7 @@ function auctionSubmit(isNewAuction) {
 	}
 	document.auctionForm.submit();
 }
+
 </script>
 <style>
 .error {
@@ -34,8 +37,7 @@ function auctionSubmit(isNewAuction) {
 
 			<div class="section-title">
 				<h2>경매 등록</h2>
-				<p>Magnam dolores commodi suscipit eius consequatur ex aliquid
-					fuga</p>
+				<p>경매에 등록하고자 하는 물품에 대한 정보들을 입력해주세요!</p>
 			</div>
 
 			<div class="row mt-5 justify-content-center">
@@ -87,12 +89,36 @@ function auctionSubmit(isNewAuction) {
 						</div>
 
 						<div class="form-row">
-							<div class="col-md-6 form-group">
-								<label for="auction.report">대표 이미지</label>&nbsp;&nbsp;&nbsp;
+							<div class="col-md-6 form-group" style="display: inline;">
+								대표 이미지&nbsp;&nbsp;&nbsp;
 								<form:errors path="auction.report" cssClass="error" />
 								<br />
-								<form:input type="file" path="auction.report" multiple="multiple"/>
-
+								<label for="auction.report">
+									<img src="/assets/img/photo_add.png" id="addImg" style="width:100px; height:100px; cursor: pointer;">
+								</label>
+								<form:input type="file" path="auction.report" onchange="previewImage(this, 'View_area')"
+											style="display: none;" multiple="multiple"/>
+								<span id="View_area" style="position: relative; color: black; border: 0px solid black;">
+								</span>
+								<c:choose>
+									<c:when test="${auctionForm.newAuction eq false}">
+										<div style="padding-left: 20px;">
+											<input type="checkbox" name="checkExistingImage" id="checkExistingImage" onchange="previewExistingImgAuction()"/> 기존 이미지 사용
+											<br/>
+											<span id="ExistingImg_View_area" style="position: relative; color: black; border: 0px solid black; display:none;">
+												<c:forEach var="img" items="${auctionForm.auction.imgs_a}" varStatus="status">
+													<span id="existing_img_id_${status.index}" style="width: 100px; height: 100px;">
+														<img class="existingImg" src="${img.url}" style="width: inherit; height: inherit;">
+													</span>
+												</c:forEach>
+											</span>
+											<input type="hidden" name="useExistingImage" id="useExistingImage" value="no" />
+										</div>
+									</c:when>
+									<c:otherwise>
+										<input type="hidden" name="useExistingImage" id="useExistingImage" value="no"/>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 
@@ -143,13 +169,13 @@ function auctionSubmit(isNewAuction) {
 								<div class="form-group mr-2">
 									<c:choose>
 										<c:when test="${auctionForm.newAuction}">
-											<form:input type="date" path="auction.endDate"
+											<form:input type="date" path="auction.endDate" id="datepicker"
 												class="form-control" placeholder="yyyy-MM-dd" />
 										</c:when>
 										<c:otherwise>
 											<fmt:formatDate value='${auctionForm.auction.endDate}'
 												pattern='yyyy-MM-dd' var="dateFormat" />
-											<form:input type="date" path="auction.endDate"
+											<form:input type="date" path="auction.endDate" id="datepicker"
 												class="form-control" value="${dateFormat}" />
 										</c:otherwise>
 									</c:choose>
@@ -158,7 +184,7 @@ function auctionSubmit(isNewAuction) {
 						</div>
 
 						<div class="form-group">
-							<form:radiobuttons items="${amPm}" id="amPm"
+							<form:radiobuttons items="${amPm}" id="amPm" name="amPm"
 								path="auction.isAmPm" />
 							&nbsp;&nbsp;&nbsp;
 							<form:errors path="auction.isAmPm" cssClass="error" />

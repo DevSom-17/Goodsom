@@ -123,6 +123,7 @@ public class AuctionController {
 		mav.addObject("auction", auction);
 		mav.addObject("bidForm", session.getAttribute("bidForm"));
 		mav.addObject("writer", userService.getUserByUserId(auction.getUserId()).getNickname());
+		mav.addObject("dDay", auction.getDday(auction.getEndDate().getTime()));
 		return mav;
 	}
 	

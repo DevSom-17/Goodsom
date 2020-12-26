@@ -92,7 +92,7 @@ public class GroupBuyFormController implements ApplicationContextAware {
 		
 //		대표 이미지 선택 안 했을 시
 		if (groupBuyForm.getGroupBuy().getReport().get(0).isEmpty()) {
-			result.rejectValue("auction.report", "notSelected");
+			result.rejectValue("groupBuy.report", "notSelected");
 		}
 		
 		if(result.hasErrors()) {

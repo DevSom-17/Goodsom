@@ -6,7 +6,38 @@
 
 <%@ include file="../includeTop.jsp" %> 
 
-
+<style>
+.btn-submit {
+	position: relative;
+	top: 0;
+	right: 5px;
+	bottom: 0;
+	border: 0;
+	background: none;
+	font-size: 16px;
+	padding: 8px 30px;
+	background: #3498db;
+	color: #fff;
+	transition: 0.3s;
+	border-radius: 0px 0px 0px 0px;
+	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+.btn-danger {
+	position: relative;
+	top: 0;
+	right: 5px;
+	bottom: 0;
+	border: 0;
+	background: none;
+	font-size: 16px;
+	padding: 8px 30px;
+	background: #bb404c;
+	color: #fff;
+	transition: 0.3s;
+	border-radius: 0px 0px 0px 0px;
+	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+</style>
 
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <script>
@@ -114,14 +145,15 @@ function delItem(id) {
             <li>공동구매 상세보기</li>
           </ol>
         </div>
-		<p>작성자 : &nbsp; &nbsp; ${writer} &nbsp;
-		
+        
+		<p style="float:left;">작성자 : &nbsp; &nbsp; ${writer} &nbsp;
 		<a href="<c:url value='../report/create.do'>
 					<c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
 					<c:param name="writerId" value="${groupBuy.userId}"/>
 				</c:url>">신고하기</a> 
 		<br/> 
          	작성일 : &nbsp; &nbsp; <fmt:formatDate value="${groupBuy.uploadDate}" pattern="yyyy-MM-dd" />
+      		<p style="text-align: end;">조회수 : &nbsp; &nbsp; ${groupBuy.count} &nbsp; </p>
       </div>
     </section><!-- End Breadcrumbs -->
 
@@ -140,6 +172,7 @@ function delItem(id) {
           <div class="portfolio-info">
             <h3>${groupBuy.title}</h3>
             <ul>
+           	  <li><strong>조회수</strong>: ${groupBuy.count}</li>
               <li><strong>참여자 수</strong>: ${groupBuy.participants} / ${groupBuy.minNo}</li>
               <li><strong>남은 시간</strong>: 
 				<c:if test="${groupBuy.state eq 'closed'}" > 마감되었습니다. </c:if>
@@ -200,27 +233,27 @@ function delItem(id) {
 						<img id="btn_like" src="/assets/img/unliked.png" class="img-fluid" style="cursor:pointer;">
 					</c:otherwise>
 				</c:choose>	
-				<dd id="likeCount" style="margin-left:5px;">${groupBuy.likeCount}</dd>
+				<dd id="likeCount" style="margin-left:1px;">${groupBuy.likeCount}</dd>
 			</dl>
 		</div>
 		
-		<div class="form-group" align="right">
+		<div class="form-group" align="center">
 		<c:if test="${isWriter eq true}">
-			<a class="btn btn-primary py-3 px-5" href="<c:url value='../order/groupBuy/manage.do'>
+			<a class="btn-submit" href="<c:url value='../order/groupBuy/manage.do'>
 														<c:param name="groupBuyId" value="${groupBuy.groupBuyId}" />
 												 	  </c:url>">참여자 현황</a>
 			
-			<c:if test="${groupBuy.state ne 'closed'}">			 	  
-		   		<a class="btn btn-primary py-3 px-5" href="<c:url value='/groupBuy/form.do'>
+			<c:if test="${groupBuy.participants eq 0}">			 	  
+		   		<a class="btn-submit" href="<c:url value='/groupBuy/form.do'>
 					<c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
 				</c:url>">수정</a>
 			</c:if>
-	  		<a class="btn btn-primary py-3 px-5" href="<c:url value='/groupBuy/delete.do'>
+	  		<a class="btn-danger" href="<c:url value='/groupBuy/delete.do'>
 	  			<c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/></c:url>" 
 		   	onClick="return deleteGroupBuy('${groupBuy.participants}');">삭제</a>	
 	    </c:if>
 	    
-	   	<a class="btn btn-primary py-3 px-5" href="<c:url value='/groupBuy/list.do'></c:url>">목록</a>
+	   	<a class="btn-submit" href="<c:url value='/groupBuy/list.do'></c:url>">목록</a>
 	    </div>
 
 	<script>

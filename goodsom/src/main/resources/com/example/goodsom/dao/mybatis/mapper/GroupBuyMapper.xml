@@ -25,11 +25,14 @@
   </insert>
   
   <update id="updateGroupBuy" parameterType="com.example.goodsom.domain.GroupBuy" >
+  <![CDATA[
    	UPDATE GROUPBUYS
     SET TITLE=#{title}, PRICE=#{price}, CONTENT=#{content}, CATID=#{catId},
-    	MINNO=#{minNo}, ENDDATE=#{endDate}
+    	MINNO=#{minNo}, ENDDATE=#{endDate}, sendNoti=0, state = CASE
+    	WHEN #{endDate} > now() THEN 'proceeding'
+    	END
   	WHERE  GROUPBUYID=#{groupBuyId}
-	
+	]]>
   </update>
 
    

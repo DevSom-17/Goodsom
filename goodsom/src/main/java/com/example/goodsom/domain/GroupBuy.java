@@ -409,7 +409,7 @@ public class GroupBuy implements Serializable {
 	
 	public String toString() {
 		String str = "groupBuyId: " + groupBuyId + ", title: " + title + ", content: " + content + ", minNo: " + minNo 
-				+ ", uploadDate: " + uploadDate + ", endDate: " + endDate + ", state: " + state + ", catId: " + catId;
+				+ ", uploadDate: " + uploadDate + ", endDate: " + endDate + ", state: " + state + ", catId: " + catId + ", sendNoti: " + sendNoti;
 		str += "\noptions --> ";
 		for(Option op:options) {
 			str += op.toString() + "\n";

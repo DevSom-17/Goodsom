@@ -6,6 +6,38 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <%@ include file="../includeTop.jsp"%>
+<style>
+.btn-submit {
+	position: relative;
+	top: 0;
+	right: 5px;
+	bottom: 0;
+	border: 0;
+	background: none;
+	font-size: 16px;
+	padding: 8px 30px;
+	background: #3498db;
+	color: #fff;
+	transition: 0.3s;
+	border-radius: 0px 0px 0px 0px;
+	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+.btn-danger {
+	position: relative;
+	top: 0;
+	right: 5px;
+	bottom: 0;
+	border: 0;
+	background: none;
+	font-size: 16px;
+	padding: 8px 30px;
+	background: #bb404c;
+	color: #fff;
+	transition: 0.3s;
+	border-radius: 0px 0px 0px 0px;
+	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+</style>
 <script type="text/javascript">
 
 function deleteAuction() {
@@ -55,7 +87,14 @@ function orderAuction() {
 						<li>${auction.title}</li>
 					</ol>
 				</div>
-
+				<p style="float:left;">작성자 : &nbsp; &nbsp; ${writer} &nbsp;
+				<a href="<c:url value='../report/create.do'>
+						<c:param name="auctionId" value="${auction.auctionId}"/>
+						<c:param name="writerId" value="${auction.userId}"/>
+					</c:url>">신고하기</a> 
+				<br/>
+				작성일 : &nbsp; &nbsp; <fmt:formatDate value="${auction.uploadDate}" pattern="yyyy-MM-dd" />
+				<p style="text-align: end;">조회수 : &nbsp; &nbsp; ${auction.count} &nbsp; </p>
 			</div>
 		</section>
 		<!-- End Breadcrumbs -->
@@ -73,67 +112,65 @@ function orderAuction() {
 					</div>
 
 					<div class="portfolio-info">
-						<h3>
-							<fmt:formatDate value="${auction.endDate}"
-								pattern="yyyy-MM-dd HH:mm" />
-							까지
-						</h3>
+						<%-- <c:if test="${auction.state eq 'proceeding'}">
+							<h3>진행 중</h3>
+						</c:if>
+						<c:if test="${auction.state eq 'closed'}">
+							<h3>마감</h3>
+						</c:if> --%>
+						<h3>상세정보</h3>
 						<ul>
 							<li><strong>조회수</strong>: ${auction.count}</li>
-							<li><strong>작성자</strong>: ${writer} &nbsp;
-								<a href="<c:url value='../report/create.do'>
-											<c:param name="auctionId" value="${auction.auctionId}"/>
-											<c:param name="writerId" value="${auction.userId}"/>
-										</c:url>">신고하기</a> 
-								<br/>
+							<li><strong>남은 시간</strong>: 
+								<c:if test="${auction.state eq 'closed'}" > 마감되었습니다. </c:if>
+								<c:if test="${auction.state eq 'proceeding'}" > ${dDay} </c:if>	
 							</li>
-							<li><strong>시작 금액</strong>: ${auction.startPrice}</li>
-							<li><strong>작성일</strong>: <fmt:formatDate
-									value="${auction.uploadDate}" pattern="yyyy-MM-dd" /></li>
+							<li><strong>시작 금액</strong>: <fmt:formatNumber
+									value="${auction.startPrice}" pattern="#,###원" /></li>
 							<li><strong>현재 최고 금액</strong>: <fmt:formatNumber
 									value="${auction.maxPrice}" pattern="#,###원" /></li>
-							<li><strong>최고 금액 입찰자</strong>: <fmt:formatDate
-									value="${date_maxBid}" pattern="yyyy-MM-dd" /> <br />
-								${user_maxBid}</li>
+							<li><strong>현재 최고 금액 입찰자</strong>: ${user_maxBid} <fmt:formatDate
+									value="${date_maxBid}" pattern="(yyyy-MM-dd)" />
+							</li>
+							<c:if test="${isWriter eq false}">
+								<li><strong>베팅 금액</strong>
+									<form:form modelAttribute="bidForm" method="post" action="bidCreate.do" style="margin-top: 5px;">
+										<div class="d-flex" style="margin-block: 5px;">
+										<form:input type="hidden" path="bid.auctionId" value="${auction.auctionId}"/>
+											<c:if test="${auction.state eq 'proceeding'}">
+												<form:input type="number" path="bid.bidPrice" class="form-control" value="" style="width: 50%;"/>
+												<input type="button" value="참여하기" onClick="bid()" style="margin-inline-start: auto;"> 
+											</c:if>
+												
+											<c:if test="${auction.state eq 'closed'}">
+												<form:input type="number" path="bid.bidPrice" class="form-control" value="" style="width: 50%;" readonly="true"/>
+												<input type="button" value="참여하기" onClick="bid()" style="margin-inline-start: auto;" disabled> 
+												
+												<c:if test="${completeOrder ne 1 && successBidderUserId eq userSession.user.userId}">
+													&nbsp;&nbsp; <!-- 아래 버튼은 낙찰자만 볼 수 있도록 -->
+													<input type="button" value="결제하기" onClick="orderAuction()" style="margin-inline-start: auto;"> 
+												</c:if>
+											</c:if>
+										</div>
+										<form:errors path="bid.bidPrice" cssClass="error"/>
+									</form:form>
+								</li>
+							</c:if>
 						</ul>
 					</div>
 					<!-- betting -->
-					<c:if test="${isWriter eq false}">
-						<div class="d-flex">
-							<form:form modelAttribute="bidForm" method="post" action="bidCreate.do">
-								<h5>베팅 금액</h5>
-								<div class="d-flex">
-								<form:input type="hidden" path="bid.auctionId" value="${auction.auctionId}"/>
-									<c:if test="${auction.state eq 'proceeding'}">
-										<form:input type="number" path="bid.bidPrice" class="form-control"/>
-										<input type="button" value="신청하기" onClick="bid()" > 
-									</c:if>
-										
-									<c:if test="${auction.state eq 'closed'}">
-										<form:input type="number" path="bid.bidPrice" class="form-control" readonly="true"/>
-										<input type="button" value="신청하기" onClick="bid()" disabled> 
-										
-										<c:if test="${completeOrder ne 1 && successBidderUserId eq userSession.user.userId}">
-											&nbsp;&nbsp; <!-- 아래 버튼은 낙찰자만 볼 수 있도록 -->
-											<input type="button" value="결제하기" onClick="orderAuction()" > 
-										</c:if>
-									</c:if>
-								</div>
-								<form:errors path="bid.bidPrice" cssClass="error"/>
-							</form:form>
-						</div>
-					</c:if>
+					
 					
 
 				</div>
 
 				<div class="portfolio-description">
 					<c:if test="${auction.state eq 'proceeding'}">
-						<h2>진행 중</h2>
-					</c:if>
-					<c:if test="${auction.state eq 'closed'}">
-						<h2>마감</h2>
-					</c:if>
+							<h2 style ="color: #2f94d8;">진행 중</h2>
+						</c:if>
+						<c:if test="${auction.state eq 'closed'}">
+							<h2 style ="color: #ff5757;">마감</h2>
+						</c:if>
 					<p style="white-space:pre;"><c:out value="${auction.content}" escapeXml="false"></c:out></p>
 				</div>
 
@@ -150,22 +187,22 @@ function orderAuction() {
 						<img id="btn_like" src="/assets/img/unliked.png" class="img-fluid" style="cursor:pointer;">
 					</c:otherwise>
 				</c:choose>	
-				<dd id="likeCount" style="margin-left:5px;">${auction.likeCount}</dd>
+				<dd id="likeCount" style="margin-left:1px;">${auction.likeCount}</dd>
 			</dl>
 		</div>
 
 		<div class="form-group" align="center">
 				<%-- <c:if test="${(isWriter eq true) and (empty bids) and (auction.state eq 'proceeding')}"> --%>
 				<c:if test="${isWriter eq true}">
-					<a class="btn btn-primary py-3 px-5" href="<c:url value='../order/auction/manage.do'>
+					<a class="btn-submit" href="<c:url value='../order/auction/manage.do'>
 																<c:param name="auctionId" value="${auction.auctionId}" />
 														 	  </c:url>">낙찰자 현황</a>
 				</c:if>	
 				<c:if test="${(isWriter eq true) and (auction.maxPrice == 0)}">
-					<a class="btn btn-primary py-3 px-5" href="javascript:updateAuction()" >수정</a>
-					<a class="btn btn-primary py-3 px-5" href="javascript:deleteAuction()" >삭제</a>
+					<a class="btn-submit" href="javascript:updateAuction()" >수정</a>
+					<a class="btn-danger" href="javascript:deleteAuction()" >삭제</a>
 				</c:if>
-					<a class="btn btn-primary py-3 px-5" href="<c:url value='/auction/list.do'></c:url>">목록</a>
+					<a class="btn-submit" href="<c:url value='/auction/list.do'></c:url>">목록</a>
 		</div>
 		
 	</main>
