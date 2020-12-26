@@ -80,7 +80,9 @@
   <update id="updateAuction" parameterType="com.example.goodsom.domain.Auction">
    	UPDATE AUCTIONS
     SET title=#{title}, content=#{content}, startPrice=#{startPrice}, 
- 		ENDDATE=#{endDate}, MAXPRICE=#{maxPrice}, state=#{state}
+ 		ENDDATE=#{endDate}, MAXPRICE=#{maxPrice}, sendNoti=0, state = CASE
+    	WHEN #{endDate} > now() THEN 'proceeding'
+    	END
   	WHERE  AUCTIONID=#{auctionId}
   </update>
   

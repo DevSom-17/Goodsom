@@ -210,7 +210,7 @@ function delItem(id) {
 														<c:param name="groupBuyId" value="${groupBuy.groupBuyId}" />
 												 	  </c:url>">참여자 현황</a>
 			
-			<c:if test="${groupBuy.state ne 'closed'}">			 	  
+			<c:if test="${groupBuy.participants eq 0}">			 	  
 		   		<a class="btn btn-primary py-3 px-5" href="<c:url value='/groupBuy/form.do'>
 					<c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
 				</c:url>">수정</a>
