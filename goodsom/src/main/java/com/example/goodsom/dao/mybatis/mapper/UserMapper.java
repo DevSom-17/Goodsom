@@ -15,7 +15,7 @@ import com.example.goodsom.domain.User;
 
 public interface UserMapper {
 
-	User getUser(String email, String passwd);
+//	User getUser(String email, String passwd);
 	
 	User getUserByEmail(String email);
 	

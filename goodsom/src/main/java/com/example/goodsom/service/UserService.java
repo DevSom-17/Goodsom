@@ -18,7 +18,7 @@ import com.example.goodsom.domain.User;
 
 public interface UserService {
 
-	User getUser(String emailId, String password); // 로그인 시 사용
+//	User getUser(String emailId, String password); // 로그인 시 사용
 	
 	User getUserByEmail(String email);
 	

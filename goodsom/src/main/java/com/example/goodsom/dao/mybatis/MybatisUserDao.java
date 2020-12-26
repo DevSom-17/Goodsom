@@ -40,9 +40,9 @@ public class MybatisUserDao implements UserDao {
 	@Autowired
 	private ReportMapper reportMapper;
 	
-	public User getUser(String email, String passwd) throws DataAccessException {
-		return userMapper.getUser(email, passwd);
-	}
+//	public User getUser(String email, String passwd) throws DataAccessException {
+//		return userMapper.getUser(email, passwd);
+//	}
 	
 	public User getUserByEmail(String emailId) throws DataAccessException {
 		return userMapper.getUserByEmail(emailId);

@@ -142,9 +142,9 @@ public class User implements Serializable {
 		this.phone = phone;
 	}
 	
-	public boolean matchPassword(String inputPassword) {
-		return passwd.equals(inputPassword);
-	}
+//	public boolean matchPassword(String inputPassword) {
+//		return passwd.equals(inputPassword);
+//	}
 	
 	public int getReport() {
 		return report;

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.WebUtils;
 
+import com.example.goodsom.domain.User;
 import com.example.goodsom.service.UserService;
 import com.example.goodsom.validator.UserFormValidator;
 
@@ -43,7 +44,9 @@ public class UpdateUserFormController {
 	@ModelAttribute("userForm")
 	public UserForm formBackingObject(HttpServletRequest request) throws Exception {
 		UserSession userSession = (UserSession) WebUtils.getSessionAttribute(request, "userSession");
-		return new UserForm(userService.getUserByEmail(userSession.getUser().getEmail()));
+		UserForm userForm = new UserForm(userService.getUserByEmail(userSession.getUser().getEmail()));
+		userForm.getUser().setPasswd("");
+		return userForm;
 	}
 	
 	@ModelAttribute("cardBanks")
@@ -72,7 +75,7 @@ public class UpdateUserFormController {
 		// 검증 오류 발생 시 다시 form view로 이동
 		if (bindingResult.hasErrors()) { 
 			return formViewName; 
-			}
+		}
 		
 		int result = userService.updateUser(userForm.getUser());
 		
