@@ -103,4 +103,19 @@ function previewImage(targetObj, View_area) {
     }
 }
 
+function previewExistingImgAuction() {
+	var is_check = $("#checkExistingImage").is(":checked");
+	if (is_check == true) {
+		$("#addImg").hide();
+		$("#ExistingImg_View_area").show();
+	    $("#View_area").hide();
+	    $("#useExistingImage").val("yes");
+	} else {
+		$("#addImg").show();
+	    $("#ExistingImg_View_area").hide();
+	    $("#View_area").show();
+	    $("#useExistingImage").val("no");
+	}
+}
+
 

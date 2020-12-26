@@ -85,15 +85,16 @@ public class AuctionFormController implements ApplicationContextAware  {
 
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String submit(HttpServletRequest request, @Valid @ModelAttribute("auctionForm") AuctionForm auctionForm, BindingResult result,
+	public String submit(HttpServletRequest request, @RequestParam("useExistingImage") String useExistingImage, 
+			@Valid @ModelAttribute("auctionForm") AuctionForm auctionForm, BindingResult result,
 			Model model, SessionStatus sessionStatus, HttpSession session) {
-		System.out.println(auctionForm.toString());
 //		/auction/create.do인지 /auction/update.do인지 구분하기 위해 필요!
 		String reqPage = request.getServletPath();
 		String requestUrl = reqPage.trim();
-
+		System.out.println("check여부: " + useExistingImage);
+		System.out.println(auctionForm.getAuction().getReport());
 //		대표 이미지 선택 안 했을 시
-		if (auctionForm.getAuction().getReport().get(0).isEmpty()) {
+		if (useExistingImage.equals("no") && auctionForm.getAuction().getReport().get(0).isEmpty()) {
 			result.rejectValue("auction.report", "notSelected");
 		}
 //		AuctionForm객체 validation
@@ -116,27 +117,33 @@ public class AuctionFormController implements ApplicationContextAware  {
 		System.out.println("이미지 파일이 저장될 경로인 imagePath: " + imagePath);
 //		경매 update/create 작업
 		if (requestUrl.equals("/auction/update.do")) { // update
-			Auction oldAuction = auctionService.getAuction(auctionForm.getAuction().getAuctionId());
-//			기존 파일 삭제 후 파일 업로드
-			System.out.println("경매 udpate를 위해 삭제할 이미지파일이 있는 uploadDir: " + uploadDir);
-			for (Image_a oldAuctionImg : oldAuction.getImgs_a()) {
-				String[] oldFileName = oldAuctionImg.getUrl().split("/");	// /resources/images/사진이름
-				for (int i = 0; i < oldFileName.length; i++) {
-					System.out.println("oldFileName[" + i + "]: " + oldFileName[i]);
-				}
-				if (deleteFile(uploadDir + oldFileName[3])) {
-					System.out.println("파일 삭제 성공! 이제부터 파일 업로드.");
-				}
-			}
-//			파일 업로드 기능
-			List<String> savedFileNames = uploadFile(auctionForm.getAuction().getReport());
-			System.out.println(auctionForm.getAuction().toString());
-			auctionForm.getAuction().setState("proceeding");
-			int fileNo = 1;
 			List<Image_a> auctionImgs = new ArrayList<Image_a>();
-			for (String savedFileName: savedFileNames){
-				auctionImgs.add(new Image_a(auctionForm.getAuction().getAuctionId(), fileNo++, imagePath + savedFileName));
+			Auction oldAuction = auctionService.getAuction(auctionForm.getAuction().getAuctionId());
+//			기존이미지 선택 x
+			if (useExistingImage.equals("no")) {
+//				기존 파일 삭제 후 파일 업로드
+				System.out.println("경매 udpate를 위해 삭제할 이미지파일이 있는 uploadDir: " + uploadDir);
+				for (Image_a oldAuctionImg : oldAuction.getImgs_a()) {
+					String[] oldFileName = oldAuctionImg.getUrl().split("/");	// /resources/images/사진이름
+					for (int i = 0; i < oldFileName.length; i++) {
+						System.out.println("oldFileName[" + i + "]: " + oldFileName[i]);
+					}
+					if (deleteFile(uploadDir + oldFileName[3])) {
+						System.out.println("파일 삭제 성공! 이제부터 파일 업로드.");
+					}
+				}
+//				파일 업로드 기능
+				List<String> savedFileNames = uploadFile(auctionForm.getAuction().getReport());
+				System.out.println(auctionForm.getAuction().toString());
+				int fileNo = 1;
+				for (String savedFileName: savedFileNames){
+					auctionImgs.add(new Image_a(auctionForm.getAuction().getAuctionId(), fileNo++, imagePath + savedFileName));
+				}
+			} else { 
+//				기존이미지 선택 O
+				auctionImgs = oldAuction.getImgs_a();
 			}
+			auctionForm.getAuction().setState("proceeding");
 			int auctionId = auctionService.updateAuction(auctionForm.getAuction(), auctionImgs);
 //			auctionForm.getAuction().setImg(request.getContextPath() + "/resources/images/"+ savedFileName);
 			Auction auction = auctionService.getAuction(auctionId);

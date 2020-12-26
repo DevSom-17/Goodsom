@@ -89,25 +89,35 @@ function auctionSubmit(isNewAuction) {
 
 						<div class="form-row">
 							<div class="col-md-6 form-group" style="display: inline;">
-								<!-- <label for="auction.report">대표 이미지</label>&nbsp;&nbsp;&nbsp; -->
 								대표 이미지&nbsp;&nbsp;&nbsp;
 								<form:errors path="auction.report" cssClass="error" />
 								<br />
 								<label for="auction.report">
-									<img src="/assets/img/photo_add.png"  style="width:100px; height:100px; cursor: pointer;">
+									<img src="/assets/img/photo_add.png" id="addImg" style="width:100px; height:100px; cursor: pointer;">
 								</label>
 								<form:input type="file" path="auction.report" onchange="previewImage(this, 'View_area')"
 											style="display: none;" multiple="multiple"/>
 								<span id="View_area" style="position: relative; color: black; border: 0px solid black;">
-									<c:if test="${auctionForm.newAuction eq false}">
-										<c:forEach var="img" items="${auctionForm.auction.imgs_a}" varStatus="status">
-											<span id="img_id_${status.index}" style="width: 100px; height: 100px;">
-												<img class="addImg obj" src="${img.url}" style="width: inherit; height: inherit; cursor: pointer;">
-											</span>
-										</c:forEach>
-									</c:if>
 								</span>
-
+								<c:choose>
+									<c:when test="${auctionForm.newAuction eq false}">
+										<div style="padding-left: 20px;">
+											<input type="checkbox" name="checkExistingImage" id="checkExistingImage" onchange="previewExistingImgAuction()"/> 기존 이미지 사용
+											<br/>
+											<span id="ExistingImg_View_area" style="position: relative; color: black; border: 0px solid black; display:none;">
+												<c:forEach var="img" items="${auctionForm.auction.imgs_a}" varStatus="status">
+													<span id="existing_img_id_${status.index}" style="width: 100px; height: 100px;">
+														<img class="existingImg" src="${img.url}" style="width: inherit; height: inherit;">
+													</span>
+												</c:forEach>
+											</span>
+											<input type="hidden" name="useExistingImage" id="useExistingImage" value="no" />
+										</div>
+									</c:when>
+									<c:otherwise>
+										<input type="hidden" name="useExistingImage" id="useExistingImage" value="no"/>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 
