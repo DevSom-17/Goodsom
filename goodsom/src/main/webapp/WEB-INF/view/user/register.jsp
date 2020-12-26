@@ -70,11 +70,17 @@
 
 	function emailCheck(){
 		var checkBtn = document.getElementById('emailVerify');
-		
-		if(checkBtn.value == '이메일 인증 완료'){
+		var checkBtn_sms = document.getElementById('checkBtn');
+		if(checkBtn.value == '이메일 인증 완료' && checkBtn_sms.value == '휴대폰 인증 완료'){
 			return true;
 		}else{
-			alert("이메일 인증을 완료해주세요!");
+			Swal.fire({
+                icon: 'error',
+                title: '인증 필요',
+                text: '모든 인증을 완료해주세요!',
+                confirmButtonText: '인증 완료하기',
+                confirmButtonColor: '#2778c4'
+            })
 			return false;
 		}
 	}
