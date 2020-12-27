@@ -5,7 +5,23 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <%@ include file="../includeTop.jsp" %> 
-
+<style>
+.btn-submit {
+	position: relative;
+	top: 0;
+	right: 5px;
+	bottom: 0;
+	border: 0;
+	background: none;
+	font-size: 16px;
+	padding: 8px 30px;
+	background: #3498db;
+	color: #fff;
+	transition: 0.3s;
+	border-radius: 0px 0px 0px 0px;
+	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+</style>
 <body>
 
  <%@ include file="../header.jsp" %> 
@@ -22,7 +38,7 @@
         </div>
 
         <div class="form-group" align="left" style="margin-bottom:50px;">
-          <a class="btn btn-primary py-3 px-5" href="<c:url value='/auction/create.do'></c:url>">경매 등록</a>
+          <a class="btn-submit" href="<c:url value='/auction/create.do'></c:url>">경매 등록</a>
         </div>
 	
         <div class="row portfolio-container">

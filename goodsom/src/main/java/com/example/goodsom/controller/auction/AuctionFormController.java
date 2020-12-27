@@ -92,20 +92,19 @@ public class AuctionFormController implements ApplicationContextAware  {
 		String reqPage = request.getServletPath();
 		String requestUrl = reqPage.trim();
 		System.out.println("check여부: " + useExistingImage);
-		System.out.println(auctionForm.getAuction().getReport());
 //		이미지 validation
 		if (useExistingImage.equals("no")) {
 //			'기존 이미지 사용'체크박스 선택 안 했는데 파일 업로드로도 사진 선택 안 했을 시
 			if (auctionForm.getAuction().getReport().get(0).isEmpty()) {
 				result.rejectValue("auction.report", "notSelected");
 			} else {
-//				이미지 총 용량 validation (5MB이하만 가능하도록)
+//				이미지 총 용량 validation (3MB이하만 가능하도록)
 				List<MultipartFile> files = auctionForm.getAuction().getReport();
 				long totalSize = 0;
 				for (MultipartFile file : files) {
 					totalSize += file.getSize();
 				}
-				if (totalSize > 1024*1024*5) {
+				if (totalSize > 1024*1024*3) {
 					result.rejectValue("auction.report", "oversize");
 				}
 			}
@@ -128,10 +127,11 @@ public class AuctionFormController implements ApplicationContextAware  {
 //		이미지 파일이 저장될 경로
 		String imagePath = request.getContextPath() + "/resources/images/";
 		System.out.println("이미지 파일이 저장될 경로인 imagePath: " + imagePath);
+		
 //		경매 update/create 작업
 		if (requestUrl.equals("/auction/update.do")) { // update
-			List<Image_a> auctionImgs = new ArrayList<Image_a>();
 			Auction oldAuction = auctionService.getAuction(auctionForm.getAuction().getAuctionId());
+			List<Image_a> auctionImgs = new ArrayList<Image_a>();
 //			기존이미지 선택 x
 			if (useExistingImage.equals("no")) {
 //				기존 파일 삭제 후 파일 업로드

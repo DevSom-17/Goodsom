@@ -93,7 +93,7 @@ function auctionSubmit(isNewAuction) {
 
 						<div class="form-row">
 							<div class="col-md-6 form-group" style="display: inline;">
-								이미지&nbsp;&nbsp;&nbsp;
+								이미지 <span style="font-size: small; color: #898a8b;">(2MB이하)</span>&nbsp;&nbsp;&nbsp;
 								<form:errors path="auction.report" cssClass="error" />
 								<br />
 								<label for="auction.report">
@@ -106,7 +106,7 @@ function auctionSubmit(isNewAuction) {
 								<c:choose>
 									<c:when test="${auctionForm.newAuction eq false}">
 										<div style="padding-left: 20px;">
-											<input type="checkbox" name="checkExistingImage" id="checkExistingImage" onchange="previewExistingImgAuction()"/> 기존 이미지 사용
+											<input type="checkbox" name="checkExistingImage" id="checkExistingImage" onchange="previewExistingImage()"/> 기존 이미지 사용
 											<br/>
 											<span id="ExistingImg_View_area" style="position: relative; color: black; border: 0px solid black; display:none;">
 												<c:forEach var="img" items="${auctionForm.auction.imgs_a}" varStatus="status">

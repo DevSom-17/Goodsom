@@ -5,6 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <%@ include file="../includeTop.jsp" %> 
+<script src="<c:url value="/assets/js/imagePreview.js"/>"></script>
 
 <script>
 // submit
@@ -46,6 +47,12 @@ function input_append(ff){
 }
 
 </script>
+<style>
+.error {
+	color: #ff0000;
+	/* font-weight: bold; */
+}
+</style>
 <body>
 
 <%@ include file="../header.jsp" %> 
@@ -102,9 +109,39 @@ function input_append(ff){
 				</div>
 			
 			
-			<div class="form-group">
-				<label for="report">대표 이미지</label>&nbsp;&nbsp;&nbsp;<form:errors path="groupBuy.report" cssClass="error"/><br/>
-				<form:input type="file" path="groupBuy.report" multiple="multiple"/>
+			<div class="form-row">
+				<div class="col-md-6 form-row" style="display: inline;">
+					이미지 <span style="font-size: small; color: #898a8b;">(2MB이하)</span>&nbsp;&nbsp;&nbsp;
+					<form:errors path="groupBuy.report" cssClass="error" />
+					<br />
+					<label for="groupBuy.report">
+						<img src="/assets/img/photo_add.png" id="addImg" style="width:100px; height:100px; cursor: pointer;">
+					</label>
+					<form:input type="file" path="groupBuy.report" onchange="previewImage(this, 'View_area')"
+								style="display: none;" multiple="multiple" accept=".jpg, .png, .jpeg, .gif"/>
+					<span id="View_area" style="position: relative; color: black; border: 0px solid black;">
+					</span>
+					<c:choose>
+						<c:when test="${groupBuyForm.newGroupBuy eq false}">
+							<div style="padding-left: 20px; padding-bottom: 20px;">
+								<input type="checkbox" name="checkExistingImage" id="checkExistingImage" 
+									style="height: auto;" onchange="previewExistingImage()"/> 기존 이미지 사용
+								<br/>
+								<span id="ExistingImg_View_area" style="position: relative; color: black; border: 0px solid black; display:none;">
+									<c:forEach var="img" items="${groupBuyForm.groupBuy.imgs_g}" varStatus="status">
+										<span id="existing_img_id_${status.index}" style="width: 100px; height: 100px;">
+											<img class="existingImg" src="${img.url}" style="width: inherit; height: inherit;">
+										</span>
+									</c:forEach>
+								</span>
+								<input type="hidden" name="useExistingImage" id="useExistingImage" value="no" />
+							</div>
+						</c:when>
+						<c:otherwise>
+							<input type="hidden" name="useExistingImage" id="useExistingImage" value="no"/>
+						</c:otherwise>
+					</c:choose>
+				</div>
           	</div>
           				
 			<div class="form-group">

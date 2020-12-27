@@ -20,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.WebApplicationContext;
@@ -80,7 +81,7 @@ public class GroupBuyFormController implements ApplicationContextAware {
 	
 	// form -> detail : create & update
 	@RequestMapping(value= {"/create.do", "/update.do"}, method=RequestMethod.POST)
-	public String updateOrSubmit(HttpServletRequest request,
+	public String updateOrSubmit(HttpServletRequest request, @RequestParam("useExistingImage") String useExistingImage, 
 			@Valid @ModelAttribute("groupBuyForm") GroupBuyForm groupBuyForm,
 			BindingResult result, Model model, SessionStatus sessionStatus) {
 		int groupBuyId;
@@ -90,11 +91,25 @@ public class GroupBuyFormController implements ApplicationContextAware {
 		
 		groupBuyForm.getGroupBuy().initGroupBuy(user.getUser());
 		
-//		대표 이미지 선택 안 했을 시
-		if (groupBuyForm.getGroupBuy().getReport().get(0).isEmpty()) {
-			result.rejectValue("groupBuy.report", "notSelected");
+//		이미지 validation
+		if (useExistingImage.equals("no")) {
+//			'기존 이미지 사용'체크박스 선택 안 했는데 파일 업로드로도 사진 선택 안 했을 시
+			if (groupBuyForm.getGroupBuy().getReport().get(0).isEmpty()) {
+				result.rejectValue("groupBuy.report", "notSelected");
+			} else {
+//				이미지 총 용량 validation (3MB이하만 가능하도록)
+				List<MultipartFile> files = groupBuyForm.getGroupBuy().getReport();
+				long totalSize = 0;
+				for (MultipartFile file : files) {
+					totalSize += file.getSize();
+				}
+				if (totalSize > 1024*1024*3) {
+					result.rejectValue("groupBuy.report", "oversize");
+				}
+			}
+			
 		}
-		
+
 		if(result.hasErrors()) {
 			if(reqPage.trim().equals("/groupBuy/update.do")) {
 				model.addAttribute("groupBuyId", groupBuyForm.getGroupBuy().getGroupBuyId());
@@ -103,30 +118,39 @@ public class GroupBuyFormController implements ApplicationContextAware {
 				return GROUPBUY_FORM;
 			}
 		}
+		
 //		시간 세팅
 		groupBuyForm.getGroupBuy().timeSet();
-		
 //		이미지 파일이 저장될 경로
 		String imagePath = request.getContextPath() + "/resources/images/";
+		
 		if (reqPage.trim().equals("/groupBuy/update.do")) { 	//		update
 			GroupBuy oldGroupBuy = groupBuyService.getGroupBuy(groupBuyForm.getGroupBuy().getGroupBuyId());
-//			기존 파일 삭제 후 파일 업로드
-			System.out.println("공동구매 udpate를 위해 삭제할 이미지파일이 있는 uploadDir: " + uploadDir);
-			for (Image_g oldGroupBuyImg : oldGroupBuy.getImgs_g()) {
-				String[] oldFileName = oldGroupBuyImg.getUrl().split("/");	// /resources/images/사진이름
-				for (int i = 0; i < oldFileName.length; i++) {
-					System.out.println("oldFileName[" + i + "]: " + oldFileName[i]);
-				}
-				if (deleteFile(uploadDir + oldFileName[3])) {
-					System.out.println("파일 삭제 성공! 이제부터 파일 업로드.");
-				}
-			}
-//			파일 업로드 기능
-			List<String> savedFileNames = uploadFile(groupBuyForm.getGroupBuy().getReport());
-//			GroupBuy객체에 setImgs_g()
 			List<Image_g> groupBuyImgs = new ArrayList<Image_g>();
-			for (int i = 1; i <= savedFileNames.size(); i++) {
-				groupBuyImgs.add(new Image_g(oldGroupBuy.getGroupBuyId(), i, imagePath + savedFileNames.get(i-1)));
+//			기존이미지 선택 x
+			if (useExistingImage.equals("no")) {
+//			기존 파일 삭제 후 파일 업로드
+				System.out.println("공동구매 udpate를 위해 삭제할 이미지파일이 있는 uploadDir: " + uploadDir);
+				for (Image_g oldGroupBuyImg : oldGroupBuy.getImgs_g()) {
+					String[] oldFileName = oldGroupBuyImg.getUrl().split("/");	// /resources/images/사진이름
+					for (int i = 0; i < oldFileName.length; i++) {
+						System.out.println("oldFileName[" + i + "]: " + oldFileName[i]);
+					}
+					if (deleteFile(uploadDir + oldFileName[3])) {
+						System.out.println("파일 삭제 성공! 이제부터 파일 업로드.");
+					}
+				}
+//				파일 업로드 기능
+				List<String> savedFileNames = uploadFile(groupBuyForm.getGroupBuy().getReport());
+//				GroupBuy객체에 setImgs_g()
+				int fileNo = 1;
+				for (String savedFileName: savedFileNames) {
+					groupBuyImgs.add(new Image_g(oldGroupBuy.getGroupBuyId(), fileNo++, imagePath + savedFileName));
+				}
+			
+			} else { 
+//				기존이미지 선택 O
+				groupBuyImgs = oldGroupBuy.getImgs_g();
 			}
 //			db: groupBuy update & option 삭제 후, 다시 생성
 			groupBuyId = groupBuyService.updateGroupBuy(groupBuyForm.getGroupBuy(), groupBuyImgs);
