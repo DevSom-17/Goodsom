@@ -93,9 +93,22 @@ public class AuctionFormController implements ApplicationContextAware  {
 		String requestUrl = reqPage.trim();
 		System.out.println("check여부: " + useExistingImage);
 		System.out.println(auctionForm.getAuction().getReport());
-//		대표 이미지 선택 안 했을 시
-		if (useExistingImage.equals("no") && auctionForm.getAuction().getReport().get(0).isEmpty()) {
-			result.rejectValue("auction.report", "notSelected");
+//		이미지 validation
+		if (useExistingImage.equals("no")) {
+//			'기존 이미지 사용'체크박스 선택 안 했는데 파일 업로드로도 사진 선택 안 했을 시
+			if (auctionForm.getAuction().getReport().get(0).isEmpty()) {
+				result.rejectValue("auction.report", "notSelected");
+			} else {
+//				이미지 총 용량 validation (5MB이하만 가능하도록)
+				List<MultipartFile> files = auctionForm.getAuction().getReport();
+				long totalSize = 0;
+				for (MultipartFile file : files) {
+					totalSize += file.getSize();
+				}
+				if (totalSize > 1024*1024*5) {
+					result.rejectValue("auction.report", "oversize");
+				}
+			}
 		}
 //		AuctionForm객체 validation
 		if (result.hasErrors()) {
