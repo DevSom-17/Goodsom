@@ -56,8 +56,15 @@ function input_append(ff){
       <div class="container">
 
         <div class="section-title">
-          <h2>공동구매 등록</h2>
-          <p>새로운 공동구매를 등록합니다.</p>
+        	<c:choose>
+				<c:when test="${groupBuyForm.newGroupBuy}">
+					<h2>공동구매 등록</h2>
+				</c:when>
+				<c:otherwise>
+					<h2>공동구매 수정</h2>
+				</c:otherwise>
+			</c:choose>
+          <p>해당 공동구매에 대한 필수 정보들을 입력해주세요!</p>
         </div>
         
         <div class="row mt-5 justify-content-center">

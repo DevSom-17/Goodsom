@@ -40,7 +40,7 @@ public interface GroupBuyDao {
 	
 	int[] getGroupBuyIdForCloseNoti() throws DataAccessException;
 	
-	List<GroupBuy> getRecentGroupBuyList() throws DataAccessException;
+	List<GroupBuy> getBestGroupBuyList() throws DataAccessException;
 	
 	List<GroupBuy> getGroupBuyListByKeyword(String keyword) throws DataAccessException;
 	

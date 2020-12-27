@@ -46,7 +46,7 @@ public interface GroupBuyMapper { // GroupBuyMapper.xml에서 구현한 method �
 	
 	int[] getGroupBuyIdForCloseNoti() throws DataAccessException;
 	
-	List<GroupBuy> getRecentGroupBuyList() throws DataAccessException;
+	List<GroupBuy> getBestGroupBuyList() throws DataAccessException;
 	
 //	keyword로 검색
 	List<GroupBuy> getGroupBuyListByKeyword(String keyword);

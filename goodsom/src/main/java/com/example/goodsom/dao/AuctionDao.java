@@ -37,7 +37,7 @@ public interface AuctionDao {
 	
 	void increaseCount(Auction auction) throws DataAccessException;
 	
-	List<Auction> getRecentAuctionList() throws DataAccessException;
+	List<Auction> getBestAuctionList() throws DataAccessException;
 //	스케줄러
 	void closeEvent(Date curTime);
 	

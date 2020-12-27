@@ -112,8 +112,8 @@ public class AuctionServiceImpl implements AuctionService {
 		auctionDao.increaseCount(auction);
 	}
 	
-	public List<Auction> getRecentAuctionList() {
-		return auctionDao.getRecentAuctionList();
+	public List<Auction> getBestAuctionList() {
+		return auctionDao.getBestAuctionList();
 	}
 
 	@Scheduled(fixedDelay = 1000)

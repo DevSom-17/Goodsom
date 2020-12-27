@@ -34,7 +34,7 @@ public interface GroupBuyService {
 	
 	public void deadLineScheduler();
 	
-	public List<GroupBuy> getRecentGroupBuyList();
+	public List<GroupBuy> getBestGroupBuyList();
 	
 	List<GroupBuy> getLikedGroupBuyListByUserId(int userId);
 

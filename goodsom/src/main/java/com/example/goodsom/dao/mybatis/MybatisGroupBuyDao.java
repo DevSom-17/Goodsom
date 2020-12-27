@@ -95,8 +95,8 @@ public class MybatisGroupBuyDao implements GroupBuyDao {
 		return groupBuyMapper.getGroupBuyIdForCloseNoti();
 	}
 	
-	public List<GroupBuy> getRecentGroupBuyList(){
-		return groupBuyMapper.getRecentGroupBuyList();
+	public List<GroupBuy> getBestGroupBuyList(){
+		return groupBuyMapper.getBestGroupBuyList();
 	}
 	
 	public List<GroupBuy> getGroupBuyListByKeyword(String keyword) {

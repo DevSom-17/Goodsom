@@ -33,8 +33,8 @@ public class MenuController {
 	
 	@RequestMapping("/index.do")
 	public ModelAndView goHome(Model model) throws Exception{
-		List<GroupBuy> recentGroupBuy = groupBuyService.getRecentGroupBuyList();
-		List<Auction> recentAuction = auctionService.getRecentAuctionList();
+		List<GroupBuy> recentGroupBuy = groupBuyService.getBestGroupBuyList();
+		List<Auction> recentAuction = auctionService.getBestAuctionList();
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("recentGroupBuy", recentGroupBuy);
