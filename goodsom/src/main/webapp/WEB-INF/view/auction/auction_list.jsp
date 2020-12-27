@@ -21,16 +21,6 @@
           <p>솜솜이들의 경매를 위한 공간</p>
         </div>
 
-        <div class="row">
-          <div class="col-lg-12">
-            <ul id="portfolio-flters">
-              <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-app">App</li>
-              <li data-filter=".filter-card">Card</li>
-              <li data-filter=".filter-web">Web</li>
-            </ul>
-          </div>
-        </div>
         <div class="form-group" align="left" style="margin-bottom:50px;">
           <a class="btn btn-primary py-3 px-5" href="<c:url value='/auction/create.do'></c:url>">경매 등록</a>
         </div>

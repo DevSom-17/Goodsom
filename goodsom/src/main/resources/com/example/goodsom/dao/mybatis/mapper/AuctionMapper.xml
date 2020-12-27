@@ -139,7 +139,7 @@
   </select>
   
   
-  <select id="getRecentAuctionList" resultType="com.example.goodsom.domain.Auction">
+  <select id="getRecentAuctionList" resultMap="resultMap_auction">
    <![CDATA[
     SELECT EX1.* FROM
     	(SELECT * FROM AUCTIONS
