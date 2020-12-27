@@ -97,7 +97,7 @@ function auctionSubmit(isNewAuction) {
 									<img src="/assets/img/photo_add.png" id="addImg" style="width:100px; height:100px; cursor: pointer;">
 								</label>
 								<form:input type="file" path="auction.report" onchange="previewImage(this, 'View_area')"
-											style="display: none;" multiple="multiple"/>
+											style="display: none;" multiple="multiple" accept=".jpg, .png, .jpeg, .gif"/>
 								<span id="View_area" style="position: relative; color: black; border: 0px solid black;">
 								</span>
 								<c:choose>
