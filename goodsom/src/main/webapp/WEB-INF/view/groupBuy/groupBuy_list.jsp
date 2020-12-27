@@ -26,8 +26,8 @@
         </div>
 
         <div class="row portfolio-container">
-		<c:forEach var="groupBuy" items="${groupBuyList}" varStatus="status">
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
+        <c:forEach var="groupBuy" items="${groupBuyList}" varStatus="status">
+          <div class="col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp">
             <div class="portfolio-wrap">
               <figure style="background: white; text-align: center;">
 					<img src="${groupBuy.imgs_g[0].url}" class="img-fluid" alt="" style="height: 100%;">
@@ -37,21 +37,34 @@
               </figure>
               
               <div class="portfolio-info" style="height: 105px;">
-              	<h4><a href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
+              	<div>
+              		<h4><a href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
 							</c:url>">${groupBuy.title}</a></h4>
-				
-				<div>	 
-					<span class="mx-2" style="float:left;">금액: 
-						<fmt:formatNumber value="${groupBuy.price}" pattern="#,###원"/>
-					</span> <br/>
-					<span style ="color:red; float:left;"><fmt:formatNumber value="${groupBuy.rate}"/>% 달성</span>
-					<span style="float:right;">&nbsp; 마감일: <fmt:formatDate value="${groupBuy.endDate}" pattern="yyyy-MM-dd" /></span>
-
+					<div style="float:left; color: #898a8c;">
+						<strong>금액</strong>: <fmt:formatNumber value="${groupBuy.price}" pattern="#,###원"/>
+					</div>
+					<div style="float:right; color: #2f94d8;">
+						<strong>달성률</strong>: <fmt:formatNumber value="${groupBuy.rate}" /> % 달성
+					</div>
+					<br/>
+					<div style="float:left; color: #898a8c;">
+						<strong>마감일</strong>: <fmt:formatDate value="${groupBuy.endDate}" pattern="yyyy-MM-dd" />
+					</div>
+					 
+               		<c:if test="${groupBuy.state eq 'proceeding'}">
+						<span style ="color: #2f94d8; float:right; font-weight: bold;">진행 중</span>
+					</c:if>
+					<c:if test="${groupBuy.state eq 'achieved'}">
+						<span style ="color: #2f94d8; float:right; font-weight: bold;">달성</span>
+					</c:if>
+					<c:if test="${groupBuy.state eq 'closed'}">
+						<span style ="color: #ff5757; float:right; font-weight: bold;">마감</span>
+					</c:if>
+               </div>
               </div>
-            </div>
-          </div>
-         	</div>
-         </c:forEach>
+          	</div>
+         </div>
+        </c:forEach>
       	 </div>
       </div>
     </section><!-- End Portfolio Section -->

@@ -26,7 +26,7 @@
             <div class="icon-box">
               <div class="icon"><i class="bx bxl-dribbble"></i></div>
               <h4><a href="<%=request.getContextPath()%>/groupBuy/list.do">공동구매</a></h4>
-              <p>동덕여대 솜솜이들이 굿즈를 직접 기획하고 제작하여 공동구매를 진행할 수 있는 기능을 지원합니다.</p>
+              <p>동덕여대 솜솜이들이 굿즈를 직접 기획하고 제작하여 공동구매를 진행할 수 있는 기능을 지원합니다</p>
             </div>
           </div>
 
@@ -34,7 +34,7 @@
             <div class="icon-box">
               <div class="icon"><i class="bx bx-file"></i></div>
               <h4><a href="<%=request.getContextPath()%>/auction/list.do">경매</a></h4>
-              <p>더 이상 판매되지 않는 동덕여대 굿즈가 활발히 교류될 수 있게 경매 기능을 지원합니다.</p>
+              <p>더 이상 판매되지 않는 동덕여대 굿즈가 활발히 교류될 수 있게 경매 기능을 지원합니다</p>
             </div>
           </div>
 
@@ -42,7 +42,7 @@
             <div class="icon-box">
               <div class="icon"><i class="bx bx-tachometer"></i></div>
               <h4><a href="<%=request.getContextPath()%>/user/detail.do">마이페이지</a></h4>
-              <p>회원정보 변경 및 알림 기능과 참여하거나 좋아요를 누른 공동구매/경매의 목록들을 볼 수 있는 기능을 지원합니다.</p>
+              <p>회원정보 변경 및 알림 기능과 참여하거나 좋아요를 누른 공동구매/경매의 목록들을 볼 수 있는 기능을 지원합니다</p>
             </div>
           </div>
 
@@ -57,7 +57,7 @@
 
         <div class="section-title">
           <h2>Best Item</h2>
-          <p>현재 가장 높은 조회수를 기록하고 있는 상품들입니다. <br/> ALL(전체보기)의 경우 경매, 공동구매 순으로 정렬됩니다.</p>
+          <p>현재 가장 높은 조회수를 기록하고 있는 상품들입니다 <br/> ALL(전체보기)의 경우 경매, 공동구매 순으로 정렬됩니다</p>
         </div>
 
         <div class="row">
@@ -121,15 +121,29 @@
               </figure>
               
               <div class="portfolio-info" style="height: 105px;">
-              	<h4><a href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
+              	<div>
+              		<h4><a href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
 							</c:url>">${groupBuy.title}</a></h4>
-				
-				<div>	 
-					<span class="mx-2" style="float:left;">금액: 
-						<fmt:formatNumber value="${groupBuy.price}" pattern="#,###원"/>
-					</span> <br/>
-					<span style ="color:red; float:left;"><fmt:formatNumber value="${groupBuy.rate}"/>% 달성</span>
-					<span style="float:right;">&nbsp; 마감일: <fmt:formatDate value="${groupBuy.endDate}" pattern="yyyy-MM-dd" /></span>
+					<div style="float:left; color: #898a8c;">
+						<strong>금액</strong>: <fmt:formatNumber value="${groupBuy.price}" pattern="#,###원"/>
+					</div>
+					<div style="float:right; color: #898a8c;">
+						<strong>달성률</strong>: <fmt:formatNumber value="${groupBuy.rate}" />% 달성
+					</div>
+					<br/>
+					<div style="float:left; color: #898a8c;">
+						<strong>마감일</strong>: <fmt:formatDate value="${groupBuy.endDate}" pattern="yyyy-MM-dd" />
+					</div>
+					 
+               		<c:if test="${groupBuy.state eq 'proceeding'}">
+						<span style ="color: #2f94d8; float:right; font-weight: bold;">진행 중</span>
+					</c:if>
+					<c:if test="${groupBuy.state eq 'achieved'}">
+						<span style ="color: #2f94d8; float:right; font-weight: bold;">달성</span>
+					</c:if>
+					<c:if test="${groupBuy.state eq 'closed'}">
+						<span style ="color: #ff5757; float:right; font-weight: bold;">마감</span>
+					</c:if>
                </div>
               </div>
           	</div>
