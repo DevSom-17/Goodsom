@@ -45,7 +45,10 @@
 					<c:param name="auctionId" value="${auction.auctionId}"/></c:url>">
 					<img src="${auction.imgs_a[0].url}" class="img-fluid" alt="" style="height: 100%;">
 				</a>
-                <a href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
+				<c:forEach var="img" items="${auction.imgs_a}" varStatus="status">
+					<a href="${img.url}" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
+	                <%-- <a href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a> --%>
+				</c:forEach>
                 <a href="portfolio-details.html" class="link-details" title="More Details"><i class="bx bx-link"></i></a>
               </figure>
               

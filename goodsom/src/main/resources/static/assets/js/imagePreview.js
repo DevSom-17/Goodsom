@@ -19,9 +19,18 @@ function previewImage(targetObj, View_area) {
     var files=targetObj.files;
     fileArr=Array.prototype.slice.call(files);
     
-    var preview = document.getElementById(View_area); // div id
+    var preview = document.getElementById(View_area); // span id
     var ua = window.navigator.userAgent;
- 
+
+    const parent = document.getElementById(View_area);
+    while (parent.firstChild) {
+    	while (parent.firstChild.firstChild) {
+    		parent.firstChild.removeChild(parent.firstChild.firstChild);
+    	}
+        parent.removeChild(parent.firstChild);
+    }
+    
+    
     // ie일때(IE8 이하에서만 작동)
     if (ua.indexOf("MSIE") > -1) {
         targetObj.select();
