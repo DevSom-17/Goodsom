@@ -34,7 +34,7 @@ public interface AuctionMapper { // AuctionMapper.xml에서 구현한 method 이
 
 	List<Auction> getAuctionListByKeyword(String keyword) throws DataAccessException;
 	
-	List<Auction> getRecentAuctionList() throws DataAccessException;
+	List<Auction> getBestAuctionList() throws DataAccessException;
 	
 	void increaseCount(Auction auction) throws DataAccessException;
 	

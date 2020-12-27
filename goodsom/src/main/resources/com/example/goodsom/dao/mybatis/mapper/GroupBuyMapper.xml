@@ -186,7 +186,7 @@
   	WHERE GROUPBUYID=#{groupBuyId}
   </update>
   
-  <select id="getRecentGroupBuyList" resultMap="collectionResultMap">
+  <select id="getBestGroupBuyList" resultMap="collectionResultMap">
    <![CDATA[
     SELECT EX1.* FROM
     	(SELECT * FROM GROUPBUYS

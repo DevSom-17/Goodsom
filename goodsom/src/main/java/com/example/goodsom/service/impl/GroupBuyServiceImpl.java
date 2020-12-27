@@ -113,8 +113,8 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 		groupBuyDao.increaseCount(groupBuy);
 	}
 	
-	public List<GroupBuy> getRecentGroupBuyList() {
-		return groupBuyDao.getRecentGroupBuyList();
+	public List<GroupBuy> getBestGroupBuyList() {
+		return groupBuyDao.getBestGroupBuyList();
 	}
 	
 	@Scheduled(fixedDelay = 1000)	// 1초마다
