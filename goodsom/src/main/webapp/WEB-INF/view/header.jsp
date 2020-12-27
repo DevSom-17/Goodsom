@@ -139,10 +139,8 @@ function check() {
 		<!-- .nav-menu -->
 
 		<div class="header-social-links">
-			<a href="#" class="twitter"><i class="icofont-twitter"></i></a> <a
-				href="#" class="facebook"><i class="icofont-facebook"></i></a> <a
-				href="#" class="instagram"><i class="icofont-instagram"></i></a> <a
-				href="#" class="linkedin"><i class="icofont-linkedin"></i></a>
+			<a href="https://github.com/DevSom-17/Goodsom" class="github"><i class="icofont-github"></i></a> 
+			<a href="https://trello.com/b/mectpnRE/goodsom" class="trello"><i class="icofont-trello"></i></a> 
 		</div>
 
 	</div>
