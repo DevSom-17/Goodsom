@@ -5,7 +5,23 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <%@ include file="../includeTop.jsp" %> 
-
+<style>
+.btn-submit {
+	position: relative;
+	top: 0;
+	right: 5px;
+	bottom: 0;
+	border: 0;
+	background: none;
+	font-size: 16px;
+	padding: 8px 30px;
+	background: #3498db;
+	color: #fff;
+	transition: 0.3s;
+	border-radius: 0px 0px 0px 0px;
+	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+</style>
 <body>
 
  <%@ include file="../header.jsp" %> 
@@ -21,21 +37,10 @@
           <p>솜솜이들의 경매를 위한 공간</p>
         </div>
 
-        <div class="row">
-          <div class="col-lg-12">
-            <ul id="portfolio-flters">
-              <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-app">App</li>
-              <li data-filter=".filter-card">Card</li>
-              <li data-filter=".filter-web">Web</li>
-            </ul>
-          </div>
-        </div>
         <div class="form-group" align="left" style="margin-bottom:50px;">
-          <a class="btn btn-primary py-3 px-5" href="<c:url value='/auction/create.do'></c:url>">경매 등록</a>
+          <a class="btn-submit" href="<c:url value='/auction/create.do'></c:url>">경매 등록</a>
         </div>
 	
-
         <div class="row portfolio-container">
 		<c:forEach var="auction" items="${auctionList}" varStatus="status">
           <div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
@@ -54,19 +59,7 @@
               
 
               <div class="portfolio-info" style="height: 105px;">
-              	<%-- <div style="float:right">조회수: ${auction.count}&nbsp;&nbsp;</div> --%>
 				<div>
-					<%-- <div>
-						<c:if test="${auction.state eq 'proceeding'}" >
-							<h5>Proceeding</h5>
-						</c:if>
-						<c:if test="${auction.state eq 'closed'}" >
-							<h5>Closed</h5>
-						</c:if>
-					
-						<span>&nbsp; ~ <fmt:formatDate value="${auction.endDate}" pattern="yyyy-MM-dd" /></span>
-					</div> --%>
-              
 	                <h4><a href="<c:url value='/auction/detail.do'><c:param name="auctionId" value="${auction.auctionId}"/>
 								 </c:url>">${auction.title}</a></h4>
 						<div style="float:left; color: #898a8c;">
@@ -85,16 +78,6 @@
 						<c:if test="${auction.state eq 'closed'}">
 							<span style ="color: #ff5757; float:right; font-weight: bold;">마감</span>
 						</c:if>
-	
-					<%-- <span class="mx-2">시작 가격</span> 
-					<a href="#"><fmt:formatNumber value="${auction.price}" pattern="#,###원"/></a> <br/><br/>
-				
-					<span class="mx-2">현재 최고 금액</span> 
-					<a href="#"><fmt:formatNumber value="${auction.maxPrice}" pattern="#,###원"/></a> --%>
-
-					<%-- <p><c:out value="${auction.content}" ></c:out><p> --%>		
-                <%-- <p>현재 최고 금액  <fmt:formatNumber value="${auction.maxPrice}" pattern="#,###원"/></p>
-                <p class="portfolio-info-endDate">~<fmt:formatDate value="${auction.endDate}" pattern="yyyy-MM-dd" /></p> --%>
               </div>
             </div>
           </div>

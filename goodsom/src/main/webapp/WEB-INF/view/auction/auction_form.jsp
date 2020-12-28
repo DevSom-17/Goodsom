@@ -28,6 +28,36 @@ function auctionSubmit(isNewAuction) {
 	color: #ff0000;
 	/* font-weight: bold; */
 }
+.btn-submit {
+	position: relative;
+	top: 0;
+	right: 5px;
+	bottom: 0;
+	border: 0;
+	background: none;
+	font-size: 16px;
+	padding: 8px 30px;
+	background: #3498db;
+	color: #fff;
+	transition: 0.3s;
+	border-radius: 0px 0px 0px 0px;
+	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+.btn-danger {
+	position: relative;
+	top: 0;
+	right: 5px;
+	bottom: 0;
+	border: 0;
+	background: none;
+	font-size: 16px;
+	padding: 8px 30px;
+	background: #bb404c;
+	color: #fff;
+	transition: 0.3s;
+	border-radius: 0px 0px 0px 0px;
+	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
 </style>
 
 <body>
@@ -36,42 +66,15 @@ function auctionSubmit(isNewAuction) {
 		<div class="container">
 
 			<div class="section-title">
-				<h2>경매 등록</h2>
-				<p>경매에 등록하고자 하는 물품에 대한 정보들을 입력해주세요!</p>
-			</div>
-
-			<div class="row mt-5 justify-content-center">
-				<div class="col-lg-10">
-					<div class="info-wrap">
-						<div class="row">
-							<div class="col-lg-4 info">
-								<i class="icofont-google-map"></i>
-								<h4>Location:</h4>
-								<p>
-									A108 Adam Street<br>New York, NY 535022
-								</p>
-							</div>
-
-							<div class="col-lg-4 info mt-4 mt-lg-0">
-								<i class="icofont-envelope"></i>
-								<h4>Email:</h4>
-								<p>
-									info@example.com<br>contact@example.com
-								</p>
-							</div>
-
-							<div class="col-lg-4 info mt-4 mt-lg-0">
-								<i class="icofont-phone"></i>
-								<h4>Call:</h4>
-								<p>
-									+1 5589 55488 51<br>+1 5589 22475 14
-								</p>
-							</div>
-						</div>
-					</div>
-
-				</div>
-
+				<c:choose>
+					<c:when test="${auctionForm.newAuction}">
+						<h2>경매 등록</h2>
+					</c:when>
+					<c:otherwise>
+						<h2>경매 수정</h2>
+					</c:otherwise>
+				</c:choose>
+				<p>해당 경매에 대한 필수 정보들을 입력해주세요!</p>
 			</div>
 
 			<div class="row mt-5 justify-content-center">
@@ -90,7 +93,7 @@ function auctionSubmit(isNewAuction) {
 
 						<div class="form-row">
 							<div class="col-md-6 form-group" style="display: inline;">
-								대표 이미지&nbsp;&nbsp;&nbsp;
+								이미지 <span style="font-size: small; color: #898a8b;">(2MB이하)</span>&nbsp;&nbsp;&nbsp;
 								<form:errors path="auction.report" cssClass="error" />
 								<br />
 								<label for="auction.report">
@@ -103,7 +106,7 @@ function auctionSubmit(isNewAuction) {
 								<c:choose>
 									<c:when test="${auctionForm.newAuction eq false}">
 										<div style="padding-left: 20px;">
-											<input type="checkbox" name="checkExistingImage" id="checkExistingImage" onchange="previewExistingImgAuction()"/> 기존 이미지 사용
+											<input type="checkbox" name="checkExistingImage" id="checkExistingImage" onchange="previewExistingImage()"/> 기존 이미지 사용
 											<br/>
 											<span id="ExistingImg_View_area" style="position: relative; color: black; border: 0px solid black; display:none;">
 												<c:forEach var="img" items="${auctionForm.auction.imgs_a}" varStatus="status">
@@ -202,13 +205,12 @@ function auctionSubmit(isNewAuction) {
 							</form:select>
 						</div>
 
-
-						<div class="form-group" align="right">
-							<a class="btn btn-primary py-3 px-5"
-								href="<c:url value='/auction/list.do'></c:url>">Cancel</a>
-							&nbsp; <input type="button" value="Save"
+						<div class="form-group" align="center">
+							<a class="btn-danger"
+								href="<c:url value='/auction/list.do'></c:url>">취소</a>
+							&nbsp; <input type="button" value="완료"
 								onClick="auctionSubmit(${auctionForm.newAuction})"
-								class="btn btn-primary py-3 px-5">
+								class="btn-submit">
 						</div>
 					</form:form>
 				</div>

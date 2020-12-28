@@ -33,7 +33,7 @@ public interface AuctionService {
 	
 	void increaseCount(Auction auction);
 	
-	List<Auction> getRecentAuctionList();
+	List<Auction> getBestAuctionList();
 	
 	public void deadLineScheduler();
 	

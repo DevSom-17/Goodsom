@@ -89,8 +89,8 @@ public class LoginController {
 			return new ModelAndView(formViewName);
 		}
 
-		List<GroupBuy> recentGroupBuy = groupBuyService.getRecentGroupBuyList();
-		List<Auction> recentAuction = auctionService.getRecentAuctionList();
+		List<GroupBuy> recentGroupBuy = groupBuyService.getBestGroupBuyList();
+		List<Auction> recentAuction = auctionService.getBestAuctionList();
 		
 		User user = userService.getUserByEmail(loginForm.getEmail());
 
