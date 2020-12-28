@@ -237,7 +237,7 @@ public class Auction implements Serializable {
         receive = 0;				// 수령 여부
         sendNoti = 0;				// 알림 안 보냄
         likeCount = 0;				// 좋아요 수
-        liked = 0;					// 로그인 한 사용자가 좋아요를 눌렀는지
+        liked = 0;					// 로그인 한 사용자가 좋아요를 눌렀는지 (0: x  1: o)
 	}
 	
 	public void timeSet() {

@@ -246,13 +246,16 @@ public class AuctionFormController implements ApplicationContextAware  {
 		for (Image_a auctionImg : auctionImgs) {
 			String[] fileName = auctionImg.getUrl().split("/");	// /resources/images/사진이름
 			if (deleteFile(uploadDir + fileName[3])) {
-				System.out.println("파일 삭제 성공! 이제부터 파일 업로드.");
+				System.out.println("파일 삭제 성공!");
 			}
 		}
 //		DB에서 경매 삭제 (테이블: Auctions, Images_a)
-		List<Auction> auctionList = auctionService.deleteAuction(auctionId);
+		UserSession user  = (UserSession)request.getSession().getAttribute("userSession");
+		int loginUserId = user.getUser().getUserId();
+		List<Auction> auctionList = auctionService.deleteAuction(auctionId, loginUserId);
 		
 		ModelAndView mav = new ModelAndView(AUCTION_LIST);
+		mav.addObject("loginUserId", loginUserId);
 		mav.addObject("auctionList", auctionList);
 		return mav;
 	}

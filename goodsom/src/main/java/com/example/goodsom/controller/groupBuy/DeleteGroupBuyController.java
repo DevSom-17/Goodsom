@@ -18,6 +18,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.goodsom.controller.user.UserSession;
 import com.example.goodsom.domain.GroupBuy;
 import com.example.goodsom.domain.Image_a;
 import com.example.goodsom.domain.Image_g;
@@ -57,7 +58,7 @@ public class DeleteGroupBuyController implements ApplicationContextAware {
 		for (Image_g groupBuyImg : groupBuyImgs) {
 			String[] fileName = groupBuyImg.getUrl().split("/");	// /resources/images/사진이름
 			if (deleteFile(uploadDir + fileName[3])) {
-				System.out.println("파일 삭제 성공! 이제부터 파일 업로드.");
+				System.out.println("서버에서 파일 삭제 성공!");
 			}
 		}
 		// db
@@ -66,7 +67,10 @@ public class DeleteGroupBuyController implements ApplicationContextAware {
 		
 		// 출력할 list
 		List<GroupBuy> groupBuyList = null;
-		groupBuyList = groupBuyService.getGroupBuyList();
+		UserSession user  = (UserSession)request.getSession().getAttribute("userSession");
+		int loginUserId = user.getUser().getUserId();
+		mav.addObject("loginUserId", loginUserId);
+		groupBuyList = groupBuyService.getGroupBuyList(loginUserId);
 		if (groupBuyList == null) {
 			System.out.println("[DetailGroupBuyController] groupBuyList가 null");
 		} else {

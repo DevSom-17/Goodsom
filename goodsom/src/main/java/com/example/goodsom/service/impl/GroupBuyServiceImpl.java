@@ -10,8 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.goodsom.dao.FileDao;
 import com.example.goodsom.dao.GroupBuyDao;
+import com.example.goodsom.dao.LikeDao;
 import com.example.goodsom.dao.NotificationDao;
 import com.example.goodsom.dao.UserDao;
+import com.example.goodsom.domain.Auction;
 import com.example.goodsom.domain.GroupBuy;
 import com.example.goodsom.domain.Image_g;
 import com.example.goodsom.domain.Notification;
@@ -50,6 +52,9 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	@Autowired
 	private UserDao userDao;
 	
+	@Autowired
+	private LikeDao likeDao;
+	
 	public GroupBuy getGroupBuy(int groupBuyId) {
 		return groupBuyDao.getGroupBuy(groupBuyId);
 	}
@@ -86,7 +91,6 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	
 	@Transactional
 	public void deleteGroupBuy(int groupBuyId) {
-		fileDao.deleteGroupBuyImgs(groupBuyId);
 		groupBuyDao.deleteGroupBuy(groupBuyId);
 	}
 	
@@ -101,8 +105,20 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 		groupBuyDao.createOptions(groupBuy);
 	}
 	
-	public List<GroupBuy> getGroupBuyList() {
-		return groupBuyDao.getGroupBuyList();
+	public List<GroupBuy> getGroupBuyList(int userId) {
+		List<GroupBuy> groupBuys = groupBuyDao.getGroupBuyList();
+		List<Integer> likedGroupBuyIds = likeDao.getLikedGroupBuyIdList(userId);
+		for (GroupBuy groupBuy : groupBuys) {
+			int id = groupBuy.getGroupBuyId();
+			groupBuy.setLiked(0);
+			for (int likedGroupBuyId : likedGroupBuyIds) {
+				if (id == likedGroupBuyId) {
+					groupBuy.setLiked(1);
+					break;
+				}
+			}
+		}
+		return groupBuys;
 	}
 
 	public List<GroupBuy> getGroupBuyListByUserId(int userId) {

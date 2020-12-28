@@ -113,10 +113,9 @@ public class AuctionServiceImpl implements AuctionService {
 	}
 
 	@Transactional
-	public List<Auction> deleteAuction(int auctionId) {
-		fileDao.deleteAuctionImgs(auctionId);
+	public List<Auction> deleteAuction(int auctionId, int userId) {
 		auctionDao.deleteAuction(auctionId);			
-		return auctionDao.getAuctionList();
+		return getAuctionList(userId);
 	}
 	
 	public boolean isAuctionClosed(int auctionId, Date endDate) {

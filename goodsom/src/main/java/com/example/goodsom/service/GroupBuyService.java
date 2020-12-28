@@ -26,7 +26,7 @@ public interface GroupBuyService {
 	
 	public void updateOptions(GroupBuy groupBuy);
 	
-	public List<GroupBuy> getGroupBuyList();
+	public List<GroupBuy> getGroupBuyList(int userId);
 	
 	public List<GroupBuy> getGroupBuyListByUserId(int userId);
 	

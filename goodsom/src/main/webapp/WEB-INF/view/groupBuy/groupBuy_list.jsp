@@ -6,6 +6,8 @@
 
 <%@ include file="../includeTop.jsp" %> 
 
+<script src="<c:url value="/assets/js/clickLikeInList.js"/>"></script>
+
 <body>
 
  <%@ include file="../header.jsp" %> 
@@ -32,8 +34,16 @@
               <figure style="background: white; text-align: center;">
 					<img src="${groupBuy.imgs_g[0].url}" class="img-fluid" alt="" style="height: 100%;">
                 <a href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
-                <a href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/></c:url>" 
-                	class="link-details" title="More Details"><i class="bx bx-link"></i></a>
+                <a href="javascript:void(0);" onclick="changeHeartGroupBuy(${groupBuy.groupBuyId}, ${loginUserId}); return false;" class="link-details" title="좋아요">
+              		<c:choose>
+              			<c:when test="${groupBuy.liked eq 0}">
+		              		<i id="i_like_${groupBuy.groupBuyId}" class="bx bx-heart"></i>
+              			</c:when>
+              			<c:otherwise>
+							<i id="i_like_${groupBuy.groupBuyId}" class="bx bxs-heart"></i>             			
+              			</c:otherwise>
+              		</c:choose>
+              	</a>
               </figure>
               
               <div class="portfolio-info" style="height: 105px;">

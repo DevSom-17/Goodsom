@@ -44,8 +44,11 @@ public class DetailGroupBuyController {
 		ModelAndView mav = new ModelAndView(GROUPBUY_LIST);
 		List<GroupBuy> groupBuyList = null;
 		
+		UserSession user  = (UserSession)request.getSession().getAttribute("userSession");
+		int loginUserId = user.getUser().getUserId();
+		mav.addObject("loginUserId", loginUserId);
 		// db
-		groupBuyList = groupBuyService.getGroupBuyList();
+		groupBuyList = groupBuyService.getGroupBuyList(loginUserId);
 		
 		if (groupBuyList == null) {
 			System.out.println("[DetailGroupBuyController] groupBuyList가 null");
