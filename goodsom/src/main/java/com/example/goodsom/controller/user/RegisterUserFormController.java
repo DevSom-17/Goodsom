@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.goodsom.service.UserService;
-import com.example.goodsom.validator.UserFormValidator;
+import com.example.goodsom.validator.RegisterValidator;
 
 /**
  * @author kimdahyee | Seonmi Hwang
@@ -62,7 +62,7 @@ public class RegisterUserFormController {
 	public String onSubmit(HttpServletRequest request, HttpSession session,
 			@ModelAttribute("userForm") UserForm userForm, BindingResult result, Model model) throws Exception {
 		
-		new UserFormValidator().validate(userForm, result);
+		new RegisterValidator().validate(userForm, result);
 		
 		// 같은 이메일 아이디가 이미 존재할 경우 다시 form 띄움
 		if (userService.getUserByEmail(userForm.getUser().getEmail()) != null) {

@@ -118,7 +118,7 @@
 				<form:form modelAttribute="userForm" method="POST" onsubmit="return emailCheck()" action="register.do" class="bg-light p-5 contact-form">
 
 					<div class="form-group">
-						<label for="name">이메일</label> 
+						<label for="name">이메일</label> <span style="color:red">*</span>
 						<form:input path="user.email" class="form-control" placeholder="ex) 20170000@dongduk.ac.kr" />
 						<form:errors path="user.email" cssClass="error" />
 						<form:errors cssClass="error" />
@@ -129,7 +129,7 @@
 					</div>
 					
 					<div class="form-group">
-						<label for="name">인증번호</label> 
+						<label for="name">인증번호</label> <span style="color:red">*</span>
 						<form:input path="user.code" class="form-control" placeholder="ex) D2f24fd1" />
 					</div>
 					
@@ -138,38 +138,38 @@
 					</div>
 
 					<div class="form-group">
-						<label for="name">비밀번호</label> 
+						<label for="name">비밀번호</label> <span style="color:red">*</span>
 						<form:input path="user.passwd" type="password" class="form-control" placeholder="비밀번호" />
 						<form:errors path="user.passwd" cssClass="error" />
 					</div>
 
 					<div class="form-group">
-						<label for="name">비밀번호 확인</label> 
+						<label for="name">비밀번호 확인</label> <span style="color:red">*</span>
 						<form:input path="repeatedPassword" type="password" class="form-control" placeholder="비밀번호 확인" />
 						<form:errors path="repeatedPassword" cssClass="error" />
 					</div>
 
 					<div class="form-group">
-						<label for="name">이름</label> 
+						<label for="name">이름</label> <span style="color:red">*</span>
 						<form:input path="user.userName" class="form-control" placeholder="ex) 홍길동" />
 						<form:errors path="user.userName" cssClass="error" />
 					</div>
 					
 					<div class="form-group">
-						<label for="name">닉네임</label>
+						<label for="name">닉네임</label> <span style="color:red">*</span>
 						<form:input path="user.nickname" class="form-control" placeholder="ex) 솜솜이" />
 						<form:errors path="user.nickname" cssClass="error" />
 					</div>
 
 					<div class="form-group">
-						<label for="name" style="display: block;">전화번호</label> 
+						<label for="name" style="display: block;">전화번호 <span style="color:red">*</span> </label> 
 						<form:input path="user.phone" id="inputPhoneNumber" class="form-control" placeholder="ex) 010-0000-0000" style="width: 50%; float: left; display: block;"/>
 						<input type="button" id="sendPhoneNumber" value="인증번호 발송" onClick="sendSMS()" style="display: block; margin-inline-start: auto;"/>
 						<form:errors path="user.phone" id="inputPhoneNumber" cssClass="error" />
 					</div>
 					
 					<div class="form-group">
-						<label for="name" style="display: block;">인증번호</label> 
+						<label for="name" style="display: block;">인증번호 <span style="color:red">*</span> </label> 
 						<input type="text" id="inputCertifiedNumber" class="form-control" disabled style="width: 50%; float: left; display: block;"/>
 						<input type="button" id="checkBtn" value="확인" style="display: block; margin-inline-start: auto;" disabled/>
 					</div>

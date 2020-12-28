@@ -53,9 +53,15 @@
 								</div>
 								
 						        <div class="form-group">
-									<label for="password">비밀번호</label> &emsp;
-									<form:input path="user.passwd" type="password" class="form-control" />
-									<form:errors path="user.passwd" cssClass="error" /><br/>
+									<label for="password">기존 비밀번호 입력</label> <span style="color:red">*</span>
+									<form:input path="repeatedOriginPassword" type="password" class="form-control" />
+									<form:errors cssClass="error" />
+								</div>
+								
+								<div class="form-group">
+									<label for="password">새 비밀번호</label> &emsp;
+									<form:input path="newPassword" type="password" class="form-control" />
+									<form:errors path="newPassword" cssClass="error" /><br/>
 								</div>
 								
 								<div class="form-group">	

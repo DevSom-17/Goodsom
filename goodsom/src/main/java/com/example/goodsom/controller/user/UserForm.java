@@ -1,5 +1,7 @@
 package com.example.goodsom.controller.user;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import com.example.goodsom.domain.User;
 
 /**
@@ -10,6 +12,8 @@ public class UserForm {
 	
 	private User user;
 	private boolean newUser;
+	private String repeatedOriginPassword;
+	private String newPassword;
 	private String repeatedPassword;
 	
 	public UserForm() {
@@ -30,6 +34,30 @@ public class UserForm {
 		return newUser;
 	}
 	
+	public String getRepeatedOriginPassword() {
+		return repeatedOriginPassword;
+	}
+
+	public void setRepeatedOriginPassword(String repeatedOriginPassword) {
+		this.repeatedOriginPassword = repeatedOriginPassword;
+	}
+	
+	public boolean isOriginPasswordMatched(String repeatedOriginPassword) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		if (!encoder.matches(repeatedOriginPassword, user.getPasswd())) {
+			return false;
+		}
+		return true;
+	}
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+
 	public void setRepeatedPassword(String repeatedPassword) {
 		this.repeatedPassword = repeatedPassword;
 	}

@@ -1,5 +1,6 @@
 package com.example.goodsom.validator;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -12,7 +13,7 @@ import com.example.goodsom.domain.User;
  * @since 2020.06.28
  */
 
-public class UserFormValidator implements Validator {
+public class UserUpdateValidator implements Validator {
 	
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -28,16 +29,22 @@ public class UserFormValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "user.passwd", "required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "user.userName", "required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "user.nickname", "required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "repeatedOriginPassword", "required");
 		
 		User user = regReq.getUser();
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		if (!encoder.matches(regReq.getRepeatedOriginPassword(), user.getPasswd())) {
+			errors.rejectValue("repeatedOriginPassword", "notMatchOriginPassword");
+		}
 		
 		String emailRegax = "^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$";
 		if (!user.getEmail().equals("") && !user.getEmail().matches(emailRegax)) {
 			errors.rejectValue("user.email", "typeMismatch"); // email type 검증
 		}
 		
-		if (user.getPasswd() != null && user.getPasswd().length() > 0) {
-			if (!user.getPasswd().equals(regReq.getRepeatedPassword())) {
+		if (regReq.getNewPassword() != null && regReq.getNewPassword().length() > 0) {
+			if (!regReq.getNewPassword().equals(regReq.getRepeatedPassword())) {
 				errors.rejectValue("repeatedPassword", "invalidPassword");
 			}
 		}
