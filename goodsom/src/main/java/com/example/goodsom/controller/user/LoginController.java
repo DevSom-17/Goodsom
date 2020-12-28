@@ -71,13 +71,7 @@ public class LoginController {
 			return new ModelAndView(formViewName);
 		}
 
-		List<GroupBuy> recentGroupBuy = groupBuyService.getBestGroupBuyList();
-		List<Auction> recentAuction = auctionService.getBestAuctionList();
-		
 		User user = userService.getUserByEmail(loginForm.getEmail());
-
-		model.addAttribute("recentGroupBuy", recentGroupBuy);
-		model.addAttribute("recentAuction", recentAuction);
 		
 		System.out.println("LoginForm : " + loginForm);
 		
@@ -85,6 +79,14 @@ public class LoginController {
 			authenticator.authenticate(loginForm); // email과 password가 맞는지 검증
 			UserSession userSession = new UserSession(user);
 			session.setAttribute("userSession", userSession);
+			int loginUserId = userSession.getUser().getUserId();
+			
+			List<GroupBuy> recentGroupBuy = groupBuyService.getBestGroupBuyList(loginUserId);
+			List<Auction> recentAuction = auctionService.getBestAuctionList(loginUserId);
+
+			model.addAttribute("recentGroupBuy", recentGroupBuy);
+			model.addAttribute("recentAuction", recentAuction);
+			model.addAttribute("loginUserId", loginUserId);
 			return new ModelAndView("index");
 		} catch (AuthenticationException e) { // 검증 실패 시
 			

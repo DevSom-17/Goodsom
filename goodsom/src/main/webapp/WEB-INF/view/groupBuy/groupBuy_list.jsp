@@ -33,7 +33,9 @@
             <div class="portfolio-wrap">
               <figure style="background: white; text-align: center;">
 					<img src="${groupBuy.imgs_g[0].url}" class="img-fluid" alt="" style="height: 100%;">
-                <a href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
+                <c:forEach var="img" items="${groupBuy.imgs_g}" varStatus="status">
+					<a href="${img.url}" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
+				</c:forEach>
                 <a href="javascript:void(0);" onclick="changeHeartGroupBuy(${groupBuy.groupBuyId}, ${loginUserId}); return false;" class="link-details" title="좋아요">
               		<c:choose>
               			<c:when test="${groupBuy.liked eq 0}">

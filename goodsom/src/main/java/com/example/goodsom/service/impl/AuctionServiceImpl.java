@@ -33,7 +33,6 @@ import com.example.goodsom.service.NotiMailService;
 @Service
 @Component
 public class AuctionServiceImpl implements AuctionService {
-	private static final String CLOSED = "closed";
 	
 	@Autowired
 	private AuctionDao auctionDao;
@@ -79,7 +78,19 @@ public class AuctionServiceImpl implements AuctionService {
 	
 	@Override
 	public List<Auction> getAuctionListByUserId(int userId) {
-		return auctionDao.getAuctionListByUserId(userId);
+		List<Auction> auctions = auctionDao.getAuctionListByUserId(userId);
+		List<Integer> likedAuctionIds = likeDao.getLikedAuctionIdList(userId);
+		for (Auction auction : auctions) {
+			int id = auction.getAuctionId();
+			auction.setLiked(0);
+			for (int likedAuctionId : likedAuctionIds) {
+				if (id == likedAuctionId) {
+					auction.setLiked(1);
+					break;
+				}
+			}
+		}
+		return auctions;
 	}
 
 	@Transactional
@@ -126,8 +137,20 @@ public class AuctionServiceImpl implements AuctionService {
 		auctionDao.increaseCount(auction);
 	}
 	
-	public List<Auction> getBestAuctionList() {
-		return auctionDao.getBestAuctionList();
+	public List<Auction> getBestAuctionList(int userId) {
+		List<Auction> auctions = auctionDao.getBestAuctionList();
+		List<Integer> likedAuctionIds = likeDao.getLikedAuctionIdList(userId);
+		for (Auction auction : auctions) {
+			int id = auction.getAuctionId();
+			auction.setLiked(0);
+			for (int likedAuctionId : likedAuctionIds) {
+				if (id == likedAuctionId) {
+					auction.setLiked(1);
+					break;
+				}
+			}
+		}
+		return auctions;
 	}
 
 	@Scheduled(fixedDelay = 1000)
@@ -182,7 +205,19 @@ public class AuctionServiceImpl implements AuctionService {
 
 	@Override
 	public List<Auction> getLikedAuctionListByUserId(int userId) {
-		return auctionDao.getLikedAuctionListByUserId(userId);
+		List<Auction> auctions = auctionDao.getLikedAuctionListByUserId(userId);
+		List<Integer> likedAuctionIds = likeDao.getLikedAuctionIdList(userId);
+		for (Auction auction : auctions) {
+			int id = auction.getAuctionId();
+			auction.setLiked(0);
+			for (int likedAuctionId : likedAuctionIds) {
+				if (id == likedAuctionId) {
+					auction.setLiked(1);
+					break;
+				}
+			}
+		}
+		return auctions;
 	}
 	
 }

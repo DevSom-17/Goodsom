@@ -7,6 +7,8 @@
 
 <%@ include file="../includeTop.jsp"%>
 
+<script src="<c:url value="/assets/js/clickLikeInList.js"/>"></script>
+
 <body>
 
 	<%@ include file="../header.jsp"%>
@@ -30,43 +32,54 @@
 					<h3><b>공동구매</b></h3>
 					<br />
 					<div class="row portfolio-container">
-							<c:if test="${empty groupBuyList}">등록한 공동구매 게시글이 없습니다.</c:if>
+						<c:if test="${empty groupBuyList}">등록한 공동구매 게시글이 없습니다.</c:if>
 							<c:forEach var="groupBuy" items="${groupBuyList}" varStatus="status">
-							<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
-								<div class="portfolio-wrap">
-									<figure style="background: white; text-align: center;">
+					          <div class="col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp">
+					            <div class="portfolio-wrap">
+					              <figure style="background: white; text-align: center;">
 										<img src="${groupBuy.imgs_g[0].url}" class="img-fluid" alt="" style="height: 100%;">
-										<a
-											href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg"
-											data-gall="portfolioGallery" class="link-preview venobox"
-											title="Preview"><i class="bx bx-plus"></i></a>
-										<a
-											href="<c:url value='../groupBuy/detail.do'><c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/></c:url>"
-											class="link-details" title="More Details"><i
-											class="bx bx-link"></i></a>
-									</figure>
-
-									<div class="portfolio-info" style="height: 105px;">
-										<h4>
-											<a
-												href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
-							</c:url>">${groupBuy.title}</a>
-										</h4>
-
-										<div>
-											<span class="mx-2" style="float: left;">금액: <fmt:formatNumber
-													value="${groupBuy.price}" pattern="#,###원" />
-											</span> <br /> <span style="color: red; float: left;"><fmt:formatNumber
-													value="${groupBuy.rate}" />% 달성</span> <span
-												style="float: right;">&nbsp; 마감일: <fmt:formatDate
-													value="${groupBuy.endDate}" pattern="yyyy-MM-dd" />
-											</span>
-
+					                <a href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
+					                <a href="javascript:void(0);" onclick="changeHeartGroupBuy(${groupBuy.groupBuyId}, ${loginUserId}); return false;" class="link-details" title="좋아요">
+					              		<c:choose>
+					              			<c:when test="${groupBuy.liked eq 0}">
+							              		<i id="i_like_${groupBuy.groupBuyId}" class="bx bx-heart"></i>
+					              			</c:when>
+					              			<c:otherwise>
+												<i id="i_like_${groupBuy.groupBuyId}" class="bx bxs-heart"></i>             			
+					              			</c:otherwise>
+					              		</c:choose>
+					              	</a>
+					              </figure>
+					              
+					              <div class="portfolio-info" style="height: 105px;">
+					              	<div>
+					              		<h4><a href="<c:url value='/groupBuy/detail.do'><c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
+												</c:url>">${groupBuy.title}</a></h4>
+										<div style="float:left; color: #898a8c;">
+											<strong>금액</strong>: <fmt:formatNumber value="${groupBuy.price}" pattern="#,###원"/>
 										</div>
-									</div>
-								</div>
-							</div>
-						</c:forEach>
+										<div style="float:right; color: #2f94d8;">
+											<strong>달성률</strong>: <fmt:formatNumber value="${groupBuy.rate}" /> % 달성
+										</div>
+										<br/>
+										<div style="float:left; color: #898a8c;">
+											<strong>마감일</strong>: <fmt:formatDate value="${groupBuy.endDate}" pattern="yyyy-MM-dd" />
+										</div>
+										 
+					               		<c:if test="${groupBuy.state eq 'proceeding'}">
+											<span style ="color: #2f94d8; float:right; font-weight: bold;">진행 중</span>
+										</c:if>
+										<c:if test="${groupBuy.state eq 'achieved'}">
+											<span style ="color: #2f94d8; float:right; font-weight: bold;">달성</span>
+										</c:if>
+										<c:if test="${groupBuy.state eq 'closed'}">
+											<span style ="color: #ff5757; float:right; font-weight: bold;">마감</span>
+										</c:if>
+					               </div>
+					             </div>
+					          </div>
+					        </div>
+					    </c:forEach>
 					</div>
 
 					<br>
@@ -76,46 +89,56 @@
 					<h3><b>경매</b></h3>
 					<br />
 					<div class="row portfolio-container">
-							<c:if test="${empty auctionList}">등록한 경매 게시글이 없습니다.</c:if>
-							<c:forEach var="auction" items="${auctionList}"
-								varStatus="status">
-							<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
-								<div class="portfolio-wrap">
-									<figure style="background: white; text-align: center;">
-										<a href="<c:url value='../auction/detail.do'>
-											<c:param name="auctionId" value="${auction.auctionId}"/></c:url>">
-											<img src="${auction.imgs_a[0].url}" class="img-fluid" alt="" style="height: 100%;">
-										</a>
-										<a
-											href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg"
-											data-gall="portfolioGallery" class="link-preview venobox"
-											title="Preview"><i class="bx bx-plus"></i></a>
-										<a href="portfolio-details.html" class="link-details"
-											title="More Details"><i class="bx bx-link"></i></a>
-									</figure>
-
-
-									<div class="portfolio-info" style="height: 105px;">
-										<h4>
-											<a href="<c:url value='/auction/detail.do'>
-												<c:param name="auctionId" value="${auction.auctionId}"/>
-								 				</c:url>">${auction.title}
-								 			</a>
-										</h4>
-										<p>
-											현재 최고 금액
-											<fmt:formatNumber value="${auction.maxPrice}"
-												pattern="#,###원" />
-										</p>
-										<p class="portfolio-info-endDate">
-											~
-											<fmt:formatDate value="${auction.endDate}"
-												pattern="yyyy-MM-dd" />
-										</p>
-									</div>
-								</div>
-							</div>
-						</c:forEach>
+						<c:if test="${empty auctionList}">등록한 경매 게시글이 없습니다.</c:if>
+						<c:forEach var="auction" items="${auctionList}" varStatus="status">
+				          <div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
+				            <div class="portfolio-wrap">
+				              <figure style="background: white; text-align: center;">
+				              	<a href="<c:url value='/auction/detail.do'>
+									<c:param name="auctionId" value="${auction.auctionId}"/></c:url>">
+									<img src="${auction.imgs_a[0].url}" class="img-fluid" alt="" style="height: 100%;">
+								</a>
+								<c:forEach var="img" items="${auction.imgs_a}" varStatus="status">
+									<a href="${img.url}" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
+								</c:forEach>
+				                <a href="javascript:void(0);" onclick="changeHeartAuction(${auction.auctionId}, ${loginUserId}); return false;" class="link-details" title="좋아요">
+				              		<c:choose>
+				              			<c:when test="${auction.liked eq 0}">
+						              		<i id="i_like_${auction.auctionId}" class="bx bx-heart"></i>
+				              			</c:when>
+				              			<c:otherwise>
+											<i id="i_like_${auction.auctionId}" class="bx bxs-heart"></i>             			
+				              			</c:otherwise>
+				              		</c:choose>
+				              	</a>
+				              </figure>
+				              
+				
+				              <div class="portfolio-info" style="height: 105px;">
+								<div>
+					                <h4><a href="<c:url value='/auction/detail.do'><c:param name="auctionId" value="${auction.auctionId}"/>
+												 </c:url>">${auction.title}</a></h4>
+										<div style="float:left; color: #898a8c;">
+											<strong>시작가</strong>: <fmt:formatNumber value="${auction.startPrice}" pattern="#,###원"/>
+										</div>
+										<div style="float:right; color: #898a8c;">
+											<strong>최고가</strong>: <fmt:formatNumber value="${auction.maxPrice}" pattern="#,###원"/>
+										</div>
+										<br/>
+										<div style="float:left; color: #898a8c;">
+											<strong>마감일</strong>: <fmt:formatDate value="${auction.endDate}" pattern="yyyy-MM-dd" />
+										</div>
+										<c:if test="${auction.state eq 'proceeding'}">
+											<span style ="color: #2f94d8; float:right; font-weight: bold;">진행 중</span>
+										</c:if>
+										<c:if test="${auction.state eq 'closed'}">
+											<span style ="color: #ff5757; float:right; font-weight: bold;">마감</span>
+										</c:if>
+					              </div>
+					            </div>
+					          </div>
+				         	</div>
+				         </c:forEach>
 					</div>
 				</c:if>
 

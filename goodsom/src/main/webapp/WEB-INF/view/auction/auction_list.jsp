@@ -55,7 +55,6 @@
 				</a>
 				<c:forEach var="img" items="${auction.imgs_a}" varStatus="status">
 					<a href="${img.url}" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
-	                <%-- <a href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a> --%>
 				</c:forEach>
                 <a href="javascript:void(0);" onclick="changeHeartAuction(${auction.auctionId}, ${loginUserId}); return false;" class="link-details" title="좋아요">
               		<c:choose>
@@ -90,9 +89,9 @@
 						<c:if test="${auction.state eq 'closed'}">
 							<span style ="color: #ff5757; float:right; font-weight: bold;">마감</span>
 						</c:if>
-              </div>
-            </div>
-          </div>
+	              </div>
+	            </div>
+	          </div>
          	</div>
          </c:forEach>
       	 </div>

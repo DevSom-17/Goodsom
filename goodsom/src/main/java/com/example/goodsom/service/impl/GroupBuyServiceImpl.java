@@ -122,15 +122,39 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	}
 
 	public List<GroupBuy> getGroupBuyListByUserId(int userId) {
-		return groupBuyDao.getGroupBuyListByUserId(userId);
+		List<GroupBuy> groupBuys = groupBuyDao.getGroupBuyListByUserId(userId);
+		List<Integer> likedGroupBuyIds = likeDao.getLikedGroupBuyIdList(userId);
+		for (GroupBuy groupBuy : groupBuys) {
+			int id = groupBuy.getGroupBuyId();
+			groupBuy.setLiked(0);
+			for (int likedGroupBuyId : likedGroupBuyIds) {
+				if (id == likedGroupBuyId) {
+					groupBuy.setLiked(1);
+					break;
+				}
+			}
+		}
+		return groupBuys;
 	}
 
 	public void increaseCount(GroupBuy groupBuy) {
 		groupBuyDao.increaseCount(groupBuy);
 	}
 	
-	public List<GroupBuy> getBestGroupBuyList() {
-		return groupBuyDao.getBestGroupBuyList();
+	public List<GroupBuy> getBestGroupBuyList(int userId) {
+		List<GroupBuy> groupBuys = groupBuyDao.getBestGroupBuyList();
+		List<Integer> likedGroupBuyIds = likeDao.getLikedGroupBuyIdList(userId);
+		for (GroupBuy groupBuy : groupBuys) {
+			int id = groupBuy.getGroupBuyId();
+			groupBuy.setLiked(0);
+			for (int likedGroupBuyId : likedGroupBuyIds) {
+				if (id == likedGroupBuyId) {
+					groupBuy.setLiked(1);
+					break;
+				}
+			}
+		}
+		return groupBuys;
 	}
 	
 	@Scheduled(fixedDelay = 1000)	// 1초마다
@@ -232,7 +256,19 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 
 	@Override
 	public List<GroupBuy> getLikedGroupBuyListByUserId(int userId) {
-		return groupBuyDao.getLikedGroupBuyListByUserId(userId);
+		List<GroupBuy> groupBuys = groupBuyDao.getLikedGroupBuyListByUserId(userId);
+		List<Integer> likedGroupBuyIds = likeDao.getLikedGroupBuyIdList(userId);
+		for (GroupBuy groupBuy : groupBuys) {
+			int id = groupBuy.getGroupBuyId();
+			groupBuy.setLiked(0);
+			for (int likedGroupBuyId : likedGroupBuyIds) {
+				if (id == likedGroupBuyId) {
+					groupBuy.setLiked(1);
+					break;
+				}
+			}
+		}
+		return groupBuys;
 	}
 
 }

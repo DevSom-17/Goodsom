@@ -44,6 +44,7 @@ public class ListMypageController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("user/mypage_list");
 		int userId = userSession.getUser().getUserId();
+		mav.addObject("loginUserId", userId);	// 좋아요를 위해 필요한 변수
 
 		if (listType == null) {
 			listType = 1;
