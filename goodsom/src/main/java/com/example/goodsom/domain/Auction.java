@@ -52,6 +52,7 @@ public class Auction implements Serializable {
 	List<Bid> bids = new ArrayList<Bid>();
 	List<Image_a> imgs_a = new ArrayList<Image_a>();
 	int likeCount;
+	int liked;
 	
 	public Auction() {
 	}
@@ -214,6 +215,14 @@ public class Auction implements Serializable {
 	public void setLikeCount(int likeCount) {
 		this.likeCount = likeCount;
 	}
+	
+	public int getLiked() {
+		return liked;
+	}
+
+	public void setLiked(int liked) {
+		this.liked = liked;
+	}
 
 	public void initAuction(User user) {
 		Calendar calendar = Calendar.getInstance();
@@ -228,6 +237,7 @@ public class Auction implements Serializable {
         receive = 0;				// 수령 여부
         sendNoti = 0;				// 알림 안 보냄
         likeCount = 0;				// 좋아요 수
+        liked = 0;					// 로그인 한 사용자가 좋아요를 눌렀는지
 	}
 	
 	public void timeSet() {
@@ -290,7 +300,8 @@ public class Auction implements Serializable {
 				+ "startPrice=" + startPrice + ", uploadDate=" + uploadDate + ", endDate=" + endDate
 				+ ", count=" + count + ", maxPrice=" + maxPrice + ", state=" + state + ", receive=" + receive
 				+ ", menuId=" + menuId + ", userId=" + userId + ", isAmPm=" + isAmPm + ", hour=" + hour + ", minute="
-				+ minute + ", sendNoti=" + sendNoti + ", bids의 크기=" + bids.size() + ", imgs_a의 크기=" + imgs_a.size() + "]";
+				+ minute + ", sendNoti=" + sendNoti + ", bids의 크기=" + bids.size() + ", imgs_a의 크기=" + imgs_a.size()
+				+ "liked: " + liked + "]";
 	}
 	
 	

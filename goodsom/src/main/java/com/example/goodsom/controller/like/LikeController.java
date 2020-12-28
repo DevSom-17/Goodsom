@@ -20,7 +20,6 @@ public class LikeController {
     @RequestMapping("/clickLikeAuction.do")
     @ResponseBody
     public Map<String,Object> clickLikeAuction(@RequestParam Map<String,Object> commandMap){
-        System.out.println("request: /clickLikeAuction.do");
         int resultCode = 1;
         int likeCheck = 1;
         int auctionId = Integer.valueOf((String)commandMap.get("auctionId"));

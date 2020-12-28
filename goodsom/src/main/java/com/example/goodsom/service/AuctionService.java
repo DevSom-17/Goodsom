@@ -25,7 +25,7 @@ public interface AuctionService {
 	
 	List<Auction> deleteAuction(int auctionId);
 	
-	List<Auction> getAuctionList();
+	List<Auction> getAuctionList(int userId);
 	
 	List<Auction> getAuctionListByUserId(int userId);
 	

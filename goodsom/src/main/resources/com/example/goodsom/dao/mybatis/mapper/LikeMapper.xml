@@ -55,9 +55,22 @@
   	DELETE FROM LIKES_A
   	WHERE USERID = #{userId}
   </delete>
+  
   <delete id="deletelikesByUserId_g" parameterType="java.lang.Integer">
   	DELETE FROM LIKES_G
   	WHERE USERID = #{userId}
   </delete>
+  
+  <select id="getLikedAuctionIdList" resultType="java.lang.Integer">
+  	SELECT AUCTIONID
+  	FROM LIKES_A
+  	WHERE USERID = #{userId}
+  </select>
+  
+  <select id="getLikedGroupBuyIdList" resultType="java.lang.Integer">
+  	SELECT GROUPBUYID
+  	FROM LIKES_G
+  	WHERE USERID = #{userId}
+  </select>
   
 </mapper>

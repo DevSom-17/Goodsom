@@ -6,6 +6,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <%@ include file="../includeTop.jsp"%>
+
 <style>
 .btn-submit {
 	position: relative;
@@ -207,13 +208,13 @@ function orderAuction() {
 		
 	</main>
 	<!-- End #main -->
-	<script>
+<script>
 /* JSP SCRIPT */
 var auctionId = ${auction.auctionId};
 var userId = ${loginUserId};
  
 var btn_like = document.getElementById("btn_like");
- btn_like.onclick = function(){ changeHeart(); }
+btn_like.onclick = function(){ changeHeart(); }
  
 /* 좋아요 버튼 눌렀을떄 */
 function changeHeart(){ 
@@ -245,4 +246,4 @@ function changeHeart(){
         });
  }
 </script>
-	<%@ include file="../includeBottom.jsp"%>
+<%@ include file="../includeBottom.jsp"%>

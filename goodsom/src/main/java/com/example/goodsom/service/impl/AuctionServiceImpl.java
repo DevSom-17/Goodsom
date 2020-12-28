@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.goodsom.dao.AuctionDao;
 import com.example.goodsom.dao.BidDao;
 import com.example.goodsom.dao.FileDao;
+import com.example.goodsom.dao.LikeDao;
 import com.example.goodsom.dao.NotificationDao;
 import com.example.goodsom.dao.UserDao;
 import com.example.goodsom.domain.Auction;
@@ -52,14 +53,28 @@ public class AuctionServiceImpl implements AuctionService {
 	@Autowired
 	private UserDao userDao;
 	
+	@Autowired
+	private LikeDao likeDao;
+	
 	public Auction getAuction(int auctionId) throws DataAccessException {
 		Auction auction = auctionDao.getAuction(auctionId);
-//		auction.setImgs_a(fileDao.getAuctionImgs(auctionId));
 		return auction;
 	}
 	
-	public List<Auction> getAuctionList() {
-		return auctionDao.getAuctionList();
+	public List<Auction> getAuctionList(int userId) {
+		List<Auction> auctions = auctionDao.getAuctionList();
+		List<Integer> likedAuctionIds = likeDao.getLikedAuctionIdList(userId);
+		for (Auction auction : auctions) {
+			int id = auction.getAuctionId();
+			auction.setLiked(0);
+			for (int likedAuctionId : likedAuctionIds) {
+				if (id == likedAuctionId) {
+					auction.setLiked(1);
+					break;
+				}
+			}
+		}
+		return auctions;
 	}
 	
 	@Override

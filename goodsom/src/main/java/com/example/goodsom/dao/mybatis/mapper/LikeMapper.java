@@ -1,5 +1,7 @@
 package com.example.goodsom.dao.mybatis.mapper;
 
+import java.util.List;
+
 import org.springframework.dao.DataAccessException;
 
 public interface LikeMapper {
@@ -23,4 +25,8 @@ public interface LikeMapper {
 	void deletelikesByUserId_a(int userId) throws DataAccessException;
 	
 	void deletelikesByUserId_g(int userId) throws DataAccessException;
+	
+	List<Integer> getLikedAuctionIdList(int userId) throws DataAccessException;
+
+	List<Integer> getLikedGroupBuyIdList(int userId) throws DataAccessException;
 }

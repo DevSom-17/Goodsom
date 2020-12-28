@@ -1,5 +1,7 @@
 package com.example.goodsom.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -52,6 +54,16 @@ public class LikeServiceImpl implements LikeService {
 	@Override
 	public void unlikeGroupBuy(int userId, int groupBuyId) {
 		likeDao.unlikeGroupBuy(userId, groupBuyId);
+	}
+
+	@Override
+	public List<Integer> getLikedAuctionIdList(int userId) {
+		return likeDao.getLikedAuctionIdList(userId);
+	}
+
+	@Override
+	public List<Integer> getLikedGroupBuyIdList(int userId) {
+		return likeDao.getLikedGroupBuyIdList(userId);
 	}
 
 }

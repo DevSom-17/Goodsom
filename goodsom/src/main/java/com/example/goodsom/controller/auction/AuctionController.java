@@ -47,10 +47,15 @@ public class AuctionController {
 	LikeService likeService;
 	
 	@RequestMapping(value="/auction/list.do", method=RequestMethod.GET)
-	public ModelAndView auctionList(SessionStatus sessionStatus, HttpSession session){
+	public ModelAndView auctionList(HttpServletRequest request, SessionStatus sessionStatus, HttpSession session){
 		ModelAndView mav = new ModelAndView(AUCTION_LIST);
 		List<Auction> auctionList = null;
-		auctionList = auctionService.getAuctionList();
+		
+		UserSession user  = (UserSession)request.getSession().getAttribute("userSession");
+		int loginUserId = user.getUser().getUserId();
+		mav.addObject("loginUserId", loginUserId);
+
+		auctionList = auctionService.getAuctionList(loginUserId);
 		if (auctionList == null) {
 			System.out.println("[DetailAuctionController] auctionList가 null");
 		} else {

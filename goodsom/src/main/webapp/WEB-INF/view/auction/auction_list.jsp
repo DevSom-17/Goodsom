@@ -5,6 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <%@ include file="../includeTop.jsp" %> 
+<script src="<c:url value="/assets/js/clickLikeAuctionInList.js"/>"></script>
 <style>
 .btn-submit {
 	position: relative;
@@ -54,7 +55,16 @@
 					<a href="${img.url}" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
 	                <%-- <a href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a> --%>
 				</c:forEach>
-                <a href="portfolio-details.html" class="link-details" title="More Details"><i class="bx bx-link"></i></a>
+                <a href="javascript:void(0);" onclick="changeHeart(${auction.auctionId}, ${loginUserId}); return false;" class="link-details" title="좋아요">
+              		<c:choose>
+              			<c:when test="${auction.liked eq 0}">
+		              		<i id="i_like_${auction.auctionId}" class="bx bx-heart"></i>
+              			</c:when>
+              			<c:otherwise>
+							<i id="i_like_${auction.auctionId}" class="bx bxs-heart"></i>             			
+              			</c:otherwise>
+              		</c:choose>
+              	</a>
               </figure>
               
 

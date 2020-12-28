@@ -256,13 +256,13 @@ function delItem(id) {
 	   	<a class="btn-submit" href="<c:url value='/groupBuy/list.do'></c:url>">목록</a>
 	    </div>
 
-	<script>
+<script>
 /* JSP SCRIPT */
 var groupBuyId = ${groupBuy.groupBuyId};
 var userId = ${loginUserId};
  
 var btn_like = document.getElementById("btn_like");
- btn_like.onclick = function(){ changeHeart(); }
+btn_like.onclick = function(){ changeHeart(); }
  
 /* 좋아요 버튼 눌렀을떄 */
 function changeHeart(){ 
@@ -294,4 +294,5 @@ function changeHeart(){
         });
  }
 </script>
+
 <%@ include file="../includeBottom.jsp" %> 
