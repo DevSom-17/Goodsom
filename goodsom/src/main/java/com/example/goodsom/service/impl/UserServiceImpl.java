@@ -11,10 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.goodsom.controller.mypage.ReportForm;
 import com.example.goodsom.controller.user.CreateReportForm;
 import com.example.goodsom.dao.AuctionDao;
-import com.example.goodsom.dao.BidDao;
 import com.example.goodsom.dao.GroupBuyDao;
-import com.example.goodsom.dao.LikeDao;
-import com.example.goodsom.dao.NotificationDao;
 import com.example.goodsom.dao.ReportDao;
 import com.example.goodsom.dao.UserDao;
 import com.example.goodsom.domain.Auction;
@@ -46,10 +43,6 @@ public class UserServiceImpl implements UserService {
 
 	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-	
-//	public User getUser(String email, String password) {
-//		return userDao.getUser(email, password);
-//	}
 	
 	@Override
 	public User getUserByEmail(String email) {
@@ -95,16 +88,6 @@ public class UserServiceImpl implements UserService {
 	public List<Order> getGroupBuyOrderList(int userId) { // 마이페이지 결제 목록 보기
 		return userDao.getGroupBuyOrderList(userId);
 	}
-	
-//	@Override	
-//	public List<GroupBuy> getGroupBuyList(int userId) { // 마이페이지 공동구매 등록 목록 보기
-//		return userDao.getGroupBuyList(userId);
-//	}
-	
-//	@Override	
-//	public List<Auction> getAuctionList(int userId) { // 마이페이지 경매 등록 목록 보기
-//		return userDao.getAuctionList(userId);
-//	}
 	
 	public ReportForm getReportList(int userId) throws DataAccessException {
 		List<String> reportList = reportDao.getReportList(userId);

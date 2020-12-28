@@ -10,7 +10,7 @@ import com.example.goodsom.domain.User;
 
 /**
  * @author Seonmi Hwang
- * @since 2020.06.28
+ * @since 2020.06.28	| 2020.12.27
  */
 
 public class UserUpdateValidator implements Validator {

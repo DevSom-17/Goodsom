@@ -41,6 +41,7 @@
 <!--           </div> -->
 
           <div class="col-lg-3 col-md-6 footer-links">
+          	<br>
               <h4>Programmer</h4>
               <ul>
 	              <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/hyekyung-kim">Hyekyung Kim</a></li>

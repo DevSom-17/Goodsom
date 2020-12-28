@@ -148,7 +148,7 @@ function orderAuction() {
 												
 												<c:if test="${completeOrder ne 1 && successBidderUserId eq userSession.user.userId}">
 													&nbsp;&nbsp; <!-- 아래 버튼은 낙찰자만 볼 수 있도록 -->
-													<input type="button" value="결제하기" onClick="orderAuction()" style="margin-inline-start: auto;"> 
+													<input type="button" value="구매하기" onClick="orderAuction()" style="margin-inline-start: auto;"> 
 												</c:if>
 											</c:if>
 										</div>

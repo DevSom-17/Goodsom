@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.example.goodsom.controller.user.CreateReportForm;
 
+/**
+ * @author Seonmi Hwang
+ * @since 2020.11.25
+ */
+
 public interface ReportMapper {
 
 	List<String> getReportList(int userId); // 신고 현황 상세 페이지

@@ -1,5 +1,10 @@
 package com.example.goodsom.controller.user;
 
+/**
+ * @author Seonmi Hwang
+ * @since 2020.11.25
+ */
+
 public class CreateReportForm {
 	private int id;
 	private int reporterId; // 신고자

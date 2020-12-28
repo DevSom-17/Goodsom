@@ -6,8 +6,6 @@ import org.springframework.dao.DataAccessException;
 
 import com.example.goodsom.controller.mypage.ReportForm;
 import com.example.goodsom.controller.user.CreateReportForm;
-import com.example.goodsom.domain.Auction;
-import com.example.goodsom.domain.GroupBuy;
 import com.example.goodsom.domain.Order;
 import com.example.goodsom.domain.User;
 
@@ -18,8 +16,6 @@ import com.example.goodsom.domain.User;
 
 public interface UserService {
 
-//	User getUser(String emailId, String password); // 로그인 시 사용
-	
 	User getUserByEmail(String email);
 	
 	User getUserByUserId(int userId) throws DataAccessException;
@@ -33,10 +29,6 @@ public interface UserService {
 	List<Order> getAuctionOrderList(int userId);
 	
 	List<Order> getGroupBuyOrderList(int userId);
-	
-//	List<GroupBuy> getGroupBuyList(int userId); // 마이페이지 공동구매 등록 목록 보기
-	
-//	List<Auction> getAuctionList(int userId); // 마이페이지 경매 등록 목록 보기
 	
 	ReportForm getReportList(int userId); // 신고 현황 상세 페이지
 	

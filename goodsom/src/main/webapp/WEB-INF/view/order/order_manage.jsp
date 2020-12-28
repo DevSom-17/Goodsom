@@ -15,6 +15,22 @@ j<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
 	table tr {
 		text-align : center;
 	}
+	
+	.btn-submit {
+	position: relative;
+	top: 0;
+	right: 5px;
+	bottom: 0;
+	border: 0;
+	background: none;
+	font-size: 16px;
+	padding: 8px 30px;
+	background: #3498db;
+	color: #fff;
+	transition: 0.3s;
+	border-radius: 0px 0px 0px 0px;
+	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+	}
 </style>
 
 
@@ -120,16 +136,17 @@ j<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
 												</tbody>
 											</table>
 										</div>
+										<br>
 										<div class="text text-right">
 											<c:if test="${!empty groupBuy}">
-												<input type="button" class="btn btn-primary py-3 px-5" onclick="button_click()" value="수정완료">
-												<a class="btn btn-primary py-3 px-5" href="<c:url value='../../groupBuy/detail.do'>
+												<input type="button" class="btn-submit" onclick="button_click()" value="수정완료">
+												<a class="btn-submit" href="<c:url value='../../groupBuy/detail.do'>
 																							<c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/>
 									 					 								   </c:url>">뒤로가기</a>
 									 		</c:if>
 									 		<c:if test="${!empty auction}">
-									 			<input type="button" class="btn btn-primary py-3 px-5" onclick="button_click()" value="수정완료">
-												<a class="btn btn-primary py-3 px-5" href="<c:url value='../../auction/detail.do'>
+									 			<input type="button" class="btn-submit" onclick="button_click()" value="수정완료">
+												<a class="btn-submit" href="<c:url value='../../auction/detail.do'>
 																							<c:param name="auctionId" value="${auction.auctionId}"/>
 																	 					   </c:url>">뒤로가기</a>
 									 		</c:if>

@@ -18,6 +18,11 @@ import org.springframework.web.util.WebUtils;
 import com.example.goodsom.domain.User;
 import com.example.goodsom.service.UserService;
 
+/**
+ * @author Seonmi Hwang
+ * @since 2020.11.25
+ */
+
 @Controller
 @RequestMapping("/report/create.do")
 public class CreateReportController {

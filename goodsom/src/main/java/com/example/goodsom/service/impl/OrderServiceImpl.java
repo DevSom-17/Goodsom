@@ -87,8 +87,6 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	
-	/* Business Logic (?) */
-	
 	public List<Order> setAuctionInfo(List<Order> auctionOrderList) {
 		
 		if (auctionOrderList == null) {

@@ -24,12 +24,14 @@ public class DetailOrderController {
 	@Autowired
 	OrderService orderService;
 	
+	private static final String detailView = "order/order_detail";
+	
 	@RequestMapping("/order/groupBuy/detail.do")
 	public ModelAndView groupBuyHandleRequest( // 공동구매
 			@ModelAttribute("userSession") UserSession userSession,
 			@RequestParam("orderId") int orderId) throws Exception {
 		
-			ModelAndView mav = new ModelAndView("order/payment_detail");
+			ModelAndView mav = new ModelAndView(detailView);
 			Order order = orderService.getOrderWithLineGroupBuys(orderId);
 			
 			order.setGroupBuy(orderService.getGroupBuy(orderId));
@@ -43,7 +45,7 @@ public class DetailOrderController {
 			@ModelAttribute("userSession") UserSession userSession,
 			@RequestParam("orderId") int orderId) throws Exception {
 		
-			ModelAndView mav = new ModelAndView("order/payment_detail");
+			ModelAndView mav = new ModelAndView(detailView);
 			Order order = orderService.getOrder(orderId);
 
 			order.setAuction(orderService.getAuction(orderId));

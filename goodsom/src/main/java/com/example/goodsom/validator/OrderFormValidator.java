@@ -28,7 +28,6 @@ public class OrderFormValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.bank", "required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.account", "required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.address", "required");
-//		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.postcode", "required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "order.depositTime", "required");
 		
 		String phone = regReq.getOrder().getPhone();

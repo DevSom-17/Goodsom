@@ -11,6 +11,21 @@
 		color: #ff0000;
 		/* font-weight: bold; */
 	}
+	.btn-submit {
+	position: relative;
+	top: 0;
+	right: 5px;
+	bottom: 0;
+	border: 0;
+	background: none;
+	font-size: 16px;
+	padding: 8px 30px;
+	background: #3498db;
+	color: #fff;
+	transition: 0.3s;
+	border-radius: 0px 0px 0px 0px;
+	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+	}
 </style>
 
 <body>
@@ -23,7 +38,7 @@
       <div class="container">
 
         <div class="section-title">
-          <h2>입금 진행</h2>
+          <h2>구매 진행</h2>
         </div>
 
 		<div class="site-section">
@@ -216,8 +231,8 @@
 							<br />
 
 							<div class="form-group" align="center">
-								<a class="btn btn-primary py-3 px-5" href="javascript:history.back()">취소</a> &nbsp; 
-								<input type="submit" value="결제" class="btn btn-primary py-3 px-5"> 
+								<a class="btn-submit" href="javascript:history.back()">취소</a> &nbsp; 
+								<input type="submit" value="완료" class="btn-submit"> 
 							</div>
 						</form:form>
 					</div>
