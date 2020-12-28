@@ -21,6 +21,11 @@
 	function emailSubmit(){
 		var emailId = document.getElementById('user.email').value;
 		var reqUrl = "/email/send";
+
+		if(emailId.split('@')[1] != 'dongduk.ac.kr'){
+			alert("이메일은 @dongduk.ac.kr 형태여야 합니다.");
+			return;
+		}
 		
 		$.ajax({
 			type: 'post',
