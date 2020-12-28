@@ -5,6 +5,11 @@ import java.util.List;
 
 import com.example.goodsom.domain.Order;
 
+/**
+ * @author Seonmi Hwang
+ * @since 2020.12.16
+ */
+
 public class OrderListForm {
 	private int groupBuyId;
 	private int auctionId;

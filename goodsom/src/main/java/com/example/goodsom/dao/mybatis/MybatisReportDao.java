@@ -11,6 +11,11 @@ import com.example.goodsom.controller.user.CreateReportForm;
 import com.example.goodsom.dao.ReportDao;
 import com.example.goodsom.dao.mybatis.mapper.ReportMapper;
 
+/**
+ * @author Seonmi Hwang
+ * @since 2020.11.25
+ */
+
 @Repository
 public class MybatisReportDao implements ReportDao {
 

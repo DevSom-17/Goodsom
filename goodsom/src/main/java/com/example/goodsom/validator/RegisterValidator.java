@@ -1,6 +1,5 @@
 package com.example.goodsom.validator;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -10,7 +9,7 @@ import com.example.goodsom.domain.User;
 
 /**
  * @author Seonmi Hwang
- * @since 2020.06.28
+ * @since 2020.06.28	| 2020.12.27
  */
 
 public class RegisterValidator implements Validator {

@@ -146,7 +146,8 @@ function getGroupBuyInfo(notiId){
 							</c:url>">해당 공동구매 바로가기 >></a>				
 			</c:if>
 			
-			<div class="form-group" align="right">
+			<br> <br>
+			<div class="form-group" align="center">
 				<a class="btn-danger" href="<c:url value='/noti/delete.do'>
 	   				<c:param name="notiId" value="${noti.notiId}"/>
 	   				<c:param name="type" value="${type}"/>

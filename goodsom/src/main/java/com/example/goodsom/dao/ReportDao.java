@@ -6,6 +6,11 @@ import org.springframework.dao.DataAccessException;
 
 import com.example.goodsom.controller.user.CreateReportForm;
 
+/**
+ * @author Seonmi Hwang
+ * @since 2020.11.25
+ */
+
 public interface ReportDao {
 
 	List<String> getReportList(int userId) throws DataAccessException; // 신고 현황 상세 페이지

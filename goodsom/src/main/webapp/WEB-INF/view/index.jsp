@@ -186,16 +186,14 @@
             <div class="member">
               <img src="<%=request.getContextPath()%>/assets/img/team/ddungii.PNG" alt="">
               <h4>Seonmi-Hwang</h4>
-              <span>User & Payment</span>
+              <span>User & Order</span>
               <p>
-                	로그인/로그아웃, 회원가입과 사용자의 회원 정보 부분과 결제 기능, 주소 검색 API를 적용하였습니다.
+                	로그인/회원가입과 사용자의 회원 정보를 포함한 마이페이지, 구매 진행 및 업로더 관리 화면 기능, 주소 검색 API를 적용하였습니다.
                 	이 외에도 공동구매와 경매의 신고 기능, DB 관리를 주로 담당하였습니다.
               </p>
               <div class="social">
-                <a href=""><i class="icofont-twitter"></i></a>
-                <a href=""><i class="icofont-facebook"></i></a>
-                <a href=""><i class="icofont-instagram"></i></a>
-                <a href=""><i class="icofont-linkedin"></i></a>
+                <a href="https://github.com/Seonmi-Hwang"><i class="icofont-github"></i></a>
+                <a href="https://www.instagram.com/willow.s__/"><i class="icofont-instagram"></i></a>
               </div>
             </div>
           </div>

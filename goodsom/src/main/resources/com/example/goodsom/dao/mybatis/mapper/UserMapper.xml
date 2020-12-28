@@ -2,37 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.goodsom.dao.mybatis.mapper.UserMapper">
- 	
-<!--    <resultMap id="resultMap" type="com.example.goodsom.domain.User">
-  	<id column="userId" jdbcType="INTEGER" property="userId"/>
-  	<result column="email" jdbcType="VARCHAR" property="email"/>
-  	<result column="passwd" jdbcType="VARCHAR" property="passwd"/>
-  	<result column="userName" jdbcType="VARCHAR" property="userName"/>
-  	<result column="nickName" jdbcType="VARCHAR" property="nickname"/>
-  	<result column="address" jdbcType="VARCHAR" property="address"/>
-  	<result column="detailAddress" jdbcType="VARCHAR" property="detailAddress"/>
-  	<result column="extraAddress" jdbcType="VARCHAR" property="extraAddress"/>
-  	<result column="postcode" jdbcType="INTEGER" property="postcode"/>
-  	<result column="phone" jdbcType="VARCHAR" property="phone"/>
-  	<result column="refundBank" jdbcType="VARCHAR" property="refundBank"/>
-  	<result column="refundAccount" jdbcType="VARCHAR" property="refundAccount"/>
-  	<result column="report" jdbcType="INTEGER" property="report"/>
-  	<result column="warning" jdbcType="INTEGER" property="warning"/>
-  	
-  	<collection property="likes_a" javaType="java.util.ArrayList" ofType="String"
-  			column="userId=userId" select="com.example.goodsom.dao.mybatis.mapper.LikeMapper.getLikeListOfAuction">
-  	</collection>
-  	<collection property="likes_g" javaType="java.util.ArrayList" ofType="String"
-  			column="userId=userId" select="com.example.goodsom.dao.mybatis.mapper.LikeMapper.getLikeListOfGroupBuy">
-  	</collection>
-  </resultMap> -->
-  
-<!--   <select id="getUser" resultType="com.example.goodsom.domain.User"> -->
-<!--     SELECT USERID, EMAIL, PASSWD, USERNAME, NICKNAME, ADDRESS, DETAILADDRESS, EXTRAADDRESS, POSTCODE, PHONE, REFUNDBANK, REFUNDACCOUNT -->
-<!--     FROM USERS  -->
-<!--     WHERE EMAIL = #{param1} -->
-<!--       AND PASSWD = #{param2} -->
-<!--   </select>  -->
   
   <select id="getUserByEmail" resultType="com.example.goodsom.domain.User">
   	SELECT USERID, EMAIL, PASSWD, USERNAME, NICKNAME, ADDRESS, DETAILADDRESS, EXTRAADDRESS, POSTCODE, PHONE, REFUNDBANK, REFUNDACCOUNT, REPORT, WARNING
@@ -101,20 +70,4 @@
 		ORDER BY orderId DESC
 	</select>
 
-<!--   <select id="getGroupBuyList" parameterType="int"
-  		resultType="com.example.goodsom.domain.GroupBuy">
-  	SELECT groupBuyId, title, content, img, minNo, uploadDate, endDate, count, state, rate, participants, menuId, catId, userId, price
-  	FROM groupBuys
-  	WHERE userId = #{userId}
-  	ORDER BY groupBuyId DESC
-  </select>  --><!-- user가 등록한 GroupBuyList를 가져옴 for 마이페이지 공동구매 등록 목록 보기 -->
-  
-<!--     <select id="getAuctionList" parameterType="int"
-  		resultType="com.example.goodsom.domain.Auction">
-  	SELECT auctionId, title, content, img, startPrice, uploadDate, endDate, count, maxPrice, state, menuId, userId
-  	FROM auctions
-  	WHERE userId = #{userId}
-  	ORDER BY auctionId DESC
-  </select>  --><!-- user가 등록한 AuctionList를 가져옴 for 마이페이지 경매 등록 목록 보기 -->
-  
 </mapper>

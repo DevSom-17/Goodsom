@@ -1,6 +1,6 @@
 package com.example.goodsom.service;
 
-import com.example.goodsom.domain.Question;
+//import com.example.goodsom.domain.Question;
 
 /**
  * @author Seonmi Hwang

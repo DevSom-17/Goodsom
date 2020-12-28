@@ -2,9 +2,6 @@ package com.example.goodsom.controller.order;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +14,11 @@ import com.example.goodsom.domain.Order;
 import com.example.goodsom.service.AuctionService;
 import com.example.goodsom.service.GroupBuyService;
 import com.example.goodsom.service.OrderService;
+
+/**
+ * @author Seonmi Hwang
+ * @since 2020.12.16
+ */
 
 @Controller
 public class ManageOrderController {

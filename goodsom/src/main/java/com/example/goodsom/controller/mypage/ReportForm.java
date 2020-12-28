@@ -1,5 +1,10 @@
 package com.example.goodsom.controller.mypage;
 
+/**
+ * @author Seonmi Hwang
+ * @since 2020.11.25
+ */
+
 public class ReportForm {
 	private int abuse; // 욕설 및 비방 횟수
 	private int destroy; // 거래 파기 횟수

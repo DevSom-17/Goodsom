@@ -19,10 +19,8 @@ import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 import com.example.goodsom.controller.groupBuy.LineGroupBuyForm;
 import com.example.goodsom.controller.user.UserSession;
-import com.example.goodsom.domain.GroupBuy;
 import com.example.goodsom.domain.User;
 import com.example.goodsom.service.AuctionService;
-import com.example.goodsom.service.NotiService;
 import com.example.goodsom.service.OrderService;
 import com.example.goodsom.validator.OrderFormValidator;
 
@@ -36,7 +34,7 @@ import com.example.goodsom.validator.OrderFormValidator;
 public class OrderFormController {
 	
 	private static final String orderFormView = "order/order_create";
-	private static final String detailView = "order/payment_detail";
+	private static final String detailView = "order/order_detail";
 
 	private static final int FAIL = 0; // 결제가 실패했을 경우
 	
@@ -44,9 +42,6 @@ public class OrderFormController {
 	private OrderService orderService;
 	@Autowired
 	private AuctionService auctionService;
-//	@Autowired
-//	private NotiService notiService;
-
 	
 	@ModelAttribute("orderForm")
 	public OrderForm formBacking(HttpServletRequest request) {
