@@ -99,8 +99,9 @@ public class AuctionController {
 
 //		해당 경매의 좋아요 수
 		auction.setLikeCount(likeService.getLikeCountOfAuction(auctionId));
-//		사용자가 like했는지 안 했는지
+//		목록에서의 좋아요 기능을 위한 파라미터: loginUserId
 		mav.addObject("loginUserId", loginUserId);
+		
 		int result = likeService.likeCheckOfAuctionByUserId(loginUserId, auctionId);
 		if (result == 1) {
 			mav.addObject("like", true);

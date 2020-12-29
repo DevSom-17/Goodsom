@@ -1,3 +1,11 @@
+<%  
+response.setHeader("Cache-Control","no-store");  
+response.setHeader("Pragma","no-cache");  
+response.setDateHeader("Expires",0);  
+if (request.getProtocol().equals("HTTP/1.1"))
+        response.setHeader("Cache-Control", "no-cache");
+%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -26,7 +34,7 @@
         <div class="row">
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div class="icon-box">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
+              <div class="icon"><i class="icofont-users-alt-3"></i></div>
               <h4><a href="<%=request.getContextPath()%>/groupBuy/list.do">공동구매</a></h4>
               <p>동덕여대 솜솜이들이 굿즈를 직접 기획하고 제작하여 공동구매를 진행할 수 있는 기능을 지원합니다</p>
             </div>
@@ -34,7 +42,7 @@
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
             <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
+              <div class="icon"><i class="bx bx-bar-chart-alt"></i></div>
               <h4><a href="<%=request.getContextPath()%>/auction/list.do">경매</a></h4>
               <p>더 이상 판매되지 않는 동덕여대 굿즈가 활발히 교류될 수 있게 경매 기능을 지원합니다</p>
             </div>
@@ -42,7 +50,7 @@
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
             <div class="icon-box">
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
+              <div class="icon"><i class="bx bx-user-pin"></i></div>
               <h4><a href="<%=request.getContextPath()%>/user/detail.do">마이페이지</a></h4>
               <p>회원정보 변경 및 알림 기능과 참여하거나 좋아요를 누른 공동구매/경매의 목록들을 볼 수 있는 기능을 지원합니다</p>
             </div>
@@ -189,18 +197,17 @@
         <div class="row">
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div class="member">
-              <img src="<%=request.getContextPath()%>/assets/img/team/bambi.PNG" alt="">
+              <img src="<%=request.getContextPath()%>/assets/img/team/bambi_full.PNG" alt="">
               <h4>yejineer</h4>
-              <span>Auction & Image</span>
+              <span>Auction &amp; Image</span>
               <p>
-                 	경매와 배팅, 다중 이미지 업로드, 이미지 미리보기, 회원가입시 사용자의 휴대폰 인증 기능을 구현하였습니다.
-                 	이 외에도 경매/공동구매 및 전체적인 디자인 적용과  검색 기능, 좋아요 기능을 담당하였습니다.
+                 	경매와 베팅, 다중 이미지 업로드, 이미지 미리보기, 회원가입시 사용자의 휴대폰 인증 기능을 구현하였습니다.
+                 	이 외에도 검색과 좋아요 기능을 구현하였으며 공동구매/경매 및 전체적인 디자인을 담당하였습니다.
               </p>
               <div class="social">
-                <a href=""><i class="icofont-twitter"></i></a>
-                <a href=""><i class="icofont-facebook"></i></a>
-                <a href=""><i class="icofont-instagram"></i></a>
-                <a href=""><i class="icofont-linkedin"></i></a>
+                <a href="https://github.com/yejineer"><i class="bx bxl-github"></i></a>
+                <a href="mailto:luyejincete@naver.com" class="email"><i class="bx bx-envelope"></i></a>
+                
               </div>
             </div>
           </div>

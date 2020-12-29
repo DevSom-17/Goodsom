@@ -132,7 +132,7 @@ public class AuctionFormController implements ApplicationContextAware  {
 		if (requestUrl.equals("/auction/update.do")) { // update
 			Auction oldAuction = auctionService.getAuction(auctionForm.getAuction().getAuctionId());
 			List<Image_a> auctionImgs = new ArrayList<Image_a>();
-//			기존이미지 선택 x
+//			기존이미지 선택하지 않았을 경우
 			if (useExistingImage.equals("no")) {
 //				기존 파일 삭제 후 파일 업로드
 				System.out.println("경매 udpate를 위해 삭제할 이미지파일이 있는 uploadDir: " + uploadDir);
@@ -145,7 +145,7 @@ public class AuctionFormController implements ApplicationContextAware  {
 						System.out.println("파일 삭제 성공! 이제부터 파일 업로드.");
 					}
 				}
-//				파일 업로드 기능
+//				서버에 파일 업로드 기능
 				List<String> savedFileNames = uploadFile(auctionForm.getAuction().getReport());
 				System.out.println(auctionForm.getAuction().toString());
 				int fileNo = 1;
@@ -153,17 +153,17 @@ public class AuctionFormController implements ApplicationContextAware  {
 					auctionImgs.add(new Image_a(auctionForm.getAuction().getAuctionId(), fileNo++, imagePath + savedFileName));
 				}
 			} else { 
-//				기존이미지 선택 O
+//				기존이미지 선택했을 경우
 				auctionImgs = oldAuction.getImgs_a();
 			}
 			auctionForm.getAuction().setState("proceeding");
 			int auctionId = auctionService.updateAuction(auctionForm.getAuction(), auctionImgs);
-//			auctionForm.getAuction().setImg(request.getContextPath() + "/resources/images/"+ savedFileName);
+
 			Auction auction = auctionService.getAuction(auctionId);
 //			해당 경매의 좋아요 수
 			auction.setLikeCount(likeService.getLikeCountOfAuction(auctionId));
 			model.addAttribute("auction", auction);
-			
+//			auction_detail.jsp에서 좋아요를 눌렀는지 여부 확인 위한 파라미터: like
 			int likeCheck = likeService.likeCheckOfAuctionByUserId(user.getUser().getUserId(), auctionId);
 			if (likeCheck == 1) {
 				model.addAttribute("like", true);
@@ -185,7 +185,8 @@ public class AuctionFormController implements ApplicationContextAware  {
             auctionForm.getAuction().initAuction(user.getUser());
 			System.out.println("[AuctionFormController] auctionForm 값: " + auctionForm.toString());
 			auctionService.createAuction(auctionForm.getAuction(), auctionImgs);
-//			like
+
+//			auction_detail.jsp에서 좋아요를 눌렀는지 여부 확인 위한 파라미터
 			model.addAttribute("like", false);
 			
 			Auction auction = auctionForm.getAuction();
@@ -205,7 +206,7 @@ public class AuctionFormController implements ApplicationContextAware  {
 		model.addAttribute("isWriter", true);
 		model.addAttribute("writer", user.getUser().getNickname());
 		model.addAttribute("bidForm", session.getAttribute("bidForm"));
-//		like를 위한 attribute
+//		목록에서의 좋아요 기능을 위한 파라미터: loginUserId
 		model.addAttribute("loginUserId", user.getUser().getUserId());
 		sessionStatus.setComplete();
 		return AUCTION_DETAIL;

@@ -63,7 +63,6 @@ public class LoginController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView handleRequest(HttpServletRequest request, HttpSession session,
 			@ModelAttribute("loginForm") LoginForm loginForm, Model model, BindingResult bindingResult) throws Exception {
-
 		new LoginFormValidator().validate(loginForm, bindingResult);
 
 		// 검증 오류 발생 시 다시 form view로 이동
