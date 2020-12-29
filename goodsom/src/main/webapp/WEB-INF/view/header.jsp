@@ -8,7 +8,6 @@
 	}
 	function formCheck(frm) {
 		if ( frm.keyword.value=="") {
-			alert("키워드를 입력해주세요!") ;
 			frm.keyword.focus();
 			document.getElementById("errorMsg").innerText="키워드를 입력해주세요!";
 			return false;
@@ -139,8 +138,8 @@ function check() {
 		<!-- .nav-menu -->
 
 		<div class="header-social-links">
-			<a href="https://github.com/DevSom-17/Goodsom" class="github"><i class="icofont-github"></i></a> 
-			<a href="https://trello.com/b/mectpnRE/goodsom" class="trello"><i class="icofont-trello"></i></a> 
+			<a href="https://github.com/DevSom-17/Goodsom" class="github"><i class="bx bxl-github"></i></a> 
+			<a href="https://trello.com/b/mectpnRE/goodsom" class="trello"><i class="bx bxl-trello"></i></a> 
 		</div>
 
 	</div>

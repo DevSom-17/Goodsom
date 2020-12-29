@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+
+import com.example.goodsom.controller.user.UserSession;
 import com.example.goodsom.domain.Auction;
 import com.example.goodsom.domain.GroupBuy;
 import com.example.goodsom.service.SearchService;
@@ -49,7 +51,12 @@ public class SearchController {
 			List<Auction> auctionList = searchService.getAuctionListByKeyword(keyword.toLowerCase());
 			mav.addObject("auctionList", auctionList);
 		}
-
+		
+//		목록에서의 좋아요 기능을 위한 파라미터: loginUserId
+		UserSession user  = (UserSession)request.getSession().getAttribute("userSession");
+		int loginUserId = user.getUser().getUserId();
+		mav.addObject("loginUserId", loginUserId);
+		
 		return mav;
 	}
 }
