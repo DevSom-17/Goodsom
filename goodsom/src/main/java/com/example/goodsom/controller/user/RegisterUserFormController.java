@@ -75,8 +75,6 @@ public class RegisterUserFormController {
 		} else {
 			userService.createUser(userForm.getUser());
 			model.addAttribute("loginForm", new LoginForm());
-			UserSession userSession = new UserSession(userService.getUserByEmail(userForm.getUser().getEmail()));
-			session.setAttribute("userSession", userSession);
 			return successViewName;
 		}
 	}
