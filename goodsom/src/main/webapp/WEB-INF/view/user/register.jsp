@@ -129,7 +129,7 @@
 						<form:errors cssClass="error" />
 					</div>
 					
-					<div class="form-group">
+					<div class="form-group" align="right">
 						<input type="button" class="btn-submit" id="emailVerify" value="이메일 인증" onClick="emailSubmit()" />
 					</div>
 					
@@ -138,7 +138,7 @@
 						<form:input path="user.code" class="form-control" placeholder="ex) D2f24fd1" />
 					</div>
 					
-					<div class="form-group">
+					<div class="form-group" align="right">
 						<input type="button" class="btn-submit" id="codeVerify" value="확인" onClick="codeSubmit()" disabled/>
 					</div>
 
@@ -182,7 +182,7 @@
 					<div class="form-group">
 						<label for="name">주소</label> <br/> 
 						<form:input path="user.postcode" class="form-control" placeholder="우편번호" readonly="true" style="width:30%;float:left;margin-bottom:5px"/> &nbsp;
-						<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
+						<input type="button" class="btn-submit" onclick="execDaumPostcode()" value="우편번호 찾기">
 						<form:input path="user.address" class="form-control" placeholder="주소" style="margin-bottom:5px" readonly="true" />
 						<form:input path="user.detailAddress" class="form-control" placeholder="상세주소" style="width:50%;float:left"/> &nbsp; 
 						<form:input path="user.extraAddress" class="form-control" placeholder="참고항목" readonly="true" style="width:49%;float:right"/>
