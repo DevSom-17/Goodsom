@@ -41,20 +41,20 @@ public class SearchController {
 			@RequestParam(value = "choice") int choice) throws Exception {
 
 		ModelAndView mav = new ModelAndView();
-
-		if (choice == 1) { // groupBuy
-			mav = new ModelAndView(GROUPBUY_LIST);
-			List<GroupBuy> groupBuyList = searchService.getGroupBuyListByKeyword(keyword.toLowerCase());
-			mav.addObject("groupBuyList", groupBuyList);
-		} else {
-			mav = new ModelAndView(AUCTION_LIST);
-			List<Auction> auctionList = searchService.getAuctionListByKeyword(keyword.toLowerCase());
-			mav.addObject("auctionList", auctionList);
-		}
 		
 //		목록에서의 좋아요 기능을 위한 파라미터: loginUserId
 		UserSession user  = (UserSession)request.getSession().getAttribute("userSession");
 		int loginUserId = user.getUser().getUserId();
+
+		if (choice == 1) { // groupBuy
+			mav = new ModelAndView(GROUPBUY_LIST);
+			List<GroupBuy> groupBuyList = searchService.getGroupBuyListByKeyword(keyword.toLowerCase(), loginUserId);
+			mav.addObject("groupBuyList", groupBuyList);
+		} else {
+			mav = new ModelAndView(AUCTION_LIST);
+			List<Auction> auctionList = searchService.getAuctionListByKeyword(keyword.toLowerCase(), loginUserId);
+			mav.addObject("auctionList", auctionList);
+		}
 		mav.addObject("loginUserId", loginUserId);
 		
 		return mav;

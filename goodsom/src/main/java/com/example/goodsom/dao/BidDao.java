@@ -8,8 +8,8 @@ import com.example.goodsom.domain.Bid;
 
 
 /**
- * @author Hyekyung Kim | kimdahyee		| Yejin Lee
- * @since  2020.05.08   | 2020.06.24	| 2020.06.29
+ * @author Hyekyung Kim | Yejin Lee
+ * @since  2020.05.08   | 2020.06.29
  */
 
 public interface BidDao {

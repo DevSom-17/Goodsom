@@ -45,6 +45,16 @@
         </div>
 	
         <div class="row portfolio-container">
+        <c:if test="${empty auctionList}">
+			<c:choose>
+				<c:when test="${requestScope['javax.servlet.forward.request_uri'] eq '/list/search.do'}">
+					해당하는 경매 게시글이 없습니다.
+				</c:when>
+				<c:otherwise>
+					현재 경매 게시글이 없습니다.
+				</c:otherwise>
+			</c:choose>
+		</c:if>
 		<c:forEach var="auction" items="${auctionList}" varStatus="status">
           <div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
             <div class="portfolio-wrap">
@@ -99,5 +109,7 @@
     </section><!-- End Portfolio Section -->
 
   </main><!-- End #main -->
+<script>
 
+</script>
   <%@ include file="../includeBottom.jsp" %> 

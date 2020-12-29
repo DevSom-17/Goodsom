@@ -18,8 +18,8 @@ import com.example.goodsom.service.OrderService;
 import com.example.goodsom.service.UserService;
 
 /**
- * @author kimdahyee | Seonmi-Hwang
- * @since 05.08.2020 | 2020.06.14
+ * @author Seonmi-Hwang	| Yejin Lee
+ * @since  2020.06.14	| 2020.12.15
  */
 
 

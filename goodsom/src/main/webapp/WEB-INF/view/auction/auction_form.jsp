@@ -12,11 +12,9 @@
 <script>
 function auctionSubmit(isNewAuction) {
 	
-	if(isNewAuction){
-		alert("경매를 등록합니다.");
+	if (isNewAuction) {
 		document.auctionForm.action="create.do";
-	}else{
-		alert("경매를 수정합니다.");
+	} else {
 		document.auctionForm.action="update.do";
 	}
 	document.auctionForm.submit();
@@ -93,7 +91,7 @@ function auctionSubmit(isNewAuction) {
 
 						<div class="form-row">
 							<div class="col-md-6 form-group" style="display: inline;">
-								이미지 <span style="font-size: small; color: #898a8b;">(2MB이하)</span>&nbsp;&nbsp;&nbsp;
+								이미지 <span style="font-size: small; color: #898a8b;">(5MB이하)</span>&nbsp;&nbsp;&nbsp;
 								<form:errors path="auction.report" cssClass="error" />
 								<br />
 								<label for="auction.report">

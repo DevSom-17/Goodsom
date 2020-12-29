@@ -34,8 +34,8 @@ import com.example.goodsom.service.AuctionService;
 import com.example.goodsom.service.LikeService;
 
 /**
- * @author Hyekyung Kim | Yejin Lee  | kimdahyee
- * @since 2020.05.08	| 2020.06.13 | 2020.06.25
+ * @author Hyekyung Kim | Yejin Lee 
+ * @since 2020.05.08	| 2020.06.13
  */
 
 @Controller
@@ -98,13 +98,13 @@ public class AuctionFormController implements ApplicationContextAware  {
 			if (auctionForm.getAuction().getReport().get(0).isEmpty()) {
 				result.rejectValue("auction.report", "notSelected");
 			} else {
-//				이미지 총 용량 validation (3MB이하만 가능하도록)
+//				이미지 총 용량 validation (5MB이하만 가능하도록)
 				List<MultipartFile> files = auctionForm.getAuction().getReport();
 				long totalSize = 0;
 				for (MultipartFile file : files) {
 					totalSize += file.getSize();
 				}
-				if (totalSize > 1024*1024*3) {
+				if (totalSize > 1024*1024*5) {
 					result.rejectValue("auction.report", "oversize");
 				}
 			}
@@ -241,7 +241,7 @@ public class AuctionFormController implements ApplicationContextAware  {
 	
 	@RequestMapping(value="/auction/delete.do")
 	public ModelAndView auctionDelete(HttpServletRequest request,
-			@RequestParam("auctionId") int auctionId){
+			@RequestParam("auctionId") int auctionId, SessionStatus status){
 //		서버에서 경매 이미지들 삭제
 		List<Image_a> auctionImgs = auctionService.getAuction(auctionId).getImgs_a();
 		for (Image_a auctionImg : auctionImgs) {
@@ -258,6 +258,7 @@ public class AuctionFormController implements ApplicationContextAware  {
 		ModelAndView mav = new ModelAndView(AUCTION_LIST);
 		mav.addObject("loginUserId", loginUserId);
 		mav.addObject("auctionList", auctionList);
+		status.setComplete();
 		return mav;
 	}
 	
