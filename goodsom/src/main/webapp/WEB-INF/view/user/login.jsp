@@ -34,10 +34,6 @@
 	<body onLoad="alert('회원탈퇴가 완료되었습니다.')">
 </c:if>
 
-<c:if test="${not empty interceptor}">
-	<body onLoad="alert('로그인이 필요합니다.')">
-</c:if>
-
 <body bgcolor="black">
 	<div class="container" style="padding: 100px">
 		<div class="row block-9 justify-content-center mb-5">

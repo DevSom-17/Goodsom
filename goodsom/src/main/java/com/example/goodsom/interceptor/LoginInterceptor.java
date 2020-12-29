@@ -12,9 +12,6 @@ import com.example.goodsom.controller.user.UserSession;
 
 public class LoginInterceptor implements HandlerInterceptor {
 
-	public List<String> loginEssential
-    	= Arrays.asList("/**");
-
 	public List<String> loginInessential
 	    = Arrays.asList("/user/login.do", "/user/register.do");
 
@@ -26,7 +23,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (userSession != null) { 
         	return true; 
         } else {
-        	request.getSession().setAttribute("interceptor", "interceptor");
             response.sendRedirect("/user/login.do");
             return false;
         }
