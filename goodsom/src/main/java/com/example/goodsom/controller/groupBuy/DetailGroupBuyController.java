@@ -74,8 +74,10 @@ public class DetailGroupBuyController {
 		System.out.println("groupBuy: " + groupBuy.toString());
 		System.out.println("user: " + loginUserId);
 		
-		// 조회수 증가
-		groupBuyService.increaseCount(groupBuy);
+		// 작성자가 아닐때 조회수 증가
+		if(loginUserId != groupBuy.getUserId()) {
+			groupBuyService.increaseCount(groupBuy);
+		}		
 		
 		// 작성자인지 여부 
 		if (loginUserId == groupBuy.getUserId()) {

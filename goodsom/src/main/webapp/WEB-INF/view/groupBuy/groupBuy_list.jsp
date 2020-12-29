@@ -7,7 +7,23 @@
 <%@ include file="../includeTop.jsp" %> 
 
 <script src="<c:url value="/assets/js/clickLikeInList.js"/>"></script>
-
+<style>
+.btn-submit {
+	position: relative;
+	top: 0;
+	right: 5px;
+	bottom: 0;
+	border: 0;
+	background: none;
+	font-size: 16px;
+	padding: 8px 30px;
+	background: #3498db;
+	color: #fff;
+	transition: 0.3s;
+	border-radius: 0px 0px 0px 0px;
+	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+</style>
 <body>
 
  <%@ include file="../header.jsp" %> 
@@ -24,7 +40,7 @@
         </div>
 
 		<div class="form-group" align="left" style="margin-bottom:50px;">
-          <a class="btn btn-primary py-3 px-5" href="<c:url value='/groupBuy/form.do'></c:url>">공동구매 등록</a>
+          <a class="btn-submit" href="<c:url value='/groupBuy/form.do'></c:url>">공동구매 등록</a>
         </div>
 
         <div class="row portfolio-container">
@@ -55,7 +71,7 @@
 					<div style="float:left; color: #898a8c;">
 						<strong>금액</strong>: <fmt:formatNumber value="${groupBuy.price}" pattern="#,###원"/>
 					</div>
-					<div style="float:right; color: #2f94d8;">
+					<div style="float:right; color: #898a8c;">
 						<strong>달성률</strong>: <fmt:formatNumber value="${groupBuy.rate}" /> % 달성
 					</div>
 					<br/>

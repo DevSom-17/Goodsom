@@ -141,7 +141,7 @@ function delItem(id) {
         <div class="d-flex justify-content-between align-items-center">
           <h2>${groupBuy.title}</h2>
           <ol>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="/index.do">Home</a></li>
             <li>공동구매 상세보기</li>
           </ol>
         </div>
