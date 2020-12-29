@@ -13,7 +13,7 @@ import com.example.goodsom.controller.user.UserSession;
 public class LoginInterceptor implements HandlerInterceptor {
 
 	public List<String> loginInessential
-	    = Arrays.asList("/user/login.do", "/user/register.do", "/sendSMS.do", "/email/send", "/email/verifyCode");
+	    = Arrays.asList("/user/login.do", "/user/register.do", "/sendSMS.do", "/email/send", "/email/verifyCode", "/css/**", "/js/**", "/img/**");
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

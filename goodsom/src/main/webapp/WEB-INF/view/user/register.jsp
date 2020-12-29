@@ -130,7 +130,7 @@
 					</div>
 					
 					<div class="form-group">
-						<input type="button" id="emailVerify" value="이메일 인증" onClick="emailSubmit()" />
+						<input type="button" class="btn-submit" id="emailVerify" value="이메일 인증" onClick="emailSubmit()" />
 					</div>
 					
 					<div class="form-group">
@@ -139,7 +139,7 @@
 					</div>
 					
 					<div class="form-group">
-						<input type="button" id="codeVerify" value="확인" onClick="codeSubmit()" disabled/>
+						<input type="button" class="btn-submit" id="codeVerify" value="확인" onClick="codeSubmit()" disabled/>
 					</div>
 
 					<div class="form-group">
@@ -169,14 +169,14 @@
 					<div class="form-group">
 						<label for="name" style="display: block;">전화번호 <span style="color:red">*</span> </label> 
 						<form:input path="user.phone" id="inputPhoneNumber" class="form-control" placeholder="ex) 010-0000-0000" style="width: 50%; float: left; display: block;"/>
-						<input type="button" id="sendPhoneNumber" value="인증번호 발송" onClick="sendSMS()" style="display: block; margin-inline-start: auto;"/>
+						<input type="button" class="btn-submit" id="sendPhoneNumber" value="인증번호 발송" onClick="sendSMS()" style="display: block; margin-inline-start: auto;"/>
 						<form:errors path="user.phone" id="inputPhoneNumber" cssClass="error" />
 					</div>
 					
 					<div class="form-group">
 						<label for="name" style="display: block;">인증번호 <span style="color:red">*</span> </label> 
 						<input type="text" id="inputCertifiedNumber" class="form-control" disabled style="width: 50%; float: left; display: block;"/>
-						<input type="button" id="checkBtn" value="확인" style="display: block; margin-inline-start: auto;" disabled/>
+						<input type="button" class="btn-submit" id="checkBtn" value="확인" style="display: block; margin-inline-start: auto;" disabled/>
 					</div>
 
 					<div class="form-group">

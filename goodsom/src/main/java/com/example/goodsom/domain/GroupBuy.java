@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -39,6 +40,7 @@ public class GroupBuy implements Serializable {
 	
 	@NotNull
 	@DateTimeFormat(pattern ="yyyy-MM-dd")
+	@FutureOrPresent
 	Date endDate;
 	
 	int count;
