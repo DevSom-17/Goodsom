@@ -37,7 +37,7 @@
 					<h2>신고접수</h2>
 				</div>
 
-				<div class="site-section">
+				<div class="site-section" align="center">
 							<form:form modelAttribute="reportForm" action="create.do" method="POST">
 							     <input type="hidden" name="type" value='<c:url value="${type}"/>' />
 								 <input type="hidden" name="id" value="${reportForm.id}" />
@@ -48,7 +48,8 @@
 									<c:forEach var="content" items="${contents}">
 										<option value="${content}">${content}</option>
 									</c:forEach>
-								 </select> &nbsp;&nbsp;
+								 </select> 
+								 <br><br>
 								 <input type="submit" class="btn-submit" value="제출">
 							</form:form>
 						</div>

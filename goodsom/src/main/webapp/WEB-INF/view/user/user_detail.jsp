@@ -125,10 +125,11 @@
 										</div>
 										<br>
 										<div class="container" style="text-align:center">
+										 	<a class="btn-danger"
+												href="javascript:removeCheck()">회원탈퇴</a> 
+												&nbsp;
 											<a class="btn-submit"
 												href="<c:url value='/user/update.do'></c:url>">수정하기</a>
-											&nbsp; <a class="btn-danger"
-												href="javascript:removeCheck()">회원탈퇴</a>
 										</div>
 									</div>
 								</div>
