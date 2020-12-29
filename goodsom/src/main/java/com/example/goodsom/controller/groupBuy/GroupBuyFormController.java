@@ -97,13 +97,13 @@ public class GroupBuyFormController implements ApplicationContextAware {
 			if (groupBuyForm.getGroupBuy().getReport().get(0).isEmpty()) {
 				result.rejectValue("groupBuy.report", "notSelected");
 			} else {
-//				이미지 총 용량 validation (3MB이하만 가능하도록)
+//				이미지 총 용량 validation (5MB이하만 가능하도록)
 				List<MultipartFile> files = groupBuyForm.getGroupBuy().getReport();
 				long totalSize = 0;
 				for (MultipartFile file : files) {
 					totalSize += file.getSize();
 				}
-				if (totalSize > 1024*1024*3) {
+				if (totalSize > 1024*1024*5) {
 					result.rejectValue("groupBuy.report", "oversize");
 				}
 			}

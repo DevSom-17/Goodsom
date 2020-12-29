@@ -88,7 +88,7 @@ public class DetailGroupBuyController {
 		
 //		해당 경매의 좋아요 수
 		groupBuy.setLikeCount(likeService.getLikeCountOfGroupBuy(groupBuyId));
-//		사용자가 like했는지 안 했는지
+//		목록에서의 좋아요 기능을 위한 파라미터: loginUserId
 		mav.addObject("loginUserId", loginUserId);
 		int result = likeService.likeCheckOfGroupBuyByUserId(loginUserId, groupBuyId);
 		if (result == 1) {

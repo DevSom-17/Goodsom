@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.goodsom.service.LikeService;
 
+/**
+ * @author Yejin Lee
+ * @since 2020.12.13
+ */
+
 @Controller
 public class LikeController {
 	

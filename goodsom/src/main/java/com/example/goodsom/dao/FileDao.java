@@ -6,7 +6,10 @@ import org.springframework.dao.DataAccessException;
 
 import com.example.goodsom.domain.Image_a;
 import com.example.goodsom.domain.Image_g;
-
+/**
+ * @author Yejin Lee
+ * @since 2020.12.5
+ */
 public interface FileDao {
 
 	void saveAuctionImgs(List<Image_a> auctionImgs) throws DataAccessException;

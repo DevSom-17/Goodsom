@@ -111,7 +111,7 @@ function input_append(ff){
 			
 			<div class="form-row">
 				<div class="col-md-6 form-row" style="display: inline;">
-					이미지 <span style="font-size: small; color: #898a8b;">(2MB이하)</span>&nbsp;&nbsp;&nbsp;
+					이미지 <span style="font-size: small; color: #898a8b;">(5MB이하)</span>&nbsp;&nbsp;&nbsp;
 					<form:errors path="groupBuy.report" cssClass="error" />
 					<br />
 					<label for="groupBuy.report">

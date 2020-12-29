@@ -12,8 +12,8 @@ import com.example.goodsom.domain.GroupBuy;
 
 public interface SearchService {
 
-	List<GroupBuy> getGroupBuyListByKeyword(String keyword);
+	List<GroupBuy> getGroupBuyListByKeyword(String keyword, int userId);
 	
-	List<Auction> getAuctionListByKeyword(String keyword);
+	List<Auction> getAuctionListByKeyword(String keyword, int userId);
 
 }

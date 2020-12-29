@@ -44,6 +44,16 @@
         </div>
 
         <div class="row portfolio-container">
+        <c:if test="${empty groupBuyList}">
+			<c:choose>
+				<c:when test="${requestScope['javax.servlet.forward.request_uri'] eq '/list/search.do'}">
+					해당하는 공동구매 게시글이 없습니다.
+				</c:when>
+				<c:otherwise>
+					현재 공동구매 게시글이 없습니다.
+				</c:otherwise>
+			</c:choose>
+		</c:if>
         <c:forEach var="groupBuy" items="${groupBuyList}" varStatus="status">
           <div class="col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp">
             <div class="portfolio-wrap">

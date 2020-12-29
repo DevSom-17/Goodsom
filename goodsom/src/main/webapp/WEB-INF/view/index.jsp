@@ -216,7 +216,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
             <div class="member">
               <img src="<%=request.getContextPath()%>/assets/img/team/ddungii.PNG" alt="">
               <h4>Seonmi-Hwang</h4>
-              <span>User & Order</span>
+              <span>User &amp; Order</span>
               <p>
                 	로그인/회원가입과 사용자의 회원 정보를 포함한 마이페이지, 구매 진행 및 업로더 관리 화면 기능, 주소 검색 API를 적용하였습니다.
                 	이 외에도 공동구매와 경매의 신고 기능, DB 관리를 주로 담당하였습니다.
@@ -232,7 +232,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
             <div class="member">
               <img src="<%=request.getContextPath()%>/assets/img/team/parrotbill.PNG" alt="">
               <h4>hyekyung-kim</h4>
-              <span>Groupbuy & Scheduling</span>
+              <span>Groupbuy &amp; Scheduling</span>
               <p>
                 	공동구매와 스케줄러 및 알림, 회원가입시 사용자의 이메일 인증 기능을 구현하였습니다.
                 	이 외에도 메인 페이지의 정렬과 REST API 기능을 담당하였습니다.
