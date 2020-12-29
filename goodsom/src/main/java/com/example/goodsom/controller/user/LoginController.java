@@ -57,13 +57,14 @@ public class LoginController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String form() {
+		System.out.println("여기는 LoginController의 GET");
 		return formViewName;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView handleRequest(HttpServletRequest request, HttpSession session,
 			@ModelAttribute("loginForm") LoginForm loginForm, Model model, BindingResult bindingResult) throws Exception {
-
+		System.out.println("여기는 LoginController의 POST");
 		new LoginFormValidator().validate(loginForm, bindingResult);
 
 		// 검증 오류 발생 시 다시 form view로 이동

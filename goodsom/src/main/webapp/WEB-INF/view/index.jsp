@@ -1,3 +1,13 @@
+<%  
+response.setHeader("Cache-Control","no-store");  
+response.setHeader("Pragma","no-cache");  
+response.setDateHeader("Expires",0);  
+if (request.getProtocol().equals("HTTP/1.1"))
+        response.setHeader("Cache-Control", "no-cache");
+%>
+
+출처: https://yy8305.tistory.com/20 [인생을 바꾸는 기록]
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
