@@ -36,7 +36,6 @@ public class MenuController {
 	
 	@RequestMapping("/index.do")
 	public ModelAndView goHome(HttpServletRequest request, Model model) throws Exception{
-		System.out.println("여기는 MenuController의 /index.do");
 		UserSession user  = (UserSession)request.getSession().getAttribute("userSession");
 		int loginUserId = user.getUser().getUserId();
 		
