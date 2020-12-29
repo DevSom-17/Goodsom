@@ -7,8 +7,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+
+import com.example.goodsom.interceptor.LoginInterceptor;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
@@ -26,4 +29,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		sessionLocaleResolver.setDefaultLocale(Locale.US);
 		return sessionLocaleResolver;
 	}
+	
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        LoginInterceptor loginInterceptor = new LoginInterceptor();
+        registry.addInterceptor(loginInterceptor)
+        		.excludePathPatterns(loginInterceptor.loginInessential)
+                .addPathPatterns(loginInterceptor.loginEssential);
+    }
 }

@@ -73,7 +73,7 @@ public class LoginController {
 
 		User user = userService.getUserByEmail(loginForm.getEmail());
 		
-		System.out.println("LoginForm : " + loginForm);
+//		System.out.println("LoginForm : " + loginForm);
 		
 		try {
 			authenticator.authenticate(loginForm); // email과 password가 맞는지 검증
@@ -87,7 +87,8 @@ public class LoginController {
 			model.addAttribute("recentGroupBuy", recentGroupBuy);
 			model.addAttribute("recentAuction", recentAuction);
 			model.addAttribute("loginUserId", loginUserId);
-			return new ModelAndView("index");
+			
+			return new ModelAndView("redirect:../index.do");
 		} catch (AuthenticationException e) { // 검증 실패 시
 			
 			ModelAndView mav = new ModelAndView();
