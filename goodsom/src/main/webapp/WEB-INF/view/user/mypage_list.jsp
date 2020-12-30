@@ -37,8 +37,13 @@
 					          <div class="col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp">
 					            <div class="portfolio-wrap">
 					              <figure style="background: white; text-align: center;">
+					              	<a href="<c:url value='/groupBuy/detail.do'>
+										<c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/></c:url>">
 										<img src="${groupBuy.imgs_g[0].url}" class="img-fluid" alt="" style="height: 100%;">
-					                <a href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
+									</a>
+					                <c:forEach var="img" items="${groupBuy.imgs_g}" varStatus="status">
+										<a href="${img.url}" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-images"></i></a>
+									</c:forEach>
 					                <a href="javascript:void(0);" onclick="changeHeartGroupBuy(${groupBuy.groupBuyId}, ${loginUserId}); return false;" class="link-details" title="좋아요">
 					              		<c:choose>
 					              			<c:when test="${groupBuy.liked eq 0}">
@@ -58,8 +63,9 @@
 										<div style="float:left; color: #898a8c;">
 											<strong>금액</strong>: <fmt:formatNumber value="${groupBuy.price}" pattern="#,###원"/>
 										</div>
-										<div style="float:right; color: #2f94d8;">
-											<strong>달성률</strong>: <fmt:formatNumber value="${groupBuy.rate}" /> % 달성
+										<div style="float:right; color: #898a8c;">
+											<strong>달성률</strong>: 
+											<span style="color: #fa981f; font-weight: 600;"><fmt:formatNumber value="${groupBuy.rate}" /></span> % 
 										</div>
 										<br/>
 										<div style="float:left; color: #898a8c;">
@@ -99,7 +105,7 @@
 									<img src="${auction.imgs_a[0].url}" class="img-fluid" alt="" style="height: 100%;">
 								</a>
 								<c:forEach var="img" items="${auction.imgs_a}" varStatus="status">
-									<a href="${img.url}" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
+									<a href="${img.url}" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-images"></i></a>
 								</c:forEach>
 				                <a href="javascript:void(0);" onclick="changeHeartAuction(${auction.auctionId}, ${loginUserId}); return false;" class="link-details" title="좋아요">
 				              		<c:choose>
@@ -122,7 +128,8 @@
 											<strong>시작가</strong>: <fmt:formatNumber value="${auction.startPrice}" pattern="#,###원"/>
 										</div>
 										<div style="float:right; color: #898a8c;">
-											<strong>최고가</strong>: <fmt:formatNumber value="${auction.maxPrice}" pattern="#,###원"/>
+											<strong>최고가</strong>:
+											<span style="color: #fa981f; font-weight: 600;"><fmt:formatNumber value="${auction.maxPrice}" pattern="#,###"/></span> 원
 										</div>
 										<br/>
 										<div style="float:left; color: #898a8c;">
@@ -236,8 +243,13 @@
 					          <div class="col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp">
 					            <div class="portfolio-wrap">
 					              <figure style="background: white; text-align: center;">
+									<a href="<c:url value='/groupBuy/detail.do'>
+										<c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/></c:url>">
 										<img src="${groupBuy.imgs_g[0].url}" class="img-fluid" alt="" style="height: 100%;">
-					                <a href="<%=request.getContextPath()%>/assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
+									</a>
+					                <c:forEach var="img" items="${groupBuy.imgs_g}" varStatus="status">
+										<a href="${img.url}" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-images"></i></a>
+									</c:forEach>
 					                <a href="javascript:void(0);" onclick="changeHeartGroupBuy(${groupBuy.groupBuyId}, ${loginUserId}); return false;" class="link-details" title="좋아요">
 					              		<c:choose>
 					              			<c:when test="${groupBuy.liked eq 0}">
@@ -257,8 +269,9 @@
 										<div style="float:left; color: #898a8c;">
 											<strong>금액</strong>: <fmt:formatNumber value="${groupBuy.price}" pattern="#,###원"/>
 										</div>
-										<div style="float:right; color: #2f94d8;">
-											<strong>달성률</strong>: <fmt:formatNumber value="${groupBuy.rate}" /> % 달성
+										<div style="float:right; color: #898a8c;">
+											<strong>달성률</strong>: 
+											<span style="color: #fa981f; font-weight: 600;"><fmt:formatNumber value="${groupBuy.rate}" /></span> % 
 										</div>
 										<br/>
 										<div style="float:left; color: #898a8c;">
@@ -298,7 +311,7 @@
 									<img src="${auction.imgs_a[0].url}" class="img-fluid" alt="" style="height: 100%;">
 								</a>
 								<c:forEach var="img" items="${auction.imgs_a}" varStatus="status">
-									<a href="${img.url}" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
+									<a href="${img.url}" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-images"></i></a>
 								</c:forEach>
 				                <a href="javascript:void(0);" onclick="changeHeartAuction(${auction.auctionId}, ${loginUserId}); return false;" class="link-details" title="좋아요">
 				              		<c:choose>
@@ -321,7 +334,8 @@
 											<strong>시작가</strong>: <fmt:formatNumber value="${auction.startPrice}" pattern="#,###원"/>
 										</div>
 										<div style="float:right; color: #898a8c;">
-											<strong>최고가</strong>: <fmt:formatNumber value="${auction.maxPrice}" pattern="#,###원"/>
+											<strong>최고가</strong>:
+											<span style="color: #fa981f; font-weight: 600;"><fmt:formatNumber value="${auction.maxPrice}" pattern="#,###"/></span> 원
 										</div>
 										<br/>
 										<div style="float:left; color: #898a8c;">

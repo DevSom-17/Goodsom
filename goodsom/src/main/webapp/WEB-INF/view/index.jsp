@@ -91,7 +91,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 					<img src="${auction.imgs_a[0].url}" class="img-fluid" alt="" style="height: 100%;">
 				</a>
                 <c:forEach var="img" items="${auction.imgs_a}" varStatus="status">
-					<a href="${img.url}" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
+					<a href="${img.url}" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-images"></i></a>
 				</c:forEach>
                 <a href="javascript:void(0);" onclick="changeHeartAuction(${auction.auctionId}, ${loginUserId}); return false;" class="link-details" title="좋아요">
               		<c:choose>
@@ -113,7 +113,8 @@ if (request.getProtocol().equals("HTTP/1.1"))
 							<strong>시작가</strong>: <fmt:formatNumber value="${auction.startPrice}" pattern="#,###원"/>
 						</div>
 						<div style="float:right; color: #898a8c;">
-							<strong>최고가</strong>: <fmt:formatNumber value="${auction.maxPrice}" pattern="#,###원"/>
+							<strong>최고가</strong>:
+							<span style="color: #fa981f; font-weight: 600;"><fmt:formatNumber value="${auction.maxPrice}" pattern="#,###"/></span> 원
 						</div>
 						<br/>
 						<div style="float:left; color: #898a8c;">
@@ -137,7 +138,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
               <figure style="background: white; text-align: center;">
 					<img src="${groupBuy.imgs_g[0].url}" class="img-fluid" alt="" style="height: 100%;">
                 <c:forEach var="img" items="${groupBuy.imgs_g}" varStatus="status">
-					<a href="${img.url}" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
+					<a href="${img.url}" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-images"></i></a>
 				</c:forEach>
                 <a href="javascript:void(0);" onclick="changeHeartGroupBuy(${groupBuy.groupBuyId}, ${loginUserId}); return false;" class="link-details" title="좋아요">
               		<c:choose>
@@ -159,7 +160,8 @@ if (request.getProtocol().equals("HTTP/1.1"))
 						<strong>금액</strong>: <fmt:formatNumber value="${groupBuy.price}" pattern="#,###원"/>
 					</div>
 					<div style="float:right; color: #898a8c;">
-						<strong>달성률</strong>: <fmt:formatNumber value="${groupBuy.rate}" />% 달성
+						<strong>달성률</strong>: 
+						<span style="color: #fa981f; font-weight: 600;"><fmt:formatNumber value="${groupBuy.rate}" /></span> % 
 					</div>
 					<br/>
 					<div style="float:left; color: #898a8c;">
@@ -195,14 +197,31 @@ if (request.getProtocol().equals("HTTP/1.1"))
         </div>
 
         <div class="row">
+        
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div class="member">
-              <img src="<%=request.getContextPath()%>/assets/img/team/bambi_full.PNG" alt="">
-              <h4>yejineer</h4>
-              <span>Auction &amp; Image</span>
+              <img src="<%=request.getContextPath()%>/assets/img/team/parrotbill.PNG" alt="">
+              <h4>Hyekyung Kim</h4>
+              <span>Groupbuy &amp; Scheduling</span>
               <p>
-                 	경매와 베팅, 다중 이미지 업로드, 이미지 미리보기, 회원가입시 사용자의 휴대폰 인증 기능을 구현하였습니다.
-                 	이 외에도 검색과 좋아요 기능을 구현하였으며 공동구매/경매 및 전체적인 디자인을 담당하였습니다.
+                	공동구매와 스케줄러 및 알림, 회원가입시 사용자의 이메일 인증 기능을 구현하였습니다.
+                	이 외에도 메인 페이지의 정렬과 REST API 기능을 담당하였습니다.
+              </p>
+              <div class="social">
+                <a href="https://github.com/hyekyung-kim"><i class="bx bxl-github"></i></a>
+                <a href="mailto:khatcong@gmail.com" class="email"><i class="bx bx-envelope"></i></a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <img src="<%=request.getContextPath()%>/assets/img/team/bambi.PNG" alt="">
+              <h4>Yejin Lee</h4>
+              <span>Auction &amp; Image &amp; Like</span>
+              <p>
+                 	경매/베팅, 다중 이미지 업로드, 이미지 미리보기, 회원가입시 사용자의 휴대폰 인증 기능을 구현하였습니다.
+                 	이 외에도 검색과 좋아요 기능을 구현하였으며 공동구매/경매 및 전체적인 UI 디자인을 담당하였습니다.
               </p>
               <div class="social">
                 <a href="https://github.com/yejineer"><i class="bx bxl-github"></i></a>
@@ -214,34 +233,16 @@ if (request.getProtocol().equals("HTTP/1.1"))
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div class="member">
-              <img src="<%=request.getContextPath()%>/assets/img/team/ddungii.PNG" alt="">
-              <h4>Seonmi-Hwang</h4>
+              <img src="<%=request.getContextPath()%>/assets/img/team/patrick.PNG" alt="">
+              <h4>Seonmi Hwang</h4>
               <span>User &amp; Order</span>
               <p>
-                	로그인/회원가입과 사용자의 회원 정보를 포함한 마이페이지, 구매 진행 및 업로더 관리 화면 기능, 주소 검색 API를 적용하였습니다.
+                	로그인/회원가입과 사용자의 회원 정보를 포함한 마이페이지, 구매 진행 및 참여자 관리 화면 기능, 주소 검색 API를 적용하였습니다.
                 	이 외에도 공동구매와 경매의 신고 기능, DB 관리를 주로 담당하였습니다.
               </p>
               <div class="social">
-                <a href="https://github.com/Seonmi-Hwang"><i class="icofont-github"></i></a>
-                <a href="https://www.instagram.com/willow.s__/"><i class="icofont-instagram"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-            <div class="member">
-              <img src="<%=request.getContextPath()%>/assets/img/team/parrotbill.PNG" alt="">
-              <h4>hyekyung-kim</h4>
-              <span>Groupbuy &amp; Scheduling</span>
-              <p>
-                	공동구매와 스케줄러 및 알림, 회원가입시 사용자의 이메일 인증 기능을 구현하였습니다.
-                	이 외에도 메인 페이지의 정렬과 REST API 기능을 담당하였습니다.
-              </p>
-              <div class="social">
-                <a href=""><i class="icofont-twitter"></i></a>
-                <a href=""><i class="icofont-facebook"></i></a>
-                <a href=""><i class="icofont-instagram"></i></a>
-                <a href=""><i class="icofont-linkedin"></i></a>
+                <a href="https://github.com/Seonmi-Hwang"><i class="bx bxl-github"></i></a>
+                <a href="mailto:kum3530@naver.com" class="email"><i class="bx bx-envelope"></i></a>
               </div>
             </div>
           </div>

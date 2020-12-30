@@ -28,12 +28,12 @@ public class Auction implements Serializable {
 	List<MultipartFile> report;
 	@NotEmpty
 	String content;
-	@NotNull @Positive
+	@Positive
 	int startPrice;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	Date uploadDate;
 	@NotNull
-//	@FutureOrPresent
+	@FutureOrPresent
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	Date endDate;
 	int count;

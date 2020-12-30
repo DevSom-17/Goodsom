@@ -64,7 +64,7 @@
 					<img src="${auction.imgs_a[0].url}" class="img-fluid" alt="" style="height: 100%;">
 				</a>
 				<c:forEach var="img" items="${auction.imgs_a}" varStatus="status">
-					<a href="${img.url}" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
+					<a href="${img.url}" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-images"></i></a>
 				</c:forEach>
                 <a href="javascript:void(0);" onclick="changeHeartAuction(${auction.auctionId}, ${loginUserId}); return false;" class="link-details" title="좋아요">
               		<c:choose>
@@ -87,7 +87,8 @@
 							<strong>시작가</strong>: <fmt:formatNumber value="${auction.startPrice}" pattern="#,###원"/>
 						</div>
 						<div style="float:right; color: #898a8c;">
-							<strong>최고가</strong>: <fmt:formatNumber value="${auction.maxPrice}" pattern="#,###원"/>
+							<strong>최고가</strong>:
+							<span style="color: #fa981f; font-weight: 600;"><fmt:formatNumber value="${auction.maxPrice}" pattern="#,###"/></span> 원
 						</div>
 						<br/>
 						<div style="float:left; color: #898a8c;">

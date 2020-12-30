@@ -29,17 +29,6 @@
           	<br>
           </div>
 
-<!--           <div class="col-lg-2 col-md-6 footer-links"> -->
-<!--             <h4>17's Project</h4> -->
-<!--             <ul> -->
-<!--               <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li> -->
-<!--               <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li> -->
-<!--               <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li> -->
-<!--               <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li> -->
-<!--               <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li> -->
-<!--             </ul> -->
-<!--           </div> -->
-
           <div class="col-lg-3 col-md-6 footer-links">
           	<br>
               <h4>Programmer</h4>
@@ -49,14 +38,6 @@
 	              <li><i class="bx bx-chevron-right"></i> <a href="https://github.com/Seonmi-Hwang">Seonmi Hwang</a></li>
 	            </ul>
           </div>
-
-<!--           <div class="col-lg-4 col-md-6 footer-newsletter"> -->
-<!--           	<h4></h4> -->
-<!--             <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p> -->
-<!--             <form action="" method="post"> -->
-<!--               <input type="email" name="email"><input type="submit" value="Subscribe"> -->
-<!--             </form> -->
-<!--           </div> -->
 
         </div>
       </div>
@@ -80,11 +61,6 @@
         <a href="https://github.com/DevSom-17/Goodsom" class="github"><i class="bx bxl-github"></i></a>
         <a href="https://trello.com/b/mectpnRE/goodsom" class="trello"><i class="bx bxl-trello"></i></a>
         <a href="mailto:goodsom2020@gmail.com" class="email"><i class="icofont-email"></i></a>
-<!--         <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a> -->
-<!--         <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a> -->
-<!--         <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a> -->
-<!--         <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a> -->
-<!--         <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a> -->
       </div>
     </div>
   </footer><!-- End Footer -->

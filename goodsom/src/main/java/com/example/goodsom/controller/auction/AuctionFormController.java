@@ -212,8 +212,27 @@ public class AuctionFormController implements ApplicationContextAware  {
 		return AUCTION_DETAIL;
 	}
 	
-	public void setAuctionService(AuctionService auctionService) {
-		this.auctionService = auctionService;
+	@RequestMapping(value="/auction/delete.do")
+	public ModelAndView auctionDelete(HttpServletRequest request,
+			@RequestParam("auctionId") int auctionId, SessionStatus status){
+//		서버에서 경매 이미지들 삭제
+		List<Image_a> auctionImgs = auctionService.getAuction(auctionId).getImgs_a();
+		for (Image_a auctionImg : auctionImgs) {
+			String[] fileName = auctionImg.getUrl().split("/");	// /resources/images/사진이름
+			if (deleteFile(uploadDir + fileName[3])) {
+				System.out.println("파일 삭제 성공!");
+			}
+		}
+//		DB에서 경매 삭제 (테이블: Auctions, Images_a)
+		UserSession user  = (UserSession)request.getSession().getAttribute("userSession");
+		int loginUserId = user.getUser().getUserId();
+		List<Auction> auctionList = auctionService.deleteAuction(auctionId, loginUserId);
+		
+		ModelAndView mav = new ModelAndView(AUCTION_LIST);
+		mav.addObject("loginUserId", loginUserId);
+		mav.addObject("auctionList", auctionList);
+		status.setComplete();
+		return mav;
 	}
 	
 //	파일명 랜덤생성 메서드
@@ -237,29 +256,6 @@ public class AuctionFormController implements ApplicationContextAware  {
 		}
 		return savedNames;
 			
-	}
-	
-	@RequestMapping(value="/auction/delete.do")
-	public ModelAndView auctionDelete(HttpServletRequest request,
-			@RequestParam("auctionId") int auctionId, SessionStatus status){
-//		서버에서 경매 이미지들 삭제
-		List<Image_a> auctionImgs = auctionService.getAuction(auctionId).getImgs_a();
-		for (Image_a auctionImg : auctionImgs) {
-			String[] fileName = auctionImg.getUrl().split("/");	// /resources/images/사진이름
-			if (deleteFile(uploadDir + fileName[3])) {
-				System.out.println("파일 삭제 성공!");
-			}
-		}
-//		DB에서 경매 삭제 (테이블: Auctions, Images_a)
-		UserSession user  = (UserSession)request.getSession().getAttribute("userSession");
-		int loginUserId = user.getUser().getUserId();
-		List<Auction> auctionList = auctionService.deleteAuction(auctionId, loginUserId);
-		
-		ModelAndView mav = new ModelAndView(AUCTION_LIST);
-		mav.addObject("loginUserId", loginUserId);
-		mav.addObject("auctionList", auctionList);
-		status.setComplete();
-		return mav;
 	}
 	
 //	파일명 삭제 메서드
