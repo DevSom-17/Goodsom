@@ -46,8 +46,6 @@ public class CreateReportController {
 			@RequestParam(value="groupBuyId", required=false) Integer groupBuyId,
 			@RequestParam("writerId") int writerId) {
 		
-		System.out.println("/report/create.do controller 실행");
-		
 		ModelAndView mav = new ModelAndView(formViewName);
 
 		CreateReportForm reportForm = new CreateReportForm();

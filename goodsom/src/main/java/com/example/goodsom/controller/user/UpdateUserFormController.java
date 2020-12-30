@@ -49,12 +49,37 @@ public class UpdateUserFormController {
 	@ModelAttribute("cardBanks")
 	public List<String> cardBanksData() {
 		ArrayList<String> cardBanks = new ArrayList<String>();
-		cardBanks.add("신한");
 		cardBanks.add("하나");
-		cardBanks.add("우리");
-		cardBanks.add("농협");
-		cardBanks.add("국민"); 
-		// add more
+		cardBanks.add("국민");
+		cardBanks.add("신한");
+		cardBanks.add("농협"); 
+		cardBanks.add("우리"); 
+		cardBanks.add("기업"); 
+		cardBanks.add("카카오뱅크");
+		cardBanks.add("새마을금고");
+		cardBanks.add("신협");
+		cardBanks.add("대구");
+		cardBanks.add("부산");
+		cardBanks.add("경남");
+		cardBanks.add("광주");
+		cardBanks.add("전북");
+		cardBanks.add("제주");
+		cardBanks.add("산업");
+		cardBanks.add("수협중앙회");
+		cardBanks.add("한국씨티");
+		cardBanks.add("SC제일");
+		cardBanks.add("HSBC");
+		cardBanks.add("도이치뱅크");
+		cardBanks.add("BOA");
+		cardBanks.add("JP모간");
+		cardBanks.add("중국공상");
+		cardBanks.add("BNP파리바");
+		cardBanks.add("우체국");
+		cardBanks.add("케이뱅크");
+		cardBanks.add("산림조합");
+		cardBanks.add("저축");
+		cardBanks.add("중국");
+		cardBanks.add("중국건설");
 		return cardBanks;			
 	}
 	
@@ -79,7 +104,13 @@ public class UpdateUserFormController {
 			return formViewName; 
 		}
 		
-		userForm.getUser().setPasswd(userForm.getNewPassword());
+		if (userForm.getNewPassword().length() > 0) {
+			System.out.println("패스워드가 바뀌셨다");
+			System.out.println(userForm.getNewPassword());
+			userForm.getUser().setPasswd(userForm.getNewPassword());
+		} else {
+			userForm.getUser().setPasswd(userForm.getRepeatedOriginPassword());
+		}
 		
 		int result = userService.updateUser(userForm.getUser());
 		

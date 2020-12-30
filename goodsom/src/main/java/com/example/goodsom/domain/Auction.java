@@ -126,12 +126,10 @@ public class Auction implements Serializable {
 	}
 
 	public Date getEndDate() {
-		System.out.println("get: " + endDate);
 		return endDate;
 	}
 
 	public void setEndDate(Date endDate) {
-		System.out.println("set: " + endDate);
 		this.endDate = endDate;
 	}
 
@@ -256,7 +254,6 @@ public class Auction implements Serializable {
 		try {
 			tmpDate = KSTFormat.parse(getEndDate().toString());
 			setEndDate(tmpDate);
-			System.out.println("tmpDate " + tmpDate);
 			newDate = tmpFormat.format(tmpDate);
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -276,10 +273,8 @@ public class Auction implements Serializable {
         }
         try {
         	String dateFormat = newDate + " " + String.valueOf(getHour()) + ":" + String.valueOf(getMinute());
-            System.out.println("dateFormat: " + dateFormat);
 			Date resultDate = sdfHour.parse(dateFormat);
 			setEndDate(resultDate);	// 마감일 세팅
-			System.out.println(resultDate);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

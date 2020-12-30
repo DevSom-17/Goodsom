@@ -15,6 +15,10 @@ public class PresentOrFutureValidator implements ConstraintValidator<PresentOrFu
 		 Calendar cal = Calendar.getInstance();
          int day = cal.get(Calendar.DAY_OF_MONTH);
 
+         if(value == null) {
+        	 return false;
+         }
+         
 		 Calendar calendar = Calendar.getInstance(); 
 
 		 calendar.set(Calendar.DATE, day-1);
@@ -27,6 +31,4 @@ public class PresentOrFutureValidator implements ConstraintValidator<PresentOrFu
          // 오늘 이전이 아님(==오늘+내일) 또는 오늘 이후
          return !value.before(today) || value.after(today);
 	}
-	
-
 }

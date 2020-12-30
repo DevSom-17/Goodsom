@@ -139,26 +139,35 @@
 
 				<form:form modelAttribute="userForm" method="POST" onsubmit="return emailCheck()" action="register.do" class="bg-light p-5 contact-form">
 
+					<label for="name">이메일</label> <span style="color:red">*</span>
 					<div class="form-group">
-						<label for="name">이메일</label> <span style="color:red">*</span>
-						<form:input path="user.email" class="form-control" placeholder="ex) 20170000@dongduk.ac.kr" />
-						<form:errors path="user.email" cssClass="error" />
+						<c:choose>
+							<c:when test="${empty userForm.user.email}">
+								<form:input path="user.email" class="form-control" style="width:70%;float:left" placeholder="ex) 20170000@dongduk.ac.kr" /> &nbsp;
+								<input type="button" style="height: calc(1.5em + .75rem + 2px)" id="emailVerify" value="이메일 인증" onClick="emailSubmit()" /> <br>
+							</c:when>
+							<c:otherwise>
+								<form:input path="user.email" class="form-control" style="width:70%;float:left" disabled="true" /> &nbsp;
+								<input type="button" style="height: calc(1.5em + .75rem + 2px)" id="emailVerify" value="이메일 인증 완료" onClick="emailSubmit()" disabled /> <br>
+							</c:otherwise>
+						</c:choose>
 						<form:errors cssClass="error" />
 					</div>
 					
-					<div class="form-group" align="right">
-						<input type="button" class="btn-submit" id="emailVerify" value="이메일 인증" onClick="emailSubmit()" />
-					</div>
-					
+					<label for="name">인증번호</label> <span style="color:red">*</span>
 					<div class="form-group">
-						<label for="name">인증번호</label> <span style="color:red">*</span>
-						<form:input path="user.code" class="form-control" placeholder="ex) D2f24fd1" />
+						<c:choose>
+							<c:when test="${empty userForm.user.email}">
+								<form:input path="user.code" class="form-control" style="width:50%;float:left" placeholder="ex) D2f24fd1" /> &nbsp;
+								<input type="button" id="codeVerify" style="height: calc(1.5em + .75rem + 2px)" value="확인" onClick="codeSubmit()" disabled/>
+							</c:when>
+							<c:otherwise>
+								<form:input path="user.code" class="form-control" style="width:50%;float:left" disabled="true" /> &nbsp;
+								<input type="button" id="codeVerify" style="height: calc(1.5em + .75rem + 2px)" value="확인" onClick="codeSubmit()" disabled/>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					
-					<div class="form-group" align="right">
-						<input type="button" class="btn-submit" id="codeVerify" value="확인" onClick="codeSubmit()" disabled/>
-					</div>
-
 					<div class="form-group">
 						<label for="name">비밀번호</label> <span style="color:red">*</span>
 						<form:input path="user.passwd" type="password" class="form-control" placeholder="비밀번호" />
@@ -185,21 +194,37 @@
 
 					<div class="form-group">
 						<label for="name" style="display: block;">전화번호 <span style="color:red">*</span> </label> 
-						<form:input path="user.phone" class="form-control" placeholder="ex) 010-0000-0000" style="width: 50%; float: left; display: block;"/>
-						<input type="button" class="btn-submit" id="sendPhoneNumber" value="인증번호 발송" style="display: block; margin-inline-start: auto;"/>
-						<form:errors path="user.phone" cssClass="error" />
+						<c:choose>
+							<c:when test="${empty userForm.user.phone}">
+								<form:input path="user.phone" class="form-control" placeholder="ex) 010-0000-0000" style="width: 50%; float: left; display: block;"/> &nbsp;
+								<input type="button" style="height: calc(1.5em + .75rem + 2px)" id="sendPhoneNumber" value="인증번호 발송" />
+							</c:when>
+							<c:otherwise>
+								<form:input path="user.phone" class="form-control" style="width: 50%; float: left; display: block;" disabled="true"/> &nbsp;
+								<input type="button" style="height: calc(1.5em + .75rem + 2px)" id="sendPhoneNumber" value="인증번호 발송" disabled />
+							</c:otherwise>
+						</c:choose>		
+						<form:errors path="user.phone" id="inputPhoneNumber" cssClass="error" />
 					</div>
 					
 					<div class="form-group">
 						<label for="name" style="display: block;">인증번호 <span style="color:red">*</span> </label> 
-						<input type="text" id="inputCertifiedNumber" class="form-control" disabled style="width: 50%; float: left; display: block;"/>
-						<input type="button" class="btn-submit" id="checkBtn" value="휴대폰 인증하기" style="display: block; margin-inline-start: auto;" disabled/>
+						<c:choose>
+							<c:when test="${empty userForm.user.phone}">
+								<input type="text" id="inputCertifiedNumber" class="form-control" disabled style="width: 50%; float: left; display: block;"/> &nbsp;
+								<input type="button" id="checkBtn" style="height: calc(1.5em + .75rem + 2px)" value="휴대폰 인증하기" disabled/>
+							</c:when>
+							<c:otherwise>
+								<input type="text" id="inputCertifiedNumber" class="form-control" disabled style="width: 50%; float: left; display: block;"/> &nbsp;
+								<input type="button" id="checkBtn" style="height: calc(1.5em + .75rem + 2px)" value="휴대폰 인증 완료" disabled/>
+							</c:otherwise>
+						</c:choose>	
 					</div>
 
 					<div class="form-group">
 						<label for="name">주소</label> <br/> 
 						<form:input path="user.postcode" class="form-control" placeholder="우편번호" readonly="true" style="width:30%;float:left;margin-bottom:5px"/> &nbsp;
-						<input type="button" class="btn-submit" onclick="execDaumPostcode()" value="우편번호 찾기">
+						<input type="button" style="height: calc(1.5em + .75rem + 2px)" onclick="execDaumPostcode()" value="우편번호 찾기">
 						<form:input path="user.address" class="form-control" placeholder="주소" style="margin-bottom:5px" readonly="true" />
 						<form:input path="user.detailAddress" class="form-control" placeholder="상세주소" style="width:50%;float:left"/> &nbsp; 
 						<form:input path="user.extraAddress" class="form-control" placeholder="참고항목" readonly="true" style="width:49%;float:right"/>
@@ -293,8 +318,10 @@
 								<option value="" selected>은행</option>
 								<form:options items="${cardBanks}" />
 							</form:select>
-							<form:input path="user.refundAccount" class="form-control" placeholder="ex) 123-1234-1234" /> 
+							<form:input path="user.refundAccount" class="form-control" placeholder="ex) 123-1234-1234" />
 						</div>
+							<form:errors path="user.refundBank" cssClass="error" />
+							<form:errors path="user.refundAccount" cssClass="error" />
 					</div>
 					<br/>
 
