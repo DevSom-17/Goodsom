@@ -3,6 +3,8 @@ package com.example.goodsom.controller.groupBuy;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -121,6 +123,21 @@ public class GroupBuyFormController implements ApplicationContextAware {
 		
 //		시간 세팅
 		groupBuyForm.getGroupBuy().timeSet();
+//		time validation
+		Calendar calendar = Calendar.getInstance(); 
+		Date today = calendar.getTime();
+		if(groupBuyForm.getGroupBuy().getEndDate().before(today)) {
+			result.rejectValue("groupBuy.endDate", "time");
+		}
+		if (result.hasErrors()) {
+			if(reqPage.trim().equals("/groupBuy/update.do")) {
+				model.addAttribute("groupBuyId", groupBuyForm.getGroupBuy().getGroupBuyId());
+				return GROUPBUY_FORM;
+			} else {
+				return GROUPBUY_FORM;
+			}
+		}
+		
 //		이미지 파일이 저장될 경로
 		String imagePath = request.getContextPath() + "/resources/images/";
 		
@@ -162,7 +179,7 @@ public class GroupBuyFormController implements ApplicationContextAware {
 			} else if (likeCheck == 0) {
 				model.addAttribute("like", false);
 			} else {
-				System.out.println("[AuctionUpdate후]likeService.likeCheckOfAuctionByUserId()오류!");
+				System.out.println("[GroupBuyUpdate후]likeService.likeCheckOfGroupBuyByUserId()오류!");
 				model.addAttribute("like", false);
 			}
 		} else { 	// create

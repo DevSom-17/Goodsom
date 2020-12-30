@@ -17,6 +17,8 @@ import javax.validation.constraints.PositiveOrZero;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.goodsom.validator.PresentOrFuture;
+
 @SuppressWarnings("serial")
 public class GroupBuy implements Serializable {
 	private static final String PROCEEDING = "proceeding";
@@ -40,8 +42,8 @@ public class GroupBuy implements Serializable {
 	Date resultDate;
 	
 	@NotNull
-	@DateTimeFormat(pattern ="yyyy-MM-dd")
-	@FutureOrPresent
+	@PresentOrFuture
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	Date endDate;
 	
 	int count;
