@@ -21,7 +21,6 @@ public class EmailController {
 	public String emailConfirm(@RequestBody String userId) throws Exception{
 		System.out.println("이메일을 받은 사람: " + userId);
 		emailService.sendSimpleMessage(userId);
-		System.out.println("ePw: " + EmailServiceImpl.ePw);
 		return EmailServiceImpl.ePw;
 	}
 	
