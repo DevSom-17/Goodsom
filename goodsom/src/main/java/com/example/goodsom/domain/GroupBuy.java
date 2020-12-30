@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -16,6 +15,8 @@ import javax.validation.constraints.PositiveOrZero;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.example.goodsom.validator.PresentOrFuture;
 
 @SuppressWarnings("serial")
 public class GroupBuy implements Serializable {
@@ -40,8 +41,8 @@ public class GroupBuy implements Serializable {
 	Date resultDate;
 	
 	@NotNull
-	@DateTimeFormat(pattern ="yyyy-MM-dd")
-	@FutureOrPresent
+	@PresentOrFuture
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	Date endDate;
 	
 	int count;
@@ -350,7 +351,6 @@ public class GroupBuy implements Serializable {
         String newDate = null;
 		try {
 			tmpDate = KSTFormat.parse(getEndDate().toString());
-			System.out.println(tmpDate);
 			newDate = tmpFormat.format(tmpDate);
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -372,10 +372,8 @@ public class GroupBuy implements Serializable {
         
         try {
         	String dateFormat = newDate + " " + String.valueOf(getHour()) + ":" + String.valueOf(getMinute());
-            System.out.println("dateFormat: " + dateFormat);
 			resultDate = sdfHour.parse(dateFormat);
 			setEndDate(resultDate);	// 마감일 세팅
-			System.out.println(resultDate);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

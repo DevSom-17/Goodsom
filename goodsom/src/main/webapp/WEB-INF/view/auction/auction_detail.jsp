@@ -6,6 +6,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <%@ include file="../includeTop.jsp"%>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <style>
 .btn-submit {
@@ -42,15 +43,47 @@
 <script type="text/javascript">
 
 function deleteAuction() {
-	if (confirm("경매를 삭제하시겠습니까?")) {
-		location.href= "delete.do?auctionId=${auction.auctionId}";
-	}
+	Swal.fire({
+		  title: '경매를 삭제하시겠습니까?',
+		  text: '되돌릴 수 없습니다!',
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: '삭제',
+		  cancelButtonText: '취소'
+		}).then((result) => {
+		  if (result.value) {
+		    Swal.fire(
+		      '삭제 완료!',
+		      '경매가 삭제되었습니다!',
+		      'success'
+		    )
+			location.href= "delete.do?auctionId=${auction.auctionId}";
+		  }
+		})
+	/* if (confirm("경매를 삭제하시겠습니까?")) {
+		
+	} */
 }
 
 function updateAuction() {
-	if (confirm("경매를 수정하시겠습니까?")) {
+	Swal.fire({
+		  title: '경매를 수정하시겠습니까?',
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: '수정',
+		  cancelButtonText: '취소'
+		}).then((result) => {
+		  if (result.value) {
+			location.href= "form.do?auctionId=${auction.auctionId}";
+		  }
+		})
+	/* if (confirm("경매를 수정하시겠습니까?")) {
 		location.href= "form.do?auctionId=${auction.auctionId}";
-	}
+	} */
 }
 
 function bid() {
@@ -192,18 +225,19 @@ function orderAuction() {
 			</dl>
 		</div>
 
+		<c:if test="${(isWriter eq true) and (auction.maxPrice == 0)}">
+			<div class="form-group" align="center" style="padding-bottom: 5px;">
+				<a class="btn-submit" href="javascript:updateAuction()" >수정</a>
+				<a class="btn-danger" href="javascript:deleteAuction()" >삭제</a>
+			</div>
+		</c:if>
 		<div class="form-group" align="center">
-				<%-- <c:if test="${(isWriter eq true) and (empty bids) and (auction.state eq 'proceeding')}"> --%>
-				<c:if test="${isWriter eq true}">
-					<a class="btn-submit" href="<c:url value='../order/auction/manage.do'>
-																<c:param name="auctionId" value="${auction.auctionId}" />
-														 	  </c:url>">낙찰자 현황</a>
-				</c:if>	
-				<c:if test="${(isWriter eq true) and (auction.maxPrice == 0)}">
-					<a class="btn-submit" href="javascript:updateAuction()" >수정</a>
-					<a class="btn-danger" href="javascript:deleteAuction()" >삭제</a>
-				</c:if>
-					<a class="btn-submit" href="<c:url value='/auction/list.do'></c:url>">목록</a>
+			<c:if test="${isWriter eq true}">
+				<a class="btn-submit" href="<c:url value='../order/auction/manage.do'>
+												<c:param name="auctionId" value="${auction.auctionId}" />
+											  </c:url>">낙찰자 현황</a>
+			</c:if>	
+			<a class="btn-submit" href="<c:url value='/auction/list.do'></c:url>">목록</a>
 		</div>
 		
 	</main>

@@ -3,6 +3,8 @@ package com.example.goodsom.controller.auction;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -122,8 +124,24 @@ public class AuctionFormController implements ApplicationContextAware  {
 //		경매 create시 작성자 번호(userId)를 넣어야하고, view에서 작성자를 출력해야 하므로 현재 접속 중인 사용자의 정보를 Session에서 가져온다.
 		UserSession user  = (UserSession)request.getSession().getAttribute("userSession");
 		System.out.println(user.toString());
+		
 //		시간세팅
 		auctionForm.getAuction().timeSet();
+//		time validation
+		Calendar calendar = Calendar.getInstance(); 
+		Date today = calendar.getTime();
+		if(auctionForm.getAuction().getEndDate().before(today)) {
+			result.rejectValue("auction.endDate", "time");
+		}
+		if (result.hasErrors()) {
+			if (requestUrl.equals("/auction/update.do")) {
+				model.addAttribute("auctionId", auctionForm.getAuction().getAuctionId());
+				return AUCTION_FORM;
+			} else {
+				return AUCTION_FORM;
+			}
+		}
+		
 //		이미지 파일이 저장될 경로
 		String imagePath = request.getContextPath() + "/resources/images/";
 		System.out.println("이미지 파일이 저장될 경로인 imagePath: " + imagePath);

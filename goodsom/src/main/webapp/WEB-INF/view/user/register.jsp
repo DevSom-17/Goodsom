@@ -41,6 +41,7 @@
 			success: function(){	// object parsed from JSON text	
 				var codeBtn = document.getElementById('codeVerify');
 				codeBtn.disabled=false;
+				Swal.fire('인증번호 발송 완료!')
 			},
 			error: function(request,status,error){
                 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -60,15 +61,27 @@
 			data: JSON.stringify(code),
 			success: function(codeMatch){	// object parsed from JSON text	
 				if(codeMatch){
+					var emailId = document.getElementById('user.email');
+					emailId.disabled=true;
+					
 					var checkBtn = document.getElementById('emailVerify');
 					checkBtn.value="이메일 인증 완료";
 					checkBtn.disabled=true;
-
 					var codeBtn = document.getElementById('codeVerify');
 					codeBtn.disabled=true;
 					
+					var inputEmail = document.getElementById('user.email');
+					inputEmail.disabled=true;
+					var inputCode = document.getElementById('user.code');
+					inputCode.disabled=true;
 				}else{
-					alert("잘못된 인증번호입니다!");
+					Swal.fire({
+                        icon: 'error',
+                        title: '인증오류',
+                        text: '인증번호가 올바르지 않습니다!',
+                        confirmButtonText: '다시 인증하기',
+                        confirmButtonColor: '#2778c4'
+                    })
 				}
 			},
 			error: function(request,status,error){
@@ -183,11 +196,11 @@
 						<label for="name" style="display: block;">전화번호 <span style="color:red">*</span> </label> 
 						<c:choose>
 							<c:when test="${empty userForm.user.phone}">
-								<form:input path="user.phone" id="inputPhoneNumber" class="form-control" placeholder="ex) 010-0000-0000" style="width: 50%; float: left; display: block;"/> &nbsp;
+								<form:input path="user.phone" class="form-control" placeholder="ex) 010-0000-0000" style="width: 50%; float: left; display: block;"/> &nbsp;
 								<input type="button" style="height: calc(1.5em + .75rem + 2px)" id="sendPhoneNumber" value="인증번호 발송" />
 							</c:when>
 							<c:otherwise>
-								<form:input path="user.phone" id="inputPhoneNumber" class="form-control" style="width: 50%; float: left; display: block;" disabled="true"/> &nbsp;
+								<form:input path="user.phone" class="form-control" style="width: 50%; float: left; display: block;" disabled="true"/> &nbsp;
 								<input type="button" style="height: calc(1.5em + .75rem + 2px)" id="sendPhoneNumber" value="인증번호 발송" disabled />
 							</c:otherwise>
 						</c:choose>		
@@ -326,7 +339,7 @@
 var inputCertifiedNum = document.getElementById('inputCertifiedNumber');
 var checkBtn = document.getElementById('checkBtn');
 var sendPhoneNumberBtn = document.getElementById('sendPhoneNumber');
-var inputPhoneNum = document.getElementById('inputPhoneNumber');
+var inputPhoneNum = document.getElementById('user.phone');
 
 $(sendPhoneNumberBtn).click(function(){
 	let phoneNumber = $(inputPhoneNum).val();

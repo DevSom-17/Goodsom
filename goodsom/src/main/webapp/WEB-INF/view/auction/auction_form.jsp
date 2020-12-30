@@ -11,7 +11,6 @@
 
 <script>
 function auctionSubmit(isNewAuction) {
-	
 	if (isNewAuction) {
 		document.auctionForm.action="create.do";
 	} else {
