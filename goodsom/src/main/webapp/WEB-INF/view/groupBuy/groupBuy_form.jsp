@@ -48,10 +48,25 @@ function input_append(ff){
 
 </script>
 <style>
-.error {
-	color: #ff0000;
-	/* font-weight: bold; */
-}
+	.error {
+		color: #ff0000;
+		/* font-weight: bold; */
+	}
+	.btn-submit {
+	position: relative;
+	top: 0;
+	right: 5px;
+	bottom: 0;
+	border: 0;
+	background: none;
+	font-size: 16px;
+	padding: 8px 30px;
+	background: #3498db;
+	color: #fff;
+	transition: 0.3s;
+	border-radius: 0px 0px 0px 0px;
+	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+	}
 </style>
 <body>
 
@@ -270,8 +285,8 @@ function input_append(ff){
              </div>
 
 			<div class="text-center">
-				<input type="button" value="취소" onclick="location.href='/groupBuy/list.do'" /> &nbsp;
-				<input type="button" value="등록" onClick="groupBuySubmit(${groupBuyForm.newGroupBuy})" />
+				<input type="button" class="btn-submit" value="취소" onclick="location.href='/groupBuy/list.do'" /> &nbsp;
+				<input type="button" class="btn-submit" value="등록" onClick="groupBuySubmit(${groupBuyForm.newGroupBuy})" />
 			</div>
 		</form:form>
 		</div>
