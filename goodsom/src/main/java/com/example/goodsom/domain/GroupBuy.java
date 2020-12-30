@@ -48,13 +48,13 @@ public class GroupBuy implements Serializable {
 	int rate;
 	int participants;
 	
-	@Positive
+	@Positive(message = "태그를 선택해주세요!")
 	int catId;
 	
 	int menuId;
 	int userId;
 	
-	@Positive
+	@Positive(message = "가격은 0보다 큰 값이어야합니다.")
 	int price;
 	
 	@NotEmpty
