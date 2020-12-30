@@ -92,6 +92,7 @@ public class RegisterUserFormController {
 		// 같은 이메일 아이디가 이미 존재할 경우 다시 form 띄움
 		if (userService.getUserByEmail(userForm.getUser().getEmail()) != null) {
 			result.reject("sameEmailExist", new Object[] {}, null);
+			userForm.getUser().setEmail("");
 			return formViewName;
 		}
 		
