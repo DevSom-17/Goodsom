@@ -22,12 +22,14 @@ public class PresentOrFutureValidator implements ConstraintValidator<PresentOrFu
 		 Calendar calendar = Calendar.getInstance(); 
 
 		 calendar.set(Calendar.DATE, day-1);
-         calendar.set(Calendar.HOUR_OF_DAY, 11);
+         calendar.set(Calendar.HOUR_OF_DAY, 23);
          calendar.set(Calendar.MINUTE, 59);
          calendar.set(Calendar.SECOND, 59);
          
          Date today = calendar.getTime();
 
+         System.out.println("기준 날짜: " + today);
+         System.out.println("입력 date: " + value);
          // 오늘 이전이 아님(==오늘+내일) 또는 오늘 이후
          return !value.before(today) || value.after(today);
 	}
