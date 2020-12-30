@@ -41,6 +41,7 @@
 			success: function(){	// object parsed from JSON text	
 				var codeBtn = document.getElementById('codeVerify');
 				codeBtn.disabled=false;
+				Swal.fire('인증번호 발송 완료!')
 			},
 			error: function(request,status,error){
                 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -63,12 +64,21 @@
 					var checkBtn = document.getElementById('emailVerify');
 					checkBtn.value="이메일 인증 완료";
 					checkBtn.disabled=true;
-
 					var codeBtn = document.getElementById('codeVerify');
 					codeBtn.disabled=true;
 					
+					var inputEmail = document.getElementById('user.email');
+					inputEmail.disabled=true;
+					var inputCode = document.getElementById('user.code');
+					inputCode.disabled=true;
 				}else{
-					alert("잘못된 인증번호입니다!");
+					Swal.fire({
+                        icon: 'error',
+                        title: '인증오류',
+                        text: '인증번호가 올바르지 않습니다!',
+                        confirmButtonText: '다시 인증하기',
+                        confirmButtonColor: '#2778c4'
+                    })
 				}
 			},
 			error: function(request,status,error){
@@ -172,9 +182,9 @@
 
 					<div class="form-group">
 						<label for="name" style="display: block;">전화번호 <span style="color:red">*</span> </label> 
-						<form:input path="user.phone" id="inputPhoneNumber" class="form-control" placeholder="ex) 010-0000-0000" style="width: 50%; float: left; display: block;"/>
+						<form:input path="user.phone" class="form-control" placeholder="ex) 010-0000-0000" style="width: 50%; float: left; display: block;"/>
 						<input type="button" class="btn-submit" id="sendPhoneNumber" value="인증번호 발송" style="display: block; margin-inline-start: auto;"/>
-						<form:errors path="user.phone" id="inputPhoneNumber" cssClass="error" />
+						<form:errors path="user.phone" cssClass="error" />
 					</div>
 					
 					<div class="form-group">
@@ -299,7 +309,7 @@
 var inputCertifiedNum = document.getElementById('inputCertifiedNumber');
 var checkBtn = document.getElementById('checkBtn');
 var sendPhoneNumberBtn = document.getElementById('sendPhoneNumber');
-var inputPhoneNum = document.getElementById('inputPhoneNumber');
+var inputPhoneNum = document.getElementById('user.phone');
 
 $(sendPhoneNumberBtn).click(function(){
 	let phoneNumber = $(inputPhoneNum).val();
