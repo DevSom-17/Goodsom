@@ -348,7 +348,7 @@ $(sendPhoneNumberBtn).click(function(){
 	var regPhone = /^01(0|1|[6-9]{1})-([0-9]{3,4})-([0-9]{4})$/; //숫자와 문자 포함 형태의 6~12자리 이내의 암호 정규식
 	if (regPhone.test(phoneNumber)==false) {
 		Swal.fire({
-            icon: 'error',
+            icon: 'warning',
             title: '주의',
             text: '전화번호를 제대로 입력해주세요!',
             confirmButtonText: '다시 입력하기',
@@ -365,34 +365,43 @@ $(sendPhoneNumberBtn).click(function(){
             "phoneNumber" : phoneNumber
         },
         success: function(res){
-        	inputCertifiedNum.disabled=false;
-        	checkBtn.disabled=false;
-        	Swal.fire('인증번호 발송 완료!')
-            
-            $('#checkBtn').click(function(){
-                if($.trim(res) ==$('#inputCertifiedNumber').val()){
-                    Swal.fire(
-                        '인증성공!',
-                        '휴대폰 인증이 정상적으로 완료되었습니다.',
-                        'success'
-                    )
-                    checkBtn.value='휴대폰 인증 완료';
-                    inputCertifiedNum.readOnly=true;
-                	checkBtn.disabled=true;
-                	sendPhoneNumberBtn.disabled=true;
-                	inputPhoneNum.readOnly=true;
-                }else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: '인증오류',
-                        text: '인증번호가 올바르지 않습니다!',
-                        confirmButtonText: '다시 인증하기',
-                        confirmButtonColor: '#2778c4'
-                    })
-                }
-            })
-
-
+            if (res.errorOccured == 'true') {
+                	Swal.fire({
+                		icon: 'error',
+                		title: '인증 오류',
+                		text: '문제가 생겼습니다. 개발자에게 문의해주세요.',
+                		confirmButtonText: '닫기',
+                        confirmButtonColor: '#2778c4',
+                		footer: "<a href='mailto:goodsom2020@gmail.com'>문의하기</a>"
+                	})
+            } else {
+	        	inputCertifiedNum.disabled=false;
+	        	checkBtn.disabled=false;
+	            
+                Swal.fire('인증번호 발송 완료!')
+	            $('#checkBtn').click(function(){
+	         	   if($.trim($('#inputCertifiedNumber').val()) == res.certNum){
+		         	   Swal.fire(
+				         	   '인증 성공!',
+		                       '휴대폰 인증이 정상적으로 완료되었습니다.',
+		                       'success'
+		               )
+		               checkBtn.value='휴대폰 인증 완료';
+		               inputCertifiedNum.readOnly=true;
+		               checkBtn.disabled=true;
+		               sendPhoneNumberBtn.disabled=true;
+		               inputPhoneNum.readOnly=true;
+	         	   } else {
+		         	   Swal.fire({
+			         	   icon: 'error',
+		                   title: '인증 오류',
+		                   text: '인증번호가 올바르지 않습니다!',
+		                   confirmButtonText: '다시 인증하기',
+		                   confirmButtonColor: '#2778c4'
+			              })
+			       }
+		        })
+            }
         }
     })
 });
