@@ -99,15 +99,6 @@ function addItem(selectedQuantity) {
   	  	+ "<input type='hidden' id='quantities[" + id + "]' name='quantities' value='" + selectedQuantity + "' />"
   	  	+ "&nbsp;&nbsp;<input type='button' name='del_btn' id='" + id 
   	  	+ "' value='X' onClick='delItem(this.id);'></div>";
-
-  	  	
-   	/*   	app.innerHTML += "<div id='itemDiv' class='d-flex'>"
-		+ "<input type='text' id='item' name='item' value='"
-	  	+ selectedOption + ", " + selectedQuantity + "' class='form-control' readonly>" 
-	  	+ "<input type='hidden' id='option' name='option' value='" + selectedOption + "' />"
-	  	+ "<input type='hidden' id='quantity' name='quantity' value='" + selectedQuantity + "' />"
-	  	+ "&nbsp;&nbsp;<input type='button' name='del_btn' id='" + id 
-	  	+ "' value='X' onClick='javascript:delItem(this.id);'></div>"; */
 }
 
 // (option, quantity) 삭제(선택취소)
@@ -178,16 +169,16 @@ function delItem(id) {
 				<c:if test="${groupBuy.state eq 'closed'}" > 마감되었습니다. </c:if>
 				<c:if test="${groupBuy.state eq 'proceeding' or groupBuy.state eq 'achieved'}" > ${dDay} </c:if>	
 			  </li>
-              <li><strong>가격</strong>: ${groupBuy.price}원</li>
-              <li><strong>옵션</strong>
+              <li><strong>가격</strong>: ${groupBuy.price}원</li><br>
               	<form:form name="form" modelAttribute="lineGroupBuyForm" action="../order/groupBuy/create.do" method="GET">
+              	<li><strong>옵션</strong> &nbsp;
 					<select name="option" id="option">
 						<option value="chooseOption" selected disabled>옵션 선택</option>
 						<c:forEach var="option" items="${groupBuy.options}" varStatus="status">
 							<option value="${option.name}">${option.name}</option>
 						</c:forEach>
-					</select> <br />
-					<strong>수량</strong>
+					</select></li>
+				<li><strong>수량</strong> &nbsp;
 					<input type="button" name="minus" value="-"
 						onclick="change(-1)" /> &nbsp; 
 					<input type="text" name="quantity" id="count" value="1"
@@ -201,16 +192,17 @@ function delItem(id) {
 					<c:if test="${groupBuy.state eq 'proceeding' or groupBuy.state eq 'achieved'}" >
 						<input type="button" value="추가하기" onclick="addItem(quantity.value)" />
 					</c:if>
-						
-					<div id="itemBox"> </div>
+					&nbsp;
 					<c:if test="${groupBuy.state eq 'closed'}" >
-						<input type="button" onclick="orderCreate()" value="신청하기" disabled />
+						<input type="button" style="float:right;" onclick="orderCreate()" value="신청하기" disabled />
 					</c:if>
 					<c:if test="${groupBuy.state eq 'proceeding' or groupBuy.state eq 'achieved'}" >
-						<input type="button" onclick="orderCreate()" value="신청하기" />
+						<input type="button" style="float:right;" onclick="orderCreate()" value="신청하기" />
 					</c:if>
+					</li>
+						<br>
+					<div id="itemBox"> </div>
 				</form:form>
-              </li>
             </ul>
           </div>
 

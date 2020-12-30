@@ -18,22 +18,10 @@ public class EmailController {
 	
 	@PostMapping("/send")
 	@ResponseBody
-	public void emailConfirm(@RequestBody String userId) throws Exception{
+	public String emailConfirm(@RequestBody String userId) throws Exception{
 		System.out.println("이메일을 받은 사람: " + userId);
 		emailService.sendSimpleMessage(userId);
-	}
-	
-	@PostMapping("/verifyCode")
-	@ResponseBody
-	public int verifyCode(@RequestBody String code) {
-		int result = 0;
-		code = code.replaceAll("\"", "");
-		System.out.println("code: " + code);
-		System.out.println("code match: " + EmailServiceImpl.ePw.equals(code));
-		if(EmailServiceImpl.ePw.equals(code)) {
-			result = 1;
-		}
-		return result;
+		return EmailServiceImpl.ePw;
 	}
 	
 }

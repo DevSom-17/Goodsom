@@ -22,10 +22,11 @@ public class EmailServiceImpl implements EmailService{
 	@Value("${AdminMail.id}")
 	private String emailId;
 	
-	public static final String ePw = createKey(); // 8자리 키 생성
+	public static String ePw; // 8자리 키 생성
 	
 	public MimeMessage createMessage(String to) throws Exception{
 		 System.out.println("보내는 대상 : "+ to);
+		 ePw = createKey();
 		 System.out.println("인증 번호 : "+ePw);
 		 MimeMessage  message = emailSender.createMimeMessage();
 		 	
