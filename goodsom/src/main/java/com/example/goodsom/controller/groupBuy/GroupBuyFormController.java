@@ -111,15 +111,6 @@ public class GroupBuyFormController implements ApplicationContextAware {
 			}
 			
 		}
-
-		if(result.hasErrors()) {
-			if(reqPage.trim().equals("/groupBuy/update.do")) {
-				model.addAttribute("groupBuyId", groupBuyForm.getGroupBuy().getGroupBuyId());
-				return GROUPBUY_FORM;
-			}else {
-				return GROUPBUY_FORM;
-			}
-		}
 		
 //		시간 세팅
 		groupBuyForm.getGroupBuy().timeSet();

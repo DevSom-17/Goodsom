@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -352,7 +351,6 @@ public class GroupBuy implements Serializable {
         String newDate = null;
 		try {
 			tmpDate = KSTFormat.parse(getEndDate().toString());
-			System.out.println(tmpDate);
 			newDate = tmpFormat.format(tmpDate);
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -374,10 +372,8 @@ public class GroupBuy implements Serializable {
         
         try {
         	String dateFormat = newDate + " " + String.valueOf(getHour()) + ":" + String.valueOf(getMinute());
-            System.out.println("dateFormat: " + dateFormat);
 			resultDate = sdfHour.parse(dateFormat);
 			setEndDate(resultDate);	// 마감일 세팅
-			System.out.println(resultDate);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
