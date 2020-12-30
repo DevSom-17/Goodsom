@@ -70,6 +70,8 @@
                         confirmButtonText: '다시 인증하기',
                         confirmButtonColor: '#2778c4'
                     })
+                    var codeBtn = document.getElementById('codeVerify');
+					codeBtn.disabled=true;
                 }
             })
 			},
