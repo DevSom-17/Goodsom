@@ -270,18 +270,15 @@ function input_append(ff){
              		</div>
              	</div>
              
-			<div class="form-group">
-             		<form:radiobuttons items="${amPm}" id="amPm" path="groupBuy.isAmPm"/> &nbsp;&nbsp;&nbsp;
-	            <form:errors path="groupBuy.isAmPm" cssClass="error"/>  &nbsp;&nbsp;&nbsp;
-	        </div>
 	        <div class="drop-down"> 
 				<form:select path="groupBuy.hour">
 					<form:options path="groupBuy.hour" items="${hourData}" itemLabel="label" itemValue="code"/>
 				</form:select>
-				&nbsp;&nbsp;&nbsp;
+				&nbsp;시&nbsp;&nbsp;
 				<form:select path="groupBuy.minute">
 					<form:options path="groupBuy.minute" items="${minuteData}" itemLabel="label" itemValue="code"/>
 				</form:select>
+				&nbsp;분
              </div>
 
 			<div class="text-center">

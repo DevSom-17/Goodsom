@@ -57,6 +57,10 @@ public class AuctionServiceImpl implements AuctionService {
 	
 	public Auction getAuction(int auctionId) throws DataAccessException {
 		Auction auction = auctionDao.getAuction(auctionId);
+		String[] dateStr = auction.getEndDate().toString().split(" ");
+		String[] timeStr = dateStr[3].split(":");
+		auction.setHour(Integer.valueOf(timeStr[0]));
+		auction.setMinute(Integer.valueOf(timeStr[1]));
 		return auction;
 	}
 	

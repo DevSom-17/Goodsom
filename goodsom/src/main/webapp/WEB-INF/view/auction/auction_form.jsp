@@ -184,22 +184,20 @@ function auctionSubmit(isNewAuction) {
 						</div>
 
 						<div class="form-group">
-							<form:radiobuttons items="${amPm}" id="amPm" name="amPm"
-								path="auction.isAmPm" />
-							&nbsp;&nbsp;&nbsp;
-							<form:errors path="auction.isAmPm" cssClass="error" />
-							&nbsp;&nbsp;&nbsp;
-						</div>
-						<div class="form-group">
 							<form:select path="auction.hour">
 								<form:options path="auction.hour" items="${hourData}"
 									itemLabel="label" itemValue="code" />
 							</form:select>
-							&nbsp;&nbsp;&nbsp;
+							&nbsp;시&nbsp;&nbsp;
 							<form:select path="auction.minute">
 								<form:options path="auction.minute" items="${minuteData}"
 									itemLabel="label" itemValue="code" />
 							</form:select>
+							&nbsp;분
+						</div>
+						
+						<div class="form-group">
+							
 						</div>
 
 						<div class="form-group" align="center">

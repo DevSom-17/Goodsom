@@ -13,7 +13,6 @@ import com.example.goodsom.dao.GroupBuyDao;
 import com.example.goodsom.dao.LikeDao;
 import com.example.goodsom.dao.NotificationDao;
 import com.example.goodsom.dao.UserDao;
-import com.example.goodsom.domain.Auction;
 import com.example.goodsom.domain.GroupBuy;
 import com.example.goodsom.domain.Image_g;
 import com.example.goodsom.domain.Notification;
@@ -56,7 +55,12 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 	private LikeDao likeDao;
 	
 	public GroupBuy getGroupBuy(int groupBuyId) {
-		return groupBuyDao.getGroupBuy(groupBuyId);
+		GroupBuy groupBuy = groupBuyDao.getGroupBuy(groupBuyId);
+		String[] dateStr = groupBuy.getEndDate().toString().split(" ");
+		String[] timeStr = dateStr[3].split(":");
+		groupBuy.setHour(Integer.valueOf(timeStr[0]));
+		groupBuy.setMinute(Integer.valueOf(timeStr[1]));
+		return groupBuy;
 	}
 	
 	@Transactional

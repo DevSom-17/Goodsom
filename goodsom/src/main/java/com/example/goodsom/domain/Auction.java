@@ -46,8 +46,6 @@ public class Auction implements Serializable {
 	int menuId;
 	int userId;
 
-	@NotEmpty
-	String isAmPm;
 	int hour;
 	int minute;
 	int sendNoti;
@@ -165,13 +163,6 @@ public class Auction implements Serializable {
 		this.receive = receive;
 	}
 
-	public String getIsAmPm() {
-		return isAmPm;
-	}
-
-	public void setIsAmPm(String isAmPm) {
-		this.isAmPm = isAmPm;
-	}
 	public int getHour() {
 		return hour;
 	}
@@ -259,18 +250,12 @@ public class Auction implements Serializable {
 			e.printStackTrace();
 		}
         
-        // 마감시간 세팅
-        if(isAmPm.equals("pm")){
-        	int tmpHour = getHour()+12;
-        	if(tmpHour == 24) {
-        		setHour(00);
-        	}else {
-        		setHour(tmpHour);
-        	}
-        }
-        if (getHour() == 12) {
-        	setHour(00);
-        }
+		String hourStr = String.valueOf(getHour());
+		if (hourStr == "0") {
+			System.out.println("timeSet()에서 hour가 0일 때 00으로 해줬음! hour값: " + getHour());
+			hourStr = "00";
+		}
+		
         try {
         	String dateFormat = newDate + " " + String.valueOf(getHour()) + ":" + String.valueOf(getMinute());
 			Date resultDate = sdfHour.parse(dateFormat);
@@ -295,12 +280,14 @@ public class Auction implements Serializable {
 		return str;
 	}
 
+//	경매생성에서 isAmPm과 hour/minute를 설정해주기
+	
 	@Override
 	public String toString() {
 		return "Auction [auctionId=" + auctionId + ", title=" + title + ", report=" + report + ", content=" + content
 				+ "startPrice=" + startPrice + ", uploadDate=" + uploadDate + ", endDate=" + endDate
 				+ ", count=" + count + ", maxPrice=" + maxPrice + ", state=" + state + ", receive=" + receive
-				+ ", menuId=" + menuId + ", userId=" + userId + ", isAmPm=" + isAmPm + ", hour=" + hour + ", minute="
+				+ ", menuId=" + menuId + ", userId=" + userId + ", hour=" + hour + ", minute="
 				+ minute + ", sendNoti=" + sendNoti + ", bids의 크기=" + bids.size() + ", imgs_a의 크기=" + imgs_a.size()
 				+ "liked: " + liked + "]";
 	}

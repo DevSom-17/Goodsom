@@ -3,9 +3,9 @@ package com.example.goodsom.controller.groupBuy;
 public class Minute {
 	
 	private int code;
-	private String label;
+	private int label;
 	
-	public Minute(int code, String label) {
+	public Minute(int code, int label) {
 		this.code = code;
 		this.label = label;
 	}
@@ -16,10 +16,10 @@ public class Minute {
 	public void setCode(int code) {
 		this.code = code;
 	}
-	public String getLabel() {
+	public int getLabel() {
 		return label;
 	}
-	public void setLabel(String label) {
+	public void setLabel(int label) {
 		this.label = label;
 	}
 	

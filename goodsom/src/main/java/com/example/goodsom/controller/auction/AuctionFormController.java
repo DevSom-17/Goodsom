@@ -286,8 +286,8 @@ public class AuctionFormController implements ApplicationContextAware  {
 	@ModelAttribute("hourData")
 	protected List<Hour> referenceData1() throws Exception {
 		List<Hour> hour = new ArrayList<Hour>();
-		for (int i = 1; i <= 12; i++) {
-			hour.add(new Hour(i, i+"시"));			
+		for (int i = 0; i <= 23; i++) {
+			hour.add(new Hour(i, i));			
 		}
 		return hour;
 	}
@@ -295,20 +295,9 @@ public class AuctionFormController implements ApplicationContextAware  {
 	@ModelAttribute("minuteData")
 	protected List<Minute> referenceData2() throws Exception {
 		List<Minute> minute = new ArrayList<Minute>();
-		minute.add(new Minute(00, "00분"));
-		minute.add(new Minute(10, "10분"));
-		minute.add(new Minute(20, "20분"));
-		minute.add(new Minute(30, "30분"));
-		minute.add(new Minute(40, "40분"));
-		minute.add(new Minute(50, "50분"));
+		for (int i = 0; i <= 59; i++) {
+			minute.add(new Minute(i, i));		
+		}
 		return minute;
-	}
-	
-	@ModelAttribute("amPm")
-	protected List<String> referenceData3() throws Exception {
-		List<String> amPm = new ArrayList<String>();
-		amPm.add("am");
-		amPm.add("pm");
-		return amPm;
 	}
 }

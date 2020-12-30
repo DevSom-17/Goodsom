@@ -63,9 +63,6 @@ public class GroupBuy implements Serializable {
 	@NotEmpty
 	String[] optionList;
 	
-	@NotEmpty
-	String isAmPm;
-	
 	@Positive
 	int hour;
 	@PositiveOrZero
@@ -247,13 +244,6 @@ public class GroupBuy implements Serializable {
 		this.optionList = optionList;
 	}
 
-	public String getIsAmPm() {
-		return isAmPm;
-	}
-
-	public void setIsAmPm(String isAmPm) {
-		this.isAmPm = isAmPm;
-	}
 	public int getHour() {
 		return hour;
 	}
@@ -356,22 +346,13 @@ public class GroupBuy implements Serializable {
 			e.printStackTrace();
 		}
         
-        // 마감시간 세팅
-        if(isAmPm.equals("pm")){
-        	int tmpHour = getHour()+12;
-        	if(tmpHour == 24) {
-        		setHour(00);
-        	}else {
-        		setHour(tmpHour);
-        	}
-        }
-        
-        if(getHour() == 12) {
-        	setHour(00);
-        }
-        
+		String hourStr = String.valueOf(getHour());
+		if (hourStr == "0") {
+			hourStr = "00";
+		}
+		
         try {
-        	String dateFormat = newDate + " " + String.valueOf(getHour()) + ":" + String.valueOf(getMinute());
+        	String dateFormat = newDate + " " + hourStr + ":" + String.valueOf(getMinute());
 			resultDate = sdfHour.parse(dateFormat);
 			setEndDate(resultDate);	// 마감일 세팅
 		} catch (ParseException e) {
