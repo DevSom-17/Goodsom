@@ -149,15 +149,11 @@
 					<div class="row portfolio-container">
 						<c:if test="${empty groupBuyOrderList}">구매한 공동구매 내역이 없습니다.</c:if>
 						<c:forEach var="order" items="${groupBuyOrderList}" varStatus="status">
-						<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
-				            <div class="portfolio-wrap">
-				              <figure>
-									<a href="<c:url value='../groupBuy/detail.do'>
-												<c:param name="groupBuyId" value="${order.groupBuyId}" />
-											</c:url>">
-											<img src="${order.groupBuy.imgs_g[0].url}" class="img-fluid" alt="">
-									</a>
-							  </figure>
+						<div class="col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp">
+					            <div class="portfolio-wrap">
+					              <figure style="background: white; text-align: center;">
+										<img src="${order.groupBuy.imgs_g[0].url}" class="img-fluid" alt="" style="height: 100%;">
+					              </figure>
 									<div class="portfolio-info">
 										<h4> <a href="<c:url value='../groupBuy/detail.do'>
 														<c:param name="groupBuyId" value="${order.groupBuyId}" />
@@ -192,13 +188,11 @@
 						<c:forEach var="order" items="${auctionOrderList}" varStatus="status">
 						<div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
 				            <div class="portfolio-wrap">
-				              <figure>
-									<a href="<c:url value='../auction/detail.do'>
-												<c:param name="auctionId" value="${order.auctionId}" />
-											</c:url>">
-											<img src="${order.auction.imgs_a[0].url}" class="img-fluid" alt="">
-									</a>
-							  </figure>
+				              <figure style="background: white; text-align: center;">
+								<c:forEach var="img" items="${order.auction.imgs_a}" varStatus="status">
+									<a href="${img.url}" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-plus"></i></a>
+								</c:forEach>
+				              </figure>
 									<div class="portfolio-info">
 										<h4>
 											<a href="<c:url value='../auction/detail.do'>
