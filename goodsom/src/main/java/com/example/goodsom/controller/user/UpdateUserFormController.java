@@ -104,7 +104,13 @@ public class UpdateUserFormController {
 			return formViewName; 
 		}
 		
-		userForm.getUser().setPasswd(userForm.getNewPassword());
+		if (userForm.getNewPassword().length() > 0) {
+			System.out.println("패스워드가 바뀌셨다");
+			System.out.println(userForm.getNewPassword());
+			userForm.getUser().setPasswd(userForm.getNewPassword());
+		} else {
+			userForm.getUser().setPasswd(userForm.getRepeatedOriginPassword());
+		}
 		
 		int result = userService.updateUser(userForm.getUser());
 		
