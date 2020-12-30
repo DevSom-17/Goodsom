@@ -60,6 +60,9 @@
 			data: JSON.stringify(code),
 			success: function(codeMatch){	// object parsed from JSON text	
 				if(codeMatch){
+					var emailId = document.getElementById('user.email');
+					emailId.disabled=true;
+					
 					var checkBtn = document.getElementById('emailVerify');
 					checkBtn.value="이메일 인증 완료";
 					checkBtn.disabled=true;

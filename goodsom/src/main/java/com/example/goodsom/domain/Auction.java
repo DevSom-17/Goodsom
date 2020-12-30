@@ -9,13 +9,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.example.goodsom.validator.PresentOrFuture;
 
 @SuppressWarnings("serial")
 public class Auction implements Serializable {
@@ -34,9 +35,10 @@ public class Auction implements Serializable {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	Date uploadDate;
 	@NotNull
-	@FutureOrPresent
+	@PresentOrFuture
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	Date endDate;
+
 	int count;
 	int maxPrice;
 	String state;
@@ -124,10 +126,12 @@ public class Auction implements Serializable {
 	}
 
 	public Date getEndDate() {
+		System.out.println("get: " + endDate);
 		return endDate;
 	}
 
 	public void setEndDate(Date endDate) {
+		System.out.println("set: " + endDate);
 		this.endDate = endDate;
 	}
 
@@ -251,7 +255,8 @@ public class Auction implements Serializable {
         String newDate = null;
 		try {
 			tmpDate = KSTFormat.parse(getEndDate().toString());
-			System.out.println(tmpDate);
+			setEndDate(tmpDate);
+			System.out.println("tmpDate " + tmpDate);
 			newDate = tmpFormat.format(tmpDate);
 		} catch (ParseException e) {
 			e.printStackTrace();
