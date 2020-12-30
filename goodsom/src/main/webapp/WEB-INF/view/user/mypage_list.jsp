@@ -59,7 +59,7 @@
 											<strong>금액</strong>: <fmt:formatNumber value="${groupBuy.price}" pattern="#,###원"/>
 										</div>
 										<div style="float:right; color: #898a8c;">
-											<strong>달성률</strong>: <fmt:formatNumber value="${groupBuy.rate}" /> % 달성
+											<strong> <fmt:formatNumber value="${groupBuy.rate}" /> % </strong> 달성
 										</div>
 										<br/>
 										<div style="float:left; color: #898a8c;">
