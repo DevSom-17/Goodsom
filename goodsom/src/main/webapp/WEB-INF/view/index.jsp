@@ -136,7 +136,10 @@ if (request.getProtocol().equals("HTTP/1.1"))
           <div class="col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp">
             <div class="portfolio-wrap">
               <figure style="background: white; text-align: center;">
+				<a href="<c:url value='/groupBuy/detail.do'>
+					<c:param name="groupBuyId" value="${groupBuy.groupBuyId}"/></c:url>">
 					<img src="${groupBuy.imgs_g[0].url}" class="img-fluid" alt="" style="height: 100%;">
+				</a>
                 <c:forEach var="img" items="${groupBuy.imgs_g}" varStatus="status">
 					<a href="${img.url}" data-gall="portfolioGallery" class="link-preview venobox" title="Preview"><i class="bx bx-images"></i></a>
 				</c:forEach>

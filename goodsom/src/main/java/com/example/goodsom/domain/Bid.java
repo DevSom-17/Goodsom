@@ -3,15 +3,12 @@ package com.example.goodsom.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.validation.constraints.NotNull;
-
 @SuppressWarnings("serial")
 public class Bid implements Serializable {
 	int bidId;
 	int userId;
 	int auctionId;
-	@NotNull
-	int bidPrice;
+	Integer bidPrice;
 	boolean isBidded;
 	Date bidDate;
 	User user = new User();
@@ -62,11 +59,11 @@ public class Bid implements Serializable {
 		this.auctionId = auctionId;
 	}
 	
-	public int getBidPrice() {
+	public Integer getBidPrice() {
 		return bidPrice;
 	}
 	
-	public void setBidPrice(int bidPrice) {
+	public void setBidPrice(Integer bidPrice) {
 		this.bidPrice = bidPrice;
 	}
 	

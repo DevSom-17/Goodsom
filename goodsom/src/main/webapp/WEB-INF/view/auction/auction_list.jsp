@@ -37,7 +37,6 @@
 
         <div class="section-title">
           <h2>경매</h2>
-          <p>솜솜이들의 경매를 위한 공간</p>
         </div>
 
         <div class="form-group" align="left" style="margin-bottom:50px;">
