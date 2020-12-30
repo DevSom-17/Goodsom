@@ -116,6 +116,13 @@
    			<groupId>org.springframework.boot</groupId>
   		 	<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
+		
+		<!-- devtools ; 재시작없이 정적소스 적용 -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-devtools</artifactId>
+		    <optional>true</optional>
+		</dependency>
 
 
 		<dependency>
