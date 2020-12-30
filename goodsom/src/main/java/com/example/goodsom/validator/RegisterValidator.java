@@ -42,9 +42,17 @@ public class RegisterValidator implements Validator {
 			}
 		}
 
-		String phone = regReq.getUser().getPhone();
+		String phone = user.getPhone();
 		if (!phone.equals("") && !phone.matches("^[0][1]\\d{1}-\\d{3,4}-\\d{4}$")) {
 			errors.rejectValue("user.phone", "typeMismatch"); // 01x-xxx-xxxx or 01x-xxxx-xxxx인지 검증
+		}
+		
+		if (!user.getRefundAccount().equals("") && user.getRefundBank().equals("")) {
+			errors.rejectValue("user.refundBank", "needBankInfo"); 
+		}
+		
+		if (!user.getRefundBank().equals("") && user.getRefundAccount().equals("")) {
+			errors.rejectValue("user.refundAccount", "needAccountInfo"); 
 		}
 
 	}

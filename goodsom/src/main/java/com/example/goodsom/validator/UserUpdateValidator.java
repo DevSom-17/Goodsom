@@ -54,5 +54,12 @@ public class UserUpdateValidator implements Validator {
 			errors.rejectValue("user.phone", "typeMismatch"); // 01x-xxx-xxxx or 01x-xxxx-xxxx인지 검증
 		}
 
+		if (!user.getRefundAccount().equals("") && user.getRefundBank().equals("")) {
+			errors.rejectValue("user.refundBank", "needBankInfo"); 
+		}
+		
+		if (!user.getRefundBank().equals("") && user.getRefundAccount().equals("")) {
+			errors.rejectValue("user.refundAccount", "needAccountInfo"); 
+		}
 	}
 }

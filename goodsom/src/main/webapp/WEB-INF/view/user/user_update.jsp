@@ -186,9 +186,10 @@
 											<option value="">은행</option>
 											<form:options items="${cardBanks}" />
 										</form:select>
-										<form:input path="user.refundAccount" class="form-control" />
+										<form:input path="user.refundAccount" class="form-control" placeholder="ex) 123-1234-1234" />
+									</div>
+										<form:errors path="user.refundBank" cssClass="error" />
 										<form:errors path="user.refundAccount" cssClass="error" />
-									</div><br/>
 								</div>
 		
 								<div class="form-group" align="center">
