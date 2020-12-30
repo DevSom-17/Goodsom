@@ -105,27 +105,22 @@
 						<form:form modelAttribute="orderForm" class="bg-light p-5 contact-form">
 							<form:input type="hidden" path="order.orderId" value="${order.userId}"/>
 							<div class="form-group">
-								<label for="name">입금자명</label> 
+								<label for="name">입금자명 <span style="color:red">*</span> </label> 
 								<div class="d-flex">
 									<form:input path="order.name" type="text" class="form-control" placeholder="ex) 홍길동" /> 
 								</div>
 								<form:errors path="order.name" cssClass="error" />
 							</div><br>
 							
-							<label for="phone">전화번호</label> 
+							<label for="phone">전화번호 <span style="color:red">*</span> </label> 
 							<div class="form-group">
-								<form:input path="order.phone" id="inputPhoneNumber" class="form-control" placeholder="ex) 010-0000-0000" style="width: 50%; float: left; display: block;"/>
-								<input type="button" id="sendPhoneNumber" value="인증번호 발송" style="display: block; margin-inline-start: auto;"/>
-								<form:errors path="order.phone" id="inputPhoneNumber" cssClass="error" />
-							</div><br>
-							<div class="form-group">
-								<label for="name" style="display: block;">인증번호 <span style="color:red">*</span> </label> 
-								<input type="text" id="inputCertifiedNumber" class="form-control" disabled style="width: 50%; float: left; display: block;"/>
-								<input type="button" id="checkBtn" value="휴대폰 인증하기" style="display: block; margin-inline-start: auto;" disabled/>
+								<form:input path="order.phone" class="form-control" style="width: 50%; float: left; display: block;" readonly="true" />
 							</div>
 							
+							<br><br>
+							
 							<div class="form-group">
-								<label for="account">계좌번호</label> 
+								<label for="account">계좌번호 <span style="color:red">*</span> </label> 
 								<div class="d-flex">
 								<form:select path="order.bank" items="${cardBanks}" />
 								<form:input path="order.account" type="text"
@@ -135,7 +130,7 @@
 							</div><br>
 							
 								<div class="form-group">
-									<label for="name">주소</label> <br/> 
+									<label for="name">주소 <span style="color:red">*</span></label> <br/> 
 									<form:input path="order.postcode" class="form-control" placeholder="우편번호" readonly="true" style="width:30%;float:left;margin-bottom:5px"/> &nbsp;
 									<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
 									<form:input path="order.address" class="form-control" placeholder="주소" style="margin-bottom:5px" readonly="true" />
@@ -227,7 +222,7 @@
 						
 							<br>
 							<div class="form-group">
-								<label for="depositTime">입금시간</label> 
+								<label for="depositTime">입금시간 <span style="color:red">*</span></label> 
 								<div class="d-flex">
 									<form:input path="order.depositTime" type="text"
 										class="form-control" placeholder="ex) yyyy-MM-DD HH:mm:ss" />
@@ -250,69 +245,5 @@
 		</div> 
 	</section> <!-- END Portfolio Section -->
 	</main>
-
-	
-<script>
-var inputCertifiedNum = document.getElementById('inputCertifiedNumber');
-var checkBtn = document.getElementById('checkBtn');
-var sendPhoneNumberBtn = document.getElementById('sendPhoneNumber');
-var inputPhoneNum = document.getElementById('inputPhoneNumber');
-
-$(sendPhoneNumberBtn).click(function(){
-	let phoneNumber = $(inputPhoneNum).val();
-	inputCertifiedNum.value='';
-	
-	var regPhone = /^01(0|1|[6-9]{1})-([0-9]{3,4})-([0-9]{4})$/; //숫자와 문자 포함 형태의 6~12자리 이내의 암호 정규식
-	if (regPhone.test(phoneNumber)==false) {
-		Swal.fire({
-            icon: 'error',
-            title: '주의',
-            text: '전화번호를 제대로 입력해주세요!',
-            confirmButtonText: '다시 입력하기',
-            confirmButtonColor: '#2778c4'
-        })
-        $(inputPhoneNum).val('');
-        return false;
-	}
-
-    $.ajax({
-        type: "GET",
-        url: "/sendSMS.do",
-        data: {
-            "phoneNumber" : phoneNumber
-        },
-        success: function(res){
-        	inputCertifiedNum.disabled=false;
-        	checkBtn.disabled=false;
-        	Swal.fire('인증번호 발송 완료!')
-            
-            $('#checkBtn').click(function(){
-                if($.trim(res) ==$('#inputCertifiedNumber').val()){
-                    Swal.fire(
-                        '인증성공!',
-                        '휴대폰 인증이 정상적으로 완료되었습니다.',
-                        'success'
-                    )
-                    checkBtn.value='휴대폰 인증 완료';
-                    inputCertifiedNum.disabled=true;
-                	checkBtn.disabled=true;
-                	sendPhoneNumberBtn.disabled=true;
-                	inputPhoneNum.disabled=true;
-                }else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: '인증오류',
-                        text: '인증번호가 올바르지 않습니다!',
-                        confirmButtonText: '다시 인증하기',
-                        confirmButtonColor: '#2778c4'
-                    })
-                }
-            })
-
-
-        }
-    })
-});
-</script>	
 	
 	<%@ include file="../includeBottom.jsp" %>
