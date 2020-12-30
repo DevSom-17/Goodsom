@@ -38,33 +38,21 @@
 			processData: false,
 			contentType: 'application/json',
 			data: JSON.stringify(emailId),
-			success: function(){	// object parsed from JSON text	
+			success: function(key){	// object parsed from JSON text	
 				var codeBtn = document.getElementById('codeVerify');
 				codeBtn.disabled=false;
 				Swal.fire('인증번호 발송 완료!')
-			},
-			error: function(request,status,error){
-                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-			}
-		});
-	};
+				
+				$('#codeVerify').click(function(){
+				var code = document.getElementById('user.code').value;
 
-	function codeSubmit(){
-		var reqUrl = "/email/verifyCode";
-		var code = document.getElementById('user.code').value;
-
-		$.ajax({
-			type: 'post',
-			url: reqUrl,
-			processData: false,
-			contentType: 'application/json',
-			data: JSON.stringify(code),
-			success: function(codeMatch){	// object parsed from JSON text	
-				if(codeMatch){
-					var emailId = document.getElementById('user.email');
-					emailId.disabled=true;
-					
-					var checkBtn = document.getElementById('emailVerify');
+                if(key == code){
+                    Swal.fire(
+                        '인증성공!',
+                        '이메일 인증이 정상적으로 완료되었습니다.',
+                        'success'
+                    )
+                    var checkBtn = document.getElementById('emailVerify');
 					checkBtn.value="이메일 인증 완료";
 					checkBtn.disabled=true;
 					var codeBtn = document.getElementById('codeVerify');
@@ -74,15 +62,16 @@
 					inputEmail.disabled=true;
 					var inputCode = document.getElementById('user.code');
 					inputCode.disabled=true;
-				}else{
-					Swal.fire({
+                }else{
+                    Swal.fire({
                         icon: 'error',
                         title: '인증오류',
                         text: '인증번호가 올바르지 않습니다!',
                         confirmButtonText: '다시 인증하기',
                         confirmButtonColor: '#2778c4'
                     })
-				}
+                }
+            })
 			},
 			error: function(request,status,error){
                 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -159,11 +148,11 @@
 						<c:choose>
 							<c:when test="${empty userForm.user.email}">
 								<form:input path="user.code" class="form-control" style="width:50%;float:left" placeholder="ex) D2f24fd1" /> &nbsp;
-								<input type="button" id="codeVerify" style="height: calc(1.5em + .75rem + 2px)" value="확인" onClick="codeSubmit()" disabled/>
+								<input type="button" id="codeVerify" style="height: calc(1.5em + .75rem + 2px)" value="확인" disabled/>
 							</c:when>
 							<c:otherwise>
 								<form:input path="user.code" class="form-control" style="width:50%;float:left" disabled="true" /> &nbsp;
-								<input type="button" id="codeVerify" style="height: calc(1.5em + .75rem + 2px)" value="확인" onClick="codeSubmit()" disabled/>
+								<input type="button" id="codeVerify" style="height: calc(1.5em + .75rem + 2px)" value="확인" disabled/>
 							</c:otherwise>
 						</c:choose>
 					</div>
