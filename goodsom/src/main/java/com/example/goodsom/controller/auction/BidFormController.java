@@ -67,13 +67,19 @@ public class BidFormController {
 		model.addAttribute("isWriter", false);
 		model.addAttribute("dDay", auction.getDday(auction.getEndDate().getTime()));
 		
-		if (auction.getBids().isEmpty()) {
-			if (bidForm.getBid().getBidPrice() < auction.getStartPrice()) {
-				result.rejectValue("bid.bidPrice", "smallerThanStartPrice");
-			}
+		if (bidForm.getBid().getBidPrice() == null) {
+			result.rejectValue("bid.bidPrice", "NotNull");
+		} else if (bidForm.getBid().getBidPrice() < 0) {
+			result.rejectValue("bid.bidPrice", "Positive");
 		} else {
-			if (bidForm.getBid().getBidPrice() <= auction.getMaxPrice()) {
-				result.rejectValue("bid.bidPrice", "smallerThanMaxPrice");
+			if (auction.getBids().isEmpty()) {
+				if (bidForm.getBid().getBidPrice() < auction.getStartPrice()) {
+					result.rejectValue("bid.bidPrice", "smallerThanStartPrice");
+				}
+			} else {
+				if (bidForm.getBid().getBidPrice() <= auction.getMaxPrice()) {
+					result.rejectValue("bid.bidPrice", "smallerThanMaxPrice");
+				}
 			}
 		}
 
