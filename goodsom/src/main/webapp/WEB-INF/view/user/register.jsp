@@ -173,14 +173,14 @@
 					<div class="form-group">
 						<label for="name" style="display: block;">전화번호 <span style="color:red">*</span> </label> 
 						<form:input path="user.phone" id="inputPhoneNumber" class="form-control" placeholder="ex) 010-0000-0000" style="width: 50%; float: left; display: block;"/>
-						<input type="button" class="btn-submit" id="sendPhoneNumber" value="인증번호 발송" onClick="sendSMS()" style="display: block; margin-inline-start: auto;"/>
+						<input type="button" class="btn-submit" id="sendPhoneNumber" value="인증번호 발송" style="display: block; margin-inline-start: auto;"/>
 						<form:errors path="user.phone" id="inputPhoneNumber" cssClass="error" />
 					</div>
 					
 					<div class="form-group">
 						<label for="name" style="display: block;">인증번호 <span style="color:red">*</span> </label> 
 						<input type="text" id="inputCertifiedNumber" class="form-control" disabled style="width: 50%; float: left; display: block;"/>
-						<input type="button" class="btn-submit" id="checkBtn" value="확인" style="display: block; margin-inline-start: auto;" disabled/>
+						<input type="button" class="btn-submit" id="checkBtn" value="휴대폰 인증하기" style="display: block; margin-inline-start: auto;" disabled/>
 					</div>
 
 					<div class="form-group">
@@ -298,10 +298,11 @@
 <script>
 var inputCertifiedNum = document.getElementById('inputCertifiedNumber');
 var checkBtn = document.getElementById('checkBtn');
+var sendPhoneNumberBtn = document.getElementById('sendPhoneNumber');
+var inputPhoneNum = document.getElementById('inputPhoneNumber');
 
-$('#sendPhoneNumber').click(function(){
-	let phoneNumber = $('#inputPhoneNumber').val();
-	checkBtn.value='휴대폰 인증하기';
+$(sendPhoneNumberBtn).click(function(){
+	let phoneNumber = $(inputPhoneNum).val();
 	inputCertifiedNum.value='';
 	
 	var regPhone = /^01(0|1|[6-9]{1})-([0-9]{3,4})-([0-9]{4})$/; //숫자와 문자 포함 형태의 6~12자리 이내의 암호 정규식
@@ -313,7 +314,7 @@ $('#sendPhoneNumber').click(function(){
             confirmButtonText: '다시 입력하기',
             confirmButtonColor: '#2778c4'
         })
-        $('#inputPhoneNumber').val('');
+        $(inputPhoneNum).val('');
         return false;
 	}
 
@@ -338,6 +339,8 @@ $('#sendPhoneNumber').click(function(){
                     checkBtn.value='휴대폰 인증 완료';
                     inputCertifiedNum.disabled=true;
                 	checkBtn.disabled=true;
+                	sendPhoneNumberBtn.disabled=true;
+                	inputPhoneNum.disabled=true;
                 }else{
                     Swal.fire({
                         icon: 'error',
