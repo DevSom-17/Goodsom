@@ -59,11 +59,11 @@
 					codeBtn.disabled=true;
 					
 					var inputEmail = document.getElementById('user.email');
-					inputEmail.disabled=true;
+					inputEmail.readOnly=true;
 					var inputCode = document.getElementById('user.code');
-					inputCode.disabled=true;
-                }else{
-                    Swal.fire({
+					inputCode.readOnly=true;
+				}else{
+					Swal.fire({
                         icon: 'error',
                         title: '인증오류',
                         text: '인증번호가 올바르지 않습니다!',
@@ -136,7 +136,7 @@
 								<input type="button" style="height: calc(1.5em + .75rem + 2px)" id="emailVerify" value="이메일 인증" onClick="emailSubmit()" /> <br>
 							</c:when>
 							<c:otherwise>
-								<form:input path="user.email" class="form-control" style="width:70%;float:left" disabled="true" /> &nbsp;
+								<form:input path="user.email" class="form-control" style="width:70%;float:left" readonly="true" /> &nbsp;
 								<input type="button" style="height: calc(1.5em + .75rem + 2px)" id="emailVerify" value="이메일 인증 완료" onClick="emailSubmit()" disabled /> <br>
 							</c:otherwise>
 						</c:choose>
@@ -151,8 +151,13 @@
 								<input type="button" id="codeVerify" style="height: calc(1.5em + .75rem + 2px)" value="확인" disabled/>
 							</c:when>
 							<c:otherwise>
+<<<<<<< HEAD
 								<form:input path="user.code" class="form-control" style="width:50%;float:left" disabled="true" /> &nbsp;
 								<input type="button" id="codeVerify" style="height: calc(1.5em + .75rem + 2px)" value="확인" disabled/>
+=======
+								<form:input path="user.code" class="form-control" style="width:50%;float:left" readonly="true" /> &nbsp;
+								<input type="button" id="codeVerify" style="height: calc(1.5em + .75rem + 2px)" value="확인" onClick="codeSubmit()" disabled/>
+>>>>>>> a5313448d0baa87b070f18989d6aa35318f81927
 							</c:otherwise>
 						</c:choose>
 					</div>
@@ -189,7 +194,7 @@
 								<input type="button" style="height: calc(1.5em + .75rem + 2px)" id="sendPhoneNumber" value="인증번호 발송" />
 							</c:when>
 							<c:otherwise>
-								<form:input path="user.phone" class="form-control" style="width: 50%; float: left; display: block;" disabled="true"/> &nbsp;
+								<form:input path="user.phone" class="form-control" style="width: 50%; float: left; display: block;" readonly="true"/> &nbsp;
 								<input type="button" style="height: calc(1.5em + .75rem + 2px)" id="sendPhoneNumber" value="인증번호 발송" disabled />
 							</c:otherwise>
 						</c:choose>		
@@ -204,7 +209,7 @@
 								<input type="button" id="checkBtn" style="height: calc(1.5em + .75rem + 2px)" value="휴대폰 인증하기" disabled/>
 							</c:when>
 							<c:otherwise>
-								<input type="text" id="inputCertifiedNumber" class="form-control" disabled style="width: 50%; float: left; display: block;"/> &nbsp;
+								<input type="text" id="inputCertifiedNumber" class="form-control" readonly style="width: 50%; float: left; display: block;"/> &nbsp;
 								<input type="button" id="checkBtn" style="height: calc(1.5em + .75rem + 2px)" value="휴대폰 인증 완료" disabled/>
 							</c:otherwise>
 						</c:choose>	
@@ -376,10 +381,10 @@ $(sendPhoneNumberBtn).click(function(){
 		                       'success'
 		               )
 		               checkBtn.value='휴대폰 인증 완료';
-		               inputCertifiedNum.disabled=true;
+		               inputCertifiedNum.readOnly=true;
 		               checkBtn.disabled=true;
 		               sendPhoneNumberBtn.disabled=true;
-		               inputPhoneNum.disabled=true;
+		               inputPhoneNum.readOnly=true;
 	         	   } else {
 		         	   Swal.fire({
 			         	   icon: 'error',
@@ -390,9 +395,7 @@ $(sendPhoneNumberBtn).click(function(){
 			              })
 			       }
 		        })
-
             }
-
         }
     })
 });
