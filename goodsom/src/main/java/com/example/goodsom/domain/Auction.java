@@ -29,7 +29,8 @@ public class Auction implements Serializable {
 	@NotEmpty
 	String content;
 	@Positive
-	int startPrice;
+	@NotNull
+	Integer startPrice;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	Date uploadDate;
 	@NotNull
@@ -106,11 +107,11 @@ public class Auction implements Serializable {
 		this.content = content;
 	}
 
-	public int getStartPrice() {
+	public Integer getStartPrice() {
 		return startPrice;
 	}
 
-	public void setStartPrice(int startPrice) {
+	public void setStartPrice(Integer startPrice) {
 		this.startPrice = startPrice;
 	}
 

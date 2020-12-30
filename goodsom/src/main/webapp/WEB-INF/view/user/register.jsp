@@ -21,7 +21,12 @@
 	function emailSubmit(){
 		var emailId = document.getElementById('user.email').value;
 		var reqUrl = "/email/send";
-
+		var emailList = emailId.split('@');
+		
+		if(emailList.length < 2){
+			alert("이메일 형식은 xxx@dongduk.ac.kr 형태여야 합니다.");
+			return;
+		}
 		if(emailId.split('@')[1] != 'dongduk.ac.kr'){
 			alert("이메일은 @dongduk.ac.kr 형태여야 합니다.");
 			return;
@@ -45,7 +50,6 @@
 
 	function codeSubmit(){
 		var reqUrl = "/email/verifyCode";
-
 		var code = document.getElementById('user.code').value;
 
 		$.ajax({

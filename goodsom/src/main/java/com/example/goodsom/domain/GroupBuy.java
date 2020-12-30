@@ -31,7 +31,8 @@ public class GroupBuy implements Serializable {
 	String content;
 	
 	@Positive
-	int minNo;
+	@NotNull
+	Integer minNo;
 	
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
 	Date uploadDate;
@@ -55,7 +56,8 @@ public class GroupBuy implements Serializable {
 	int userId;
 	
 	@Positive
-	int price;
+	@NotNull
+	Integer price;
 	
 	@NotEmpty
 	String[] optionList;
@@ -157,11 +159,11 @@ public class GroupBuy implements Serializable {
 		this.content = content;
 	}
 
-	public int getMinNo() {
+	public Integer getMinNo() {
 		return minNo;
 	}
 
-	public void setMinNo(int minNo) {
+	public void setMinNo(Integer minNo) {
 		this.minNo = minNo;
 	}
 
@@ -220,11 +222,11 @@ public class GroupBuy implements Serializable {
 	public void setParticipants(int participants) {
 		this.participants = participants;
 	}
-	public int getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 	
